@@ -1199,7 +1199,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     <div class="wrap">
       <div class="clash-two">
         <div>
-          <div class="head"><p class="label">Season 1</p><h2>Champion race</h2><p class="lead">After 16 weeks, the bowler with the most pins is crowned Season Champion.</p></div>
+          <div class="head"><p class="label">Season 1</p><h2>Kingpin race</h2><p class="lead">The kingdom with the most points is the Champion. For bowlers, after 16 weeks the one with the most pins is crowned Kingpin.</p></div>
           <ol class="race" id="champ"></ol>
         </div>
         <div class="clash-rules">
@@ -1207,10 +1207,10 @@ section{padding-block:clamp(48px,7vw,88px)}
           <ul>
             <li><b>Each game:</b> the team with more pins wins the game. A tie counts as half a game each.</li>
             <li><b>Each night:</b> six games. The team that wins more games wins the night.</li>
-            <li><b>Points:</b> a night won is 2 points, a tied night (3–3) is 1 point each, a night lost is 0. Pins never decide a night.</li>
+            <li><b>Points:</b> every game won is 1 point. Win 4 of the 6 games and you take 4 points, the other kingdom takes 2. A 3–3 night gives 3 points each.</li>
             <li><b>Blind scores:</b> some bowlers have a blind score. In the team total they count the blind score, or their real score when it is higher. Their own stats always show what they bowled.</li>
             <li><b>Teams change:</b> the players on Cholan and Pandiyan can change every week.</li>
-            <li><b>The season:</b> 16 weeks. The kingdom with the most points takes the team title; most pins takes the Season Champion crown.</li>
+            <li><b>The season:</b> 16 weeks. The kingdom with the most points at the end is the Champion. The bowler with the most pins is crowned Kingpin.</li>
           </ul>
         </div>
       </div>
@@ -1715,18 +1715,18 @@ section{padding-block:clamp(48px,7vw,88px)}
     var NAME={k:"Cholan",t:"Pandiyan",s:"Shared"};
     function fmt(n){ return String(n).replace(".5","½"); }
     function season(){
-      var pts=function(c){ return nights.reduce(function(a,n){ return a+(n.win===c?2:n.win==="s"?1:0); },0); };
-      var k=pts("k"), t=pts("t"), gk=nights.reduce(function(a,n){return a+n.kw;},0), gt=nights.reduce(function(a,n){return a+n.tw;},0);
+      var gk=nights.reduce(function(a,n){return a+n.kw;},0), gt=nights.reduce(function(a,n){return a+n.tw;},0);
+      var k=gk, t=gt; /* 1 point for every game won */
       var rec=function(c){ var w=nights.filter(function(n){return n.win===c;}).length, s=nights.filter(function(n){return n.win==="s";}).length; return w+"W "+(nights.length-w-s)+"L "+s+"T"; };
       var dots=""; for(var i=1;i<=SEASON_WEEKS;i++){ var n=nights.filter(function(x){return x.w===i;})[0]; dots+='<span class="'+(n?n.win:"")+'" title="Week '+i+(n?': '+NAME[n.win]:'')+'"></span>'; }
       var rows=[["k",k,gk,gt],["t",t,gt,gk]].map(function(r){ var c=r[0], w=nights.filter(function(n){return n.win===c;}).length, s=nights.filter(function(n){return n.win==="s";}).length;
-        return {c:c,p:nights.length,w:w,l:nights.length-w-s,s:s,gw:r[2],gl:r[3],pts:r[1]}; }).sort(function(a,b){return b.pts-a.pts||b.gw-a.gw;});
+        return {c:c,p:nights.length,w:w,l:nights.length-w-s,s:s,gw:r[2],gl:r[3],pts:r[1]}; }).sort(function(a,b){return b.pts-a.pts||b.w-a.w;});
       document.querySelector("#points tbody").innerHTML=rows.map(function(r,i){
-        var pos=(i>0&&r.pts===rows[0].pts&&r.gw===rows[0].gw)?1:i+1;
+        var pos=(i>0&&r.pts===rows[0].pts&&r.w===rows[0].w)?1:i+1;
         return '<tr class="'+r.c+'"><td class="l pos">'+pos+'</td><td class="l"><span class="pt-team">'+LOGO[r.c]+'<b class="royal-name">'+NAME[r.c]+'</b></span></td><td>'+r.p+'</td><td>'+r.w+'</td><td>'+r.l+'</td><td>'+r.s+'</td><td class="strong pts">'+r.pts+'</td></tr>';
       }).join("");
       document.getElementById("season").innerHTML='<div class="team">'+LOGO.k+'<b class="royal-name">Cholan</b><small>'+rec("k")+'</small></div>'+
-        '<div class="mid"><p class="label">Season 1 points</p><div class="score">'+k+'<i>–</i>'+t+'</div><p class="wk gw">Games won '+fmt(gk)+'–'+fmt(gt)+'</p><div class="weeks16" aria-label="'+nights.length+' of '+SEASON_WEEKS+' weeks played">'+dots+'</div><p class="wk">Week '+nights.length+' of '+SEASON_WEEKS+'</p></div>'+
+        '<div class="mid"><p class="label">Season 1 points</p><div class="score">'+k+'<i>–</i>'+t+'</div><p class="wk gw">1 point for every game won</p><div class="weeks16" aria-label="'+nights.length+' of '+SEASON_WEEKS+' weeks played">'+dots+'</div><p class="wk">Week '+nights.length+' of '+SEASON_WEEKS+'</p></div>'+
         '<div class="team">'+LOGO.t+'<b class="royal-name">Pandiyan</b><small>'+rec("t")+'</small></div>';
     }
     function draw(){
@@ -1734,11 +1734,11 @@ section{padding-block:clamp(48px,7vw,88px)}
       var n=night(cur), max=Math.max.apply(null,n.games.map(function(g){return Math.max(g.k,g.t);}));
       var head=n.win==="s"?"A royal tie":NAME[n.win]+" win the night";
       document.getElementById("night").className="night "+n.win;
-      document.getElementById("night").innerHTML=(n.win==="s"?'<span class="duo">'+LOGO.k+LOGO.t+'</span>':LOGO[n.win])+'<div><p class="label">Week '+n.w+' · '+(WEEKS[n.w]||"")+'</p><h2>'+head+' '+(n.win==="t"?fmt(n.tw)+'–'+fmt(n.kw):fmt(n.kw)+'–'+fmt(n.tw))+'</h2><p class="sub">'+(n.win==="s"?'Both kingdoms won '+fmt(n.kw)+' games, so each takes 1 point.':NAME[n.win]+' won '+fmt(n.win==="k"?n.kw:n.tw)+' of '+n.games.length+' games and take 2 points.')+'</p></div>';
+      document.getElementById("night").innerHTML=(n.win==="s"?'<span class="duo">'+LOGO.k+LOGO.t+'</span>':LOGO[n.win])+'<div><p class="label">Week '+n.w+' · '+(WEEKS[n.w]||"")+'</p><h2>'+head+' '+(n.win==="t"?fmt(n.tw)+'–'+fmt(n.kw):fmt(n.kw)+'–'+fmt(n.tw))+'</h2><p class="sub">'+(n.win==="s"?'Both kingdoms won '+fmt(n.kw)+' games, so each takes '+fmt(n.kw)+' points.':NAME[n.win]+' won '+fmt(n.win==="k"?n.kw:n.tw)+' of '+n.games.length+' games: '+fmt(n.win==="k"?n.kw:n.tw)+' points to '+NAME[n.win]+', '+fmt(n.win==="k"?n.tw:n.kw)+' to '+NAME[n.win==="k"?"t":"k"]+'.')+'</p></div>';
       function side(c,v,on){ return '<div class="side '+c+(on?' win':'')+'"><div class="row"><span>'+NAME[c]+'</span><b>'+v.toLocaleString("en-CA")+'</b></div><div class="gbar"><i style="width:'+Math.round(v/max*100)+'%"></i></div></div>'; }
       document.getElementById("games").innerHTML=n.games.map(function(g){
         return '<div class="game"><span class="g">Game '+g.g+'</span>'+side("k",g.k,g.win==="k")+side("t",g.t,g.win==="t")+'<span class="who '+g.win+'">'+(g.win==="s"?'Tie':LOGO[g.win]+NAME[g.win]+(' +'+Math.abs(g.k-g.t)))+'</span></div>';
-      }).join("")+'<div class="gsum '+n.win+'"><p class="label">Games won</p><div class="gs-row"><span class="gs-k">Cholan</span><b>'+fmt(n.kw)+'</b><i>–</i><b>'+fmt(n.tw)+'</b><span class="gs-t">Pandiyan</span></div><p class="gs-note">'+(n.win==="s"?"Shared night · 1 point each":NAME[n.win]+" take the night · 2 points")+'</p></div>';
+      }).join("")+'<div class="gsum '+n.win+'"><p class="label">Games won</p><div class="gs-row"><span class="gs-k">Cholan</span><b>'+fmt(n.kw)+'</b><i>–</i><b>'+fmt(n.tw)+'</b><span class="gs-t">Pandiyan</span></div><p class="gs-note">'+(n.win==="s"?"Shared night · "+fmt(n.kw)+" points each":"Cholan "+fmt(n.kw)+" points · Pandiyan "+fmt(n.tw)+" points")+'</p></div>';
     }
     document.getElementById("clash-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; cur=+b.dataset.w; draw(); });
     season(); draw();
