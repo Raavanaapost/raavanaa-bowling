@@ -1,0 +1,1830 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Raavanaa Bowling Community</title>
+<link rel="icon" href="{{RB_ASSETS}}favicon-32.png"><link rel="apple-touch-icon" href="{{RB_ASSETS}}apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@700;900&family=Noto+Serif+Tamil:wght@700&display=swap">
+<style>
+/* Layout: a night at the lanes. Dark alley ground, gold rules taken from the crest,
+   one maple-wood lane band per page, and a ten-frame score sheet as the signature. */
+:root{
+  color-scheme:light;
+  --alley:#fffdf8;        /* ground: pin white */
+  --alley-2:#f7efe0;      /* raised surface */
+  --alley-3:#efe4d0;      /* controls */
+  --line:#e0d0b6;         /* hairline */
+  --gold:#f0b43a;
+  --gold-hi:#ffe08a;
+  --gold-deep:#b0700f;
+  --ink-accent:#8a5a06;   /* dark gold for small text and icons on light */
+  --mark:#a01318;         /* chart bars */
+  --crimson:#a01318;
+  --crimson-hi:#c81e24;
+  --pin:#1c1410;          /* main text */
+  --muted:#5c4f43;
+  --maple:#dcaa6a;        /* lane wood */
+  --maple-2:#c99352;
+  --on-maple:#2a1608;
+  --display:"Cinzel","Trajan Pro","Times New Roman",serif;
+  --body:"Barlow","Segoe UI",system-ui,sans-serif;
+  --label:"Barlow Condensed","Arial Narrow","Barlow",sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--alley);color:var(--pin);font:400 15.5px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;height:auto}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:var(--display);font-weight:900;line-height:1.08;text-wrap:balance;letter-spacing:.01em}
+h2{font-size:clamp(1.45rem,3.2vw,2.15rem)}
+h3{font:700 1.12rem/1.25 var(--body)}
+:focus-visible{outline:3px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:20px}
+.label{font:700 .88rem/1.2 var(--label);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.lead{color:var(--muted);font-size:1rem;max-width:62ch}
+.gold-text{background:linear-gradient(180deg,var(--gold-hi) 8%,var(--gold) 48%,var(--gold-deep) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:12px 26px;border:2px solid var(--gold);background:var(--gold);color:#1a1005;font:700 1.05rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);transition:background .15s,color .15s}
+.btn:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn.ghost{background:transparent;color:var(--gold);clip-path:none}
+.btn.ghost:hover{background:var(--gold);color:#1a1005}
+.icon{width:30px;height:30px;flex:none;fill:none;stroke:var(--gold);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+section{padding-block:clamp(48px,7vw,88px)}
+.head{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(26px,4vw,40px)}
+.head h2::after{content:"";display:block;width:132px;height:14px;margin-top:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='14'%3E%3Cpath d='M0 7h52M80 7h52' stroke='%23d9a032' stroke-width='2'/%3E%3Ccircle cx='56' cy='7' r='2.2' fill='%23d9a032'/%3E%3Ccircle cx='76' cy='7' r='2.2' fill='%23d9a032'/%3E%3Cpath d='M66 0l7 7-7 7-7-7z' fill='%23a01318'/%3E%3C/svg%3E") no-repeat}
+.head.center h2::after{margin-inline:auto}
+.head.center{align-items:center;text-align:center}
+
+/* header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(18,13,11,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.site-head::after{content:"";position:absolute;inset:auto 0 -3px 0;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--crimson-hi) 50%,var(--gold) 80%,transparent)}
+.bar{display:flex;align-items:center;gap:18px;min-height:72px}
+.site-head .wrap{max-width:1400px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;flex:1 1 auto;min-width:0}
+.brand img{width:58px;flex:none}
+.brand .bn{display:block;min-width:0;white-space:nowrap;overflow:hidden;font:900 1.75rem/1.1 var(--display);letter-spacing:.04em;color:var(--pin)}
+.brand b{font:inherit;color:var(--gold)}
+.nav{display:flex;align-items:center;gap:4px;flex:none}
+.nav a{padding:10px 10px;font:700 1rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--pin);border-bottom:2px solid transparent}
+.nav a:hover{color:var(--gold-hi)}
+.nav a[aria-current="page"]{color:var(--gold);border-bottom-color:var(--gold)}
+.nav a.join{margin-left:10px;padding:13px 18px;background:var(--crimson);border:0;color:var(--pin)}
+.nav a.join:hover,.nav a.join[aria-current="page"]{background:var(--crimson-hi);color:#fff}
+.phone{font:700 1.05rem/1 var(--label);letter-spacing:.08em;color:var(--gold-hi);text-decoration:none;white-space:nowrap}
+.menu-btn{display:none;width:48px;height:48px;border:1px solid var(--line);background:var(--alley-3);color:var(--pin);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn svg{width:24px;height:24px;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;fill:none}
+@media (max-width:1399px){.bar>.phone{display:none}}
+@media (max-width:1360px){
+  .menu-btn{display:inline-flex}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--alley-2);border-bottom:2px solid var(--gold);padding:8px 20px 18px}
+  .site-head.open .nav{display:flex}
+  .nav a{padding:16px 4px;border-bottom:1px solid var(--line);font-size:1.1rem}
+  .nav a[aria-current="page"]{border-bottom-color:var(--line)}
+  .nav a.join{margin:14px 0 0;text-align:center}
+}
+
+/* pages */
+.page[hidden]{display:none}
+.page-title{padding-block:clamp(36px,6vw,64px) clamp(26px,4vw,40px);border-bottom:1px solid var(--line);background:radial-gradient(90% 140% at 100% 0%,rgba(160,19,24,.34),transparent 60%)}
+.page-title h1{font-size:clamp(1.9rem,5vw,2.9rem);margin-top:10px}
+.page-title{position:relative;overflow:hidden}
+.page-title .wrap{position:relative;z-index:1}
+.page-title::after{content:"";position:absolute;right:5%;top:50%;transform:translateY(-50%) rotate(-8deg);width:clamp(110px,20vw,230px);aspect-ratio:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23d9a032' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M7 35h34l3-21-11 9-9-15-9 15-11-9z'/%3E%3Cpath d='M7 41h34'/%3E%3Ccircle cx='24' cy='6' r='2'/%3E%3Ccircle cx='4' cy='13' r='1.6'/%3E%3Ccircle cx='44' cy='13' r='1.6'/%3E%3C/svg%3E") no-repeat center/contain;opacity:.22;pointer-events:none}
+@media (max-width:560px){.page-title::after{opacity:.12;top:34%}}
+.page-title .wrap::after{content:"";display:block;width:132px;height:14px;margin-top:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='14'%3E%3Cpath d='M0 7h52M80 7h52' stroke='%23d9a032' stroke-width='2'/%3E%3Ccircle cx='56' cy='7' r='2.2' fill='%23d9a032'/%3E%3Ccircle cx='76' cy='7' r='2.2' fill='%23d9a032'/%3E%3Cpath d='M66 0l7 7-7 7-7-7z' fill='%23a01318'/%3E%3C/svg%3E") no-repeat}
+.page-title .lead{margin-top:14px}
+
+/* hero */
+.hero{padding-block:clamp(28px,5vw,60px) clamp(36px,5vw,60px);background:radial-gradient(60% 70% at 76% 46%,rgba(212,38,44,.36),transparent 70%),radial-gradient(40% 50% at 76% 46%,rgba(240,180,58,.16),transparent 70%)}
+.hero .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,4vw,56px);align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.hero h1{display:flex;align-items:center;gap:clamp(10px,1.6vw,18px);font-size:clamp(1.8rem,4.4vw,3.4rem)}
+.hero h1::before,.hero h1::after{content:"";flex:none;width:clamp(16px,3.4vw,46px);height:3px;background:var(--gold)}
+.hero h1 span{min-width:0}
+.hero-crest{width:100%;max-width:540px;justify-self:center;filter:drop-shadow(0 18px 30px rgba(0,0,0,.55))}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+@media (max-width:820px){
+  .hero .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-crest{order:-1;max-width:340px}
+  .hero-copy{align-items:center;text-align:center}
+  .cta-row{justify-content:center}
+}
+
+/* score sheet */
+.sheet-wrap{padding-block:0 clamp(40px,6vw,64px)}
+.sheet{display:grid;grid-template-columns:repeat(9,minmax(0,1fr)) minmax(0,1.5fr);border:2px solid var(--gold);background:var(--alley-2)}
+.frame{min-width:0;border-right:1px solid var(--gold-deep);display:grid;grid-template-rows:auto auto auto}
+.frame:last-child{border-right:0}
+.frame .no{font:700 .72rem/1 var(--label);letter-spacing:.1em;text-align:center;padding:5px 0;background:var(--gold);color:#1a1005}
+.frame .marks{display:flex;justify-content:flex-end}
+.frame .marks i{font:700 clamp(.8rem,2.2vw,1.2rem)/1 var(--label);font-style:normal;color:var(--crimson-hi);width:clamp(15px,3.2vw,30px);padding:4px 0;text-align:center;border-left:1px solid var(--gold-deep);border-bottom:1px solid var(--gold-deep)}
+.frame .total{font:700 clamp(.85rem,2.5vw,1.5rem)/1 var(--label);text-align:center;padding:clamp(6px,1.4vw,12px) 0 clamp(8px,1.6vw,14px);font-variant-numeric:tabular-nums;color:var(--pin)}
+.frame:last-child .total{color:var(--gold-hi)}
+.sheet-note{margin-top:12px;color:var(--muted);font-size:.98rem;text-align:center}
+
+/* league band */
+.league{background:var(--crimson);border-block:3px solid var(--gold);padding-block:clamp(34px,5vw,56px)}
+.league .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.league .label{color:var(--gold-hi)}
+.league h2{font-size:clamp(2rem,5.6vw,3.6rem);margin:10px 0 16px;color:#fff}
+.facts{display:flex;flex-wrap:wrap;gap:10px 30px;margin:0;padding:0;list-style:none}
+.facts li{display:flex;gap:10px;align-items:baseline;font-size:1.05rem}
+.facts b{font:700 .88rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-hi)}
+.league .btn{background:#1a1005;border-color:#1a1005;color:var(--gold-hi)}
+.league .btn:hover{background:var(--alley-3);border-color:var(--alley-3)}
+@media (max-width:760px){.league .wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* cards and grids */
+.grid{display:grid;gap:18px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.g2{grid-template-columns:minmax(0,1fr)}}
+.trophy{display:flex;align-items:center;gap:14px;padding:20px 18px;border:2px solid var(--gold);background:var(--alley-2);min-width:0}
+.trophy .icon{width:44px;height:44px}
+.trophy b{display:block;font:900 clamp(1.15rem,2.6vw,1.5rem)/1.12 var(--display);letter-spacing:.03em}
+.trophy span{display:block;margin-top:7px;font:600 1rem/1.25 var(--body);color:var(--muted)}
+.trophy.top{background:var(--gold);color:#1a1005}
+.trophy.top .icon{stroke:#1a1005}
+.trophy.top span{color:#1a1005}
+@media (max-width:480px){.trophy{flex-direction:column;align-items:flex-start;padding:16px 14px}}
+.feature{display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:2px solid var(--gold);min-width:0}
+.feature p{color:var(--muted)}
+
+/* events */
+.events{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.events li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.events p{color:var(--muted)}
+.tba{font:700 .86rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-deep);padding:8px 12px;text-align:center}
+@media (max-width:700px){.events li{grid-template-columns:auto minmax(0,1fr)}.events .tba{grid-column:2;justify-self:start}}
+
+/* voices */
+.voices{background:var(--alley-2);border-block:1px solid var(--line)}
+.voice{margin:0;display:flex;flex-direction:column;gap:18px;padding:26px 24px;background:var(--alley);border-left:4px solid var(--crimson-hi);min-width:0}
+.voice blockquote{margin:0;font-size:1rem;line-height:1.55}
+.voice figcaption b{display:block;font:700 1.05rem/1.2 var(--body);color:var(--gold-hi)}
+.voice figcaption span{font:700 .8rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* maple lane band */
+.lane{color:var(--on-maple);background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(42,22,8,.22) 46px 47px),linear-gradient(180deg,var(--maple),var(--maple-2));border-block:4px solid #1a1005;padding-block:clamp(40px,6vw,68px)}
+.lane .wrap{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.lane h2{color:var(--on-maple)}
+.lane p{max-width:52ch;font-size:1rem;font-weight:500}
+.lane .btn{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.lane .btn:hover{background:#1a1005;border-color:#1a1005}
+.arrows{width:min(320px,80%);height:auto}
+.arrows path{fill:var(--on-maple)}
+
+/* about */
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.story p{font-size:1.05rem;line-height:1.65}
+.story p+p{margin-top:16px;color:var(--muted)}
+@media (max-width:760px){.story{grid-template-columns:minmax(0,1fr)}}
+.person{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:26px 14px;background:var(--alley-2);border:1px solid var(--line);min-width:0}
+.mono{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font:900 1.7rem/1 var(--display);color:var(--gold-hi);border:2px solid var(--gold);background:radial-gradient(circle at 35% 30%,var(--crimson-hi),var(--crimson) 60%,#5a0b0e);margin-bottom:8px}
+.person b{font:700 1.15rem/1.2 var(--body)}
+.person span{font:700 .82rem/1.2 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.team{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.team{gap:10px}.team .person{padding:18px 6px}.team .mono{width:60px;height:60px}.team .person span.mono{font-size:1.4rem}.team .person b{font-size:1rem}.team .person span{font-size:.7rem;letter-spacing:.12em}}
+.person span.mono{font:900 1.9rem/1 var(--display);letter-spacing:0;color:var(--gold-hi)}
+
+/* services */
+.steps{counter-reset:step;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:step;display:flex;flex-direction:column;gap:10px;padding:26px 22px;background:var(--alley-2);border:1px solid var(--line);min-width:0}
+.steps li::before{content:counter(step);width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:700 1.3rem/1 var(--label);background:var(--crimson);color:#fff;border:2px solid var(--gold)}
+.steps p{color:var(--muted)}
+.tier{display:flex;flex-direction:column;gap:12px;align-items:flex-start;padding:28px 24px;background:var(--alley-2);border:2px solid var(--gold);min-width:0}
+.tier .price{font:900 3rem/1 var(--display);font-variant-numeric:tabular-nums}
+.tier p{color:var(--muted);flex:1}
+
+/* photos */
+.photo{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.photo img{width:100%;max-width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--gold);background:var(--alley-2)}
+.photo figcaption{font:700 .86rem/1.3 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.photo.band img{aspect-ratio:16/7;object-position:50% 62%}
+@media (max-width:700px){.photo.band img{aspect-ratio:4/3;object-position:50% 50%}}
+.shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.shots .wide{grid-column:1/-1}
+.shots .wide img{aspect-ratio:16/8}
+@media (max-width:760px){.shots{grid-template-columns:minmax(0,1fr)}}
+
+/* registration */
+.reg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,60px);align-items:start}
+@media (max-width:820px){.reg{grid-template-columns:minmax(0,1fr)}}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:clamp(22px,4vw,34px);background:var(--alley-2);border:2px solid var(--gold)}
+.form h2{grid-column:1/-1;font-size:1.6rem}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font:700 .86rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.field input{width:100%;min-height:52px;padding:12px 14px;font:500 1.05rem var(--body);color:var(--pin);background:var(--alley);border:1px solid var(--line);border-radius:0}
+.field input:focus{outline:2px solid var(--gold);outline-offset:0;border-color:var(--gold)}
+.form .btn{grid-column:1/-1}
+.form-note{grid-column:1/-1;padding:14px 16px;border-left:4px solid var(--gold);background:var(--alley);color:var(--gold-hi)}
+@media (max-width:480px){.form{grid-template-columns:minmax(0,1fr)}}
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq details{border:1px solid var(--line);background:var(--alley-2)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 48px 18px 18px;position:relative;font:600 1.1rem/1.3 var(--body)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);font:700 1.6rem/1 var(--label);color:var(--gold)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 18px 18px;color:var(--muted)}
+.touch{background:var(--alley-2);border-top:1px solid var(--line)}
+.touch .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.big-phone{font:900 clamp(2rem,7vw,3.4rem)/1 var(--display);letter-spacing:.04em;text-decoration:none;user-select:all}
+
+/* league, kingpin, stats */
+.sample-note{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;padding:14px 16px;margin-bottom:26px;border:1px dashed var(--gold-deep);background:var(--alley-2);font-size:1rem}
+.sample-note span{flex:1 1 260px;min-width:0}
+.sample-note b{font:700 .84rem/1.5 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-accent);white-space:nowrap}
+.fact{display:flex;flex-direction:column;gap:8px;padding:22px 20px;background:var(--alley-2);border:1px solid var(--line);min-width:0}
+.fact b{font:900 clamp(1.2rem,2.6vw,1.6rem)/1.15 var(--display)}
+.more{color:#fff;font:700 1rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;text-underline-offset:5px}
+.league-cta{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+@media (min-width:761px){.league-cta{align-items:flex-end}}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);background:var(--alley-2)}
+.data{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.data th,.data td{padding:13px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.data tbody tr:last-child td{border-bottom:0}
+.data .l{text-align:left}
+.data thead th{font:700 .82rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:var(--alley-3)}
+.data thead button{all:unset;cursor:pointer;display:inline-flex;gap:5px;align-items:center}
+.data thead button:hover,.data thead th[aria-sort] button{color:var(--pin)}
+.data thead button:focus-visible{outline:2px solid var(--ink-accent);outline-offset:3px}
+.data thead th[aria-sort] button::after{content:"▼";font-size:.6rem}
+.data thead th[aria-sort="ascending"] button::after{content:"▲"}
+.data abbr{text-decoration:none}
+.data td.pos{color:var(--muted);width:1%}
+.data td.strong{font-weight:700}
+#stats-table{min-width:520px}
+@media (max-width:560px){#stats-table .t-col{display:none}.data th,.data td{padding:12px 7px}}
+#stats-table tbody tr{cursor:pointer}
+#stats-table tbody tr:hover{background:var(--alley-3)}
+#stats-table tbody tr[aria-selected="true"]{background:var(--alley-3);box-shadow:inset 4px 0 0 var(--gold)}
+.row-btn{all:unset;cursor:pointer;font-weight:600}
+.row-btn:focus-visible{outline:2px solid var(--ink-accent);outline-offset:3px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:26px}
+@media (max-width:860px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;background:var(--alley-2);border:1px solid var(--line);min-width:0}
+.tile span{font:600 .95rem/1.2 var(--body);color:var(--muted)}
+.tile b{font:900 clamp(1.9rem,4.6vw,2.7rem)/1 var(--display);font-variant-numeric:tabular-nums}
+.tile small{font-size:.92rem;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{min-height:42px;padding:8px 16px;border:1px solid var(--gold-deep);background:transparent;color:var(--pin);font:700 .95rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.chip:hover{background:var(--alley-3)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1a1005}
+.dash{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:980px){.dash{grid-template-columns:minmax(0,1fr)}}
+.player{display:flex;flex-direction:column;gap:14px;padding:22px 20px;background:var(--alley-2);border:2px solid var(--gold);min-width:0}
+.player h3{font:900 1.5rem/1.1 var(--display)}
+.player .mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.player .mini div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.player .mini span{font-size:.86rem;color:var(--muted)}
+.player .mini b{font:700 1.5rem/1.1 var(--label);font-variant-numeric:tabular-nums}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .bar{fill:var(--mark)}
+.chart .hit{fill:transparent;cursor:pointer}
+.chart .hit:focus-visible{outline:2px solid var(--ink-accent)}
+.chart text{font:600 11px var(--body);fill:var(--muted)}
+.chart text.val{font-weight:700;fill:var(--pin)}
+.chart-title{font-size:.95rem;color:var(--muted)}
+.tip{position:absolute;pointer-events:none;transform:translate(-50%,-100%);padding:6px 10px;background:var(--pin);color:var(--alley);font:600 .88rem/1.2 var(--body);white-space:nowrap;z-index:2}
+.throne{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;padding:clamp(22px,4vw,36px);border:2px solid var(--gold);background:var(--alley-2)}
+.throne .icon{width:72px;height:72px}
+.throne h2{font-size:clamp(1.5rem,3.4vw,2.2rem)}
+.throne p{color:var(--muted);margin-top:8px;font-size:1.1rem}
+@media (max-width:520px){.throne{grid-template-columns:minmax(0,1fr)}}
+.race{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.race li{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 18px;background:var(--alley-2);border:1px solid var(--line)}
+.race li:first-child{border:2px solid var(--gold)}
+.race .rk{font:900 1.7rem/1 var(--display);color:var(--ink-accent)}
+.race .who b{display:block;font:700 1.12rem/1.2 var(--body)}
+.race .who span{font:700 .8rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.race .pts{text-align:right}
+.race .pts b{display:block;font:700 1.7rem/1 var(--label);font-variant-numeric:tabular-nums}
+.race .pts span{font-size:.82rem;color:var(--muted)}
+
+.highlights{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.highlights .tiles{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:0}
+@media (max-width:860px){.highlights{grid-template-columns:minmax(0,1fr)}}
+
+/* stat dashboard: scoreboard, podium, player card */
+.royal-head{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px}
+.royal-head .label{display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:.95rem;letter-spacing:.26em}
+.royal-head .label .icon{width:24px;height:24px}
+.royal-head .orn{position:relative;flex:1 1 0;max-width:220px;height:2px;background:linear-gradient(90deg,transparent,var(--gold))}
+.royal-head .orn::after{content:"";position:absolute;right:-5px;top:-4px;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+.royal-head .orn:last-child{transform:scaleX(-1)}
+.court-note{margin-top:-10px;color:var(--muted);font-size:.95rem;font-style:italic}
+.step .title{font:700 .78rem/1 var(--label);letter-spacing:.26em;text-transform:uppercase;color:var(--ink-accent);margin-bottom:2px}
+.pc-head .crown{margin-left:auto;width:30px;height:30px;stroke:#ffe08a;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:28px}
+.board .cell{--tone:var(--gold);position:relative;display:flex;flex-direction:column;gap:8px;padding:22px 22px 20px;min-width:0;border:1px solid var(--line);border-top:5px solid var(--tone);background:linear-gradient(160deg,var(--alley) 0%,var(--alley-2) 55%,var(--alley-3) 100%);box-shadow:0 12px 24px -10px rgba(90,45,0,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+.board .cell::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(180deg,transparent,rgba(160,19,24,.05));pointer-events:none}
+.board .cell::before{content:"";position:absolute;inset:9px;pointer-events:none;opacity:.85;background:
+  linear-gradient(var(--tone),var(--tone)) top left/18px 2px no-repeat,linear-gradient(var(--tone),var(--tone)) top left/2px 18px no-repeat,
+  linear-gradient(var(--tone),var(--tone)) top right/18px 2px no-repeat,linear-gradient(var(--tone),var(--tone)) top right/2px 18px no-repeat,
+  linear-gradient(var(--tone),var(--tone)) bottom left/18px 2px no-repeat,linear-gradient(var(--tone),var(--tone)) bottom left/2px 18px no-repeat,
+  linear-gradient(var(--tone),var(--tone)) bottom right/18px 2px no-repeat,linear-gradient(var(--tone),var(--tone)) bottom right/2px 18px no-repeat}
+.board .cell:nth-child(2){--tone:var(--crimson)}
+.board .cell:nth-child(3){--tone:var(--gold-deep)}
+.board .cell:nth-child(4){--tone:var(--crimson-hi)}
+.board .k{font:700 .8rem/1.2 var(--label);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-accent);padding-right:30px}
+.board .v{font:900 clamp(2.3rem,5.2vw,3.6rem)/1 var(--display);font-variant-numeric:tabular-nums}
+.board .who{font-size:.92rem;color:var(--muted)}
+.board .cell .icon{position:absolute;top:24px;right:26px;width:26px;height:26px;stroke:var(--ink-accent)}
+@media (max-width:860px){.board{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.board .cell{padding:20px 18px 28px}.board .who{font-size:.84rem;line-height:1.35}}
+.filters{margin-bottom:26px}
+.podium-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:34px}
+.podium-wrap .royal-head{width:100%;margin-bottom:0}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end;width:100%;max-width:720px}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;min-width:0}
+.step .icon{width:34px;height:34px;stroke:var(--gold-deep)}
+.step b{font:700 1.05rem/1.2 var(--body)}
+.step small{font:700 .76rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.step .avg{font:900 clamp(1.6rem,4vw,2.3rem)/1.1 var(--display);font-variant-numeric:tabular-nums;margin-top:4px}
+.step .avg span{display:block;font:600 .78rem/1 var(--body);color:var(--muted);margin-top:4px}
+.step .block{width:100%;margin-top:10px;display:grid;place-items:start center;padding-top:12px;font:900 2rem/1 var(--display);color:#fff;background:linear-gradient(180deg,var(--crimson-hi),var(--crimson));border-top:5px solid var(--gold)}
+.step.p1 .block{height:132px;background:linear-gradient(180deg,#f7c84f,var(--gold-deep));color:#1a1005}
+.step.p2 .block{height:96px}
+.step.p3 .block{height:72px}
+.player{padding:0;gap:0;overflow:hidden}
+.pc-head{display:flex;align-items:center;gap:14px;padding:18px 20px;background:linear-gradient(135deg,var(--crimson-hi),#6e0b0f);color:#fff}
+.pc-head .mono{width:56px;height:56px;margin:0;font:900 1.4rem/1 var(--display);flex:none}
+.pc-head p{font:700 .78rem/1 var(--label);letter-spacing:.2em;text-transform:uppercase;color:#ffe08a}
+.pc-head h3{font:900 1.45rem/1.15 var(--display);color:#fff;margin-top:6px}
+.pc-body{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px}
+
+/* rules */
+.math{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px clamp(14px,3vw,34px);padding:clamp(22px,4vw,36px);border:2px solid var(--gold);background:var(--alley-2);text-align:center}
+.math div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.math b{font:900 clamp(2rem,6vw,3.3rem)/1 var(--display);font-variant-numeric:tabular-nums}
+.math span{font:700 .86rem/1.2 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.math i{font:700 clamp(1.6rem,4vw,2.4rem)/1 var(--label);font-style:normal;color:var(--ink-accent)}
+.math-note{margin-top:18px;max-width:70ch;font-size:1.1rem;color:var(--muted)}
+.rules{display:flex;flex-direction:column;gap:16px;padding:clamp(22px,3vw,30px);background:var(--alley-2);border:1px solid var(--line);min-width:0}
+.rules-head{display:flex;align-items:center;gap:14px}
+.rules-head .no{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:700 1.3rem/1 var(--label);background:var(--crimson);color:#fff;border:2px solid var(--gold)}
+.rules ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+.rules li{position:relative;padding-left:26px}
+.rules li::before{content:"";position:absolute;left:2px;top:.52em;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+.rules ul ul{margin-top:11px;gap:9px}
+.rules ul ul li{color:var(--muted)}
+.rules ul ul li::before{width:7px;height:7px;top:.6em;background:transparent;border:2px solid var(--gold-deep)}
+.rules strong{font-weight:700}
+.swaps{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.swap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.swap p{color:var(--muted);font-size:.98rem}
+.swap b{display:block;font-weight:700;color:var(--pin)}
+.boxes{display:flex;align-items:center;gap:10px;font:700 1.3rem/1 var(--label);color:var(--ink-accent)}
+.box{display:inline-flex;border:2px solid var(--gold);background:var(--alley)}
+.box i{font:700 1.25rem/1 var(--label);font-style:normal;width:34px;padding:8px 0;text-align:center;color:var(--pin)}
+.box i+i{border-left:1px solid var(--gold-deep)}
+.box.was i{color:var(--crimson-hi)}
+.stays{font:700 .86rem/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-accent);border:1px solid var(--gold-deep);padding:8px 12px}
+.closing{margin-top:clamp(26px,4vw,40px);padding:22px 24px;border-left:4px solid var(--crimson-hi);background:var(--alley-2);font:700 clamp(1.15rem,2.6vw,1.45rem)/1.4 var(--body)}
+
+/* royal frames */
+.trophy:not(.top),.tier,.fact,.rules,.person,.throne,.steps li,.form{background:var(--corners),var(--alley-2)}
+.trophy:not(.top),.fact{padding:22px 22px}
+
+/* footer */
+.site-foot{border-top:3px solid var(--gold);background:#0b0807;padding-block:44px 28px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:30px}
+.foot-brand{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.foot-brand img{width:132px}
+.foot-brand p{color:var(--muted);max-width:30ch}
+.foot-col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.foot-col a{color:var(--pin);text-decoration:none;font-size:1.02rem}
+.foot-col a:hover{color:var(--gold-hi)}
+.foot-base{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+@media (max-width:820px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-brand{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ── light edition ── */
+:focus-visible{outline-color:var(--crimson)}
+.label,.photo figcaption,.person span,.tba,.field label,.phone,.nav a[aria-current="page"]{color:var(--ink-accent)}
+.icon{stroke:var(--ink-accent)}
+.gold-text{background-image:linear-gradient(180deg,#d4262c 0%,#a01318 55%,#6e0b0f 100%)}
+.btn.ghost{color:var(--ink-accent);border-color:var(--ink-accent)}
+.btn.ghost:hover{background:var(--ink-accent);border-color:var(--ink-accent);color:#fff}
+.site-head{background:rgba(255,253,248,.95)}
+.brand b{color:var(--crimson)}
+.nav a:hover{color:var(--crimson)}
+.nav a.join{color:#fff}
+.hero{background:radial-gradient(58% 70% at 76% 46%,rgba(240,180,58,.45),transparent 70%)}
+.hero-crest{filter:drop-shadow(0 16px 26px rgba(70,35,0,.3))}
+.page-title{background:radial-gradient(90% 140% at 100% 0%,rgba(240,180,58,.34),transparent 60%)}
+.frame:last-child .total{color:var(--crimson)}
+.league{color:#fff}
+.league .btn:hover{background:#000;border-color:#000}
+.voice figcaption b{color:var(--crimson)}
+.form-note{color:var(--pin)}
+.faq summary::after{color:var(--ink-accent)}
+.data thead th[aria-sort] button::after{color:var(--crimson)}
+.tip{background:#1c1410;color:#fff}
+.site-foot{background:#6e0b0f;color:#fff}
+.site-foot .label{color:var(--gold-hi)}
+.foot-brand p{color:#f6dccb}
+.foot-col a{color:#fff}
+.foot-col a:hover{color:var(--gold-hi)}
+.foot-base{color:#f6dccb;border-top-color:rgba(255,255,255,.28)}
+
+/* gallery: photo mosaic, picture viewer, videos */
+.g-tabs{display:flex;gap:0;margin:0 0 18px;border-bottom:2px solid var(--line)}
+.g-tabs button{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:12px 22px 10px;margin-bottom:-2px;border:0;border-bottom:3px solid transparent;background:none;cursor:pointer;font:700 1.05rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.g-tabs button span{display:inline-grid;place-items:center;min-width:24px;height:22px;padding:0 6px;border-radius:999px;background:var(--alley-3);color:var(--ink-accent);font-size:.8rem;letter-spacing:0}
+.g-tabs button[aria-selected="true"]{color:var(--crimson);border-bottom-color:var(--crimson)}
+.g-tabs button[aria-selected="true"] span{background:var(--crimson);color:#fff}
+.g-more{margin-top:22px}
+.g-hint{margin:0 0 12px;font:600 .82rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.g-empty{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:clamp(36px,7vw,64px) 20px;border:2px dashed var(--gold);background:var(--alley-2)}
+.g-empty .icon{width:48px;height:48px}
+.g-empty p{color:var(--muted);max-width:44ch}
+.g-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.g-head h2{font:700 clamp(1.4rem,3vw,1.9rem)/1.1 "Cinzel",Georgia,serif;color:var(--ink-accent,var(--gold-deep));margin:0}
+.g-head span{font:600 .85rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.g-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:dense;gap:12px}
+@media (min-width:760px){.g-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
+.g-item{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.g-item.wide{grid-column:1/-1}
+.g-item.tall{grid-row:span 2}
+.g-open{display:block;width:100%;padding:0;border:2px solid var(--gold);background:var(--alley-2);cursor:zoom-in;overflow:hidden;flex:1}
+.g-open img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s}
+.g-item.wide .g-open img{aspect-ratio:16/8}
+.g-item.tall .g-open img{aspect-ratio:auto;min-height:100%}
+.g-open:hover img{transform:scale(1.04)}
+.g-item figcaption{font:700 .8rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+@media (max-width:759px){.g-item figcaption{font-size:.72rem;letter-spacing:.1em}.g-item:last-child{grid-column:1/-1}.g-item:last-child .g-open img{aspect-ratio:16/9}}
+.g-box{padding:0;border:0;background:transparent;max-width:min(1100px,96vw);max-height:94vh;overflow:visible}
+.g-box::backdrop{background:rgba(20,12,4,.9)}
+.g-box figure{margin:0;display:grid;gap:10px;justify-items:center}
+.g-box img{max-width:96vw;max-height:82vh;width:auto;height:auto;border:2px solid var(--gold)}
+.g-box figcaption{font:700 .9rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:#f0d27a;text-align:center}
+.g-close{position:absolute;top:-46px;right:0;width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,210,122,.6);background:rgba(0,0,0,.4);color:#f0d27a;font-size:18px;cursor:pointer}
+.g-nav{position:absolute;top:42%;width:44px;height:44px;border-radius:50%;border:1px solid rgba(240,210,122,.6);background:rgba(0,0,0,.45);color:#f0d27a;font-size:28px;line-height:1;cursor:pointer}
+.g-prev{left:6px}.g-next{right:6px}
+.g-vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+@media (min-width:900px){.g-vgrid{grid-template-columns:minmax(0,.6fr) minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:640px){.g-vgrid{grid-template-columns:minmax(0,1fr)}}
+.g-vgrid figcaption small{display:block;margin-top:4px;font:600 .78rem/1 var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
+.g-vgrid figure{margin:0;display:grid;gap:8px}
+.g-vgrid video,.g-vgrid iframe{width:100%;aspect-ratio:16/9;border:2px solid var(--gold);background:#000;display:block}
+.g-vgrid .tall video{aspect-ratio:9/16;max-height:78vh;margin-inline:auto;width:auto;max-width:100%;object-fit:cover}
+@media (min-width:641px) and (max-width:899px){.g-vgrid .tall{grid-row:span 2}}
+.g-vgrid figcaption{font:700 .8rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+
+
+/* league crew: the royal five + member cards */
+.crew-title::after{opacity:.28}
+.crew-note{text-align:center;margin:-6px 0 26px}
+.crew-filters{justify-content:center;margin-bottom:18px}
+.crew-note span{display:block;font-style:normal;font-size:.86rem;margin-top:4px}
+.five{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+.five .pf{grid-column:span 3}
+.five .pf:nth-child(1){grid-column:1/-1}
+@media (max-width:900px){.five{grid-template-columns:repeat(2,minmax(0,1fr))}.five .pf,.five .pf:nth-child(4),.five .pf:nth-child(5){grid-column:auto}.five .pf:nth-child(1){grid-column:1/-1}}
+@media (max-width:560px){.five{grid-template-columns:minmax(0,1fr)}.five .pf:nth-child(n){grid-column:auto}}
+.pf{position:relative;display:flex;flex-direction:column;min-width:0;border:2px solid var(--gold);background:linear-gradient(170deg,var(--alley) 0%,var(--alley-2) 60%,var(--alley-3) 100%);box-shadow:0 18px 32px -18px rgba(90,45,0,.45);overflow:hidden}
+.pf-head{position:relative;display:flex;align-items:center;gap:16px;padding:18px 20px;background:linear-gradient(135deg,var(--crimson-hi),#6e0b0f);color:#fff}
+.pf-rank{position:absolute;right:14px;top:-6px;font:900 5.2rem/1 var(--display);color:rgba(255,224,138,.22);pointer-events:none}
+.pf-crest{flex:none;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font:900 1.6rem/1 var(--display);color:#1a1005;background:radial-gradient(circle at 35% 30%,#ffe08a,var(--gold) 55%,var(--gold-deep));border:3px solid #ffe08a;box-shadow:0 0 0 3px rgba(255,255,255,.18)}
+.pf-title{font:700 .78rem/1 var(--label);letter-spacing:.24em;text-transform:uppercase;color:#ffe08a}
+.pf-name{font:900 1.55rem/1.1 var(--display);margin-top:6px;color:#fff}
+.pf-body{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px}
+.pf-avg{display:flex;align-items:baseline;gap:10px}
+.pf-avg b{font:900 3rem/1 var(--display);font-variant-numeric:tabular-nums}
+.pf-avg span{font:700 .82rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.pf-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0}
+.pf-stats div{display:flex;flex-direction:column;gap:2px;padding:8px 6px;border:1px solid var(--line);background:var(--alley);text-align:center;min-width:0}
+.pf-stats dt{font:700 .7rem/1.1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pf-stats dd{margin:0;font:700 1.25rem/1.1 var(--label);font-variant-numeric:tabular-nums}
+.pf-spark{display:flex;align-items:flex-end;gap:5px;height:56px;padding-top:6px;border-bottom:1px solid var(--line)}
+.pf-spark i{flex:1;min-width:0;background:var(--mark);opacity:.75}
+.pf-spark i.hi{opacity:1;background:var(--gold-deep)}
+.pf-cap{display:flex;justify-content:space-between;font-size:.84rem;color:var(--muted)}
+.pf-badges{display:flex;flex-wrap:wrap;gap:6px}
+.pf-badges span{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;font:700 .76rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;color:#1a1005;background:var(--gold);clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.pf-badges span.red{background:var(--crimson);color:#fff}
+.five .pf:nth-child(1) .pf-head{padding:24px 26px}
+.five .pf:nth-child(1) .pf-crest{width:88px;height:88px;font-size:2rem}
+.five .pf:nth-child(1) .pf-name{font-size:2.1rem}
+@media (min-width:901px){.five .pf:nth-child(1) .pf-body{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1.2fr);align-items:center;gap:22px}}
+.crew{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.crew{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.crew{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mem{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 10px 16px;text-align:center;background:var(--alley-2);border:1px solid var(--line);cursor:pointer;min-width:0}
+.mem:hover,.mem:focus-visible{border-color:var(--gold);background:var(--alley-3)}
+.mem:focus-visible{outline:3px solid var(--crimson);outline-offset:2px}
+.mem .mono{width:62px;height:62px;margin:0 0 4px;font-size:1.3rem}
+.mem b{font:700 1.08rem/1.2 var(--body)}
+.mem small{font:700 .74rem/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-accent)}
+.mem em{font-style:normal;font-size:.86rem;color:var(--muted)}
+.mem.wait{cursor:default;opacity:.8}
+.mem.wait .mono{background:var(--alley-3);color:var(--muted);border-color:var(--line)}
+
+
+/* cholan vs pandiyan */
+.clash-title::after{display:none}
+.season{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(10px,3vw,30px);padding:clamp(18px,3vw,28px);border:2px solid var(--gold);background:linear-gradient(90deg,rgba(160,19,24,.10),var(--alley-2) 35%,var(--alley-2) 65%,rgba(31,122,66,.12));margin-bottom:22px}
+.season .team{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.season .team svg{width:clamp(72px,14vw,120px);height:auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+.season .team b{font:900 clamp(1.1rem,2.6vw,1.5rem)/1 var(--display)}
+.season .team small{font:700 .78rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.season .mid{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.season .mid .label{font-size:.8rem}
+.season .score{font:900 clamp(2.4rem,7vw,4rem)/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.season .score i{font-style:normal;color:var(--muted);padding:0 .15em}
+.weeks16{display:grid;grid-template-columns:repeat(16,1fr);gap:3px;width:min(260px,52vw)}
+.weeks16 span{height:8px;background:var(--alley-3);border:1px solid var(--line)}
+.weeks16 span.k{background:var(--crimson)}.weeks16 span.t{background:#1f7a42}.weeks16 span.s{background:var(--gold)}
+.season .wk{font-size:.86rem;color:var(--muted)}
+.season .gw{margin-top:-2px;font-weight:600;color:var(--pin)}
+.clash-weeks{margin-bottom:18px}
+.night{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;padding:clamp(18px,3vw,28px);margin-bottom:18px;color:#fff;background:linear-gradient(135deg,var(--crimson-hi),#6e0b0f);border-top:5px solid var(--gold)}
+.night.t{background:linear-gradient(135deg,#2a5a9a,#0d1f3c);border-top-color:#b9c4d2}
+.night.s{background:linear-gradient(135deg,#8a5a06,#4a3005)}
+.night svg{width:clamp(76px,14vw,110px);height:auto}
+.night .label{color:#ffe08a}
+.night h2{font-size:clamp(1.6rem,4.6vw,2.6rem);margin-top:6px;color:#fff}
+.night p.sub{margin-top:8px;color:rgba(255,255,255,.88);font-size:1.02rem}
+.games{display:flex;flex-direction:column;gap:10px}
+.game{display:grid;grid-template-columns:72px minmax(0,1fr) minmax(0,1fr) 120px;gap:12px;align-items:center;padding:14px 16px;background:var(--alley-2);border:1px solid var(--line)}
+.game .g{font:700 .82rem/1.1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-accent)}
+.game .side{display:flex;flex-direction:column;gap:6px;min-width:0}
+.game .side .row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.game .side span{font:700 .78rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.game .side b{font:700 1.2rem/1 var(--label);font-variant-numeric:tabular-nums;color:var(--muted)}
+.game .side.win b{color:var(--pin)}
+.game .gbar{height:4px;background:var(--alley-3)}
+.game .gbar i{display:block;height:100%}
+.game .k .gbar i{background:var(--crimson)}.game .t .gbar i{background:#1f7a42}
+.game .who{display:flex;align-items:center;gap:6px;justify-content:flex-end;font:700 .78rem/1.1 var(--label);letter-spacing:.12em;text-transform:uppercase}
+.game .who svg{width:20px;height:24px;flex:none}
+.game .who.k{color:var(--crimson)}.game .who.t{color:#1f7a42}.game .who.s{color:var(--ink-accent)}
+.game.total{background:var(--alley-3);border:2px solid var(--gold)}
+@media (max-width:640px){.game{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:10px}.game .g{grid-column:1}.game .who{grid-column:2;grid-row:1}}
+.clash-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+@media (max-width:860px){.clash-two{grid-template-columns:minmax(0,1fr)}}
+.clash-rules ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.clash-rules li{position:relative;padding-left:24px;line-height:1.5}
+.clash-rules li::before{content:"";position:absolute;left:2px;top:.55em;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+
+
+/* cholan vs pandiyan: royal theme */
+.royal-name{font-family:"Cinzel Decorative","Cinzel",var(--display);font-weight:900;letter-spacing:.02em}
+.clash-hero{position:relative;overflow:hidden;padding-block:clamp(30px,6vw,64px) clamp(28px,5vw,52px);color:#fff;
+  background:radial-gradient(60% 90% at 50% 40%,rgba(255,224,138,.22),transparent 60%),linear-gradient(100deg,#4a070a 0%,#a01318 30%,#3a2a0a 50%,#1f7a42 70%,#0b3d1f 100%);
+  border-bottom:4px solid var(--gold);box-shadow:inset 0 3px 0 var(--gold),inset 0 7px 0 rgba(0,0,0,.25)}
+.clash-hero::before{content:"";position:absolute;inset:10px;border:1px solid rgba(255,224,138,.45);pointer-events:none}
+.clash-hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 2px,transparent 2px 14px);pointer-events:none}
+.clash-hero .wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.ch-kicker{color:#ffe08a!important;letter-spacing:.26em}
+.ch-face{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,40px);width:100%;max-width:900px}
+.ch-side{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.ch-side svg{width:clamp(88px,18vw,160px);height:auto;filter:drop-shadow(0 12px 18px rgba(0,0,0,.45))}
+.ch-side h1{margin:6px 0 0;font-size:clamp(1.5rem,4.6vw,2.8rem);line-height:1;background:linear-gradient(180deg,#fff6d0 10%,#ffe08a 45%,#d9a032 75%,#b0700f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.ch-side .ta{font:700 clamp(1rem,2.6vw,1.3rem)/1.3 "Noto Serif Tamil","Noto Sans Tamil",var(--body);color:#ffe08a}
+.ch-side small{font:700 .72rem/1 var(--label);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.ch-vs{position:relative;display:grid;place-items:center;width:clamp(64px,11vw,96px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b8,#f0b43a 55%,#8a5a06);border:3px solid #ffe08a;box-shadow:0 0 0 6px rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.4)}
+.ch-vs::before,.ch-vs::after{content:"";position:absolute;top:50%;width:clamp(16px,4vw,46px);height:2px;background:#ffe08a}
+.ch-vs::before{right:100%;margin-right:8px}.ch-vs::after{left:100%;margin-left:8px}
+.ch-vs span{font:900 clamp(1.2rem,3.4vw,2rem)/1 "Cinzel Decorative","Cinzel",serif;color:#4a070a}
+.ch-lead{max-width:62ch;color:rgba(255,255,255,.9);font-size:1.02rem}
+@media (max-width:560px){.ch-vs::before,.ch-vs::after{display:none}}
+/* royal frames on the clash page */
+.season,.game{position:relative}
+.season::before,.game::before{content:"";position:absolute;inset:6px;pointer-events:none;opacity:.9;background:
+  linear-gradient(var(--gold),var(--gold)) top left/16px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) top left/2px 16px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) top right/16px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) top right/2px 16px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) bottom left/16px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom left/2px 16px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) bottom right/16px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom right/2px 16px no-repeat}
+.game{background:linear-gradient(160deg,var(--alley) 0%,var(--alley-2) 60%,var(--alley-3) 100%);border-color:#e3cfa6}
+.game .k .side span,.game .side.k span{color:#8a1015}.game .side.t span{color:#17603a}
+.season .team b.royal-name{font-size:clamp(1.15rem,2.8vw,1.6rem)}
+.season .team:first-child b{color:#8a1015}.season .team:last-child b{color:#17603a}
+/* winner banner in the winning kingdom's colours */
+.night{position:relative;overflow:hidden}
+.night::after{content:"";position:absolute;inset:8px;border:1px solid rgba(255,224,138,.5);pointer-events:none}
+.night.k{background:radial-gradient(70% 120% at 15% 50%,rgba(255,224,138,.18),transparent 60%),linear-gradient(135deg,#c81e24,#4a070a);border-top-color:var(--gold)}
+.night.t{background:radial-gradient(70% 120% at 15% 50%,rgba(255,224,138,.18),transparent 60%),linear-gradient(135deg,#2e9a52,#0b3d1f);border-top-color:var(--gold)}
+.night.s{background:linear-gradient(100deg,#a01318,#3a2a0a 50%,#1f7a42)}
+.night h2{font-family:"Cinzel Decorative","Cinzel",var(--display);font-weight:900;background:linear-gradient(180deg,#fff6d0 10%,#ffe08a 50%,#d9a032);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+
+/* team names: standout royal lettering, always inside the panel */
+.season{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.season .team{min-width:0;overflow:hidden}
+.season .team b.royal-name{display:block;max-width:100%;font-size:clamp(1.05rem,3.4vw,1.9rem);line-height:1.15;padding:2px 2px 4px;letter-spacing:.03em;white-space:nowrap}
+.season .team:first-child b.royal-name{background:linear-gradient(180deg,#d4262c 0%,#8a1015 55%,#4a070a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 #ffe08a) drop-shadow(0 2px 3px rgba(110,11,15,.35))}
+.season .team:last-child b.royal-name{background:linear-gradient(180deg,#2e9a52 0%,#17603a 55%,#0b3d1f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 #ffe08a) drop-shadow(0 2px 3px rgba(11,61,31,.35))}
+.ch-side h1.royal-name{font-size:clamp(1.6rem,5.4vw,3.2rem);letter-spacing:.04em;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45)) drop-shadow(0 0 14px rgba(255,224,138,.35))}
+@media (max-width:560px){
+  .season{gap:8px;padding:16px 12px}
+  .season .team svg{width:58px}
+  .season .team b.royal-name{font-size:1rem;letter-spacing:.01em}
+  .season .team small{font-size:.66rem;letter-spacing:.12em}
+  .season .score{font-size:2.1rem}
+  .weeks16{width:118px;gap:2px}
+  .season .mid .label{font-size:.66rem;letter-spacing:.14em}
+}
+
+@media (max-width:400px){
+  .season{gap:6px;padding:14px 10px}
+  .season .team svg{width:50px}
+  .season .team b.royal-name{font-size:.9rem;letter-spacing:0}
+  .season .score{font-size:1.8rem}
+  .weeks16{width:92px}
+  .season .mid .label{font-size:.6rem;letter-spacing:.1em}
+  .season .wk{font-size:.78rem}
+}
+
+.night .duo{display:flex;gap:6px}.night .duo svg{width:clamp(52px,9vw,78px)}
+
+/* points table */
+.points-wrap{margin:-6px 0 22px;border:2px solid var(--gold)}
+.points caption{caption-side:top;text-align:left;padding:12px 14px;font:700 .86rem/1 var(--label);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-accent);background:var(--alley-2);border-bottom:1px solid var(--line)}
+.points td,.points th{padding:12px 10px}
+.points .pt-team{display:inline-flex;align-items:center;gap:10px}
+.points .pt-team svg{width:30px;height:35px;flex:none}
+.points .pt-team b{font-size:1.15rem}
+.points tr.k .pt-team b{color:#8a1015}.points tr.t .pt-team b{color:#17603a}
+.points td.pts{font:900 1.35rem/1 var(--display)}
+.points tr.k td.pts{color:#8a1015}.points tr.t td.pts{color:#17603a}
+@media (max-width:560px){.points td,.points th{padding:10px 6px}.points .pt-team b{font-size:1rem}.points .pt-team svg{width:24px;height:28px}}
+
+@media (max-width:400px){.points th:nth-child(1),.points td:nth-child(1){display:none}}
+
+/* front page: royal honours + season highlights */
+.royal-band{position:relative;color:#fff;background:radial-gradient(60% 90% at 50% 30%,rgba(255,224,138,.18),transparent 60%),linear-gradient(160deg,#4a070a,#a01318 55%,#5a0b0e);border-block:4px solid var(--gold)}
+.royal-band::before{content:"";position:absolute;inset:10px;border:1px solid rgba(255,224,138,.45);pointer-events:none}
+.royal-band .label{color:#ffe08a!important}
+.royal-band h2,.royal-hl h2{font-family:"Cinzel Decorative","Cinzel",var(--display);font-weight:900;font-size:clamp(1.6rem,4.4vw,2.6rem)}
+.royal-band h2{background:linear-gradient(180deg,#fff6d0 10%,#ffe08a 45%,#d9a032 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.royal-band .head h2::after,.royal-hl .head h2::after{margin-inline:auto}
+.royal-band .trophy{position:relative;background:linear-gradient(160deg,rgba(0,0,0,.28),rgba(0,0,0,.12));border:2px solid rgba(255,224,138,.7)}
+.royal-band .trophy::before,.royal-hl .tile::before{content:"";position:absolute;inset:6px;pointer-events:none;background:
+  linear-gradient(#ffe08a,#ffe08a) top left/14px 2px no-repeat,linear-gradient(#ffe08a,#ffe08a) top left/2px 14px no-repeat,
+  linear-gradient(#ffe08a,#ffe08a) top right/14px 2px no-repeat,linear-gradient(#ffe08a,#ffe08a) top right/2px 14px no-repeat,
+  linear-gradient(#ffe08a,#ffe08a) bottom left/14px 2px no-repeat,linear-gradient(#ffe08a,#ffe08a) bottom left/2px 14px no-repeat,
+  linear-gradient(#ffe08a,#ffe08a) bottom right/14px 2px no-repeat,linear-gradient(#ffe08a,#ffe08a) bottom right/2px 14px no-repeat}
+.royal-band .trophy b{font-family:"Cinzel Decorative","Cinzel",var(--display);background:linear-gradient(180deg,#fff6d0,#ffe08a 50%,#d9a032);-webkit-background-clip:text;background-clip:text;color:transparent}
+.royal-band .trophy span{color:#f6dccb}
+.royal-band .trophy .icon{stroke:#ffe08a}
+.royal-band .trophy.top{background:linear-gradient(160deg,#ffe08a,#f0b43a 55%,#b0700f);border-color:#ffe08a}
+.royal-band .trophy.top b{background:none;color:#4a070a;-webkit-background-clip:initial;background-clip:initial}
+.royal-band .trophy.top span{color:#4a070a}.royal-band .trophy.top .icon{stroke:#4a070a}
+.royal-band .trophy.top::before{background:none}
+.royal-hl{background:linear-gradient(180deg,var(--alley-2),var(--alley));border-bottom:1px solid var(--line)}
+.royal-hl h2{background:linear-gradient(180deg,#d4262c,#8a1015 60%,#4a070a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.royal-hl .tile{position:relative;border:1px solid #e3cfa6;border-top:4px solid var(--gold);background:linear-gradient(160deg,var(--alley),var(--alley-2) 60%,var(--alley-3));box-shadow:0 10px 20px -12px rgba(90,45,0,.35)}
+.royal-hl .tile::before{background-size:auto;opacity:.9;filter:none}
+.royal-hl .tile::before{background:
+  linear-gradient(var(--gold),var(--gold)) top left/14px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) top left/2px 14px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) top right/14px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) top right/2px 14px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) bottom left/14px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom left/2px 14px no-repeat,
+  linear-gradient(var(--gold),var(--gold)) bottom right/14px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom right/2px 14px no-repeat}
+.royal-hl .tile span{font:700 .78rem/1.2 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-accent)}
+.royal-hl .tile b{font-family:"Cinzel Decorative","Cinzel",var(--display);background:linear-gradient(180deg,#d4262c,#8a1015 60%,#4a070a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.royal-hl .race li{background:linear-gradient(160deg,var(--alley),var(--alley-2));border-color:#e3cfa6}
+.royal-hl .race li:first-child{border:2px solid var(--gold);box-shadow:0 10px 20px -12px rgba(90,45,0,.4)}
+.royal-hl .race .rk{font-family:"Cinzel Decorative","Cinzel",var(--display)}
+.royal-hl .race li:first-child .rk{color:var(--crimson)}
+.royal-hl .race .who b{font-family:"Cinzel","Cinzel Decorative",var(--display);font-weight:900;letter-spacing:.02em}
+/* the photo opens the gallery */
+.photo-link{position:relative;display:block;text-decoration:none;margin:0}
+.photo-link img{transition:transform .5s,filter .3s}
+.photo-link{overflow:hidden;border:2px solid var(--gold)}
+.photo-link img{border:0!important}
+.photo-link:hover img{transform:scale(1.03);filter:brightness(1.05)}
+.pl-badge{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(74,7,10,.88);color:#ffe08a;font:700 .9rem/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;border:1px solid #ffe08a;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.pl-badge svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.photo-link:focus-visible{outline:3px solid var(--crimson);outline-offset:3px}
+@media (max-width:560px){.pl-badge{left:8px;right:8px;bottom:8px;font-size:.74rem;letter-spacing:.08em;padding:8px 10px}}
+
+
+/* royal honours, lighter: parchment and gold instead of deep maroon */
+.royal-band{color:var(--pin);background:radial-gradient(60% 90% at 50% 30%,rgba(255,224,138,.55),transparent 65%),linear-gradient(160deg,#fff8e6,#f7e7c4 55%,#f2dcae)}
+.royal-band::before{border-color:rgba(176,112,15,.45)}
+.royal-band .label{color:var(--ink-accent)!important}
+.royal-band h2{background:linear-gradient(180deg,#d4262c,#8a1015 60%,#4a070a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 #ffe08a)}
+.royal-band .trophy{background:linear-gradient(160deg,#fffdf8,#f7efe0 60%,#efe4d0);border:2px solid var(--gold);box-shadow:0 10px 20px -12px rgba(90,45,0,.35)}
+.royal-band .trophy::before{background:
+  linear-gradient(var(--gold-deep),var(--gold-deep)) top left/14px 2px no-repeat,linear-gradient(var(--gold-deep),var(--gold-deep)) top left/2px 14px no-repeat,
+  linear-gradient(var(--gold-deep),var(--gold-deep)) top right/14px 2px no-repeat,linear-gradient(var(--gold-deep),var(--gold-deep)) top right/2px 14px no-repeat,
+  linear-gradient(var(--gold-deep),var(--gold-deep)) bottom left/14px 2px no-repeat,linear-gradient(var(--gold-deep),var(--gold-deep)) bottom left/2px 14px no-repeat,
+  linear-gradient(var(--gold-deep),var(--gold-deep)) bottom right/14px 2px no-repeat,linear-gradient(var(--gold-deep),var(--gold-deep)) bottom right/2px 14px no-repeat}
+.royal-band .trophy b{background:linear-gradient(180deg,#d4262c,#8a1015 60%,#4a070a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.royal-band .trophy span{color:var(--muted)}
+.royal-band .trophy .icon{stroke:var(--ink-accent)}
+/* cholan and pandiyan names: standout royal lettering */
+.royal-name{font-family:"Cinzel Decorative","Cinzel",var(--display);font-weight:900}
+.season .team b.royal-name{font-size:clamp(1.3rem,3.6vw,2.2rem);letter-spacing:.04em;filter:drop-shadow(0 1px 0 #ffe08a) drop-shadow(0 0 1px rgba(0,0,0,.35)) drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+.ch-side h1.royal-name{font-size:clamp(2rem,6.4vw,3.8rem)}
+.night h2{font-size:clamp(1.8rem,5vw,2.9rem)}
+@media (max-width:560px){
+  .season{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"k t" "m m";row-gap:14px;padding:18px 12px}
+  .season .team:first-child{grid-area:k}.season .team:last-child{grid-area:t}.season .mid{grid-area:m}
+  .season .team svg{width:72px}
+  .season .team b.royal-name{font-size:1.45rem;letter-spacing:.02em}
+  .season .score{font-size:2.4rem}
+  .weeks16{width:min(240px,80%)}
+  .season .mid .label{font-size:.72rem;letter-spacing:.16em}
+}
+@media (max-width:400px){.season .team b.royal-name{font-size:1.3rem}.season .team svg{width:64px}}
+
+
+/* season panel names: stay inside their box */
+.season .team b.royal-name{display:block;max-width:100%;overflow:hidden;white-space:nowrap}
+/* hero names always inside the frame */
+.ch-side{max-width:100%}
+.ch-side h1.royal-name{display:block;max-width:100%;overflow:hidden;white-space:nowrap;padding:0 2px 4px}
+
+
+/* games won summary under the six games */
+.gsum{display:grid;justify-items:center;gap:8px;padding:16px;background:var(--alley-3);border:2px solid var(--gold);text-align:center}
+.gs-row{display:flex;align-items:baseline;justify-content:center;gap:clamp(8px,3vw,18px);flex-wrap:wrap}
+.gs-row span{font:700 .9rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase}
+.gs-k{color:#8a1015}.gs-t{color:#17603a}
+.gs-row b{font:700 2rem/1 var(--label);font-variant-numeric:tabular-nums;color:var(--pin)}
+.gs-row i{font-style:normal;color:var(--ink-accent);font-weight:700}
+.gs-note{margin:0;font:600 .86rem/1.2 var(--body);color:var(--muted)}
+
+
+/* team page top: two hanging kingdom banners on a light, shaded hall that blends with the page */
+.clash-hero{background:radial-gradient(55% 85% at 20% 45%,rgba(200,30,36,.10),transparent 74%),radial-gradient(55% 85% at 80% 45%,rgba(46,154,82,.10),transparent 74%),linear-gradient(90deg,rgba(160,19,24,.05) 0%,transparent 45%,transparent 55%,rgba(31,122,66,.05) 100%),linear-gradient(180deg,#fdf8ee,var(--alley) 90%)!important;color:var(--pin)!important;border-bottom:1px solid var(--line)}
+.clash-hero::before{border-color:rgba(176,112,15,.35)!important}
+.clash-hero::after{background:none!important}
+.clash-hero .ch-kicker{color:var(--ink-accent)!important}
+.clash-hero .ch-lead{color:#2a1a10!important;font-weight:500}
+.bn-rod{position:relative;height:12px;width:min(820px,100%);border-radius:6px;background:linear-gradient(180deg,#fff2bf,#f0b43a 45%,#a8690c);box-shadow:0 4px 8px rgba(90,45,0,.25);margin-top:6px}
+.bn-rod::before,.bn-rod::after{content:"";position:absolute;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6d0,#f0b43a 55%,#a8690c)}
+.bn-rod::before{left:-8px}.bn-rod::after{right:-8px}
+.bn-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(4px,1.5vw,20px);align-items:start;width:min(820px,100%);margin-top:-18px}
+.bn{justify-self:center;width:min(290px,100%);transform-origin:50% 0;animation:bn-sway 7s ease-in-out infinite}
+.bn.t{animation-delay:-3.5s}
+@keyframes bn-sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+.bn-loops{display:flex;justify-content:space-around;padding-inline:18%}
+.bn-loops i{display:block;width:15px;height:18px;border:3px solid #d9a032;border-top:0;border-radius:0 0 8px 8px}
+.bn-cloth{position:relative;display:grid;justify-items:center;gap:4px;padding:20px 10px 60px;text-align:center;clip-path:polygon(0 0,100% 0,100% 100%,50% 86%,0 100%);filter:drop-shadow(0 10px 14px rgba(60,20,0,.25))}
+.bn.k .bn-cloth{background:linear-gradient(90deg,rgba(0,0,0,.22),transparent 18%,transparent 82%,rgba(0,0,0,.22)),linear-gradient(180deg,#c81e24 0%,#8f1218 45%,#5a0a0d 100%)}
+.bn.t .bn-cloth{background:linear-gradient(90deg,rgba(0,0,0,.22),transparent 18%,transparent 82%,rgba(0,0,0,.22)),linear-gradient(180deg,#2e9a52 0%,#17603a 45%,#0b3d1f 100%)}
+.bn-trim{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.bn-trim polygon{fill:none;stroke:#ffe08a;stroke-width:2;vector-effect:non-scaling-stroke}
+.bn-cloth > *:not(.bn-trim){position:relative}
+.bn-crest{width:clamp(70px,15vw,118px);height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
+.bn-ta{font:700 clamp(1.05rem,3.4vw,1.6rem)/1.3 "Noto Serif Tamil","Noto Sans Tamil",serif;color:#ffe08a;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.bn-name{margin:0;display:block;max-width:100%;overflow:hidden;white-space:nowrap;padding:0 3px 3px;font:900 clamp(1.1rem,3.8vw,2.1rem)/1.1 "Cinzel Decorative","Cinzel",var(--display);background:linear-gradient(180deg,#fff6d0 10%,#ffe08a 45%,#d9a032 75%,#b0700f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
+.bn-cap{margin-top:6px;display:grid;justify-items:center;gap:2px}
+.bn-motto{margin:0;font:600 italic clamp(.9rem,2.6vw,1.1rem)/1.35 var(--display);letter-spacing:.06em;color:#fff6e0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.bn-cap span{font:700 .66rem/1 var(--label);letter-spacing:.24em;text-transform:uppercase;color:#ffe08a}
+.bn-cap b{font:700 clamp(.95rem,2.6vw,1.2rem)/1.1 var(--display);color:#fff6e0}
+.bn-crown{width:20px;height:14px;fill:#ffe08a}
+.bn-vs{align-self:center;margin-top:70px;display:grid;place-items:center;width:clamp(54px,10vw,84px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b8,#f0b43a 55%,#8a5a06);border:3px solid #4a2a03;box-shadow:0 0 0 3px #f0b43a,0 8px 18px rgba(60,20,0,.35)}
+.bn-vs span{font:900 clamp(1rem,2.8vw,1.6rem)/1 "Cinzel Decorative","Cinzel",serif;color:#4a070a}
+@media (max-width:640px){
+  .bn-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .bn-vs{position:absolute;left:50%;top:-10px;transform:translateX(-50%);margin:0;z-index:2;width:50px}
+  .bn-cloth{padding:16px 6px 52px}
+}
+@media (prefers-reduced-motion:reduce){.bn{animation:none}}
+
+
+/* the clash: two kingdoms' swords crossing behind the VS medal */
+.bn-clash{position:relative;align-self:center;margin-top:50px;display:grid;place-items:center;width:clamp(150px,22vw,230px);aspect-ratio:1}
+.bn-clash .bn-vs{margin:0;position:relative;z-index:2}
+.bn-swords{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 6px 8px rgba(60,20,0,.3))}
+.sw-l,.sw-r{transform-origin:100px 100px}
+@keyframes sw-l{0%{transform:rotate(-38deg) translateX(-30px);opacity:0}70%{transform:rotate(4deg)}100%{transform:none;opacity:1}}
+@keyframes sw-r{0%{transform:rotate(38deg) translateX(30px);opacity:0}70%{transform:rotate(-4deg)}100%{transform:none;opacity:1}}
+@keyframes sw-flash{0%,60%{opacity:0;transform:scale(.4)}75%{opacity:1;transform:scale(1.15)}100%{opacity:.85;transform:scale(1)}}
+.sw-l{animation:sw-l .9s cubic-bezier(.3,1.4,.5,1) both .2s}
+.sw-r{animation:sw-r .9s cubic-bezier(.3,1.4,.5,1) both .2s}
+.sw-burst,.sw-rays{transform-origin:100px 100px;animation:sw-flash 1.2s ease-out both .2s}
+@media (max-width:640px){
+  .bn-clash{position:absolute;left:50%;top:-66px;transform:translateX(-50%);margin:0;z-index:2;width:136px}
+  .bn-clash .bn-vs{position:relative;left:auto;top:auto;transform:none;width:50px}
+  .bn-rod{margin-top:46px}
+}
+@media (prefers-reduced-motion:reduce){.sw-l,.sw-r,.sw-burst,.sw-rays{animation:none}}
+
+/* footer social links */
+.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.social a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px 8px 10px;border:1px solid rgba(255,224,138,.55);color:#fff;text-decoration:none;font:700 .95rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase}
+.social a:hover{background:rgba(255,255,255,.1);color:var(--gold-hi)}
+.social svg{width:22px;height:22px;fill:currentColor}
+</style>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-trophy" viewBox="0 0 48 48"><path d="M14 6h20v12a10 10 0 0 1-20 0z"/><path d="M14 10H6v3a7 7 0 0 0 8 7"/><path d="M34 10h8v3a7 7 0 0 1-8 7"/><path d="M24 28v8"/><path d="M15 42h18"/><path d="M18 36h12v6H18z"/></symbol>
+  <symbol id="i-pins" viewBox="0 0 48 48"><path d="M17 5c-3 0-4 3-4 5s1 4 1 6c0 3-5 8-5 17 0 5 2 9 3 10h10c1-1 3-5 3-10 0-9-5-14-5-17 0-2 1-4 1-6s-1-5-4-5z"/><path d="M12 20h10"/><path d="M33 13c-2 0-3 2-3 4s1 3 1 5c0 1-1 3-2 5"/><path d="M36 22c0 3 4 6 4 13 0 4-1 7-2 8h-9"/></symbol>
+  <symbol id="i-ball" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><circle cx="20" cy="16" r="2.2"/><circle cx="28" cy="15" r="2.2"/><circle cx="25" cy="23" r="2.2"/></symbol>
+  <symbol id="i-people" viewBox="0 0 48 48"><circle cx="17" cy="16" r="6"/><path d="M5 40c0-8 5-13 12-13s12 5 12 13"/><circle cx="33" cy="18" r="5"/><path d="M33 28c6 0 10 4 10 12"/></symbol>
+  <symbol id="i-coach" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="2.5"/><path d="M24 2v6M24 40v6M2 24h6M40 24h6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" rx="2"/><path d="M6 20h36M16 5v9M32 5v9"/><path d="M17 31l5 5 10-10"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 48 48"><path d="M7 35h34l3-21-11 9-9-15-9 15-11-9z"/><path d="M7 42h34"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" rx="2"/><path d="M6 20h36M16 5v9M32 5v9"/></symbol>
+  <symbol id="logo-cholan" viewBox="0 0 120 140">
+    <defs><linearGradient id="ch-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset=".55" stop-color="#f0b43a"/><stop offset="1" stop-color="#b0700f"/></linearGradient><linearGradient id="ch-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4262c"/><stop offset="1" stop-color="#6e0b0f"/></linearGradient></defs>
+    <path d="M60 6 110 22v44c0 34-22 58-50 70C32 124 10 100 10 66V22z" fill="url(#ch-gold)"/>
+    <path d="M60 14 102 28v38c0 29-18 50-42 61C36 116 18 95 18 66V28z" fill="url(#ch-red)"/>
+    <!-- royal crown over the kingdom's initial -->
+    <path d="M36 58h48l4-24-13 11-15-17-15 17-13-11z" fill="url(#ch-gold)" stroke="#4a070a" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M36 58h48v6H36z" fill="url(#ch-gold)" stroke="#4a070a" stroke-width="1.2"/>
+    <circle cx="60" cy="27" r="3.2" fill="url(#ch-gold)"/><circle cx="31" cy="33" r="2.6" fill="url(#ch-gold)"/><circle cx="89" cy="33" r="2.6" fill="url(#ch-gold)"/>
+    <circle cx="60" cy="49" r="2.4" fill="#4a070a"/><circle cx="47" cy="52" r="1.8" fill="#4a070a"/><circle cx="73" cy="52" r="1.8" fill="#4a070a"/>
+    <text x="60" y="95" text-anchor="middle" font-family="'Noto Serif Tamil','Noto Sans Tamil','Latha',serif" font-weight="700" font-size="21" textLength="58" lengthAdjust="spacingAndGlyphs" fill="url(#ch-gold)" stroke="#4a070a" stroke-width="0" lang="ta">சோழன்</text>
+    <path d="M22 106h76l-6 10H28z" fill="url(#ch-gold)"/>
+    <text x="60" y="114.4" text-anchor="middle" font-family="Cinzel,serif" font-weight="900" font-size="10" fill="#4a070a" letter-spacing="2">CHOLAN</text>
+  </symbol>
+  <symbol id="logo-pandiyan" viewBox="0 0 120 140">
+    <defs><linearGradient id="pd-green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e9a52"/><stop offset="1" stop-color="#0b3d1f"/></linearGradient><linearGradient id="pd-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#b0700f"/></linearGradient></defs>
+    <path d="M60 6 110 22v44c0 34-22 58-50 70C32 124 10 100 10 66V22z" fill="url(#pd-gold)"/>
+    <path d="M60 14 102 28v38c0 29-18 50-42 61C36 116 18 95 18 66V28z" fill="url(#pd-green)"/>
+    <!-- royal crown over the kingdom's initial -->
+    <path d="M36 58h48l4-24-13 11-15-17-15 17-13-11z" fill="url(#pd-gold)" stroke="#0b3d1f" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M36 58h48v6H36z" fill="url(#pd-gold)" stroke="#0b3d1f" stroke-width="1.2"/>
+    <circle cx="60" cy="27" r="3.2" fill="url(#pd-gold)"/><circle cx="31" cy="33" r="2.6" fill="url(#pd-gold)"/><circle cx="89" cy="33" r="2.6" fill="url(#pd-gold)"/>
+    <circle cx="60" cy="49" r="2.4" fill="#0b3d1f"/><circle cx="47" cy="52" r="1.8" fill="#0b3d1f"/><circle cx="73" cy="52" r="1.8" fill="#0b3d1f"/>
+    <text x="60" y="95" text-anchor="middle" font-family="'Noto Serif Tamil','Noto Sans Tamil','Latha',serif" font-weight="700" font-size="19" textLength="72" lengthAdjust="spacingAndGlyphs" fill="url(#pd-gold)" stroke="#0b3d1f" stroke-width="0" lang="ta">பாண்டியன்</text>
+    <path d="M22 106h76l-6 10H28z" fill="url(#pd-gold)"/>
+    <text x="60" y="114.4" text-anchor="middle" font-family="Cinzel,serif" font-weight="900" font-size="8.6" fill="#0b3d1f" letter-spacing="1">PANDIYAN</text>
+  </symbol>
+</svg>
+
+<header class="site-head" id="site-head">
+  <div class="wrap bar">
+    <a class="brand" href="#home" data-go="home">
+      <img src="{{RB_ASSETS}}logo-small.webp" width="168" height="168" alt="">
+      <span class="bn" id="brand-name"><b>Raavanaa</b> Community</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#home" data-go="home">Home</a>
+      <a href="#about" data-go="about">About</a>
+      <a href="#clash" data-go="clash">Cholan v Pandiyan</a>
+      <a href="#crew" data-go="crew">Crew</a>
+      <a href="#stats" data-go="stats">Stats</a>
+      <a href="#rules" data-go="rules">Rules</a>
+      <a href="#gallery" data-go="gallery">Gallery</a>
+      <a class="join" href="#registration" data-go="registration">Registration</a>
+    </nav>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ───────── HOME ───────── -->
+<div class="page" data-page="home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="label">Raavanaa League starts Saturday, October 10</p>
+        <h1><span class="gold-text">Strike like a king.</span></h1>
+        <p class="lead">Raavanaa Bowling Club is a welcoming community for bowlers of every level. Enjoy the sport, improve your game and meet fellow players.</p>
+        <div class="cta-row">
+          <a class="btn" href="#registration" data-go="registration">Become a member</a>
+          <a class="btn ghost" href="#stats" data-go="stats">League stats</a>
+        </div>
+      </div>
+      <img class="hero-crest" src="{{RB_ASSETS}}logo.webp" width="820" height="820" alt="Raavanaa Bowling Club crest: a crowned king above a red bowling ball scattering pins">
+    </div>
+  </section>
+
+  <div class="sheet-wrap">
+    <div class="wrap">
+      <div class="sheet" role="img" aria-label="Score sheet of a perfect game: a strike in every frame, running total 30, 60, 90 up to 300">
+        <div class="frame"><span class="no">1</span><span class="marks"><i>X</i></span><span class="total">30</span></div>
+        <div class="frame"><span class="no">2</span><span class="marks"><i>X</i></span><span class="total">60</span></div>
+        <div class="frame"><span class="no">3</span><span class="marks"><i>X</i></span><span class="total">90</span></div>
+        <div class="frame"><span class="no">4</span><span class="marks"><i>X</i></span><span class="total">120</span></div>
+        <div class="frame"><span class="no">5</span><span class="marks"><i>X</i></span><span class="total">150</span></div>
+        <div class="frame"><span class="no">6</span><span class="marks"><i>X</i></span><span class="total">180</span></div>
+        <div class="frame"><span class="no">7</span><span class="marks"><i>X</i></span><span class="total">210</span></div>
+        <div class="frame"><span class="no">8</span><span class="marks"><i>X</i></span><span class="total">240</span></div>
+        <div class="frame"><span class="no">9</span><span class="marks"><i>X</i></span><span class="total">270</span></div>
+        <div class="frame"><span class="no">10</span><span class="marks"><i>X</i><i>X</i><i>X</i></span><span class="total">300</span></div>
+      </div>
+      <p class="sheet-note">Twelve strikes in a row. That is a perfect 300.</p>
+    </div>
+  </div>
+
+  <div class="league">
+    <div class="wrap">
+      <div>
+        <p class="label">Season opener</p>
+        <h2>Raavanaa League</h2>
+        <ul class="facts">
+          <li><b>Starts</b> Saturday, October 10</li>
+          <li><b>Time</b> 10:00 AM sharp</li>
+          <li><b>Venue</b> Planet Bowl</li>
+        </ul>
+      </div>
+      <div class="league-cta">
+        <a class="btn" href="#registration" data-go="registration">Register to play</a>
+        <a class="more" href="#clash" data-go="clash">Cholan vs Pandiyan</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="royal-band">
+    <div class="wrap">
+      <div class="head center">
+        <p class="label">Royal honours</p>
+        <h2>Four titles. One season.</h2>
+      </div>
+      <div class="grid g4">
+        <div class="trophy"><svg class="icon"><use href="#i-trophy"/></svg><div><b>Kingpin</b><span>Highest scorer</span></div></div>
+        <div class="trophy"><svg class="icon"><use href="#i-trophy"/></svg><div><b>Strike King</b><span>Most strikes</span></div></div>
+        <div class="trophy"><svg class="icon"><use href="#i-trophy"/></svg><div><b>Spare Master</b><span>Most spares</span></div></div>
+        <div class="trophy top"><svg class="icon"><use href="#i-trophy"/></svg><div><b>Champion Team</b><span>League-winning team</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="royal-hl">
+    <div class="wrap">
+      <div class="head center"><p class="label">The royal scoreboard</p><h2>Season highlights</h2></div>
+      <p class="sample-note"><b>Live scores</b><span data-updated></span></p>
+      <div class="highlights">
+        <div class="tiles" id="home-tiles"></div>
+        <div>
+          <p class="label" style="margin-bottom:12px">Top averages</p>
+          <ol class="race" id="home-leaders"></ol>
+        </div>
+      </div>
+      <p style="margin-top:22px"><a class="btn" href="#stats" data-go="stats">See all league stats</a></p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">The kingdom</p>
+        <h2>A place for every bowler</h2>
+        <p class="lead">A welcoming community space for bowling enthusiasts and players of all levels.</p>
+      </div>
+      <a class="photo band photo-link" href="#gallery" data-go="gallery" style="margin-bottom:clamp(26px,4vw,40px)" aria-label="Open the gallery: photos and videos of every bowler">
+        <img src="{{RB_ASSETS}}photo-1.webp" width="1400" height="1050" alt="Club members, several in orange Raavanaa jerseys, watching the scores at the lanes">
+        <span class="pl-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Every bowler, every strike · Open the gallery</span>
+      </a>
+      <div class="grid g2">
+        <div class="feature"><svg class="icon"><use href="#i-pins"/></svg><h3>League Play</h3><p>Join our friendly leagues to connect with other players and test your skills.</p></div>
+        <div class="feature"><svg class="icon"><use href="#i-people"/></svg><h3>Social Events</h3><p>Take part in community gatherings that turn bowling partners into lasting friends.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Royal calendar</p>
+        <h2>Coming up</h2>
+        <p class="lead">Tournaments, community meetups and social nights that bring local players together.</p>
+      </div>
+      <ul class="events">
+        <li><svg class="icon"><use href="#i-cal"/></svg><div><h3>Weekly Community Bowling Night</h3><p>Join fellow enthusiasts for friendly matches.</p></div><span class="tba">Saturdays, 10 AM · Planet Bowl</span></li>
+        <li><svg class="icon"><use href="#i-cal"/></svg><div><h3>Beginner Bowling Workshop</h3><p>Learn tips from experienced members.</p></div><span class="tba">Every Saturday from 10 AM</span></li>
+        <li><svg class="icon"><use href="#i-trophy"/></svg><div><h3>TORO Tournament</h3></div><span class="tba">December 19, 2026</span></li>
+        <li><svg class="icon"><use href="#i-trophy"/></svg><div><h3>GERMO Tournament</h3></div><span class="tba">Date to be announced</span></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<!-- ───────── ABOUT ───────── -->
+<div class="page" data-page="about" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">About us</p>
+    <h1 class="gold-text">Our story</h1>
+  </div></div>
+  <section style="padding-top:clamp(24px,3.5vw,40px)">
+    <div class="wrap story">
+      <div>
+        <p>Raavanaa Bowling Club began as friends meeting at the lanes on weekends. More than ten years later, those get-togethers have grown into a close community.</p>
+        <p>Now we are forming an official league, and new members are welcome, whether you have bowled for years or are picking up a ball for the first time.</p>
+      </div>
+      <figure class="photo">
+        <img src="{{RB_ASSETS}}photo-5.webp" width="1400" height="1050" alt="Members in orange Raavanaa jerseys, one holding his ball ready to bowl">
+      </figure>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="label">Members of the kingdom</p><h2>Our team</h2></div>
+      <div class="grid team">
+        <div class="person"><span class="mono" aria-hidden="true">S</span><b>Sasi</b><span>Coach</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">S</span><b>Shankar</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">B</span><b>Bala</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">M</span><b>Myooran</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">S</span><b>Sabes</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">H</span><b>Haran</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">S</span><b>Sanjay</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">K</span><b>Kiri</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">S</span><b>Suresh</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">R</span><b>Roshan</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">N</span><b>Niz</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">R</span><b>Ram</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">M</span><b>Mona</b><span>Club member</span></div>
+        <div class="person"><span class="mono" aria-hidden="true">T</span><b>Thilak</b><span>Club member</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="voices">
+    <div class="wrap">
+      <div class="head"><p class="label">Reviews</p><h2>What members say</h2></div>
+      <div class="grid g3">
+        <figure class="voice"><blockquote>“Joining this club has been an incredible way to meet fellow players and improve my game.”</blockquote><figcaption><b>Gunam S.</b><span>League Member</span></figcaption></figure>
+        <figure class="voice"><blockquote>“The friendly environment makes every bowling session so enjoyable and relaxing.”</blockquote><figcaption><b>Thurai S.</b><span>Club Enthusiast</span></figcaption></figure>
+        <figure class="voice"><blockquote>“A fantastic community space dedicated to helping bowling enthusiasts connect and play.”</blockquote><figcaption><b>Ganesh S.</b><span>Regular Player</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── GALLERY ───────── -->
+<div class="page" data-page="gallery" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Gallery</p>
+    <h1 class="gold-text">Kingpins in action</h1>
+    <p class="lead">Friendly moments from the lanes: league nights, meetups and the community that makes the club.</p>
+  </div></div>
+  <section>
+    <div class="wrap">
+      <div class="g-tabs" role="tablist" aria-label="Gallery">
+        <button type="button" role="tab" id="gt-photos" aria-controls="gp-photos" aria-selected="true" data-gt="photos">Photos <span>8</span></button>
+        <button type="button" role="tab" id="gt-videos" aria-controls="gp-videos" aria-selected="false" data-gt="videos" tabindex="-1">Videos <span id="g-vcount">0</span></button>
+      </div>
+      <div class="g-pane" id="gp-photos" role="tabpanel" aria-labelledby="gt-photos" data-gp="photos">
+      <p class="g-hint">Tap a photo to see it large</p>
+      <div class="g-grid">
+        <figure class="g-item wide"><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-crowd.webp" data-cap="Every eye on the pins" aria-label="Open picture: Every eye on the pins">
+          <img src="{{RB_ASSETS}}g-crowd-sm.webp" width="1400" height="1050" alt="Club members and other bowlers watching a shot at the lanes" loading="lazy"></button>
+          <figcaption>Every eye on the pins</figcaption></figure>
+        <figure class="g-item "><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-jerseys.webp" data-cap="League night in Raavanaa orange" aria-label="Open picture: League night in Raavanaa orange">
+          <img src="{{RB_ASSETS}}g-jerseys-sm.webp" width="1400" height="1050" alt="Members in orange Raavanaa jerseys standing at the lanes, watching a shot" loading="lazy"></button>
+          <figcaption>League night in Raavanaa orange</figcaption></figure>
+        <figure class="g-item tall"><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-banner.webp" data-cap="Conquer the lane: out in the community" aria-label="Open picture: Conquer the lane: out in the community">
+          <img src="{{RB_ASSETS}}g-banner-sm.webp" width="1050" height="1400" alt="Two members standing beside the Raavanaa Bowling Community banner at an outdoor event" loading="lazy"></button>
+          <figcaption>Conquer the lane: out in the community</figcaption></figure>
+        <figure class="g-item "><button type="button" class="g-open" data-full="{{RB_ASSETS}}photo-1.webp" data-cap="All eyes on the scoreboard" aria-label="Open picture: All eyes on the scoreboard">
+          <img src="{{RB_ASSETS}}photo-1-sm.webp" width="1400" height="1050" alt="Club members, several in orange Raavanaa jerseys, watching the scores at the lanes" loading="lazy"></button>
+          <figcaption>All eyes on the scoreboard</figcaption></figure>
+        <figure class="g-item "><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-team.webp" data-cap="Getting ready before the first frame" aria-label="Open picture: Getting ready before the first frame">
+          <img src="{{RB_ASSETS}}g-team-sm.webp" width="1400" height="1050" alt="Members getting ready around a table before league night" loading="lazy"></button>
+          <figcaption>Getting ready before the first frame</figcaption></figure>
+        <figure class="g-item tall"><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-family.webp" data-cap="The next generation of kingpins" aria-label="Open picture: The next generation of kingpins">
+          <img src="{{RB_ASSETS}}g-family-sm.webp" width="952" height="1400" alt="Members bowling together, with a young boy waiting for his turn" loading="lazy"></button>
+          <figcaption>The next generation of kingpins</figcaption></figure>
+        <figure class="g-item "><button type="button" class="g-open" data-full="{{RB_ASSETS}}photo-5.webp" data-cap="Ready to bowl in Raavanaa orange" aria-label="Open picture: Ready to bowl in Raavanaa orange">
+          <img src="{{RB_ASSETS}}photo-5-sm.webp" width="1400" height="1050" alt="Members in orange Raavanaa jerseys, one holding his ball ready to bowl" loading="lazy"></button>
+          <figcaption>Ready to bowl in Raavanaa orange</figcaption></figure>
+        <figure class="g-item "><button type="button" class="g-open" data-full="{{RB_ASSETS}}g-selfie.webp" data-cap="The crew, all together" aria-label="Open picture: The crew, all together">
+          <img src="{{RB_ASSETS}}g-selfie-sm.webp" width="1400" height="1050" alt="A group selfie of members at the bowling centre" loading="lazy"></button>
+          <figcaption>The crew, all together</figcaption></figure>
+      </div>
+      </div>
+      <div class="g-pane" id="gp-videos" role="tabpanel" aria-labelledby="gt-videos" data-gp="videos" hidden>
+        <div class="g-vgrid" id="g-vgrid"></div>
+        <p class="g-more"><a class="btn ghost" href="https://www.youtube.com/@raavanaabowling" target="_blank" rel="noopener">More videos on our YouTube channel</a></p>
+        <div class="g-empty" id="g-vempty">
+          <svg class="icon" aria-hidden="true"><use href="#i-ball"/></svg>
+          <h3>Videos are on their way</h3>
+          <p>League nights, strikes and celebrations, in motion. Check back after the next game.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <dialog class="g-box" id="g-box" aria-label="Picture viewer">
+    <button type="button" class="g-close" aria-label="Close">✕</button>
+    <button type="button" class="g-nav g-prev" aria-label="Previous picture">‹</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button type="button" class="g-nav g-next" aria-label="Next picture">›</button>
+  </dialog>
+</div>
+
+<!-- ───────── REGISTRATION ───────── -->
+<div class="page" data-page="registration" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Member registration</p>
+    <h1 class="gold-text">Join the kingdom</h1>
+    <p class="lead">Connect with fellow players, enjoy a welcoming environment and improve your game as a member of Raavanaa Bowling Club.</p>
+  </div></div>
+  <section>
+    <div class="wrap reg">
+      <form class="form" id="reg-form" novalidate>
+        <h2>Member registration form</h2>
+        <div class="field"><label for="reg-first">First name</label><input id="reg-first" name="first" autocomplete="given-name" required></div>
+        <div class="field"><label for="reg-last">Last name</label><input id="reg-last" name="last" autocomplete="family-name" required></div>
+        <div class="field full"><label for="reg-email">Email</label><input id="reg-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field full"><label for="reg-phone">Phone number</label><input id="reg-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <p hidden><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <button class="btn" type="submit">Register</button>
+        <p class="form-note" id="reg-note" role="status" hidden></p>
+      </form>
+      <div>
+        <div class="head"><p class="label">Good to know</p><h2>Frequently asked questions</h2></div>
+        <div class="faq">
+          <details open><summary>How do I become a member?</summary><p>Join by visiting the club or by signing up online with the form on this page.</p></details>
+          <details><summary>Are bowling shoes available for rent?</summary><p>Yes. A wide range of shoe sizes is available for members and guests.</p></details>
+          <details><summary>Do you host community bowling tournaments?</summary><p>Yes. We regularly organize friendly competitions and events for players of all skill levels.</p></details>
+          <details><summary>Is coaching available for beginners?</summary><p>Yes. Experienced players share support and tips to help you improve your game.</p></details>
+          <details><summary>When does the club play?</summary><p>We play every weekend, so there is plenty of time to enjoy the sport and socialize.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── LEAGUE ───────── -->
+<!-- ───────── CHOLAN VS PANDIYAN ───────── -->
+<div class="page" data-page="clash" hidden>
+  <div class="clash-hero">
+    <div class="wrap">
+      <p class="label ch-kicker">Raavanaa League · Season 1 · 16 weeks</p>
+      <div class="bn-rod" aria-hidden="true"></div>
+      <div class="bn-row">
+        <div class="bn k"><div class="bn-loops"><i></i><i></i><i></i></div><div class="bn-cloth"><svg class="bn-trim" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="4,3 96,3 96,94 50,82 4,94"/></svg>
+          <svg class="bn-crest" viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-cholan"/></svg>
+          <span class="bn-ta" lang="ta">சோழன்</span><h1 class="bn-name">Cholan</h1>
+          <div class="bn-cap"><svg class="bn-crown" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 14h20l1.5-11-6 5L12 1 6.5 8l-6-5z"/></svg><p class="bn-motto">Honour<br>Courage<br>Glory</p></div></div></div>
+        <div class="bn-clash"><svg class="bn-swords" viewBox="0 0 200 200" aria-hidden="true">
+    <defs><linearGradient id="sw-steel" x1="0" x2="1"><stop offset="0" stop-color="#8d99a8"/><stop offset=".5" stop-color="#f4f7fb"/><stop offset="1" stop-color="#7d8898"/></linearGradient>
+      <linearGradient id="sw-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#b0700f"/></linearGradient>
+      <radialGradient id="sw-burst"><stop offset="0" stop-color="#ffe08a" stop-opacity=".95"/><stop offset=".45" stop-color="#f0b43a" stop-opacity=".45"/><stop offset="1" stop-color="#f0b43a" stop-opacity="0"/></radialGradient></defs>
+    <circle class="sw-burst" cx="100" cy="100" r="70" fill="url(#sw-burst)"/>
+    <g class="sw-rays" stroke="#f0b43a" stroke-width="2.4" stroke-linecap="round">
+      <path d="M100 18v16M100 166v16M18 100h16M166 100h16M42 42l11 11M147 147l11 11M158 42l-11 11M53 147l-11 11"/></g>
+    <g class="sw-l"><g transform="rotate(42 100 100)">
+      <path d="M100 8 L107 22 L106 128 L94 128 L93 22 Z" fill="url(#sw-steel)" stroke="#3a2a10" stroke-width="1.2"/>
+      <path d="M100 14 L100 124" stroke="#ffffff" stroke-opacity=".7" stroke-width="1.2"/>
+      <path d="M74 128 Q100 120 126 128 L126 136 Q100 130 74 136 Z" fill="url(#sw-gold)" stroke="#3a2a10" stroke-width="1.2"/>
+      <rect x="95" y="136" width="10" height="34" rx="3" fill="#8f1218" stroke="#2a1505" stroke-width="1.2"/>
+      <path d="M95 144h10M95 152h10M95 160h10" stroke="#2a1505" stroke-opacity=".5"/>
+      <circle cx="100" cy="176" r="8" fill="url(#sw-gold)" stroke="#3a2a10" stroke-width="1.2"/>
+    </g></g>
+    <g class="sw-r"><g transform="rotate(-42 100 100)">
+      <path d="M100 8 L107 22 L106 128 L94 128 L93 22 Z" fill="url(#sw-steel)" stroke="#3a2a10" stroke-width="1.2"/>
+      <path d="M100 14 L100 124" stroke="#ffffff" stroke-opacity=".7" stroke-width="1.2"/>
+      <path d="M74 128 Q100 120 126 128 L126 136 Q100 130 74 136 Z" fill="url(#sw-gold)" stroke="#3a2a10" stroke-width="1.2"/>
+      <rect x="95" y="136" width="10" height="34" rx="3" fill="#17603a" stroke="#2a1505" stroke-width="1.2"/>
+      <path d="M95 144h10M95 152h10M95 160h10" stroke="#2a1505" stroke-opacity=".5"/>
+      <circle cx="100" cy="176" r="8" fill="url(#sw-gold)" stroke="#3a2a10" stroke-width="1.2"/>
+    </g></g>
+  </svg><div class="bn-vs" aria-label="versus"><span>VS</span></div></div>
+        <div class="bn t"><div class="bn-loops"><i></i><i></i><i></i></div><div class="bn-cloth"><svg class="bn-trim" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="4,3 96,3 96,94 50,82 4,94"/></svg>
+          <svg class="bn-crest" viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-pandiyan"/></svg>
+          <span class="bn-ta" lang="ta">பாண்டியன்</span><h1 class="bn-name">Pandiyan</h1>
+          <div class="bn-cap"><svg class="bn-crown" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 14h20l1.5-11-6 5L12 1 6.5 8l-6-5z"/></svg><p class="bn-motto">Justice<br>Wisdom<br>Valour</p></div></div></div>
+      </div>
+      <p class="ch-lead">Two legendary kingdoms, where the law was honoured with heart, soul and life. Every league night they meet again on the lanes: six games, team pins against team pins, and the kingdom that wins more games takes the night.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="season" id="season"></div>
+      <div class="table-scroll points-wrap">
+        <table class="data points" id="points">
+          <caption>Points table</caption>
+          <thead><tr><th class="l">Pos</th><th class="l">Kingdom</th><th><abbr title="Nights played">P</abbr></th><th><abbr title="Nights won">W</abbr></th><th><abbr title="Nights lost">L</abbr></th><th><abbr title="Nights tied">T</abbr></th><th><abbr title="Points">Pts</abbr></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="filters clash-weeks" id="clash-weeks" role="group" aria-label="Choose a league night"></div>
+      <div class="night" id="night"></div>
+      <div class="games" id="games"></div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="clash-two">
+        <div>
+          <div class="head"><p class="label">Season 1</p><h2>Champion race</h2><p class="lead">After 16 weeks, the bowler with the most pins is crowned Season Champion.</p></div>
+          <ol class="race" id="champ"></ol>
+        </div>
+        <div class="clash-rules">
+          <div class="head"><p class="label">How it works</p><h2>Rules of the clash</h2></div>
+          <ul>
+            <li><b>Each game:</b> the team with more pins wins the game. A tie counts as half a game each.</li>
+            <li><b>Each night:</b> six games. The team that wins more games wins the night.</li>
+            <li><b>Points:</b> a night won is 2 points, a tied night (3–3) is 1 point each, a night lost is 0. Pins never decide a night.</li>
+            <li><b>Blind scores:</b> some bowlers have a blind score. In the team total they count the blind score, or their real score when it is higher. Their own stats always show what they bowled.</li>
+            <li><b>Teams change:</b> the players on Cholan and Pandiyan can change every week.</li>
+            <li><b>The season:</b> 16 weeks. The kingdom with the most points takes the team title; most pins takes the Season Champion crown.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── LEAGUE CREW ───────── -->
+<div class="page" data-page="crew" hidden>
+  <div class="page-title crew-title"><div class="wrap">
+    <p class="label">Raavanaa League · Season 1</p>
+    <h1 class="gold-text">The League Crew</h1>
+    <p class="lead">Twelve bowlers opened the Raavanaa League at Planet Bowl on Saturday, October 10. Meet the crew, and the five who lead the kingdom.</p>
+  </div></div>
+  <section>
+    <div class="wrap">
+      <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>The Royal Five</p><span class="orn"></span></div>
+      <div class="filters crew-filters" id="crew-filters" role="group" aria-label="Rank the crew by"></div>
+      <p class="court-note crew-note"><span id="crew-what">The top five averages so far.</span> <span data-updated></span></p>
+      <div class="five" id="five"></div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="label">All members</p><h2>The full crew</h2><p class="lead">Every member of the league, ranked by the stat you pick above. Tap a name to see their stats.</p></div>
+      <div class="crew" id="crew"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── RULES ───────── -->
+<div class="page" data-page="rules" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Raavanaa League</p>
+    <h1 class="gold-text">Rules of the realm</h1>
+    <p class="lead">Start on time, bowl in turn and let the screen settle the score.</p>
+  </div></div>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><p class="label">Before the first ball</p><h2>Time rules</h2></div>
+      <div class="grid g2">
+        <div class="rules">
+          <h3>Starting time</h3>
+          <ul>
+            <li>Game starts at <strong>10:00 AM sharp</strong>.</li>
+            <li>Lineups must be entered before practice begins.</li>
+            <li>Once practice time ends, the game must begin immediately, without wasting playing time.</li>
+          </ul>
+        </div>
+        <div class="rules">
+          <h3>Late or not ready</h3>
+          <ul>
+            <li>If a player hasn’t arrived, their turn can be skipped <strong>up to 2 times</strong>.</li>
+            <li>If a player is not ready to bowl by their <strong>3rd frame</strong>, they will:
+              <ul>
+                <li>Sit out the entire first game</li>
+                <li>Be awarded their average score (given at the time of team selection)</li>
+                <li>Still be charged for the game</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="label">On the lanes</p><h2>Scoring rules</h2></div>
+      <div class="grid g2">
+        <div class="rules">
+          <div class="rules-head"><span class="no">1</span><h3>Strikes</h3></div>
+          <ul>
+            <li>If the machine shows a strike (displayed on the screen), it counts as a strike.</li>
+          </ul>
+        </div>
+        <div class="rules">
+          <div class="rules-head"><span class="no">2</span><h3>Spares</h3></div>
+          <ul>
+            <li>If the machine shows a spare (displayed on the screen), it counts as a spare.</li>
+            <li>If the machine accidentally clears all pins on the second ball (even if it was a split) but doesn’t register as a spare, it’s still a spare. It’s your lucky day!</li>
+            <li>If the machine accidentally removes a pin for the second ball, it’s also counted as a spare.</li>
+          </ul>
+        </div>
+        <div class="rules">
+          <div class="rules-head"><span class="no">3</span><h3>Wrong lane or wrong bowler</h3></div>
+          <p style="color:var(--muted)">What happens to a shot bowled on the wrong lane or out of turn.</p>
+          <div class="swaps">
+            <div class="swap"><p><b>Strike</b>Becomes 9 and a spare</p><span class="boxes"><span class="box was"><i>X</i></span>→<span class="box"><i>9</i><i>/</i></span></span></div>
+            <div class="swap"><p><b>Spare</b>Cancelled and reduced by 1 pin</p><span class="boxes"><span class="box was"><i>7</i><i>/</i></span>→<span class="box"><i>7</i><i>2</i></span></span></div>
+            <div class="swap"><p><b>Open frame</b>A missed spare or strike</p><span class="stays">Stays as is</span></div>
+          </div>
+        </div>
+        <div class="rules">
+          <div class="rules-head"><span class="no">4</span><h3>Missing or displaced pins</h3></div>
+          <ul>
+            <li>If a pin is missing on the first ball and the player bowls (accidentally or intentionally), the outcome stands as is. No re-throw allowed.</li>
+            <li>If a pin is in the gutter, it can be removed at any time. Players do not need to stop bowling, unless it distracts the next bowler.</li>
+            <li>If a pin is on the lane for the second shot, the bowler decides whether to keep it or have it removed.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="closing">Let’s respect everyone’s time and keep things running smoothly.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── STATS ───────── -->
+<div class="page" data-page="stats" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Stat dashboard</p>
+    <h1 class="gold-text">League stats</h1>
+    <p class="lead">Averages, high games, strikes and spares for every bowler, updated after each league night.</p>
+  </div></div>
+  <section>
+    <div class="wrap">
+      <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>The Royal Scoreboard</p><span class="orn"></span></div>
+      <div class="board" id="tiles"></div>
+      <div class="filters" id="filters" role="group" aria-label="Show games from"></div>
+      <div class="podium-wrap">
+        <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>The Royal Court</p><span class="orn"></span></div>
+        <p class="court-note">The three best averages in the kingdom</p>
+        <div class="podium" id="podium"></div>
+      </div>
+      <div class="dash">
+        <div class="table-scroll">
+          <table class="data" id="stats-table">
+            <thead><tr>
+              <th class="l">#</th>
+              <th class="l"><button type="button" data-sort="n">Player</button></th>
+              <th><button type="button" data-sort="avg" title="Average score per game">Avg</button></th>
+              <th><button type="button" data-sort="high" title="Highest single game">High</button></th>
+              <th><button type="button" data-sort="games">Games</button></th>
+              <th><button type="button" data-sort="x">Strikes</button></th>
+              <th><button type="button" data-sort="sp">Spares</button></th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="player" id="player" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- lane band, shown on every page except Registration -->
+<div class="lane" id="lane">
+  <div class="wrap">
+    <svg class="arrows" viewBox="0 0 320 70" aria-hidden="true">
+      <path d="M12 66l10-22 10 22z"/><path d="M58 50l10-22 10 22z"/><path d="M104 34l10-22 10 22z"/><path d="M150 22l10-22 10 22z"/><path d="M196 34l10-22 10 22z"/><path d="M242 50l10-22 10 22z"/><path d="M288 66l10-22 10 22z"/>
+    </svg>
+    <h2>Your lane awaits, your majesty</h2>
+    <p>New to bowling or chasing your best game, there is a place for you in the Raavanaa kingdom.</p>
+    <a class="btn" href="#registration" data-go="registration">Become a member</a>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="{{RB_ASSETS}}logo-small.webp" width="168" height="168" alt="Raavanaa Bowling Club">
+        <p>A welcoming community for bowlers of every level. Strike like a king.</p>
+        <div class="social" aria-label="Follow us">
+          <a href="https://www.facebook.com/share/1FjcCP3Q6Y/" target="_blank" rel="noopener" aria-label="Raavanaa Bowling on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z"/></svg><span>Facebook</span></a>
+          <a href="https://www.youtube.com/@raavanaabowling" target="_blank" rel="noopener" aria-label="Raavanaa Bowling on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg><span>YouTube</span></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <p class="label">Club</p>
+        <a href="#home" data-go="home">Home</a>
+        <a href="#about" data-go="about">About</a>
+        <a href="#gallery" data-go="gallery">Gallery</a>
+        <a href="#registration" data-go="registration">Registration</a>
+      </div>
+      <div class="foot-col">
+        <p class="label">Compete</p>
+        <a href="#clash" data-go="clash">Cholan vs Pandiyan</a>
+        <a href="#crew" data-go="crew">League crew</a>
+        <a href="#stats" data-go="stats">Stat dashboard</a>
+        <a href="#rules" data-go="rules">Rules</a>
+      </div>
+      <div class="foot-col">
+        <p class="label">Contact</p>
+        <a href="tel:4166174080">416-617-4080</a>
+        <a href="tel:4375353926">437-535-3926</a>
+        <a href="#registration" data-go="registration">Become a member</a>
+      </div>
+    </div>
+    <div class="foot-base"><span>© 2026 Raavanaa Bowling Club</span><span>raavanaabowling.com</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PAGES=["home","about","clash","crew","stats","rules","gallery","registration"];
+  var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
+  function show(name, scroll){
+    if(PAGES.indexOf(name)<0) name="home";
+    document.querySelectorAll(".page").forEach(function(p){ p.hidden = p.dataset.page!==name; });
+    document.querySelectorAll(".nav a").forEach(function(a){
+      if(a.dataset.go===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+    });
+    lane.hidden = name==="registration";
+    head.classList.remove("open"); btn.setAttribute("aria-expanded","false");
+    if(scroll) window.scrollTo(0,0);
+    if(window.fitNames) fitNames();
+  }
+  document.addEventListener("click",function(e){
+    var a=e.target.closest("[data-go]"); if(!a) return;
+    e.preventDefault();
+    show(a.dataset.go,true);
+    try{ history.replaceState(null,"","#"+a.dataset.go); }catch(err){}
+  });
+  window.addEventListener("hashchange",function(){ show(location.hash.slice(1),true); });
+  btn.addEventListener("click",function(){
+    var open=head.classList.toggle("open"); btn.setAttribute("aria-expanded",open?"true":"false");
+  });
+  var form=document.getElementById("reg-form"), note=document.getElementById("reg-note");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var missing=[].filter.call(form.querySelectorAll("input[required]"),function(i){ return !i.value.trim(); });
+    note.hidden=false;
+    if(missing.length){ note.textContent="Please fill in "+missing.length+" more "+(missing.length===1?"field":"fields")+" before you register."; missing[0].focus(); return; }
+    var btn2=form.querySelector("button[type=submit]"); btn2.disabled=true; note.textContent="Sending...";
+    var TO="sure.ganes@gmail.com";
+    function byEmail(){
+      var f=new FormData(form), body="New member registration\n\nFirst name: "+f.get("first")+"\nLast name: "+f.get("last")+"\nEmail: "+f.get("email")+"\nPhone: "+f.get("phone");
+      location.href="mailto:"+TO+"?subject="+encodeURIComponent("New registration: "+f.get("first")+" "+f.get("last"))+"&body="+encodeURIComponent(body);
+      note.textContent="Your email app has opened with your details. Press send to finish registering."; btn2.disabled=false;
+    }
+    fetch("{{RB_AJAX}}",{method:"POST",body:(function(){var d=new FormData(form);d.append("action","rb_register");return d;})()})
+      .then(function(r){ if(!r.ok && (r.status===404||r.status===405)) return {fallback:true}; return r.json().catch(function(){ return {fallback:true}; }); })
+      .then(function(j){ if(j && j.fallback){ byEmail(); return null; } return j; })
+      .then(function(j){
+        if(j===null) return;
+        if(j && j.ok){ note.textContent="Thank you! Your registration has been sent. The club will be in touch soon."; form.reset(); }
+        else { note.textContent=(j && j.error) || "Sorry, that did not go through. Please try again, or call 416-617-4080."; btn2.disabled=false; }
+      })
+      .catch(function(){ byEmail(); });
+  });
+
+  /* ── league scores ──
+     One line per game, read from the lane screens. n = name, s = score,
+     x = strikes, sp = spares (every X and / on the card, 10th frame included). */
+  var WEEKS={1:"Saturday, October 10, 2026"};
+  var GAMES=[
+    {w:1,g:1,n:"Thilak",s:112,x:2,sp:2},
+    {w:1,g:1,n:"Sab",s:159,x:3,sp:4},
+    {w:1,g:1,n:"Niz",s:169,x:2,sp:6},
+    {w:1,g:1,n:"Sasi",s:161,x:4,sp:4},
+    {w:1,g:1,n:"Ros",s:165,x:1,sp:7},
+    {w:1,g:1,n:"Mon",s:172,x:4,sp:3},
+    {w:1,g:1,n:"Suresh",s:130,x:1,sp:5},
+    {w:1,g:1,n:"Nay",s:176,x:4,sp:5},
+    {w:1,g:1,n:"May",s:176,x:1,sp:8},
+    {w:1,g:1,n:"Spg",s:133,x:1,sp:5},
+    {w:1,g:1,n:"Kiri",s:154,x:2,sp:6},
+    {w:1,g:1,n:"Skr",s:157,x:1,sp:7},
+    {w:1,g:2,n:"Thilak",s:126,x:2,sp:2},
+    {w:1,g:2,n:"Sab",s:141,x:1,sp:6},
+    {w:1,g:2,n:"Niz",s:180,x:4,sp:4},
+    {w:1,g:2,n:"Sasi",s:135,x:2,sp:3},
+    {w:1,g:2,n:"Ros",s:143,x:3,sp:3},
+    {w:1,g:2,n:"Mon",s:188,x:4,sp:5},
+    {w:1,g:2,n:"Suresh",s:153,x:2,sp:5},
+    {w:1,g:2,n:"Nay",s:167,x:4,sp:4},
+    {w:1,g:2,n:"May",s:158,x:4,sp:3},
+    {w:1,g:2,n:"Spg",s:144,x:4,sp:1},
+    {w:1,g:2,n:"Kiri",s:117,x:1,sp:3},
+    {w:1,g:2,n:"Skr",s:154,x:1,sp:6},
+    {w:1,g:3,n:"Thilak",s:141,x:3,sp:4},
+    {w:1,g:3,n:"Sab",s:148,x:2,sp:4},
+    {w:1,g:3,n:"Niz",s:178,x:3,sp:5},
+    {w:1,g:3,n:"Sasi",s:141,x:0,sp:6},
+    {w:1,g:3,n:"Ros",s:108,x:1,sp:1},
+    {w:1,g:3,n:"Mon",s:209,x:5,sp:5},
+    {w:1,g:3,n:"Suresh",s:160,x:2,sp:5},
+    {w:1,g:3,n:"Nay",s:200,x:5,sp:3},
+    {w:1,g:3,n:"May",s:145,x:3,sp:3},
+    {w:1,g:3,n:"Spg",s:176,x:4,sp:4},
+    {w:1,g:3,n:"Kiri",s:129,x:3,sp:2},
+    {w:1,g:3,n:"Skr",s:178,x:3,sp:5},
+    {w:1,g:4,n:"Thilak",s:130,x:0,sp:5},
+    {w:1,g:4,n:"Sab",s:205,x:5,sp:4},
+    {w:1,g:4,n:"Niz",s:198,x:2,sp:8},
+    {w:1,g:4,n:"Sasi",s:149,x:1,sp:6},
+    {w:1,g:4,n:"Ros",s:154,x:3,sp:3},
+    {w:1,g:4,n:"Mon",s:212,x:7,sp:3},
+    {w:1,g:4,n:"Suresh",s:107,x:2,sp:1},
+    {w:1,g:4,n:"Nay",s:101,x:0,sp:2},
+    {w:1,g:4,n:"May",s:124,x:1,sp:2},
+    {w:1,g:4,n:"Spg",s:122,x:1,sp:3},
+    {w:1,g:4,n:"Kiri",s:105,x:1,sp:2},
+    {w:1,g:4,n:"Skr",s:140,x:1,sp:5},
+    {w:1,g:5,n:"Thilak",s:104,x:1,sp:2},
+    {w:1,g:5,n:"Sab",s:118,x:1,sp:2},
+    {w:1,g:5,n:"Niz",s:204,x:3,sp:7},
+    {w:1,g:5,n:"Sasi",s:146,x:3,sp:3},
+    {w:1,g:5,n:"Ros",s:179,x:3,sp:7},
+    {w:1,g:5,n:"Mon",s:200,x:5,sp:3},
+    {w:1,g:5,n:"Suresh",s:123,x:2,sp:2},
+    {w:1,g:5,n:"Nay",s:197,x:4,sp:4},
+    {w:1,g:5,n:"May",s:167,x:4,sp:3},
+    {w:1,g:5,n:"Spg",s:179,x:4,sp:4},
+    {w:1,g:5,n:"Kiri",s:111,x:1,sp:3},
+    {w:1,g:5,n:"Skr",s:182,x:2,sp:6},
+    {w:1,g:6,n:"Thilak",s:114,x:1,sp:2},
+    {w:1,g:6,n:"Sab",s:182,x:5,sp:2},
+    {w:1,g:6,n:"Niz",s:213,x:5,sp:4},
+    {w:1,g:6,n:"Sasi",s:137,x:2,sp:4},
+    {w:1,g:6,n:"Ros",s:153,x:2,sp:5},
+    {w:1,g:6,n:"Mon",s:180,x:3,sp:4},
+    {w:1,g:6,n:"Suresh",s:111,x:0,sp:3},
+    {w:1,g:6,n:"Nay",s:180,x:5,sp:2},
+    {w:1,g:6,n:"May",s:195,x:2,sp:9},
+    {w:1,g:6,n:"Spg",s:173,x:4,sp:4},
+    {w:1,g:6,n:"Kiri",s:105,x:1,sp:2},
+    {w:1,g:6,n:"Skr",s:202,x:5,sp:4}
+  ];
+  /* league members, and the short names the lane screens use for them */
+  var MEMBERS=["Sabes","Roshan","Niz","Ram","Shankar","Sasi","Bala","Myooran","Mona","Thilak","Sanjay","Haran"];
+  var SCREEN={Sab:"Sabes",Ros:"Roshan",May:"Myooran",Mon:"Mona",Skr:"Shankar",Thil:"Thilak",Tila:"Thilak",Spg:"Sanjay",SPG:"Sanjay",Nay:"Ram"};
+  GAMES.forEach(function(r){ r.n=SCREEN[r.n]||r.n; });
+  /* Cholan (kings key) vs Pandiyan (titans key): who played for which team each week (screen names are fine here).
+     The page shows team totals only; names stay out of it. */
+  var TEAMS={
+    1:{kings:["Suresh","Kiri","Shankar","Myooran","Sanjay","Ram"], titans:["Thilak","Roshan","Sasi","Niz","Mona","Sabes"]}
+  };
+  /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
+  var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130}};
+  var SEASON_WEEKS=16;
+  function sum(a){ return a.reduce(function(x,y){return x+y;},0); }
+  function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  /* every bowler's numbers, from all games or from one week */
+  function bowlers(week){
+    var by={};
+    GAMES.forEach(function(r){ if(week && r.w!==week) return; (by[r.n]=by[r.n]||[]).push(r); });
+    return Object.keys(by).map(function(n){
+      var gs=by[n].slice().sort(function(a,b){return a.w-b.w||a.g-b.g;}), sc=gs.map(function(r){return r.s;});
+      var weeks={}; gs.forEach(function(r){ (weeks[r.w]=weeks[r.w]||[]).push(r.s); });
+      var series=Object.keys(weeks).filter(function(k){return weeks[k].length>=3;}).map(function(k){return sum(weeks[k].slice(0,3));});
+      return {n:n, list:gs, g:sc, games:sc.length, total:sum(sc), avg:Math.round(sum(sc)/sc.length), high:Math.max.apply(null,sc),
+        series:series.length?Math.max.apply(null,series):0, x:sum(gs.map(function(r){return r.x;})), sp:sum(gs.map(function(r){return r.sp;}))};
+    });
+  }
+  var ALL=bowlers(0), lastWeek=Math.max.apply(null,GAMES.map(function(r){return r.w;}));
+  function initials(n){ var w=String(n).trim().split(/\s+/); return (w.length>1?w[0][0]+w[1][0]:n.slice(0,2)).toUpperCase(); }
+  document.querySelectorAll("[data-updated]").forEach(function(el){ var ng=GAMES.map(function(r){return r.w+"-"+r.g;}).filter(function(v,i,a){return a.indexOf(v)===i;}).length; el.textContent="Updated after week "+lastWeek+" ("+WEEKS[lastWeek]+"): "+ng+" games, "+ALL.length+" bowlers."; });
+
+  /* home: season highlights */
+  (function(){
+    function top(key){ return ALL.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;})[0]; }
+    var hg=top("high"), ha=top("avg"), avg=Math.round(sum(ALL.map(function(p){return p.total;}))/sum(ALL.map(function(p){return p.games;})));
+    document.getElementById("home-tiles").innerHTML=
+      '<div class="tile"><span>High game</span><b>'+hg.high+'</b><small>'+esc(hg.n)+'</small></div>'+
+      '<div class="tile"><span>High average</span><b>'+ha.avg+'</b><small>'+esc(ha.n)+'</small></div>'+
+      '<div class="tile"><span>League average</span><b>'+avg+'</b><small>'+ALL.length+' bowlers</small></div>'+
+      '<div class="tile"><span>Strikes</span><b>'+sum(ALL.map(function(p){return p.x;}))+'</b><small>'+sum(ALL.map(function(p){return p.sp;}))+' spares</small></div>';
+    document.getElementById("home-leaders").innerHTML=ALL.slice().sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3).map(function(p,i){
+      return '<li><span class="rk">'+(i+1)+'</span><span class="who"><b>'+esc(p.n)+'</b><span>'+p.games+' game'+(p.games>1?'s':'')+'</span></span><span class="pts"><b>'+p.avg+'</b><span>average</span></span></li>';
+    }).join("");
+  })();
+
+
+
+  /* stat dashboard: individual bowlers, whole season or one week */
+  (function(){
+    var week=0, sortKey="avg", sortDir=-1, current=null, R=ALL;
+    var tiles=document.getElementById("tiles"), filters=document.getElementById("filters"), tbody=document.querySelector("#stats-table tbody"), panel=document.getElementById("player");
+    function top(list,key){ return list.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;})[0]; }
+    function renderTiles(){
+      var r=R, ha=top(r,"avg"), hg=top(r,"high"), hx=top(r,"x"), hs=top(r,"sp");
+      function who(key,best){ var t=r.filter(function(p){return p[key]===best[key];}).map(function(p){return esc(p.n);}); return t.length>3? t.slice(0,3).join(", ")+" +"+(t.length-3) : t.join(", "); }
+      function cell(icon,k,v,who){ return '<div class="cell"><svg class="icon"><use href="#'+icon+'"/></svg><span class="k">'+k+'</span><b class="v gold-text">'+v+'</b><span class="who">'+who+'</span></div>'; }
+      tiles.innerHTML=
+        cell("i-crown","High average",ha.avg,who("avg",ha))+
+        cell("i-trophy","Crown game",hg.high,"High game · "+who("high",hg))+
+        cell("i-ball","Strike King",hx.x,"Most strikes · "+who("x",hx))+
+        cell("i-pins","Spare Master",hs.sp,"Most spares · "+who("sp",hs));
+      var t3=r.slice().sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3), order=[1,0,2], TITLES=["King","Prince","Commander"];
+      document.getElementById("podium").innerHTML=order.filter(function(i){return t3[i];}).map(function(i){
+        var p=t3[i];
+        return '<div class="step p'+(i+1)+'">'+(i===0?'<svg class="icon"><use href="#i-crown"/></svg>':'')+'<span class="title">'+TITLES[i]+'</span><b>'+esc(p.n)+'</b><small>High '+p.high+'</small><div class="avg">'+p.avg+'<span>average</span></div><div class="block">'+(i+1)+'</div></div>';
+      }).join("");
+    }
+    function renderFilters(){
+      var ws=GAMES.map(function(r){return r.w;}).filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
+      filters.innerHTML=[0].concat(ws).map(function(w){ return '<button type="button" class="chip" data-week="'+w+'" aria-pressed="'+(w===week)+'">'+(w?"Week "+w:"Whole season")+'</button>'; }).join("");
+    }
+    function renderTable(){
+      var r=R.slice().sort(function(a,b){ var x=a[sortKey], y=b[sortKey]; return (typeof x==="string"? x.localeCompare(y,undefined,{numeric:true}) : x-y)*sortDir || b.avg-a.avg; });
+      if(!current||!R.some(function(p){return p.n===current;})) current=r[0].n;
+      tbody.innerHTML=r.map(function(p,i){
+        return '<tr data-player="'+esc(p.n)+'" aria-selected="'+(p.n===current)+'"><td class="l pos">'+(i+1)+'</td><td class="l"><button type="button" class="row-btn">'+esc(p.n)+'</button></td><td class="strong">'+p.avg+'</td><td>'+p.high+'</td><td>'+p.games+'</td><td>'+p.x+'</td><td>'+p.sp+'</td></tr>';
+      }).join("");
+      document.querySelectorAll("#stats-table thead th").forEach(function(th){
+        var b=th.querySelector("button"); if(!b) return;
+        if(b.dataset.sort===sortKey) th.setAttribute("aria-sort",sortDir<0?"descending":"ascending"); else th.removeAttribute("aria-sort");
+      });
+      renderPlayer();
+    }
+    function renderPlayer(){
+      var p=R.filter(function(q){return q.n===current;})[0], W=360, H=214, L=30, RR=352, T=18, B=168, max=300, n=Math.max(p.g.length,3), band=(RR-L)/n, bw=22;
+      function y(v){ return B-(B-T)*v/max; }
+      var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(p.n)+' game scores: '+p.g.join(", ")+'">';
+      [0,100,200,300].forEach(function(v){ svg+='<line class="grid" x1="'+L+'" x2="'+RR+'" y1="'+y(v)+'" y2="'+y(v)+'"/><text x="'+(L-6)+'" y="'+(y(v)+4)+'" text-anchor="end">'+v+'</text>'; });
+      var hi=p.g.indexOf(p.high);
+      p.list.forEach(function(r,i){
+        var v=r.s, cx=L+band*(i+.5), x0=cx-bw/2, yt=y(v), lab="Week "+r.w+", game "+r.g+": "+v+" ("+r.x+" strikes, "+r.sp+" spares)";
+        svg+='<path class="bar" d="M'+x0+' '+B+'V'+(yt+4)+'a4 4 0 0 1 4-4h'+(bw-8)+'a4 4 0 0 1 4 4V'+B+'z"/>';
+        if(i===hi) svg+='<text class="val" x="'+cx+'" y="'+(yt-6)+'" text-anchor="middle">'+v+'</text>';
+        svg+='<text x="'+cx+'" y="'+(B+16)+'" text-anchor="middle">W'+r.w+' G'+r.g+'</text>';
+        svg+='<rect class="hit" tabindex="0" x="'+(cx-band/2)+'" y="'+T+'" width="'+band+'" height="'+(B-T)+'" data-tip="'+lab+'" data-x="'+(cx/W*100)+'" data-y="'+(yt/H*100)+'" aria-label="'+lab+'"/>';
+      });
+      svg+='</svg>';
+      panel.innerHTML='<div class="pc-head"><span class="mono" aria-hidden="true">'+esc(initials(p.n))+'</span><div><p>'+p.games+' game'+(p.games>1?'s':'')+(week?' · week '+week:' · whole season')+'</p><h3>'+esc(p.n)+'</h3></div><svg class="crown" aria-hidden="true"><use href="#i-crown"/></svg></div><div class="pc-body">'+
+        '<div class="mini"><div><span>Average</span><b>'+p.avg+'</b></div><div><span>High game</span><b>'+p.high+'</b></div><div><span>Strikes / spares</span><b>'+p.x+' / '+p.sp+'</b></div></div>'+
+        '<p class="chart-title">Score in each game (out of 300)</p><div class="chart">'+svg+'<div class="tip" hidden></div></div></div>';
+    }
+    function tip(e,on){
+      var h=e.target.closest(".hit"); if(!h) return;
+      var t=panel.querySelector(".tip");
+      if(!on){ t.hidden=true; return; }
+      t.textContent=h.dataset.tip; t.style.left=h.dataset.x+"%"; t.style.top="calc("+h.dataset.y+"% - 8px)"; t.hidden=false;
+    }
+    panel.addEventListener("mouseover",function(e){tip(e,true);}); panel.addEventListener("mouseout",function(e){tip(e,false);});
+    panel.addEventListener("focusin",function(e){tip(e,true);}); panel.addEventListener("focusout",function(e){tip(e,false);});
+    filters.addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; week=+b.dataset.week; R=week?bowlers(week):ALL; renderFilters(); renderTiles(); renderTable(); });
+    tbody.addEventListener("click",function(e){ var tr=e.target.closest("tr"); if(!tr) return; current=tr.dataset.player; renderTable(); });
+    document.querySelector("#stats-table thead").addEventListener("click",function(e){
+      var b=e.target.closest("button"); if(!b) return;
+      if(b.dataset.sort===sortKey) sortDir=-sortDir; else{ sortKey=b.dataset.sort; sortDir=(sortKey==="n")?1:-1; }
+      renderTable();
+    });
+    renderFilters(); renderTiles(); renderTable();
+  })();
+
+
+  /* league crew: the royal five and every member, ranked by the chosen stat */
+  (function(){
+    var STATS={avg:["Average","average","The top five averages so far."],high:["High game","high game","The five best single games so far."],x:["Strikes","strikes","The five bowlers with the most strikes."],sp:["Spares","spares","The five bowlers with the most spares."]};
+    var key="avg", fil=document.getElementById("crew-filters");
+    var best=function(k){ return Math.max.apply(null,ALL.map(function(p){return p[k];})); };
+    var TOPS={avg:best("avg"),high:best("high"),x:best("x"),sp:best("sp")};
+    var TITLES=["Monarch","Champion","Guardian","Knight","Herald"];
+    var byName={}; ALL.forEach(function(p){byName[p.n]=p;});
+    function render(){
+      var ranked=ALL.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;});
+      fil.innerHTML=Object.keys(STATS).map(function(k){ return '<button type="button" class="chip" data-k="'+k+'" aria-pressed="'+(k===key)+'">'+STATS[k][0]+'</button>'; }).join("");
+      document.getElementById("crew-what").textContent=STATS[key][2];
+      document.getElementById("five").innerHTML=ranked.slice(0,5).map(function(p,i){
+        var mx=Math.max.apply(null,p.g), badges=[];
+        if(p.avg===TOPS.avg) badges.push('<span>Top average</span>');
+        if(p.high===TOPS.high) badges.push('<span class="red">Crown game '+p.high+'</span>');
+        if(p.x===TOPS.x) badges.push('<span>Strike King</span>');
+        if(p.sp===TOPS.sp) badges.push('<span>Spare Master</span>');
+        if(p.high>=200&&p.high!==TOPS.high) badges.push('<span class="red">200 club</span>');
+        var spark='<div class="pf-spark" role="img" aria-label="'+esc(p.n)+' scores: '+p.g.join(", ")+'">'+p.g.map(function(v){return '<i class="'+(v===mx?'hi':'')+'" style="height:'+Math.max(8,Math.round(v/300*100))+'%" title="'+v+'"></i>';}).join("")+'</div>';
+        return '<article class="pf"><div class="pf-head"><span class="pf-rank" aria-hidden="true">'+(i+1)+'</span><span class="pf-crest" aria-hidden="true">'+esc(initials(p.n))+'</span><div><p class="pf-title">No. '+(i+1)+' · '+TITLES[i]+'</p><h3 class="pf-name">'+esc(p.n)+'</h3></div></div>'+
+          '<div class="pf-body"><div class="pf-avg"><b class="gold-text">'+p[key]+'</b><span>'+STATS[key][1]+'</span></div>'+
+          '<dl class="pf-stats">'+["avg","high","x","sp"].filter(function(k){return k!==key;}).map(function(k){return '<div><dt>'+(k==="avg"?"Avg":k==="high"?"High":STATS[k][0])+'</dt><dd>'+p[k]+'</dd></div>';}).join("")+'<div><dt>Games</dt><dd>'+p.games+'</dd></div></dl>'+
+          '<div>'+spark+'<p class="pf-cap"><span>Every game so far</span><span>Best '+p.high+'</span></p></div>'+
+          (badges.length?'<div class="pf-badges">'+badges.join("")+'</div>':'')+'</div></article>';
+      }).join("");
+      var names=MEMBERS.concat(ALL.map(function(p){return p.n;}).filter(function(n){return MEMBERS.indexOf(n)<0;}));
+      names.sort(function(a,b){ var A=byName[a],B=byName[b]; if(A&&B) return B[key]-A[key]||B.avg-A.avg; if(A) return -1; if(B) return 1; return a.localeCompare(b); });
+      document.getElementById("crew").innerHTML=names.map(function(n){
+        var p=byName[n], rank=p?ranked.indexOf(p)+1:0;
+        return p ? '<button type="button" class="mem" data-crew="'+esc(n)+'"><span class="mono" aria-hidden="true">'+esc(initials(n))+'</span><b>'+esc(n)+'</b><small>No. '+rank+' · '+STATS[key][1]+' '+p[key]+'</small><em>Avg '+p.avg+' · high '+p.high+'</em></button>'
+                 : '<div class="mem wait"><span class="mono" aria-hidden="true">'+esc(initials(n))+'</span><b>'+esc(n)+'</b><small>Member</small><em>Scores coming soon</em></div>';
+      }).join("");
+    }
+    fil.addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; key=b.dataset.k; render(); });
+    document.getElementById("crew").addEventListener("click",function(e){
+      var b=e.target.closest("[data-crew]"); if(!b) return;
+      var row=document.querySelector('#stats-table tr[data-player="'+b.dataset.crew.replace(/"/g,'')+'"]');
+      location.hash="stats"; if(row) setTimeout(function(){ row.click(); document.getElementById("player").scrollIntoView({behavior:"smooth",block:"start"}); },60);
+    });
+    render();
+  })();
+
+  /* cholan vs pandiyan */
+  (function(){
+    var LOGO={k:'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-cholan"/></svg>',t:'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-pandiyan"/></svg>'};
+    function night(w){
+      var tm=TEAMS[w], blindUsed=0; if(!tm) return null;
+      var gs=GAMES.filter(function(r){return r.w===w;}).map(function(r){return r.g;}).filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
+      var games=gs.map(function(g){
+        var k=0,t=0, bl=BLINDS[w]||{}; GAMES.forEach(function(r){ if(r.w!==w||r.g!==g) return; var s=Math.max(r.s,bl[r.n]||0); if(s>r.s) blindUsed++; if(tm.kings.indexOf(r.n)>=0) k+=s; else if(tm.titans.indexOf(r.n)>=0) t+=s; });
+        return {g:g,k:k,t:t,win:k>t?"k":t>k?"t":"s"};
+      });
+      var kw=0,tw=0,kp=0,tp=0; games.forEach(function(x){ kp+=x.k; tp+=x.t; if(x.win==="k") kw++; else if(x.win==="t") tw++; else { kw+=.5; tw+=.5; } });
+      var win=kw>tw?"k":tw>kw?"t":"s", byPins=false;
+      var bl=BLINDS[w]||{}, bk=Object.keys(bl);
+      return {w:w,games:games,kw:kw,tw:tw,kp:kp,tp:tp,win:win,byPins:byPins,blindUsed:blindUsed,blind:bk.length?bl[bk[0]]:0};
+    }
+    var weeks=Object.keys(TEAMS).map(Number).sort(function(a,b){return a-b;}), nights=weeks.map(night).filter(Boolean), cur=weeks[weeks.length-1];
+    var NAME={k:"Cholan",t:"Pandiyan",s:"Shared"};
+    function fmt(n){ return String(n).replace(".5","½"); }
+    function season(){
+      var pts=function(c){ return nights.reduce(function(a,n){ return a+(n.win===c?2:n.win==="s"?1:0); },0); };
+      var k=pts("k"), t=pts("t"), gk=nights.reduce(function(a,n){return a+n.kw;},0), gt=nights.reduce(function(a,n){return a+n.tw;},0);
+      var rec=function(c){ var w=nights.filter(function(n){return n.win===c;}).length, s=nights.filter(function(n){return n.win==="s";}).length; return w+"W "+(nights.length-w-s)+"L "+s+"T"; };
+      var dots=""; for(var i=1;i<=SEASON_WEEKS;i++){ var n=nights.filter(function(x){return x.w===i;})[0]; dots+='<span class="'+(n?n.win:"")+'" title="Week '+i+(n?': '+NAME[n.win]:'')+'"></span>'; }
+      var rows=[["k",k,gk,gt],["t",t,gt,gk]].map(function(r){ var c=r[0], w=nights.filter(function(n){return n.win===c;}).length, s=nights.filter(function(n){return n.win==="s";}).length;
+        return {c:c,p:nights.length,w:w,l:nights.length-w-s,s:s,gw:r[2],gl:r[3],pts:r[1]}; }).sort(function(a,b){return b.pts-a.pts||b.gw-a.gw;});
+      document.querySelector("#points tbody").innerHTML=rows.map(function(r,i){
+        var pos=(i>0&&r.pts===rows[0].pts&&r.gw===rows[0].gw)?1:i+1;
+        return '<tr class="'+r.c+'"><td class="l pos">'+pos+'</td><td class="l"><span class="pt-team">'+LOGO[r.c]+'<b class="royal-name">'+NAME[r.c]+'</b></span></td><td>'+r.p+'</td><td>'+r.w+'</td><td>'+r.l+'</td><td>'+r.s+'</td><td class="strong pts">'+r.pts+'</td></tr>';
+      }).join("");
+      document.getElementById("season").innerHTML='<div class="team">'+LOGO.k+'<b class="royal-name">Cholan</b><small>'+rec("k")+'</small></div>'+
+        '<div class="mid"><p class="label">Season 1 points</p><div class="score">'+k+'<i>–</i>'+t+'</div><p class="wk gw">Games won '+fmt(gk)+'–'+fmt(gt)+'</p><div class="weeks16" aria-label="'+nights.length+' of '+SEASON_WEEKS+' weeks played">'+dots+'</div><p class="wk">Week '+nights.length+' of '+SEASON_WEEKS+'</p></div>'+
+        '<div class="team">'+LOGO.t+'<b class="royal-name">Pandiyan</b><small>'+rec("t")+'</small></div>';
+    }
+    function draw(){
+      document.getElementById("clash-weeks").innerHTML=weeks.map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===cur)+'">Week '+w+'</button>';}).join("");
+      var n=night(cur), max=Math.max.apply(null,n.games.map(function(g){return Math.max(g.k,g.t);}));
+      var head=n.win==="s"?"A royal tie":NAME[n.win]+" win the night";
+      document.getElementById("night").className="night "+n.win;
+      document.getElementById("night").innerHTML=(n.win==="s"?'<span class="duo">'+LOGO.k+LOGO.t+'</span>':LOGO[n.win])+'<div><p class="label">Week '+n.w+' · '+(WEEKS[n.w]||"")+'</p><h2>'+head+' '+(n.win==="t"?fmt(n.tw)+'–'+fmt(n.kw):fmt(n.kw)+'–'+fmt(n.tw))+'</h2><p class="sub">'+(n.win==="s"?'Both kingdoms won '+fmt(n.kw)+' games, so each takes 1 point.':NAME[n.win]+' won '+fmt(n.win==="k"?n.kw:n.tw)+' of '+n.games.length+' games and take 2 points.')+'</p></div>';
+      function side(c,v,on){ return '<div class="side '+c+(on?' win':'')+'"><div class="row"><span>'+NAME[c]+'</span><b>'+v.toLocaleString("en-CA")+'</b></div><div class="gbar"><i style="width:'+Math.round(v/max*100)+'%"></i></div></div>'; }
+      document.getElementById("games").innerHTML=n.games.map(function(g){
+        return '<div class="game"><span class="g">Game '+g.g+'</span>'+side("k",g.k,g.win==="k")+side("t",g.t,g.win==="t")+'<span class="who '+g.win+'">'+(g.win==="s"?'Tie':LOGO[g.win]+NAME[g.win]+(' +'+Math.abs(g.k-g.t)))+'</span></div>';
+      }).join("")+'<div class="gsum '+n.win+'"><p class="label">Games won</p><div class="gs-row"><span class="gs-k">Cholan</span><b>'+fmt(n.kw)+'</b><i>–</i><b>'+fmt(n.tw)+'</b><span class="gs-t">Pandiyan</span></div><p class="gs-note">'+(n.win==="s"?"Shared night · 1 point each":NAME[n.win]+" take the night · 2 points")+'</p></div>';
+    }
+    document.getElementById("clash-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; cur=+b.dataset.w; draw(); });
+    season(); draw();
+    document.getElementById("champ").innerHTML=ALL.slice().sort(function(a,b){return b.total-a.total||b.avg-a.avg;}).slice(0,5).map(function(p,i){
+      return '<li><span class="rk">'+(i+1)+'</span><span class="who"><b>'+esc(p.n)+'</b><span>'+p.games+' games · avg '+p.avg+'</span></span><span class="pts"><b>'+p.total.toLocaleString("en-CA")+'</b><span>pins</span></span></li>';
+    }).join("");
+  })();
+
+  function fitBrand(){
+    var n=document.getElementById("brand-name"); if(!n) return;
+    var max=parseFloat(getComputedStyle(document.documentElement).fontSize)*1.75;
+    n.style.fontSize=max+"px";
+    if(n.scrollWidth>n.clientWidth){ var f=Math.floor(max*n.clientWidth/n.scrollWidth); n.style.fontSize=f+"px"; while(n.scrollWidth>n.clientWidth&&f>10){ f--; n.style.fontSize=f+"px"; } }
+  }
+  /* team names: shrink until they sit inside their box, whatever the screen or font */
+  window.fitNames=function(){
+    document.querySelectorAll(".bn-name, .season b.royal-name").forEach(function(n){
+      n.style.fontSize=""; if(!n.clientWidth) return;
+      var f=parseFloat(getComputedStyle(n).fontSize);
+      while(n.scrollWidth>n.clientWidth+1&&f>10){ f-=0.5; n.style.fontSize=f+"px"; }
+    });
+  };
+  window.addEventListener("resize",fitNames);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitNames);
+  window.addEventListener("load",fitNames);
+  window.addEventListener("resize",fitBrand);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitBrand);
+  fitBrand(); fitNames();
+
+
+  /* ── gallery: picture viewer ── */
+  (function(){
+    var box=document.getElementById("g-box"); if(!box||!box.showModal) return;
+    var items=[].slice.call(document.querySelectorAll(".g-open")), img=box.querySelector("img"), cap=box.querySelector("figcaption"), at=0;
+    function go(k){ at=(k+items.length)%items.length; img.src=items[at].dataset.full; img.alt=items[at].querySelector("img").alt; cap.textContent=items[at].dataset.cap; }
+    items.forEach(function(b,k){ b.addEventListener("click",function(){ go(k); box.showModal(); }); });
+    box.querySelector(".g-close").onclick=function(){ box.close(); };
+    box.querySelector(".g-prev").onclick=function(){ go(at-1); };
+    box.querySelector(".g-next").onclick=function(){ go(at+1); };
+    box.addEventListener("click",function(e){ if(e.target===box) box.close(); });
+    box.addEventListener("keydown",function(e){ if(e.key==="ArrowLeft") go(at-1); if(e.key==="ArrowRight") go(at+1); });
+  })();
+
+  /* ── gallery: videos ──
+     To add a video, put the .mp4 file in the "videos" folder and add a line below, for example:
+       { file:"videos/league-night.mp4", title:"League night", tall:true },
+     or a YouTube link:
+       { youtube:"https://youtu.be/XXXXXXXX", title:"Our first tournament" },
+     The Videos section appears by itself once there is at least one video. */
+  var VIDEOS=[
+    { file:"{{RB_ASSETS}}videos/oct-03-walk-the-lanes.mp4", poster:"{{RB_ASSETS}}videos/oct-03-walk-the-lanes.jpg", title:"A walk down the lanes", date:"October 3, 2026", tall:true },
+    { file:"{{RB_ASSETS}}videos/sep-26-league-crew.mp4", poster:"{{RB_ASSETS}}videos/sep-26-league-crew.jpg", title:"The crew at Planet Bowl", date:"September 26, 2026" },
+    { file:"{{RB_ASSETS}}videos/sep-06-at-the-lanes.mp4", poster:"{{RB_ASSETS}}videos/sep-06-at-the-lanes.jpg", title:"Game time with friends", date:"September 6, 2026" }
+  ];
+  (function(){
+    var grid=document.getElementById("g-vgrid"), empty=document.getElementById("g-vempty"), cnt=document.getElementById("g-vcount");
+    if(cnt) cnt.textContent=VIDEOS.length;
+    if(!grid||!VIDEOS.length) return;
+    if(empty) empty.hidden=true;
+    function yt(u){ var m=String(u).match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{6,})/); return m?"https://www.youtube-nocookie.com/embed/"+m[1]:""; }
+    VIDEOS.forEach(function(v){
+      var f=document.createElement("figure"); if(v.tall) f.className="tall";
+      var t=String(v.title||"").replace(/[<>&"]/g,"");
+      f.innerHTML=(v.youtube? '<iframe src="'+yt(v.youtube)+'" title="'+t+'" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+        : '<video controls playsinline preload="none"'+(v.poster?' poster="'+v.poster+'"':"")+' src="'+v.file+'"></video>')+(t?'<figcaption>'+t+(v.date?'<small>'+v.date+'</small>':"")+'</figcaption>':"");
+      grid.appendChild(f);
+    });
+    grid.addEventListener("play",function(e){ [].forEach.call(grid.querySelectorAll("video"),function(v){ if(v!==e.target) v.pause(); }); },true);
+  })();
+
+  /* ── gallery: Photos / Videos tabs ── */
+  (function(){
+    var tabs=[].slice.call(document.querySelectorAll(".g-tabs [data-gt]"));
+    function pick(t){
+      tabs.forEach(function(b){ var on=b===t; b.setAttribute("aria-selected",on?"true":"false"); b.tabIndex=on?0:-1; });
+      [].forEach.call(document.querySelectorAll("[data-gp]"),function(p){ p.hidden=p.dataset.gp!==t.dataset.gt; });
+      [].forEach.call(document.querySelectorAll("#g-vgrid video"),function(v){ if(t.dataset.gt!=="videos") v.pause(); });
+    }
+    tabs.forEach(function(b,k){
+      b.addEventListener("click",function(){ pick(b); });
+      b.addEventListener("keydown",function(e){ if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ var n=tabs[(k+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length]; pick(n); n.focus(); } });
+    });
+  })();
+
+  show(location.hash.slice(1),false);
+})();
+</script>
+
+</body></html>
