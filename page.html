@@ -824,6 +824,11 @@ section{padding-block:clamp(48px,7vw,88px)}
 .md-table tr.top td.who{background:#f8ebc9}
 .md-key{margin:14px 0 0;color:var(--muted);font-size:.9rem;line-height:1.45;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 18px}
 .md-key span{min-width:0}
+
+/* commentary under each game */
+.game .g-note{grid-column:1/-1;margin:6px 0 0;padding-top:10px;border-top:1px dashed #e3cfa6;font-size:.95rem;line-height:1.55;color:var(--muted);max-width:none}
+.game .g-note b{color:var(--pin);font-weight:700}
+
 /* footer social links */
 .social{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 .social a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px 8px 10px;border:1px solid rgba(255,224,138,.55);color:#fff;text-decoration:none;font:700 .95rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase}
@@ -1733,6 +1738,17 @@ section{padding-block:clamp(48px,7vw,88px)}
     render();
   })();
 
+  /* Commentary under each game on the team page: COMMENTARY[week][game] = "text" (plain words, a few lines). */
+  var COMMENTARY={
+    1:{
+      1:"Pandiyan drew first blood with an even spread: Mona 172, Niz 169 and Roshan 165, nobody far behind. Ram and Myooran both hit 176 for Cholan, but it was not quite enough. <b>Pandiyan lead 1–0.</b>",
+      2:"A tight one. Mona (188) and Niz (180) carried Pandiyan again. Cholan had no big score, with Ram 167 and Myooran 158 leading, and the gap stayed at 11 pins. <b>Pandiyan lead 2–0.</b>",
+      3:"Cholan's best team game so far. Ram struck the night's first 200 with 5 strikes, backed by Shankar 178 and Sanjay 176. Mona answered with 209, but Roshan dipped to 108. <b>Pandiyan lead 2–1.</b>",
+      4:"A rout. Pandiyan's biggest game of the night: Mona 212 with 7 strikes, Sabes 205 and Niz 198. Cholan went cold, with nobody above 140. <b>Pandiyan lead 3–1.</b>",
+      5:"The closest game of the night. Pandiyan had two 200s (Niz 204, Mona 200), but Cholan scored right across the team: Ram 197, Shankar 182, Sanjay 179, Myooran 167. Eight pins in it. <b>Game Changer:</b> Ram, 27 pins above his average in the game that mattered most. <b>Pandiyan lead 3–2.</b>",
+      6:"A decider worth the name. Niz bowled 213, the high game of the night, and Sabes added 182. Cholan replied with Shankar 202, Myooran 195 with 9 spares and Ram 180, for their best game of the night. <b>Final: 3–3, a royal tie.</b>"
+    }
+  };
   /* cholan vs pandiyan */
   (function(){
     var LOGO={k:'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-cholan"/></svg>',t:'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#logo-pandiyan"/></svg>'};
@@ -1773,8 +1789,9 @@ section{padding-block:clamp(48px,7vw,88px)}
       document.getElementById("night").className="night "+n.win;
       document.getElementById("night").innerHTML=(n.win==="s"?'<span class="duo">'+LOGO.k+LOGO.t+'</span>':LOGO[n.win])+'<div><p class="label">Week '+n.w+' · '+(WEEKS[n.w]||"")+'</p><h2>'+head+' '+(n.win==="t"?fmt(n.tw)+'–'+fmt(n.kw):fmt(n.kw)+'–'+fmt(n.tw))+'</h2><p class="sub">'+(n.win==="s"?'Both kingdoms won '+fmt(n.kw)+' games, so each takes '+fmt(n.kw)+' points.':NAME[n.win]+' won '+fmt(n.win==="k"?n.kw:n.tw)+' of '+n.games.length+' games: '+fmt(n.win==="k"?n.kw:n.tw)+' points to '+NAME[n.win]+', '+fmt(n.win==="k"?n.tw:n.kw)+' to '+NAME[n.win==="k"?"t":"k"]+'.')+'</p></div>';
       function side(c,v,on){ return '<div class="side '+c+(on?' win':'')+'"><div class="row"><span>'+NAME[c]+'</span><b>'+v.toLocaleString("en-CA")+'</b></div><div class="gbar"><i style="width:'+Math.round(v/max*100)+'%"></i></div></div>'; }
+      var notes=(COMMENTARY[n.w]||{});
       document.getElementById("games").innerHTML=n.games.map(function(g){
-        return '<div class="game"><span class="g">Game '+g.g+'</span>'+side("k",g.k,g.win==="k")+side("t",g.t,g.win==="t")+'<span class="who '+g.win+'">'+(g.win==="s"?'Tie':LOGO[g.win]+NAME[g.win]+(' +'+Math.abs(g.k-g.t)))+'</span></div>';
+        return '<div class="game"><span class="g">Game '+g.g+'</span>'+side("k",g.k,g.win==="k")+side("t",g.t,g.win==="t")+'<span class="who '+g.win+'">'+(g.win==="s"?'Tie':LOGO[g.win]+NAME[g.win]+(' +'+Math.abs(g.k-g.t)))+'</span>'+(notes[g.g]?'<p class="g-note">'+notes[g.g]+'</p>':'')+'</div>';
       }).join("")+'<div class="gsum '+n.win+'"><p class="label">Games won</p><div class="gs-row"><span class="gs-k">Cholan</span><b>'+fmt(n.kw)+'</b><i>–</i><b>'+fmt(n.tw)+'</b><span class="gs-t">Pandiyan</span></div><p class="gs-note">'+(n.win==="s"?"Shared night · "+fmt(n.kw)+" points each":"Cholan "+fmt(n.kw)+" points · Pandiyan "+fmt(n.tw)+" points")+'</p></div>';
     }
     document.getElementById("clash-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; cur=+b.dataset.w; draw(); });
