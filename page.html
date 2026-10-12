@@ -806,6 +806,44 @@ section{padding-block:clamp(48px,7vw,88px)}
 }
 @media (prefers-reduced-motion:reduce){.sw-l,.sw-r,.sw-burst,.sw-rays{animation:none}}
 
+
+/* weekly medals page */
+.md-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.md-card{display:flex;align-items:center;gap:14px;padding:16px;background:var(--alley-2);border:1px solid var(--line)}
+.md-card h3{font:700 1.15rem/1.2 var(--display);margin:0}
+.md-card p{margin:4px 0 0;color:var(--muted);font-size:.95rem;line-height:1.4}
+.md-coin{flex:none;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;font-size:1.5rem;background:radial-gradient(circle at 35% 30%,#fff3b8,#f0b43a 55%,#a8690c);box-shadow:0 0 0 3px var(--alley),0 0 0 5px #d9a032,0 6px 12px -4px rgba(90,45,0,.4)}
+#md-weeks{margin-bottom:16px}
+.md-winners{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.md-win{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:14px 16px;border:2px solid #e3cfa6;background:linear-gradient(160deg,var(--alley),var(--alley-2))}
+.md-win .md-coin{grid-row:span 2;width:46px;height:46px;font-size:1.25rem}
+.md-win small{font:700 .78rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-accent)}
+.md-win b{font:700 1.1rem/1.25 var(--display);color:var(--pin)}
+.md-win b i{font-style:normal;font:600 .9rem/1 var(--body);color:var(--muted);margin-left:6px}
+.md-win.none{opacity:.6}
+.md-table-wrap{border:2px solid var(--gold)}
+.md-table td,.md-table th{padding:12px 10px}
+.md-table td.n{font:900 1.3rem/1 var(--display);color:var(--ink-accent)}
+.md-table tr.lead td{background:rgba(240,180,58,.14)}
+.md-table .who{font:700 1.05rem/1.2 var(--display)}
+.md-table .kinds{font-size:1.1rem;letter-spacing:.06em;text-align:left;white-space:normal}
+.md-note{margin-top:10px;color:var(--muted);font-size:.9rem}
+.md-why{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.md-why > div > p{max-width:62ch}
+.md-ticks{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.md-ticks li{position:relative;padding-left:30px;line-height:1.5}
+.md-ticks li::before{content:"✓";position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:700 .8rem/1 var(--label);color:#fff;background:#1f7a42}
+.md-side{display:grid;gap:14px}
+.md-box{padding:18px;border:1px solid var(--line);background:var(--alley-2)}
+.md-box h3{margin:0 0 6px;font:700 1.1rem/1.2 var(--display)}
+.md-box p{margin:0;color:var(--muted);line-height:1.55}
+.md-close{margin-top:clamp(32px,5vw,56px);text-align:center;display:grid;gap:8px;justify-items:center}
+.md-close p{margin:0;max-width:60ch}
+.md-kingdoms{font:700 clamp(1.2rem,3.4vw,1.6rem)/1.3 var(--display)}
+.md-kingdoms .k{color:#8a1015}.md-kingdoms .t{color:#17603a}
+@media (max-width:760px){.md-why{grid-template-columns:1fr}}
+@media (max-width:420px){.md-table th:nth-child(4),.md-table td:nth-child(4){display:none}}
+
 /* footer social links */
 .social{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 .social a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px 8px 10px;border:1px solid rgba(255,224,138,.55);color:#fff;text-decoration:none;font:700 .95rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase}
@@ -863,6 +901,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       <a href="#clash" data-go="clash">Cholan v Pandiyan</a>
       <a href="#crew" data-go="crew">Crew</a>
       <a href="#stats" data-go="stats">Stats</a>
+      <a href="#medals" data-go="medals">Medals</a>
       <a href="#rules" data-go="rules">Rules</a>
       <a href="#gallery" data-go="gallery">Gallery</a>
       <a class="join" href="#registration" data-go="registration">Registration</a>
@@ -1241,6 +1280,63 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
+<!-- ───────── MEDALS ───────── -->
+<div class="page" data-page="medals" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Kingpins Crew</p>
+    <h1 class="gold-text">Weekly Medals</h1>
+    <p class="lead">Every league week is a mini tournament, with medals across eight categories. Every player has something to aim for, every single week.</p>
+  </div></div>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><p class="label">Eight ways to shine</p><h2>Our weekly medals</h2></div>
+      <div class="md-grid"><div class="md-card"><span class="md-coin" aria-hidden="true">🎳</span><div><h3>Strike King</h3><p>Most strikes</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">🎯</span><div><h3>Spare Master</h3><p>Most spares</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">🔥</span><div><h3>High Game</h3><p>Highest single-game score</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">💯</span><div><h3>200 Club</h3><p>Everyone who bowls a 200+ game</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">⭐</span><div><h3>Most 200s</h3><p>Most 200+ games of the week</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">📈</span><div><h3>High Average</h3><p>Best average of the week</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">✨</span><div><h3>Clean Game</h3><p>A game without an open frame</p></div></div><div class="md-card"><span class="md-coin" aria-hidden="true">⚔️</span><div><h3>Game Changer</h3><p>Top scorer in the closest game their kingdom won</p></div></div></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="label">Medal winners</p><h2 id="md-week-title">This week's medals</h2></div>
+      <div class="chips" id="md-weeks" role="group" aria-label="Choose a week"></div>
+      <div class="md-winners" id="md-winners"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="label">The big prize</p><h2>Season Medal Table</h2>
+        <p class="lead">Every medal earned is added here. After 16 weeks, the Kingpin with the most medals receives a <strong>real trophy or prize</strong>.</p></div>
+      <div class="table-scroll md-table-wrap"><table class="data md-table"><thead><tr><th class="l">#</th><th class="l">Kingpin</th><th>Medals</th><th class="l md-kinds">Won</th></tr></thead><tbody id="md-table"></tbody></table></div>
+      <p class="md-note">These are virtual medals recorded in our weekly stats, not physical medals.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap md-why">
+      <div>
+        <div class="head"><p class="label">Why medals?</p><h2>A fresh chance every week</h2></div>
+        <p>With averages alone, after a few weeks some players may feel they are too far behind to catch up, and the excitement can fade. Medals give everyone a new start every league night.</p>
+        <ul class="md-ticks">
+          <li>Different categories mean different winners and more changes on the leaderboard.</li>
+          <li>The player with the highest average may not have the most strikes, the most 200+ games or the highest single game.</li>
+          <li>Even someone with the lowest average can win a medal.</li>
+          <li>Every week brings new opportunities, new challenges and something to celebrate.</li>
+        </ul>
+      </div>
+      <div class="md-side">
+        <div class="md-box"><h3>No minimum participation</h3><p>Miss a week? You simply miss that week's chance to collect medals. The more regularly you play, the more chances you have to climb the medal table. No pressure, just motivation.</p></div>
+        <div class="md-box"><h3>What we want to achieve</h3><p>We don't want only the top-average players to feel they are competing. We want every Kingpin to stay motivated, enjoy the competition and look forward to the next game. Beginner or experienced, there is always a chance to shine.</p></div>
+      </div>
+    </div>
+    <div class="wrap md-close">
+      <p class="md-kingdoms"><span class="k">Cholan</span> or <span class="t">Pandiyan</span>: two kingdoms, one Kingpins Crew.</p>
+      <p>Every week is a new challenge. Every game is a new opportunity. Every Kingpin has a chance to become a champion.</p>
+      <p class="label">Play · Connect · Belong</p>
+    </div>
+  </section>
+</div>
+
 <!-- ───────── RULES ───────── -->
 <div class="page" data-page="rules" hidden>
   <div class="page-title"><div class="wrap">
@@ -1394,6 +1490,7 @@ section{padding-block:clamp(48px,7vw,88px)}
         <a href="#clash" data-go="clash">Cholan vs Pandiyan</a>
         <a href="#crew" data-go="crew">League crew</a>
         <a href="#stats" data-go="stats">Stat dashboard</a>
+        <a href="#medals" data-go="medals">Weekly medals</a>
         <a href="#rules" data-go="rules">Rules</a>
       </div>
       <div class="foot-col">
@@ -1409,7 +1506,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","rules","gallery","registration"];
+  var PAGES=["home","about","clash","crew","stats","medals","rules","gallery","registration"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -1745,6 +1842,64 @@ section{padding-block:clamp(48px,7vw,88px)}
     document.getElementById("champ").innerHTML=ALL.slice().sort(function(a,b){return b.total-a.total||b.avg-a.avg;}).slice(0,5).map(function(p,i){
       return '<li><span class="rk">'+(i+1)+'</span><span class="who"><b>'+esc(p.n)+'</b><span>'+p.games+' games · avg '+p.avg+'</span></span><span class="pts"><b>'+p.total.toLocaleString("en-CA")+'</b><span>pins</span></span></li>';
     }).join("");
+  })();
+
+
+  /* ── weekly medals ──
+     Clean Game needs the frame-by-frame scorecard, so it is entered by hand: CLEAN[week] = ["Name", ...]. */
+  var CLEAN={1:[]};
+  (function(){
+    var M=[["strike","🎳","Strike King"],["spare","🎯","Spare Master"],["high","🔥","High Game"],["club","💯","200 Club"],["most200","⭐","Most 200s"],["avg","📈","High Average"],["clean","✨","Clean Game"],["changer","⚔️","Game Changer"]];
+    var wks=Object.keys(WEEKS).map(Number).filter(function(w){return GAMES.some(function(r){return r.w===w;});}).sort(function(a,b){return a-b;});
+    if(!wks.length||!document.getElementById("md-winners")) return;
+    function esc2(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+    function best(list,key){ var m=Math.max.apply(null,list.map(function(p){return p[key];})); return m>0?{v:m,who:list.filter(function(p){return p[key]===m;}).map(function(p){return p.n;})}:null; }
+    function medalsFor(w){
+      var rows=GAMES.filter(function(r){return r.w===w;}), by={};
+      rows.forEach(function(r){ var p=by[r.n]||(by[r.n]={n:r.n,x:0,sp:0,high:0,c200:0,tot:0,g:0}); p.x+=r.x; p.sp+=r.sp; p.high=Math.max(p.high,r.s); if(r.s>=200) p.c200++; p.tot+=r.s; p.g++; });
+      var list=Object.keys(by).map(function(k){ var p=by[k]; p.avg=Math.round(p.tot/p.g); return p; });
+      var out={};
+      out.strike=best(list,"x"); out.spare=best(list,"sp"); out.high=best(list,"high");
+      var club=list.filter(function(p){return p.c200>0;});
+      out.club=club.length?{v:200,who:club.map(function(p){return p.n;})}:null;
+      out.most200=best(list,"c200"); out.avg=best(list,"avg");
+      out.clean=(CLEAN[w]||[]).length?{v:0,who:CLEAN[w]}:null;
+      /* game changer: the closest game a kingdom won, top scorer on the winning side */
+      var tm=TEAMS[w], bl=BLINDS[w]||{};
+      if(tm){
+        var gs=rows.map(function(r){return r.g;}).filter(function(v,i,a){return a.indexOf(v)===i;}), pick=null;
+        gs.forEach(function(g){ var k=0,t=0; rows.forEach(function(r){ if(r.g!==g) return; var s=Math.max(r.s,bl[r.n]||0); if(tm.kings.indexOf(r.n)>=0) k+=s; else if(tm.titans.indexOf(r.n)>=0) t+=s; });
+          if(k!==t){ var m=Math.abs(k-t); if(!pick||m<pick.m) pick={g:g,m:m,side:k>t?tm.kings:tm.titans}; } });
+        if(pick){ var side=rows.filter(function(r){return r.g===pick.g&&pick.side.indexOf(r.n)>=0;}), top=Math.max.apply(null,side.map(function(r){return r.s;}));
+          out.changer={v:top,g:pick.g,m:pick.m,who:side.filter(function(r){return r.s===top;}).map(function(r){return r.n;})}; }
+      }
+      return out;
+    }
+    var ALLW={}; wks.forEach(function(w){ ALLW[w]=medalsFor(w); });
+    var cur=wks[wks.length-1];
+    function detail(k,r){
+      if(k==="strike") return r.v+" strikes"; if(k==="spare") return r.v+" spares"; if(k==="high") return r.v+" pins";
+      if(k==="club") return "200+ game"; if(k==="most200") return r.v+(r.v>1?" games":" game")+" of 200+"; if(k==="avg") return "average "+r.v;
+      if(k==="changer") return r.v+" in game "+r.g+" (won by "+r.m+")"; return "";
+    }
+    function drawWeek(){
+      document.getElementById("md-weeks").innerHTML=wks.map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===cur)+'">Week '+w+'</button>';}).join("");
+      document.getElementById("md-week-title").textContent="Week "+cur+" medals · "+(WEEKS[cur]||"");
+      var res=ALLW[cur];
+      document.getElementById("md-winners").innerHTML=M.map(function(m){ var r=res[m[0]];
+        return '<div class="md-win'+(r?'':' none')+'"><span class="md-coin" aria-hidden="true">'+m[1]+'</span><small>'+m[2]+'</small><b>'+(r?r.who.map(esc2).join(", ")+'<i>'+detail(m[0],r)+'</i>':'Not won this week')+'</b></div>'; }).join("");
+    }
+    function drawTable(){
+      var tally={};
+      wks.forEach(function(w){ var res=ALLW[w]; M.forEach(function(m){ var r=res[m[0]]; if(!r) return; r.who.forEach(function(n){ var t=tally[n]||(tally[n]={n:n,count:0,icons:[]}); t.count++; t.icons.push(m[1]); }); }); });
+      var rows=Object.keys(tally).map(function(k){return tally[k];}).sort(function(a,b){return b.count-a.count||a.n.localeCompare(b.n);});
+      var rank=0,prev=null;
+      document.getElementById("md-table").innerHTML=rows.length?rows.map(function(r,i){ if(r.count!==prev){rank=i+1;prev=r.count;}
+        return '<tr'+(rank===1?' class="lead"':'')+'><td class="l n">'+rank+'</td><td class="l who">'+esc2(r.n)+(rank===1?' 👑':'')+'</td><td class="strong">'+r.count+'</td><td class="kinds">'+r.icons.join(" ")+'</td></tr>'; }).join("")
+        :'<tr><td colspan="4" class="l">The first medals are awarded after league night.</td></tr>';
+    }
+    document.getElementById("md-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; cur=+b.dataset.w; drawWeek(); });
+    drawWeek(); drawTable();
   })();
 
   function fitBrand(){
