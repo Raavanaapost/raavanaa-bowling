@@ -1790,7 +1790,7 @@ section{padding-block:clamp(48px,7vw,88px)}
      so it is entered by hand: CLEAN[week] = ["Name", ...]. */
   var CLEAN={1:[]};
   (function(){
-    var M=[["strike","🎳","Strike King","most strikes"],["spare","🎯","Spare Master","most spares"],["high","🔥","High Game","highest single game"],["club","💯","200 Club","bowled a 200+ game"],["most200","⭐","Most 200s","most 200+ games"],["avg","📈","High Average","best average"],["clean","✨","Clean Game","a game with no open frame"],["changer","⚔️","Game Changer","top scorer in the closest game their kingdom won"]];
+    var M=[["strike","🎳","Strike King","most strikes"],["spare","🎯","Spare Master","most spares"],["high","🔥","High Game","highest single game"],["club","💯","200 Club","bowled a 200+ game"],["most200","⭐","Most 200s","most 200+ games"],["avg","📈","High Average","best average"],["clean","✨","Clean Game","a game with no open frame"],["changer","⚔️","Game Changer","in the closest game their kingdom won, the bowler who beat their own average by the most"]];
     var table=document.getElementById("md-table"); if(!table) return;
     var wks=Object.keys(WEEKS).map(Number).filter(function(w){return GAMES.some(function(r){return r.w===w;});}).sort(function(a,b){return a-b;});
     function esc2(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
@@ -1808,8 +1808,12 @@ section{padding-block:clamp(48px,7vw,88px)}
         var gs=rows.map(function(r){return r.g;}).filter(function(v,i,a){return a.indexOf(v)===i;}), pick=null;
         gs.forEach(function(g){ var k=0,t=0; rows.forEach(function(r){ if(r.g!==g) return; var s=Math.max(r.s,bl[r.n]||0); if(tm.kings.indexOf(r.n)>=0) k+=s; else if(tm.titans.indexOf(r.n)>=0) t+=s; });
           if(k!==t){ var m=Math.abs(k-t); if(!pick||m<pick.m) pick={g:g,m:m,side:k>t?tm.kings:tm.titans}; } });
-        if(pick){ var side=rows.filter(function(r){return r.g===pick.g&&pick.side.indexOf(r.n)>=0;}), top=Math.max.apply(null,side.map(function(r){return r.s;}));
-          out.changer=side.filter(function(r){return r.s===top;}).map(function(r){return r.n;}); }
+        /* the winning-side bowler who rose furthest above their own season average (games up to and including this week) */
+        if(pick){ var side=rows.filter(function(r){return r.g===pick.g&&pick.side.indexOf(r.n)>=0;});
+          var avgTo=function(n){ var gs2=GAMES.filter(function(r){return r.n===n&&r.w<=w;}); return gs2.reduce(function(a,r){return a+r.s;},0)/gs2.length; };
+          side.forEach(function(r){ r._up=Math.round(r.s-avgTo(r.n)); });
+          var up=Math.max.apply(null,side.map(function(r){return r._up;}));
+          out.changer=up>0?side.filter(function(r){return r._up===up;}).map(function(r){return r.n;}):[]; }
       }
       return out;
     }
