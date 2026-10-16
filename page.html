@@ -1,98 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
-/* ── Virtual medals + Prizes & MVP ── */
-.md2-values{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:14px;font:700 1rem/1.3 var(--label);letter-spacing:.06em}
-.md2-values a{color:var(--ink-accent);text-decoration:underline;text-underline-offset:3px}
-.md2-dot{display:inline-block;width:.9em;height:.9em;border-radius:50%;vertical-align:-.1em;margin-right:6px;box-shadow:inset 0 -2px 3px rgba(0,0,0,.25)}
-.md2-dot.g{background:#d9a52a}.md2-dot.s{background:#a7afb6}.md2-dot.b{background:#b47240}
-.md2{display:grid;gap:22px}
-.md2-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.md2-filters label{display:grid;gap:4px;min-width:0;font:700 .8rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.md2-filters select,.md2-filters input{font:500 1rem/1.2 var(--body);text-transform:none;letter-spacing:0;color:var(--pin);background:var(--alley);border:1px solid var(--gold-deep);padding:10px;width:100%;min-width:0}
-.md2-filters select:focus-visible,.md2-filters input:focus-visible,.md2 th button:focus-visible,.pz-calc input:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
-@media (max-width:640px){.md2-filters{grid-template-columns:1fr 1fr}.md2-filters label:last-child{grid-column:1/-1}}
-.md2-block{display:grid;gap:8px}
-.md2-block h2{margin:0}
-.md2-scroll{border:2px solid var(--gold)}
-.md2 table{width:100%}
-.md2 th,.md2 td{padding:11px 10px;text-align:center;vertical-align:top}
-.md2 .l{text-align:left}
-.md2 th button{all:unset;cursor:pointer;font:inherit}
-.md2 th[aria-sort] button::after{content:" ▾";color:var(--ink-accent)}
-.md2-cat{font:700 1.02rem/1.2 var(--display);white-space:nowrap}
-.md2-cat small{display:block;font:500 .82rem/1.3 var(--body);color:var(--muted);white-space:normal;margin-top:2px}
-.md2-w{display:grid;gap:1px;text-align:left}
-.md2-w b{font-weight:700}
-.md2-w span{font-size:.82rem;color:var(--muted)}
-.md2-win td[data-m]{text-align:left}
-.k-c{color:#a01318}.k-p{color:#17663f}
-.md2-none{color:var(--muted);font-style:italic}
-.md2-wk td{background:var(--alley-3);text-align:left;font:700 .9rem/1.2 var(--label);letter-spacing:.1em;text-transform:uppercase}
-.md2-std td.n{font:900 1.15rem/1 var(--display);color:var(--ink-accent);width:2.2em}
-.md2-std td.who{font:700 1rem/1.2 var(--display)}
-.md2-std td.z{color:var(--muted);opacity:.6}
-.md2-std td.tot{font-weight:800}
-.md2-std td.cash{font-weight:700;color:var(--ink-accent)}
-.md2-std tr.top td{background:rgba(240,180,58,.16)}
-.md2-std td,.md2-std th{font-variant-numeric:tabular-nums}
-.md2-pill{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;font:700 .68rem/1.5 var(--label);letter-spacing:.1em;text-transform:uppercase;color:#fff;vertical-align:2px}
-.md2-pill.c{background:#a01318}.md2-pill.p{background:#17663f}
-.md2-foot{display:grid;gap:4px;font-size:.92rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px;margin-top:6px}
-.md2-foot p{margin:0}
-@media (max-width:640px){
-  .md2-win thead{display:none}
-  .md2-win tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-  .md2-win td{padding:8px 10px;min-width:0}
-  .md2-win td.md2-cat,.md2-win td[colspan]{grid-column:1/-1;white-space:normal}
-  .md2-win td.md2-cat{padding-bottom:0}
-  .md2-win td[data-m]::before{content:attr(data-m);display:block;font:700 .7rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-}
-.pz{display:grid;gap:18px}
-.pz .head{margin-bottom:0}
-.pz-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--gold-deep);margin-top:20px;max-width:720px}
-.pz-facts div{background:var(--alley);padding:14px 12px;display:grid;gap:2px}
-.pz-facts b{font:900 clamp(1.7rem,5vw,2.2rem)/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
-.pz-facts span{font-size:.85rem;color:var(--muted);line-height:1.3}
-@media (max-width:560px){.pz-facts{grid-template-columns:1fr 1fr}}
-.pz-coins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:center}
-.pz-coins>div{display:grid;justify-items:center;gap:6px}
-.pz-coins h3{margin:0}.pz-coins p{margin:0;color:var(--muted);font-size:.9rem}
-.pz-coin{width:min(124px,25vw);aspect-ratio:1;max-width:100%;border-radius:50%;display:grid;place-items:center;font:900 clamp(1.4rem,5vw,2.1rem)/1 var(--display);color:#2a1d08;position:relative;box-shadow:inset 0 0 0 5px rgba(255,255,255,.35),inset 0 -6px 12px rgba(0,0,0,.2),0 6px 16px rgba(0,0,0,.18)}
-.pz-coin::after{content:"";position:absolute;inset:11%;border-radius:50%;border:2px dashed rgba(0,0,0,.2)}
-.pz-coin.g{background:radial-gradient(circle at 35% 30%,#ffe08a,#d9a52a 55%,#9c6f12)}
-.pz-coin.s{background:radial-gradient(circle at 35% 30%,#eef1f3,#b9c1c8 55%,#7d868e)}
-.pz-coin.b{background:radial-gradient(circle at 35% 30%,#e8b48a,#b9773f 55%,#7a4620)}
-.pz-note{margin:0;font-size:.95rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px}
-.pz-ledger{list-style:none;margin:0;padding:0;border:2px solid var(--gold);background:var(--alley)}
-.pz-ledger li{display:grid;grid-template-columns:2.4rem 1fr;gap:2px 12px;padding:14px 16px;border-top:1px solid var(--line)}
-.pz-ledger li:first-child{border-top:0}
-.pz-ledger span{grid-row:span 2;font:900 1.4rem/1.1 var(--display);color:var(--ink-accent)}
-.pz-ledger h3{margin:0;font-size:1.15rem}
-.pz-ledger p{margin:0;color:var(--muted);font-size:.95rem;min-width:0}
-.pz-crown{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:20px;border:2px solid var(--gold);background:linear-gradient(120deg,rgba(160,19,24,.1),rgba(23,102,63,.1))}
-.pz-crown>b{font:900 clamp(3rem,12vw,5rem)/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
-.pz-crown h3{margin:0 0 4px}.pz-crown p{margin:0;color:var(--muted)}
-@media (max-width:520px){.pz-crown{grid-template-columns:1fr}}
-.pz-rules{margin:0;padding-left:1.2em;display:grid;gap:8px}
-.pz-rules li::marker{color:var(--gold)}
-.pz-calc{display:grid;gap:12px;padding:18px;border:1px solid var(--gold-deep);background:var(--alley-2)}
-.pz-calc h3{margin:0}
-.pz-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.pz-row label{display:grid;gap:4px;font:700 .85rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;min-width:0}
-.pz-row input{font:600 1.25rem/1.2 var(--body);width:100%;min-width:0;padding:8px 10px;border:1px solid var(--gold-deep);background:var(--alley);color:var(--pin);font-variant-numeric:tabular-nums}
-.pz-total{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
-.pz-total b{font:900 2.4rem/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
-.pz-total span{color:var(--muted)}
-.pz-court{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.pz-court>div{padding:18px;display:grid;gap:8px;align-content:start;color:#fff;border:2px solid var(--gold)}
-.pz-court .c{background:linear-gradient(160deg,#a01318,#5e0b10)}
-.pz-court .p{background:linear-gradient(160deg,#17663f,#073a21)}
-.pz-court h3{margin:0;color:#ffe08a}
-.pz-court p{margin:0}
-.pz-court ul{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:4px 0 0;padding:0}
-.pz-court li{border:1px solid rgba(255,224,138,.6);border-radius:999px;padding:3px 11px;font-size:.88rem}
-@media (max-width:600px){.pz-court{grid-template-columns:1fr}}
-.pz-end{margin:6px 0 0;text-align:center;font:700 1.3rem/1.3 var(--display)}
-.pz-end span{display:block;font:500 .95rem/1.4 var(--body);color:var(--muted);margin-top:4px}
+.emb-page{display:block;width:100%;border:0;min-height:600px;background:#f6f3ee}
 </style></head><body>
 <title>Raavanaa Bowling Community</title>
 <link rel="icon" href="{{RB_ASSETS}}favicon-32.png"><link rel="apple-touch-icon" href="{{RB_ASSETS}}apple-touch-icon.png">
@@ -1363,123 +1270,14 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <!-- ───────── MEDALS ───────── -->
 <div class="page" data-page="medals" hidden>
-  <div class="page-title"><div class="wrap">
-    <p class="label">Kingpins Crew · Season 2026</p>
-    <h1 class="gold-text">Virtual Medals</h1>
-    <p class="lead">Gold, silver and bronze in seven categories every Saturday. Medals add up across the 16 weeks, and every medal is worth cash.</p>
-    <p class="md2-values"><span><i class="md2-dot g"></i>Gold $1</span><span><i class="md2-dot s"></i>Silver 50¢</span><span><i class="md2-dot b"></i>Bronze 25¢</span><a href="#prizes" data-go="prizes">Prizes &amp; MVP →</a></p>
-  </div></div>
-  <section>
-    <div class="wrap md2">
-      <div class="chips" id="md-weeks" role="group" aria-label="Choose the season or a week"></div>
-      <div class="md2-filters" role="search" aria-label="Filter medals">
-        <label for="md-cat">Category<select id="md-cat"></select></label>
-        <label for="md-team">Kingdom<select id="md-team"><option value="">Both kingdoms</option><option value="Cholan">Cholan</option><option value="Pandiyan">Pandiyan</option></select></label>
-        <label for="md-name">Player<input id="md-name" type="search" placeholder="Type a name" autocomplete="off"></label>
-      </div>
-
-      <div class="md2-block">
-        <p class="label" id="md-week-label"></p>
-        <h2>Medal winners</h2>
-        <div class="table-scroll md2-scroll"><table class="data md2-win" id="md-win">
-          <thead><tr><th class="l">Category</th><th><i class="md2-dot g"></i>Gold</th><th><i class="md2-dot s"></i>Silver</th><th><i class="md2-dot b"></i>Bronze</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
-      </div>
-
-      <div class="md2-block">
-        <p class="label">Medal table</p>
-        <h2 id="md-table-h">Season standings</h2>
-        <p class="md-sub" id="md-table-note"></p>
-        <div class="table-scroll md2-scroll"><table class="data md2-std" id="md-std">
-          <thead><tr>
-            <th class="l">#</th><th class="l"><button type="button" data-k="n">Kingpin</button></th>
-            <th><button type="button" data-k="g"><i class="md2-dot g"></i>Gold</button></th>
-            <th><button type="button" data-k="s"><i class="md2-dot s"></i>Silver</button></th>
-            <th><button type="button" data-k="b"><i class="md2-dot b"></i>Bronze</button></th>
-            <th><button type="button" data-k="t">Medals</button></th>
-            <th><button type="button" data-k="c">Cash</button></th>
-          </tr></thead>
-          <tbody></tbody>
-        </table></div>
-        <div class="md2-foot">
-          <p>Ranking: most medals, then more gold, then more silver. Tied players share a place.</p>
-          <p>The Season Medal Champion takes the $300 prize instead of medal cash. Everyone else keeps their medal cash.</p>
-          <p>Each player's own scores count for medals.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <iframe class="emb-page" data-emb="emb-medals" title="Kingpins Virtual Medals" loading="lazy"></iframe>
+  <script type="application/json" id="emb-medals">"<!doctype html><html data-theme=\"light\"><head><meta charset=utf8><meta name=viewport content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}<\/style><\/head><body>\n<title>Kingpins Virtual Medals<\/title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@400;500;600;700&display=swap\">\n<style>\n/* Layout: a medal ledger. Filter bar first, then this week's podium table, then the season medal table. */\n:root{\n  --bg:#f6f3ee; --surface:#fffdf9; --ink:#1e1814; --muted:#6b5f55; --line:#e2d9cc; --soft:#efe9df;\n  --chola:#a3222c; --pandya:#1d6a46; --gold:#c8961d; --gold-ink:#8a6410;\n  --g1:#d9a52a; --g2:#a7afb6; --g3:#b47240;\n  --display:\"Rozha One\", Georgia, \"Times New Roman\", serif;\n  --body:\"Hind\", \"Segoe UI\", Roboto, Arial, sans-serif;\n}\n@media (prefers-color-scheme: dark){\n  :root:not([data-theme=\"light\"]){\n    --bg:#15110e; --surface:#1f1915; --ink:#f3ece3; --muted:#b5a899; --line:#3a3029; --soft:#2a221d;\n    --chola:#e0545c; --pandya:#4fbf87; --gold:#e3b23c; --gold-ink:#f0c860; color-scheme:dark;\n  }\n}\n:root[data-theme=\"dark\"]{\n  --bg:#15110e; --surface:#1f1915; --ink:#f3ece3; --muted:#b5a899; --line:#3a3029; --soft:#2a221d;\n  --chola:#e0545c; --pandya:#4fbf87; --gold:#e3b23c; --gold-ink:#f0c860; color-scheme:dark;\n}\n*{box-sizing:border-box}\nbody{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;\n  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}\n.wrap{max-width:980px;margin:0 auto;display:grid;gap:28px}\nh1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;text-wrap:balance;margin:0}\np{margin:0}\n.label{font-weight:600;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}\n.muted{color:var(--muted)}\n.num{font-variant-numeric:tabular-nums}\n\n.hero{padding-top:40px;display:grid;gap:12px}\n.kingdoms{display:flex;gap:8px;flex-wrap:wrap;font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}\n.kingdoms span{padding:4px 12px;border-radius:999px;color:#fff}\n.kingdoms .c{background:var(--chola)} .kingdoms .p{background:var(--pandya)}\n.hero h1{font-size:clamp(38px,9vw,64px)}\n.hero .lead{max-width:62ch}\n.values{display:flex;flex-wrap:wrap;gap:8px 18px;font-weight:600}\n.dot{display:inline-block;width:.85em;height:.85em;border-radius:50%;vertical-align:-.08em;margin-right:6px;box-shadow:inset 0 -2px 3px rgba(0,0,0,.2)}\n.dot.g{background:var(--g1)} .dot.s{background:var(--g2)} .dot.b{background:var(--g3)}\n\n/* filters */\n.filters{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);\n  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}\n.filters label{display:grid;gap:3px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:0}\n.filters select,.filters input{font:inherit;font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}\n.filters select:focus-visible,.filters input:focus-visible,th button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}\n@media (max-width:640px){.filters{grid-template-columns:1fr 1fr}}\n\nsection{display:grid;gap:14px}\nsection > header{display:grid;gap:4px}\nh2{font-size:clamp(26px,5.5vw,34px)}\n\n.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}\ntable{border-collapse:collapse;width:100%;min-width:560px}\nth,td{padding:10px 12px;text-align:left;border-top:1px solid var(--line);vertical-align:top}\nthead th{border-top:0;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--soft);white-space:nowrap}\nth button{all:unset;cursor:pointer}\nth button[aria-sort]::after{content:\" \u25be\";color:var(--gold-ink)}\ntd.cat{font-family:var(--display);font-size:18px;white-space:nowrap}\ntd.cat small{display:block;font-family:var(--body);font-size:13px;color:var(--muted)}\n.win{display:grid;gap:2px}\n.win b{font-weight:600}\n.win span{font-size:13px;color:var(--muted)}\n.none{color:var(--muted);font-style:italic}\n.weekhead td{background:var(--soft);font-weight:700;font-size:14px;letter-spacing:.04em}\n.k-c{color:var(--chola)} .k-p{color:var(--pandya)}\n.pill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:1px 9px;color:#fff;margin-left:6px;vertical-align:1px}\n.pill.c{background:var(--chola)} .pill.p{background:var(--pandya)}\n\n#standings td,#standings th{text-align:right}\n#standings td:nth-child(1),#standings th:nth-child(1),#standings td:nth-child(2),#standings th:nth-child(2){text-align:left}\n#standings tbody tr:first-child td{font-weight:700}\n.rk{font-family:var(--display);font-size:18px;color:var(--gold-ink);width:2.5em}\n.cash{font-weight:600}\n.empty{padding:18px;color:var(--muted)}\n.foot{font-size:14px;color:var(--muted);display:grid;gap:4px;border-left:3px solid var(--gold);padding-left:12px}\n@media (max-width:640px){\n  #winners{min-width:0}\n  #winners thead{display:none}\n  #winners tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}\n  #winners tbody tr:first-child{border-top:0}\n  #winners td{border-top:0;padding:8px 10px;min-width:0}\n  #winners td.cat,#winners td[colspan]{grid-column:1/-1;white-space:normal}\n  #winners td.cat{padding-bottom:0}\n  #winners td[data-m]::before{content:attr(data-m);display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px}\n}\n<\/style>\n\n<main class=\"wrap\">\n  <header class=\"hero\">\n    <div class=\"kingdoms\"><span class=\"c\">Cholan<\/span><span class=\"p\">Pandiyan<\/span><\/div>\n    <p class=\"label\">Kingpins Crew \u00b7 Season 2026<\/p>\n    <h1>Virtual Medals<\/h1>\n    <p class=\"lead muted\">Gold, silver and bronze in seven categories every Saturday. Medals add up across the 16 weeks.<\/p>\n    <p class=\"values num\"><span><i class=\"dot g\"><\/i>Gold $1<\/span><span><i class=\"dot s\"><\/i>Silver 50\u00a2<\/span><span><i class=\"dot b\"><\/i>Bronze 25\u00a2<\/span><\/p>\n  <\/header>\n\n  <div class=\"filters\" role=\"search\" aria-label=\"Filter medals\">\n    <label for=\"f-week\">Week<select id=\"f-week\"><\/select><\/label>\n    <label for=\"f-cat\">Category<select id=\"f-cat\"><\/select><\/label>\n    <label for=\"f-team\">Kingdom<select id=\"f-team\"><option value=\"\">Both kingdoms<\/option><option value=\"Cholan\">Cholan<\/option><option value=\"Pandiyan\">Pandiyan<\/option><\/select><\/label>\n    <label for=\"f-name\">Player<input id=\"f-name\" type=\"search\" placeholder=\"Type a name\" autocomplete=\"off\"><\/label>\n  <\/div>\n\n  <section aria-labelledby=\"h-week\">\n    <header>\n      <p class=\"label\" id=\"week-label\"><\/p>\n      <h2 id=\"h-week\">Medal winners<\/h2>\n    <\/header>\n    <div class=\"scroll\"><table id=\"winners\">\n      <thead><tr><th scope=\"col\">Category<\/th><th scope=\"col\"><i class=\"dot g\"><\/i>Gold<\/th><th scope=\"col\"><i class=\"dot s\"><\/i>Silver<\/th><th scope=\"col\"><i class=\"dot b\"><\/i>Bronze<\/th><\/tr><\/thead>\n      <tbody><\/tbody>\n    <\/table><\/div>\n  <\/section>\n\n  <section aria-labelledby=\"h-table\">\n    <header>\n      <p class=\"label\">Medal table<\/p>\n      <h2 id=\"h-table\">Season standings<\/h2>\n      <p class=\"muted\" id=\"table-note\"><\/p>\n    <\/header>\n    <div class=\"scroll\"><table id=\"standings\">\n      <thead><tr>\n        <th scope=\"col\">#<\/th><th scope=\"col\"><button data-sort=\"n\">Player<\/button><\/th>\n        <th scope=\"col\"><button data-sort=\"g\"><i class=\"dot g\"><\/i>Gold<\/button><\/th>\n        <th scope=\"col\"><button data-sort=\"s\"><i class=\"dot s\"><\/i>Silver<\/button><\/th>\n        <th scope=\"col\"><button data-sort=\"b\"><i class=\"dot b\"><\/i>Bronze<\/button><\/th>\n        <th scope=\"col\"><button data-sort=\"t\" aria-sort=\"descending\">Medals<\/button><\/th>\n        <th scope=\"col\"><button data-sort=\"c\">Medal cash<\/button><\/th>\n      <\/tr><\/thead>\n      <tbody><\/tbody>\n    <\/table><\/div>\n    <div class=\"foot\">\n      <p>Ranking: most medals, then more gold, then more silver. Tied players share a place.<\/p>\n      <p>The Season Medal Champion takes the $300 prize instead of medal cash. Everyone else keeps their medal cash.<\/p>\n      <p>Each player's own scores count for medals. Blind scores are only used for team totals.<\/p>\n    <\/div>\n  <\/section>\n<\/main>\n\n<script>\n(function(){\n  /* \u2500\u2500 League data. One row per game: [week, game, player, score, strikes, spares] \u2500\u2500 */\n  var WEEKS={\n    1:{date:\"Saturday, October 10, 2026\",\n       teams:{Cholan:[\"Suresh\",\"Kiri\",\"Shankar\",\"Myooran\",\"Sanjay\",\"Ram\"], Pandiyan:[\"Thilak\",\"Roshan\",\"Sasi\",\"Niz\",\"Mona\",\"Sabes\"]},\n       blinds:{Thilak:130,Suresh:130,Kiri:130},\n       clean:[]  /* clean games bowled: {n:\"Name\", s:score} */\n    }\n  };\n  var GAMES=[[1,1,\"Thilak\",112,2,2],[1,1,\"Sabes\",159,3,4],[1,1,\"Niz\",169,2,6],[1,1,\"Sasi\",161,4,4],[1,1,\"Roshan\",165,1,7],[1,1,\"Mona\",172,4,3],[1,1,\"Suresh\",130,1,5],[1,1,\"Ram\",176,4,5],[1,1,\"Myooran\",176,1,8],[1,1,\"Sanjay\",133,1,5],[1,1,\"Kiri\",154,2,6],[1,1,\"Shankar\",157,1,7],[1,2,\"Thilak\",126,2,2],[1,2,\"Sabes\",141,1,6],[1,2,\"Niz\",180,4,4],[1,2,\"Sasi\",135,2,3],[1,2,\"Roshan\",143,3,3],[1,2,\"Mona\",188,4,5],[1,2,\"Suresh\",153,2,5],[1,2,\"Ram\",167,4,4],[1,2,\"Myooran\",158,4,3],[1,2,\"Sanjay\",144,4,1],[1,2,\"Kiri\",117,1,3],[1,2,\"Shankar\",154,1,6],[1,3,\"Thilak\",141,3,4],[1,3,\"Sabes\",148,2,4],[1,3,\"Niz\",178,3,5],[1,3,\"Sasi\",141,0,6],[1,3,\"Roshan\",108,1,1],[1,3,\"Mona\",209,5,5],[1,3,\"Suresh\",160,2,5],[1,3,\"Ram\",200,5,3],[1,3,\"Myooran\",145,3,3],[1,3,\"Sanjay\",176,4,4],[1,3,\"Kiri\",129,3,2],[1,3,\"Shankar\",178,3,5],[1,4,\"Thilak\",130,0,5],[1,4,\"Sabes\",205,5,4],[1,4,\"Niz\",198,2,8],[1,4,\"Sasi\",149,1,6],[1,4,\"Roshan\",154,3,3],[1,4,\"Mona\",212,7,3],[1,4,\"Suresh\",107,2,1],[1,4,\"Ram\",101,0,2],[1,4,\"Myooran\",124,1,2],[1,4,\"Sanjay\",122,1,3],[1,4,\"Kiri\",105,1,2],[1,4,\"Shankar\",140,1,5],[1,5,\"Thilak\",104,1,2],[1,5,\"Sabes\",118,1,2],[1,5,\"Niz\",204,3,7],[1,5,\"Sasi\",146,3,3],[1,5,\"Roshan\",179,3,7],[1,5,\"Mona\",200,5,3],[1,5,\"Suresh\",123,2,2],[1,5,\"Ram\",197,4,4],[1,5,\"Myooran\",167,4,3],[1,5,\"Sanjay\",179,4,4],[1,5,\"Kiri\",111,1,3],[1,5,\"Shankar\",182,2,6],[1,6,\"Thilak\",114,1,2],[1,6,\"Sabes\",182,5,2],[1,6,\"Niz\",213,5,4],[1,6,\"Sasi\",137,2,4],[1,6,\"Roshan\",153,2,5],[1,6,\"Mona\",180,3,4],[1,6,\"Suresh\",111,0,3],[1,6,\"Ram\",180,5,2],[1,6,\"Myooran\",195,2,9],[1,6,\"Sanjay\",173,4,4],[1,6,\"Kiri\",105,1,2],[1,6,\"Shankar\",202,5,4]];\n\n  var CATS=[\n    [\"avg\",\"High Average\",\"best average of the night\"],\n    [\"high\",\"High Game\",\"highest single game\"],\n    [\"x\",\"Strike King\",\"most strikes\"],\n    [\"sp\",\"Spare Master\",\"most spares\"],\n    [\"two\",\"Most 200s\",\"most games of 200+\"],\n    [\"clean\",\"Clean Game\",\"no open frames\"],\n    [\"gc\",\"Game Changer\",\"top scorers, closest game won\"]\n  ];\n  var VAL=[1,0.5,0.25], PL=[\"g\",\"s\",\"b\"];\n  var weekNums=Object.keys(WEEKS).map(Number).sort(function(a,b){return a-b;});\n\n  function teamOf(w,n){ var t=WEEKS[w].teams; return t.Cholan.indexOf(n)>-1?\"Cholan\":t.Pandiyan.indexOf(n)>-1?\"Pandiyan\":\"\"; }\n  function esc(v){ return String(v).replace(/[&<>\"]/g,function(c){return {\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\"}[c];}); }\n  function money(v){ return \"$\"+v.toFixed(2); }\n\n  /* top three places, ties share a place (1, 1, 3) */\n  function podium(list){\n    list=list.filter(function(e){return e.v>0;}).sort(function(a,b){return b.v-a.v;});\n    var out=[], place=0;\n    list.forEach(function(e,i){ if(i===0||e.v!==list[i-1].v) place=i+1; if(place<=3) out.push({n:e.n,v:e.v,t:e.t,p:place}); });\n    return out;\n  }\n\n  function weekMedals(w){\n    var rows=GAMES.filter(function(r){return r[0]===w;}), by={};\n    rows.forEach(function(r){ (by[r[2]]=by[r[2]]||[]).push(r); });\n    var names=Object.keys(by), res={}, notes={};\n    function stat(f,fmt){ return podium(names.map(function(n){ var v=f(by[n]); return {n:n,v:v,t:fmt(v)}; })); }\n    res.avg=stat(function(g){return g.reduce(function(a,r){return a+r[3];},0)/g.length;},function(v){return v.toFixed(1)+\" avg\";});\n    res.high=stat(function(g){return Math.max.apply(null,g.map(function(r){return r[3];}));},function(v){return v+\" pins\";});\n    res.x=stat(function(g){return g.reduce(function(a,r){return a+r[4];},0);},function(v){return v+\" strikes\";});\n    res.sp=stat(function(g){return g.reduce(function(a,r){return a+r[5];},0);},function(v){return v+\" spares\";});\n    res.two=stat(function(g){return g.filter(function(r){return r[3]>=200;}).length;},function(v){return v+(v>1?\" games\":\" game\")+\" of 200+\";});\n    res.clean=podium((WEEKS[w].clean||[]).map(function(c){return {n:c.n,v:c.s,t:\"clean \"+c.s};}));\n    /* Game Changer: closest game a kingdom won (blind scores count in team totals) */\n    var tm=WEEKS[w].teams, bl=WEEKS[w].blinds||{}, games={}, pick=null;\n    rows.forEach(function(r){ (games[r[1]]=games[r[1]]||[]).push(r); });\n    Object.keys(games).forEach(function(g){\n      var tot={Cholan:0,Pandiyan:0};\n      games[g].forEach(function(r){ var k=teamOf(w,r[2]); if(k) tot[k]+=Math.max(r[3],bl[r[2]]||0); });\n      if(tot.Cholan===tot.Pandiyan) return;\n      var m=Math.abs(tot.Cholan-tot.Pandiyan), win=tot.Cholan>tot.Pandiyan?\"Cholan\":\"Pandiyan\";\n      if(!pick||m<pick.m) pick={g:+g,m:m,win:win,tot:tot};\n    });\n    res.gc=pick?podium(games[pick.g].filter(function(r){return teamOf(w,r[2])===pick.win;}).map(function(r){return {n:r[2],v:r[3],t:r[3]+\" in game \"+pick.g};})):[];\n    if(pick) notes.gc=\"Game \"+pick.g+\": \"+pick.win+\" won by \"+pick.m+\" pins (\"+pick.tot.Cholan+\" to \"+pick.tot.Pandiyan+\")\";\n    return {res:res,notes:notes};\n  }\n  var MEDALS={}; weekNums.forEach(function(w){ MEDALS[w]=weekMedals(w); });\n\n  /* filters */\n  var fWeek=document.getElementById(\"f-week\"), fCat=document.getElementById(\"f-cat\"), fTeam=document.getElementById(\"f-team\"), fName=document.getElementById(\"f-name\");\n  fWeek.innerHTML='<option value=\"0\">Whole season<\/option>'+weekNums.map(function(w){return '<option value=\"'+w+'\">Week '+w+'<\/option>';}).join(\"\");\n  fCat.innerHTML='<option value=\"\">All categories<\/option>'+CATS.map(function(c){return '<option value=\"'+c[0]+'\">'+c[1]+'<\/option>';}).join(\"\");\n  var sortKey=\"t\";\n\n  function matches(w,n){\n    var team=fTeam.value, q=fName.value.trim().toLowerCase();\n    if(team && teamOf(w,n)!==team) return false;\n    if(q && n.toLowerCase().indexOf(q)<0) return false;\n    return true;\n  }\n\n  function drawWinners(){\n    var wk=+fWeek.value, weeks=wk?[wk]:weekNums.slice().reverse(), cats=CATS.filter(function(c){return !fCat.value||c[0]===fCat.value;});\n    document.getElementById(\"week-label\").textContent=wk?(\"Week \"+wk+\" \u00b7 \"+WEEKS[wk].date):(\"All weeks \u00b7 \"+weekNums.length+\" of 16 played\");\n    var html=\"\";\n    weeks.forEach(function(w){\n      if(weeks.length>1) html+='<tr class=\"weekhead\"><td colspan=\"4\">Week '+w+' \u00b7 '+esc(WEEKS[w].date)+'<\/td><\/tr>';\n      cats.forEach(function(c){\n        var pod=MEDALS[w].res[c[0]], note=MEDALS[w].notes[c[0]];\n        html+='<tr><td class=\"cat\">'+c[1]+'<small>'+(note?esc(note):c[2])+'<\/small><\/td>';\n        if(!pod.length){ html+='<td colspan=\"3\" class=\"none\">'+(c[0]===\"clean\"?\"No clean game this week\":\"No medal this week\")+'<\/td><\/tr>'; return; }\n        [1,2,3].forEach(function(p){\n          var M=[\"Gold\",\"Silver\",\"Bronze\"][p-1];\n          var who=pod.filter(function(e){return e.p===p;});\n          if(!who.length){ html+='<td data-m=\"'+M+'\" class=\"none\">'+(pod.some(function(e){return e.p<p;})&&p>1?\"Shared above\":\"\u2014\")+'<\/td>'; return; }\n          var shown=who.filter(function(e){return matches(w,e.n);});\n          html+='<td data-m=\"'+M+'\">'+(shown.length?shown.map(function(e){ var t=teamOf(w,e.n); return '<div class=\"win\"><b class=\"'+(t===\"Cholan\"?\"k-c\":\"k-p\")+'\">'+esc(e.n)+'<\/b><span class=\"num\">'+esc(e.t)+'<\/span><\/div>'; }).join(\"\"):'<span class=\"none\">Filtered out<\/span>')+'<\/td>';\n        });\n        html+='<\/tr>';\n      });\n    });\n    document.querySelector(\"#winners tbody\").innerHTML=html;\n  }\n\n  function drawTable(){\n    var wk=+fWeek.value, weeks=wk?[wk]:weekNums, cat=fCat.value, t={};\n    weeks.forEach(function(w){\n      GAMES.forEach(function(r){ if(r[0]===w && !t[r[2]]) t[r[2]]={n:r[2],g:0,s:0,b:0,team:teamOf(w,r[2])}; });\n      CATS.forEach(function(c){ if(cat && c[0]!==cat) return;\n        MEDALS[w].res[c[0]].forEach(function(e){ t[e.n][PL[e.p-1]]++; });\n      });\n    });\n    var rows=Object.keys(t).map(function(n){ var p=t[n]; p.t=p.g+p.s+p.b; p.c=p.g*VAL[0]+p.s*VAL[1]+p.b*VAL[2]; return p; })\n      .filter(function(p){ return (!fTeam.value||p.team===fTeam.value) && (!fName.value.trim()||p.n.toLowerCase().indexOf(fName.value.trim().toLowerCase())>-1); });\n    function std(a,b){ return b.t-a.t||b.g-a.g||b.s-a.s; }\n    rows.sort(sortKey===\"n\"?function(a,b){return a.n.localeCompare(b.n);}:function(a,b){return (b[sortKey]-a[sortKey])||std(a,b)||a.n.localeCompare(b.n);});\n    var ranked=Object.keys(t).map(function(n){return t[n];}).sort(std), rankOf={};\n    ranked.forEach(function(p,i){ rankOf[p.n]=(i>0&&std(p,ranked[i-1])===0)?rankOf[ranked[i-1].n]:i+1; });\n    var tb=document.querySelector(\"#standings tbody\");\n    tb.innerHTML=rows.length?rows.map(function(p){\n      return '<tr><td class=\"rk num\">'+rankOf[p.n]+'<\/td><td>'+esc(p.n)+(p.team?'<span class=\"pill '+(p.team===\"Cholan\"?\"c\":\"p\")+'\">'+p.team+'<\/span>':'')+'<\/td>'+\n        '<td class=\"num\">'+p.g+'<\/td><td class=\"num\">'+p.s+'<\/td><td class=\"num\">'+p.b+'<\/td><td class=\"num\"><b>'+p.t+'<\/b><\/td><td class=\"num cash\">'+money(p.c)+'<\/td><\/tr>';\n    }).join(\"\"):'<tr><td colspan=\"7\" class=\"empty\">No players match these filters.<\/td><\/tr>';\n    document.getElementById(\"h-table\").textContent=wk?(\"Week \"+wk+\" medal table\"):\"Season standings\";\n    document.getElementById(\"table-note\").textContent=(cat?CATS.filter(function(c){return c[0]===cat;})[0][1]+\" medals only. \":\"\")+(wk?\"Medals won on \"+WEEKS[wk].date+\".\":\"All medals after \"+weekNums.length+\" of 16 weeks.\");\n    document.querySelectorAll(\"#standings th button\").forEach(function(b){ if(b.dataset.sort===sortKey) b.setAttribute(\"aria-sort\",sortKey===\"n\"?\"ascending\":\"descending\"); else b.removeAttribute(\"aria-sort\"); });\n  }\n\n  function draw(){ drawWinners(); drawTable(); }\n  [fWeek,fCat,fTeam].forEach(function(el){ el.addEventListener(\"change\",draw); });\n  fName.addEventListener(\"input\",draw);\n  document.querySelector(\"#standings thead\").addEventListener(\"click\",function(e){ var b=e.target.closest(\"button\"); if(!b) return; sortKey=b.dataset.sort; drawTable(); });\n  draw();\n  window.__MEDALS=MEDALS;\n})();\n<\/script>\n\n<\/body><\/html>"</script>
 </div>
 
 <!-- ───────── PRIZES & MVP ───────── -->
 <div class="page" data-page="prizes" hidden>
-  <div class="page-title"><div class="wrap">
-    <p class="label">Kingpins Crew · Season 2026</p>
-    <h1 class="gold-text">Season Medals &amp; Prizes</h1>
-    <p class="lead">Every Saturday is a mini tournament. Seven categories, and in each one we award gold, silver and bronze. Your medals add up all season, and each one is worth cash.</p>
-    <div class="pz-facts">
-      <div><b>16</b><span>league weeks</span></div>
-      <div><b>7</b><span>categories each week</span></div>
-      <div><b>21</b><span>medals each Saturday</span></div>
-      <div><b>336</b><span>medal places in the season</span></div>
-    </div>
-  </div></div>
-
-  <section><div class="wrap pz">
-    <div class="head"><p class="label">What each medal is worth</p><h2>Gold, silver, bronze</h2></div>
-    <div class="pz-coins">
-      <div><span class="pz-coin g">$1</span><h3>Gold</h3><p>1st place</p></div>
-      <div><span class="pz-coin s">50¢</span><h3>Silver</h3><p>2nd place</p></div>
-      <div><span class="pz-coin b">25¢</span><h3>Bronze</h3><p>3rd place</p></div>
-    </div>
-    <p class="pz-note">These are virtual medals, recorded in our weekly stats. The cash adds up for every medal you win across the season.</p>
-  </div></section>
-
-  <section><div class="wrap pz">
-    <div class="head"><p class="label">Every Saturday</p><h2>The seven weekly categories</h2><p class="lead">Each category has a 1st, 2nd and 3rd place, ranked on that night's games.</p></div>
-    <ol class="pz-ledger">
-      <li><span>1</span><h3>High Average</h3><p>Best average across the night's games.</p></li>
-      <li><span>2</span><h3>High Game</h3><p>Highest single-game score.</p></li>
-      <li><span>3</span><h3>Strike King</h3><p>Most strikes in the night.</p></li>
-      <li><span>4</span><h3>Spare Master</h3><p>Most spares in the night.</p></li>
-      <li><span>5</span><h3>Most 200s</h3><p>Most games of 200 or more. Only players who bowl a 200+ game can place.</p></li>
-      <li><span>6</span><h3>Clean Game</h3><p>A game with no open frames, every frame a strike or a spare. Ranked by the highest clean-game score. If nobody bowls one, no medal that week.</p></li>
-      <li><span>7</span><h3>Game Changer</h3><p>In the closest game of the night, the top three scorers from the winning kingdom.</p></li>
-    </ol>
-    <p class="pz-note">Ties share the place. Because of ties, and weeks when nobody qualifies (for example in Clean Game), the number of medals each week can vary.</p>
-  </div></section>
-
-  <section><div class="wrap pz">
-    <div class="head"><p class="label">End of the season</p><h2>The Season Medal Champion</h2></div>
-    <div class="pz-crown"><b>$300</b><div><h3>Most medals after 16 weeks</h3><p>The player with the most medals wins the special trophy and the $300 prize.</p></div></div>
-    <ul class="pz-rules">
-      <li>The champion receives the $300 prize only, without medal cash.</li>
-      <li>Every other player receives cash for all the medals they earned during the season.</li>
-      <li>If two players finish level on medals, the one with more gold wins. If still level, more silver.</li>
-      <li>There are up to 336 medal places in the season, including 112 golds. If every place is awarded, that is $196 in medal cash shared across the crew.</li>
-      <li>No minimum games. Miss a Saturday and you simply miss that week's chance to win medals.</li>
-    </ul>
-    <form class="pz-calc" id="pz-calc" aria-labelledby="pz-calc-h">
-      <h3 id="pz-calc-h">Work out your medal cash</h3>
-      <div class="pz-row">
-        <label for="pz-g">Gold<input id="pz-g" type="number" min="0" max="112" step="1" inputmode="numeric" value="3"></label>
-        <label for="pz-s">Silver<input id="pz-s" type="number" min="0" max="112" step="1" inputmode="numeric" value="4"></label>
-        <label for="pz-b">Bronze<input id="pz-b" type="number" min="0" max="112" step="1" inputmode="numeric" value="6"></label>
-      </div>
-      <p class="pz-total" aria-live="polite"><b id="pz-total">$6.50</b><span id="pz-detail">13 medals: $3.00 + $2.00 + $1.50</span></p>
-    </form>
-  </div></section>
-
-  <section><div class="wrap pz">
-    <div class="head"><p class="label">Cholan v Pandiyan</p><h2>The MVP Award</h2><p class="lead">Each week, the team captains, the admin and a couple of core members jointly choose one MVP from across both teams.</p></div>
-    <div class="pz-court">
-      <div class="c"><h3>Weekly MVP</h3><p>Performance and sportsmanship come first.</p>
-        <ul><li>Strong bowling</li><li>Contribution to the team</li><li>Fair play</li><li>Respect for others</li><li>Encouraging teammates</li></ul></div>
-      <div class="p"><h3>MVP of the Season</h3><p>After 16 weeks, the player with the most weekly MVP awards is named MVP of the Season and receives a separate reward.</p><p>A tie is decided by the same group, on overall performance and sportsmanship across the season.</p></div>
-    </div>
-    <p class="pz-end">Two kingdoms, one Kingpins Crew. <span>Everyone has a chance to earn something, every Saturday.</span></p>
-  </div></section>
+  <iframe class="emb-page" data-emb="emb-prizes" title="Kingpins Season Medals and Prizes" loading="lazy"></iframe>
+  <script type="application/json" id="emb-prizes">"<!doctype html><html data-theme=\"light\"><head><meta charset=utf8><meta name=viewport content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}<\/style><\/head><body>\n<title>Kingpins Season Medals<\/title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Rozha+One&family=Hind:wght@400;500;600;700&display=swap\">\n<style>\n/* Layout: one royal column; a hero \"proclamation\", three medal coins, a category ledger, the season prize, then the MVP court. */\n:root{\n  --bg:#f6f3ee;          /* palace stone */\n  --surface:#fffdf9;\n  --ink:#1e1814;\n  --muted:#6b5f55;\n  --line:#e2d9cc;\n  --chola:#a3222c;       /* Cholan red */\n  --pandya:#1d6a46;      /* Pandiyan green */\n  --gold:#c8961d;\n  --gold-ink:#8a6410;\n  --gold-hi:#f4d27a;\n  --silver:#9aa3ab; --silver-hi:#eef1f3;\n  --bronze:#a8683a; --bronze-hi:#e8b48a;\n  --display:\"Rozha One\", Georgia, \"Times New Roman\", serif;\n  --body:\"Hind\", \"Segoe UI\", Roboto, Arial, sans-serif;\n}\n@media (prefers-color-scheme: dark){\n  :root:not([data-theme=\"light\"]){\n    --bg:#15110e; --surface:#1f1915; --ink:#f3ece3; --muted:#b5a899; --line:#3a3029;\n    --chola:#e0545c; --pandya:#4fbf87; --gold:#e3b23c; --gold-ink:#f0c860;\n    color-scheme:dark;\n  }\n}\n:root[data-theme=\"dark\"]{\n  --bg:#15110e; --surface:#1f1915; --ink:#f3ece3; --muted:#b5a899; --line:#3a3029;\n  --chola:#e0545c; --pandya:#4fbf87; --gold:#e3b23c; --gold-ink:#f0c860;\n  color-scheme:dark;\n}\n\n*{box-sizing:border-box}\nbody{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;\n  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}\n.wrap{max-width:860px;margin:0 auto}\nh1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;text-wrap:balance;margin:0}\np{margin:0}\n.label{font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}\nsection{padding-block:40px;border-top:1px solid var(--line);display:grid;gap:20px}\nsection > header{display:grid;gap:6px}\nh2{font-size:clamp(28px,6vw,38px)}\n.lead{color:var(--muted);max-width:62ch}\n.num{font-variant-numeric:tabular-nums}\n\n/* hero */\n.hero{padding-block:44px 36px;display:grid;gap:18px;text-align:left}\n.kingdoms{display:flex;gap:8px;flex-wrap:wrap;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase}\n.kingdoms span{padding:4px 12px;border-radius:999px;color:#fff}\n.kingdoms .c{background:var(--chola)} .kingdoms .p{background:var(--pandya)}\n.hero h1{font-size:clamp(40px,10vw,72px)}\n.hero h1 em{font-style:normal;color:var(--gold-ink)}\n.hero .lead{font-size:19px;color:var(--ink)}\n.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}\n.facts div{background:var(--surface);padding:14px 12px;display:grid;gap:2px}\n.facts b{font-family:var(--display);font-weight:400;font-size:clamp(26px,6vw,34px);line-height:1;font-variant-numeric:tabular-nums}\n.facts span{font-size:13px;color:var(--muted);line-height:1.3}\n@media (max-width:560px){.facts{grid-template-columns:repeat(2,1fr)}}\n\n/* medal coins */\n.coins{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}\n.coin-card{display:grid;justify-items:center;gap:8px;text-align:center}\n.coin{width:min(132px,26vw);aspect-ratio:1;max-width:100%;border-radius:50%;display:grid;place-items:center;\n  font-family:var(--display);font-size:clamp(24px,6vw,36px);color:#2a1d08;position:relative;\n  box-shadow:inset 0 0 0 5px rgba(255,255,255,.35), inset 0 -6px 12px rgba(0,0,0,.18), 0 6px 16px rgba(0,0,0,.18)}\n.coin::after{content:\"\";position:absolute;inset:11%;border-radius:50%;border:2px dashed rgba(0,0,0,.18)}\n.coin.g{background:radial-gradient(circle at 35% 30%,var(--gold-hi),#d9a52a 55%,#9c6f12)}\n.coin.s{background:radial-gradient(circle at 35% 30%,var(--silver-hi),#b9c1c8 55%,#7d868e)}\n.coin.b{background:radial-gradient(circle at 35% 30%,var(--bronze-hi),#b9773f 55%,#7a4620)}\n.coin-card h3{font-size:22px}\n.coin-card p{font-size:14px;color:var(--muted)}\n\n/* categories */\n.ledger{list-style:none;margin:0;padding:0;display:grid;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}\n.ledger li{display:grid;grid-template-columns:2.4rem 1fr;gap:4px 12px;padding:16px;border-top:1px solid var(--line)}\n.ledger li:first-child{border-top:0}\n.ledger .n{grid-row:span 2;font-family:var(--display);font-size:24px;color:var(--gold-ink);line-height:1.1}\n.ledger h3{font-size:22px}\n.ledger p{color:var(--muted);font-size:15px;min-width:0}\n.note{font-size:15px;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px}\n\n/* season */\n.crown{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}\n.prize{font-family:var(--display);font-size:clamp(52px,13vw,84px);line-height:1;color:var(--gold-ink);font-variant-numeric:tabular-nums}\n.crown h3{font-size:26px}\n.crown p{color:var(--muted)}\n@media (max-width:520px){.crown{grid-template-columns:1fr}}\n.rules{margin:0;padding-left:1.2em;display:grid;gap:8px}\n.rules li::marker{color:var(--gold)}\n\n.calc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:14px}\n.calc h3{font-size:22px}\n.calc .row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}\n.calc label{display:grid;gap:4px;font-size:14px;font-weight:600}\n.calc input{font:inherit;font-size:20px;font-variant-numeric:tabular-nums;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}\n.calc input:focus-visible{outline:3px solid var(--gold);outline-offset:1px}\n.total{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}\n.total b{font-family:var(--display);font-weight:400;font-size:40px;line-height:1;color:var(--gold-ink);font-variant-numeric:tabular-nums}\n.total span{color:var(--muted);font-size:15px}\n\n/* MVP */\n.court{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}\n.court > div{background:var(--surface);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}\n.court h3{font-size:22px}\n.court .c h3{color:var(--chola)} .court .p h3{color:var(--pandya)}\n@media (max-width:600px){.court{grid-template-columns:1fr}}\n.values{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}\n.values li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;background:var(--bg)}\n\nfooter{padding-block:28px 0;border-top:1px solid var(--line);text-align:center;display:grid;gap:4px}\nfooter p{font-family:var(--display);font-size:22px}\nfooter small{color:var(--muted)}\n<\/style>\n\n<main class=\"wrap\">\n\n  <header class=\"hero\">\n    <div class=\"kingdoms\"><span class=\"c\">Cholan<\/span><span class=\"p\">Pandiyan<\/span><\/div>\n    <p class=\"label\">Kingpins Crew \u00b7 Season 2026<\/p>\n    <h1>Season Medals <em>&amp;<\/em> Prizes<\/h1>\n    <p class=\"lead\">Every Saturday is a mini tournament. Seven categories, and in each one we award gold, silver and bronze. Your medals add up all season, and each one is worth cash.<\/p>\n    <div class=\"facts\">\n      <div><b>16<\/b><span>league weeks<\/span><\/div>\n      <div><b>7<\/b><span>categories each week<\/span><\/div>\n      <div><b>21<\/b><span>medals each Saturday<\/span><\/div>\n      <div><b>336<\/b><span>medal places in the season<\/span><\/div>\n    <\/div>\n  <\/header>\n\n  <section aria-labelledby=\"h-medals\">\n    <header>\n      <p class=\"label\">What each medal is worth<\/p>\n      <h2 id=\"h-medals\">Gold, silver, bronze<\/h2>\n    <\/header>\n    <div class=\"coins\">\n      <div class=\"coin-card\"><div class=\"coin g num\">$1<\/div><h3>Gold<\/h3><p>1st place<\/p><\/div>\n      <div class=\"coin-card\"><div class=\"coin s num\">50\u00a2<\/div><h3>Silver<\/h3><p>2nd place<\/p><\/div>\n      <div class=\"coin-card\"><div class=\"coin b num\">25\u00a2<\/div><h3>Bronze<\/h3><p>3rd place<\/p><\/div>\n    <\/div>\n    <p class=\"note\">These are virtual medals, recorded in our weekly stats. The cash adds up for every medal you win across the season.<\/p>\n  <\/section>\n\n  <section aria-labelledby=\"h-cats\">\n    <header>\n      <p class=\"label\">Every Saturday<\/p>\n      <h2 id=\"h-cats\">The seven weekly categories<\/h2>\n      <p class=\"lead\">Each category has a 1st, 2nd and 3rd place, ranked on that night's games.<\/p>\n    <\/header>\n    <ol class=\"ledger\">\n      <li><span class=\"n\">1<\/span><h3>High Average<\/h3><p>Best average across the night's games.<\/p><\/li>\n      <li><span class=\"n\">2<\/span><h3>High Game<\/h3><p>Highest single-game score.<\/p><\/li>\n      <li><span class=\"n\">3<\/span><h3>Strike King<\/h3><p>Most strikes in the night.<\/p><\/li>\n      <li><span class=\"n\">4<\/span><h3>Spare Master<\/h3><p>Most spares in the night.<\/p><\/li>\n      <li><span class=\"n\">5<\/span><h3>Most 200s<\/h3><p>Most games of 200 or more. Only players who bowl a 200+ game can place.<\/p><\/li>\n      <li><span class=\"n\">6<\/span><h3>Clean Game<\/h3><p>A game with no open frames, every frame a strike or a spare. Ranked by the highest clean-game score. If nobody bowls one, no medal that week.<\/p><\/li>\n      <li><span class=\"n\">7<\/span><h3>Game Changer<\/h3><p>In the closest game of the night, the top three scorers from the winning kingdom.<\/p><\/li>\n    <\/ol>\n    <p class=\"note\">Ties share the place. Because of ties, and weeks when nobody qualifies (for example in Clean Game), the number of medals each week can vary.<\/p>\n  <\/section>\n\n  <section aria-labelledby=\"h-season\">\n    <header>\n      <p class=\"label\">End of the season<\/p>\n      <h2 id=\"h-season\">The Season Medal Champion<\/h2>\n    <\/header>\n    <div class=\"crown\">\n      <div class=\"prize num\">$300<\/div>\n      <div>\n        <h3>Most medals after 16 weeks<\/h3>\n        <p>The player with the most medals wins the special trophy and the $300 prize.<\/p>\n      <\/div>\n    <\/div>\n    <ul class=\"rules\">\n      <li>The champion receives the $300 prize only, without medal cash.<\/li>\n      <li>Every other player receives cash for all the medals they earned during the season.<\/li>\n      <li>If two players finish level on medals, the one with more gold wins. If still level, more silver.<\/li>\n      <li>There are up to 336 medal places in the season, including 112 golds. If every place is awarded, that is $196 in medal cash shared across the crew.<\/li>\n      <li>No minimum games. Miss a Saturday and you simply miss that week's chance to win medals.<\/li>\n    <\/ul>\n\n    <form class=\"calc\" id=\"calc\" aria-labelledby=\"h-calc\">\n      <h3 id=\"h-calc\">Work out your medal cash<\/h3>\n      <div class=\"row\">\n        <label for=\"m-gold\">Gold<input id=\"m-gold\" type=\"number\" min=\"0\" max=\"112\" step=\"1\" inputmode=\"numeric\" value=\"3\"><\/label>\n        <label for=\"m-silver\">Silver<input id=\"m-silver\" type=\"number\" min=\"0\" max=\"112\" step=\"1\" inputmode=\"numeric\" value=\"4\"><\/label>\n        <label for=\"m-bronze\">Bronze<input id=\"m-bronze\" type=\"number\" min=\"0\" max=\"112\" step=\"1\" inputmode=\"numeric\" value=\"6\"><\/label>\n      <\/div>\n      <div class=\"total\" aria-live=\"polite\"><b id=\"m-total\" class=\"num\">$6.50<\/b><span id=\"m-detail\" class=\"num\">13 medals: $3.00 + $2.00 + $1.50<\/span><\/div>\n    <\/form>\n  <\/section>\n\n  <section aria-labelledby=\"h-mvp\">\n    <header>\n      <p class=\"label\">Cholan vs Pandiyan<\/p>\n      <h2 id=\"h-mvp\">The MVP Award<\/h2>\n      <p class=\"lead\">Each week, the team captains, the admin and a couple of core members jointly choose one MVP from across both teams.<\/p>\n    <\/header>\n    <div class=\"court\">\n      <div class=\"c\">\n        <h3>Weekly MVP<\/h3>\n        <p>Performance and sportsmanship come first.<\/p>\n        <ul class=\"values\">\n          <li>Strong bowling<\/li><li>Contribution to the team<\/li><li>Fair play<\/li><li>Respect for others<\/li><li>Encouraging teammates<\/li>\n        <\/ul>\n      <\/div>\n      <div class=\"p\">\n        <h3>MVP of the Season<\/h3>\n        <p>After 16 weeks, the player with the most weekly MVP awards is named MVP of the Season and receives a separate reward.<\/p>\n        <p>A tie is decided by the same group, on overall performance and sportsmanship across the season.<\/p>\n      <\/div>\n    <\/div>\n  <\/section>\n\n  <footer>\n    <p>Two kingdoms, one Kingpins Crew<\/p>\n    <small>Everyone has a chance to earn something, every Saturday.<\/small>\n  <\/footer>\n<\/main>\n\n<script>\n(function(){\n  const ids=[\"m-gold\",\"m-silver\",\"m-bronze\"], val=[1,0.5,0.25];\n  const f=n=>\"$\"+n.toFixed(2);\n  function upd(){\n    const n=ids.map(i=>{const v=Math.max(0,Math.floor(Number(document.getElementById(i).value)||0));return v;});\n    const parts=n.map((c,i)=>c*val[i]);\n    const tot=parts.reduce((a,b)=>a+b,0), cnt=n.reduce((a,b)=>a+b,0);\n    document.getElementById(\"m-total\").textContent=f(tot);\n    document.getElementById(\"m-detail\").textContent=cnt+(cnt===1?\" medal: \":\" medals: \")+parts.map(f).join(\" + \");\n  }\n  ids.forEach(i=>document.getElementById(i).addEventListener(\"input\",upd));\n  document.getElementById(\"calc\").addEventListener(\"submit\",e=>e.preventDefault());\n  upd();\n})();\n<\/script>\n\n<\/body><\/html>"</script>
 </div>
 
 <!-- ───────── RULES ───────── -->
@@ -2003,119 +1801,21 @@ section{padding-block:clamp(48px,7vw,88px)}
   })();
 
 
-  /* ── virtual medals ──
-     Seven categories, gold / silver / bronze each Saturday, worked out from GAMES.
-     Clean Game needs the frame-by-frame scorecard, so it is entered by hand:
-     CLEAN[week] = [{n:"Name", s:score}, ...]  (empty list = nobody bowled one). */
-  var CLEAN={1:[]};
+  /* ── Medals and Prizes & MVP: the two pages are shown exactly as designed, inside a frame that grows to fit ── */
   (function(){
-    var CATS=[["avg","High Average","best average of the night"],["high","High Game","highest single game"],["x","Strike King","most strikes"],["sp","Spare Master","most spares"],["two","Most 200s","most games of 200+"],["clean","Clean Game","no open frames"],["gc","Game Changer","top scorers, closest game won"]];
-    var VAL=[1,0.5,0.25], PL=["g","s","b"], MED=["Gold","Silver","Bronze"];
-    var win=document.getElementById("md-win"); if(!win) return;
-    var wks=Object.keys(WEEKS).map(Number).filter(function(w){return GAMES.some(function(r){return r.w===w;});}).sort(function(a,b){return a-b;});
-    function e2(v){return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
-    function teamOf(w,n){ var t=TEAMS[w]; if(!t) return ""; return t.kings.indexOf(n)>-1?"Cholan":t.titans.indexOf(n)>-1?"Pandiyan":""; }
-    function money(v){ return "$"+v.toFixed(2); }
-    /* top three places; ties share a place (1, 1, 3) */
-    function podium(list){
-      list=list.filter(function(e){return e.v>0;}).sort(function(a,b){return b.v-a.v;});
-      var out=[], place=0;
-      list.forEach(function(e,i){ if(i===0||e.v!==list[i-1].v) place=i+1; if(place<=3) out.push({n:e.n,v:e.v,t:e.t,p:place}); });
-      return out;
-    }
-    function weekMedals(w){
-      var rows=GAMES.filter(function(r){return r.w===w;}), by={};
-      rows.forEach(function(r){ (by[r.n]=by[r.n]||[]).push(r); });
-      var names=Object.keys(by), res={}, notes={};
-      function stat(f,fmt){ return podium(names.map(function(n){ var v=f(by[n]); return {n:n,v:v,t:fmt(v)}; })); }
-      res.avg=stat(function(g){return g.reduce(function(a,r){return a+r.s;},0)/g.length;},function(v){return v.toFixed(1)+" avg";});
-      res.high=stat(function(g){return Math.max.apply(null,g.map(function(r){return r.s;}));},function(v){return v+" pins";});
-      res.x=stat(function(g){return g.reduce(function(a,r){return a+r.x;},0);},function(v){return v+" strikes";});
-      res.sp=stat(function(g){return g.reduce(function(a,r){return a+r.sp;},0);},function(v){return v+" spares";});
-      res.two=stat(function(g){return g.filter(function(r){return r.s>=200;}).length;},function(v){return v+(v>1?" games":" game")+" of 200+";});
-      res.clean=podium((CLEAN[w]||[]).map(function(c){ return typeof c==="string"?{n:c,v:1,t:"clean game"}:{n:c.n,v:c.s,t:"clean "+c.s}; }));
-      /* Game Changer: the closest game a kingdom won (blind scores count in team totals) */
-      var bl=BLINDS[w]||{}, games={}, pick=null;
-      rows.forEach(function(r){ (games[r.g]=games[r.g]||[]).push(r); });
-      Object.keys(games).forEach(function(g){
-        var tot={Cholan:0,Pandiyan:0};
-        games[g].forEach(function(r){ var k=teamOf(w,r.n); if(k) tot[k]+=Math.max(r.s,bl[r.n]||0); });
-        if(tot.Cholan===tot.Pandiyan) return;
-        var m=Math.abs(tot.Cholan-tot.Pandiyan), side=tot.Cholan>tot.Pandiyan?"Cholan":"Pandiyan";
-        if(!pick||m<pick.m) pick={g:+g,m:m,side:side};
+    document.querySelectorAll("iframe[data-emb]").forEach(function(f){
+      var t=document.getElementById(f.dataset.emb); if(!t) return;
+      function fit(){ try{ var d=f.contentDocument; if(d&&d.documentElement){ f.style.height=Math.max(d.documentElement.scrollHeight,d.body?d.body.scrollHeight:0)+"px"; } }catch(e){} }
+      f.addEventListener("load",function(){
+        fit();
+        try{ var d=f.contentDocument; if(window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+          d.addEventListener("click",function(){ setTimeout(fit,50); }); d.addEventListener("input",function(){ setTimeout(fit,50); });
+          if(d.fonts&&d.fonts.ready) d.fonts.ready.then(fit); }catch(e){}
+        setTimeout(fit,400); setTimeout(fit,1500);
       });
-      res.gc=pick?podium(games[pick.g].filter(function(r){return teamOf(w,r.n)===pick.side;}).map(function(r){return {n:r.n,v:r.s,t:r.s+" in game "+pick.g};})):[];
-      if(pick) notes.gc="Game "+pick.g+": "+pick.side+" won by "+pick.m+" pins";
-      return {res:res,notes:notes,players:names};
-    }
-    var ALLW={}; wks.forEach(function(w){ ALLW[w]=weekMedals(w); });
-
-    var view=0, sortKey="t";
-    var fCat=document.getElementById("md-cat"), fTeam=document.getElementById("md-team"), fName=document.getElementById("md-name");
-    fCat.innerHTML='<option value="">All categories</option>'+CATS.map(function(c){return '<option value="'+c[0]+'">'+c[1]+'</option>';}).join("");
-    function ok(w,n){ var q=fName.value.trim().toLowerCase(); return (!fTeam.value||teamOf(w,n)===fTeam.value)&&(!q||n.toLowerCase().indexOf(q)>-1); }
-
-    function drawWinners(){
-      var weeks=view?[view]:wks.slice().reverse(), cats=CATS.filter(function(c){return !fCat.value||c[0]===fCat.value;}), h="";
-      document.getElementById("md-week-label").textContent=view?("Week "+view+" · "+(WEEKS[view]||"")):("All weeks · "+wks.length+" of "+SEASON_WEEKS+" played");
-      weeks.forEach(function(w){
-        if(weeks.length>1) h+='<tr class="md2-wk"><td colspan="4">Week '+w+' · '+e2(WEEKS[w]||"")+'</td></tr>';
-        cats.forEach(function(c){
-          var pod=ALLW[w].res[c[0]], note=ALLW[w].notes[c[0]];
-          h+='<tr><td class="l md2-cat">'+c[1]+'<small>'+e2(note||c[2])+'</small></td>';
-          if(!pod.length){ h+='<td colspan="3" class="md2-none">'+(c[0]==="clean"?"No clean game this week":"No medal this week")+'</td></tr>'; return; }
-          [1,2,3].forEach(function(p){
-            var who=pod.filter(function(e){return e.p===p;});
-            if(!who.length){ h+='<td data-m="'+MED[p-1]+'" class="md2-none">'+(p>1?"Shared above":"–")+'</td>'; return; }
-            var shown=who.filter(function(e){return ok(w,e.n);});
-            h+='<td data-m="'+MED[p-1]+'">'+(shown.length?shown.map(function(e){ return '<div class="md2-w"><b class="'+(teamOf(w,e.n)==="Cholan"?"k-c":"k-p")+'">'+e2(e.n)+'</b><span>'+e2(e.t)+'</span></div>'; }).join(""):'<span class="md2-none">Filtered out</span>')+'</td>';
-          });
-          h+='</tr>';
-        });
-      });
-      win.querySelector("tbody").innerHTML=h;
-    }
-    function drawTable(){
-      var weeks=view?[view]:wks, cat=fCat.value, t={};
-      weeks.forEach(function(w){
-        ALLW[w].players.forEach(function(n){ if(!t[n]) t[n]={n:n,g:0,s:0,b:0,team:teamOf(w,n)}; });
-        CATS.forEach(function(c){ if(cat&&c[0]!==cat) return; ALLW[w].res[c[0]].forEach(function(e){ if(t[e.n]) t[e.n][PL[e.p-1]]++; }); });
-      });
-      var all=Object.keys(t).map(function(n){ var p=t[n]; p.t=p.g+p.s+p.b; p.c=p.g*VAL[0]+p.s*VAL[1]+p.b*VAL[2]; return p; });
-      function std(a,b){ return b.t-a.t||b.g-a.g||b.s-a.s; }
-      var ranked=all.slice().sort(std), rk={};
-      ranked.forEach(function(p,i){ rk[p.n]=(i>0&&std(p,ranked[i-1])===0)?rk[ranked[i-1].n]:i+1; });
-      var q=fName.value.trim().toLowerCase();
-      var rows=all.filter(function(p){ return (!fTeam.value||p.team===fTeam.value)&&(!q||p.n.toLowerCase().indexOf(q)>-1); });
-      rows.sort(sortKey==="n"?function(a,b){return a.n.localeCompare(b.n);}:function(a,b){return (b[sortKey]-a[sortKey])||std(a,b)||a.n.localeCompare(b.n);});
-      document.querySelector("#md-std tbody").innerHTML=rows.length?rows.map(function(p){
-        var top=rk[p.n]===1&&p.t>0;
-        return '<tr'+(top?' class="top"':'')+'><td class="l n">'+rk[p.n]+'</td><td class="l who">'+e2(p.n)+(p.team?'<span class="md2-pill '+(p.team==="Cholan"?"c":"p")+'">'+p.team+'</span>':'')+'</td>'+
-          '<td'+(p.g?'':' class="z"')+'>'+p.g+'</td><td'+(p.s?'':' class="z"')+'>'+p.s+'</td><td'+(p.b?'':' class="z"')+'>'+p.b+'</td><td class="tot">'+p.t+'</td><td class="cash">'+money(p.c)+'</td></tr>';
-      }).join(""):'<tr><td colspan="7" class="md2-none">No players match these filters.</td></tr>';
-      document.getElementById("md-table-h").textContent=view?("Week "+view+" medal table"):"Season standings";
-      document.getElementById("md-table-note").textContent=(cat?CATS.filter(function(c){return c[0]===cat;})[0][1]+" medals only. ":"")+(view?"Medals won on "+(WEEKS[view]||"")+".":"All medals after "+wks.length+" of "+SEASON_WEEKS+" weeks. Tap a heading to sort.");
-      document.querySelectorAll("#md-std th button").forEach(function(b){ b.parentNode[b.dataset.k===sortKey?"setAttribute":"removeAttribute"]("aria-sort",sortKey==="n"?"ascending":"descending"); });
-    }
-    function draw(){
-      document.getElementById("md-weeks").innerHTML=[0].concat(wks).map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===view)+'">'+(w?"Week "+w:"Whole season")+'</button>';}).join("");
-      drawWinners(); drawTable();
-    }
-    document.getElementById("md-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; view=+b.dataset.w; draw(); });
-    [fCat,fTeam].forEach(function(el){ el.addEventListener("change",draw); });
-    fName.addEventListener("input",draw);
-    document.querySelector("#md-std thead").addEventListener("click",function(e){ var b=e.target.closest("button[data-k]"); if(!b) return; sortKey=b.dataset.k; drawTable(); });
-    draw();
-
-    /* Prizes page: medal cash calculator */
-    var ids=["pz-g","pz-s","pz-b"];
-    function calc(){
-      var n=ids.map(function(i){ return Math.max(0,Math.floor(Number(document.getElementById(i).value)||0)); });
-      var parts=n.map(function(c,i){return c*VAL[i];}), tot=parts.reduce(function(a,b){return a+b;},0), cnt=n.reduce(function(a,b){return a+b;},0);
-      document.getElementById("pz-total").textContent=money(tot);
-      document.getElementById("pz-detail").textContent=cnt+(cnt===1?" medal: ":" medals: ")+parts.map(money).join(" + ");
-    }
-    if(document.getElementById("pz-calc")){ ids.forEach(function(i){ document.getElementById(i).addEventListener("input",calc); }); document.getElementById("pz-calc").addEventListener("submit",function(e){e.preventDefault();}); calc(); }
+      f.srcdoc=JSON.parse(t.textContent);
+    });
+    window.addEventListener("resize",function(){ document.querySelectorAll("iframe[data-emb]").forEach(function(f){ try{ f.style.height=f.contentDocument.documentElement.scrollHeight+"px"; }catch(e){} }); });
   })();
 
   function fitBrand(){
