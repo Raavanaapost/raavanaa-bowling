@@ -1,4 +1,99 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* ── Virtual medals + Prizes & MVP ── */
+.md2-values{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:14px;font:700 1rem/1.3 var(--label);letter-spacing:.06em}
+.md2-values a{color:var(--ink-accent);text-decoration:underline;text-underline-offset:3px}
+.md2-dot{display:inline-block;width:.9em;height:.9em;border-radius:50%;vertical-align:-.1em;margin-right:6px;box-shadow:inset 0 -2px 3px rgba(0,0,0,.25)}
+.md2-dot.g{background:#d9a52a}.md2-dot.s{background:#a7afb6}.md2-dot.b{background:#b47240}
+.md2{display:grid;gap:22px}
+.md2-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.md2-filters label{display:grid;gap:4px;min-width:0;font:700 .8rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.md2-filters select,.md2-filters input{font:500 1rem/1.2 var(--body);text-transform:none;letter-spacing:0;color:var(--pin);background:var(--alley);border:1px solid var(--gold-deep);padding:10px;width:100%;min-width:0}
+.md2-filters select:focus-visible,.md2-filters input:focus-visible,.md2 th button:focus-visible,.pz-calc input:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+@media (max-width:640px){.md2-filters{grid-template-columns:1fr 1fr}.md2-filters label:last-child{grid-column:1/-1}}
+.md2-block{display:grid;gap:8px}
+.md2-block h2{margin:0}
+.md2-scroll{border:2px solid var(--gold)}
+.md2 table{width:100%}
+.md2 th,.md2 td{padding:11px 10px;text-align:center;vertical-align:top}
+.md2 .l{text-align:left}
+.md2 th button{all:unset;cursor:pointer;font:inherit}
+.md2 th[aria-sort] button::after{content:" ▾";color:var(--ink-accent)}
+.md2-cat{font:700 1.02rem/1.2 var(--display);white-space:nowrap}
+.md2-cat small{display:block;font:500 .82rem/1.3 var(--body);color:var(--muted);white-space:normal;margin-top:2px}
+.md2-w{display:grid;gap:1px;text-align:left}
+.md2-w b{font-weight:700}
+.md2-w span{font-size:.82rem;color:var(--muted)}
+.md2-win td[data-m]{text-align:left}
+.k-c{color:#a01318}.k-p{color:#17663f}
+.md2-none{color:var(--muted);font-style:italic}
+.md2-wk td{background:var(--alley-3);text-align:left;font:700 .9rem/1.2 var(--label);letter-spacing:.1em;text-transform:uppercase}
+.md2-std td.n{font:900 1.15rem/1 var(--display);color:var(--ink-accent);width:2.2em}
+.md2-std td.who{font:700 1rem/1.2 var(--display)}
+.md2-std td.z{color:var(--muted);opacity:.6}
+.md2-std td.tot{font-weight:800}
+.md2-std td.cash{font-weight:700;color:var(--ink-accent)}
+.md2-std tr.top td{background:rgba(240,180,58,.16)}
+.md2-std td,.md2-std th{font-variant-numeric:tabular-nums}
+.md2-pill{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;font:700 .68rem/1.5 var(--label);letter-spacing:.1em;text-transform:uppercase;color:#fff;vertical-align:2px}
+.md2-pill.c{background:#a01318}.md2-pill.p{background:#17663f}
+.md2-foot{display:grid;gap:4px;font-size:.92rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px;margin-top:6px}
+.md2-foot p{margin:0}
+@media (max-width:640px){
+  .md2-win thead{display:none}
+  .md2-win tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .md2-win td{padding:8px 10px;min-width:0}
+  .md2-win td.md2-cat,.md2-win td[colspan]{grid-column:1/-1;white-space:normal}
+  .md2-win td.md2-cat{padding-bottom:0}
+  .md2-win td[data-m]::before{content:attr(data-m);display:block;font:700 .7rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+}
+.pz{display:grid;gap:18px}
+.pz .head{margin-bottom:0}
+.pz-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--gold-deep);margin-top:20px;max-width:720px}
+.pz-facts div{background:var(--alley);padding:14px 12px;display:grid;gap:2px}
+.pz-facts b{font:900 clamp(1.7rem,5vw,2.2rem)/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
+.pz-facts span{font-size:.85rem;color:var(--muted);line-height:1.3}
+@media (max-width:560px){.pz-facts{grid-template-columns:1fr 1fr}}
+.pz-coins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:center}
+.pz-coins>div{display:grid;justify-items:center;gap:6px}
+.pz-coins h3{margin:0}.pz-coins p{margin:0;color:var(--muted);font-size:.9rem}
+.pz-coin{width:min(124px,25vw);aspect-ratio:1;max-width:100%;border-radius:50%;display:grid;place-items:center;font:900 clamp(1.4rem,5vw,2.1rem)/1 var(--display);color:#2a1d08;position:relative;box-shadow:inset 0 0 0 5px rgba(255,255,255,.35),inset 0 -6px 12px rgba(0,0,0,.2),0 6px 16px rgba(0,0,0,.18)}
+.pz-coin::after{content:"";position:absolute;inset:11%;border-radius:50%;border:2px dashed rgba(0,0,0,.2)}
+.pz-coin.g{background:radial-gradient(circle at 35% 30%,#ffe08a,#d9a52a 55%,#9c6f12)}
+.pz-coin.s{background:radial-gradient(circle at 35% 30%,#eef1f3,#b9c1c8 55%,#7d868e)}
+.pz-coin.b{background:radial-gradient(circle at 35% 30%,#e8b48a,#b9773f 55%,#7a4620)}
+.pz-note{margin:0;font-size:.95rem;color:var(--muted);border-left:3px solid var(--gold);padding-left:12px}
+.pz-ledger{list-style:none;margin:0;padding:0;border:2px solid var(--gold);background:var(--alley)}
+.pz-ledger li{display:grid;grid-template-columns:2.4rem 1fr;gap:2px 12px;padding:14px 16px;border-top:1px solid var(--line)}
+.pz-ledger li:first-child{border-top:0}
+.pz-ledger span{grid-row:span 2;font:900 1.4rem/1.1 var(--display);color:var(--ink-accent)}
+.pz-ledger h3{margin:0;font-size:1.15rem}
+.pz-ledger p{margin:0;color:var(--muted);font-size:.95rem;min-width:0}
+.pz-crown{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:20px;border:2px solid var(--gold);background:linear-gradient(120deg,rgba(160,19,24,.1),rgba(23,102,63,.1))}
+.pz-crown>b{font:900 clamp(3rem,12vw,5rem)/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
+.pz-crown h3{margin:0 0 4px}.pz-crown p{margin:0;color:var(--muted)}
+@media (max-width:520px){.pz-crown{grid-template-columns:1fr}}
+.pz-rules{margin:0;padding-left:1.2em;display:grid;gap:8px}
+.pz-rules li::marker{color:var(--gold)}
+.pz-calc{display:grid;gap:12px;padding:18px;border:1px solid var(--gold-deep);background:var(--alley-2)}
+.pz-calc h3{margin:0}
+.pz-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pz-row label{display:grid;gap:4px;font:700 .85rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase;min-width:0}
+.pz-row input{font:600 1.25rem/1.2 var(--body);width:100%;min-width:0;padding:8px 10px;border:1px solid var(--gold-deep);background:var(--alley);color:var(--pin);font-variant-numeric:tabular-nums}
+.pz-total{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.pz-total b{font:900 2.4rem/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
+.pz-total span{color:var(--muted)}
+.pz-court{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pz-court>div{padding:18px;display:grid;gap:8px;align-content:start;color:#fff;border:2px solid var(--gold)}
+.pz-court .c{background:linear-gradient(160deg,#a01318,#5e0b10)}
+.pz-court .p{background:linear-gradient(160deg,#17663f,#073a21)}
+.pz-court h3{margin:0;color:#ffe08a}
+.pz-court p{margin:0}
+.pz-court ul{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:4px 0 0;padding:0}
+.pz-court li{border:1px solid rgba(255,224,138,.6);border-radius:999px;padding:3px 11px;font-size:.88rem}
+@media (max-width:600px){.pz-court{grid-template-columns:1fr}}
+.pz-end{margin:6px 0 0;text-align:center;font:700 1.3rem/1.3 var(--display)}
+.pz-end span{display:block;font:500 .95rem/1.4 var(--body);color:var(--muted);margin-top:4px}
+</style></head><body>
 <title>Raavanaa Bowling Community</title>
 <link rel="icon" href="{{RB_ASSETS}}favicon-32.png"><link rel="apple-touch-icon" href="{{RB_ASSETS}}apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@700;900&family=Noto+Serif+Tamil:wght@700&display=swap">
@@ -807,6 +902,23 @@ section{padding-block:clamp(48px,7vw,88px)}
 @media (prefers-reduced-motion:reduce){.sw-l,.sw-r,.sw-burst,.sw-rays{animation:none}}
 
 
+/* weekly medals page */
+#md-weeks{margin-bottom:12px}
+.md-sub{margin:0 0 14px;color:var(--muted)}
+.md-wrap{border:2px solid var(--gold)}
+.md-table th,.md-table td{padding:12px 10px;text-align:center}
+.md-table .l{text-align:left}
+.md-table thead th{font-size:.78rem}
+.md-table thead th.ic button{font-size:1.15rem;letter-spacing:0}
+.md-table td.n{font:900 1.2rem/1 var(--display);color:var(--ink-accent);width:2.2em}
+.md-table td.who{font:700 1.02rem/1.2 var(--display);position:sticky;left:0;background:var(--alley-2);z-index:1}
+.md-table th.who{position:sticky;left:0;z-index:2}
+.md-table td.tot{font:900 1.25rem/1 var(--display);color:var(--pin)}
+.md-table td.z{color:#c9b9a2}
+.md-table tr.top td{background:#f8ebc9}
+.md-table tr.top td.who{background:#f8ebc9}
+.md-key{margin:14px 0 0;color:var(--muted);font-size:.9rem;line-height:1.45;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 18px}
+.md-key span{min-width:0}
 
 /* commentary under each game */
 .game .g-note{grid-column:1/-1;margin:6px 0 0;padding-top:10px;border-top:1px dashed #e3cfa6;font-size:.95rem;line-height:1.55;color:var(--muted);max-width:none}
@@ -817,114 +929,6 @@ section{padding-block:clamp(48px,7vw,88px)}
 .social a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px 8px 10px;border:1px solid rgba(255,224,138,.55);color:#fff;text-decoration:none;font:700 .95rem/1 var(--label);letter-spacing:.12em;text-transform:uppercase}
 .social a:hover{background:rgba(255,255,255,.1);color:var(--gold-hi)}
 .social svg{width:22px;height:22px;fill:currentColor}
-
-/* ── 2025 Record Book ── */
-.rb{display:grid;gap:clamp(36px,5vw,56px)}
-.rb > *{min-width:0}
-.rb .tiles{margin-bottom:0}
-.rb-block{display:grid;gap:14px;min-width:0}
-.rb-block > *{min-width:0}
-.rb-block .filters{margin-bottom:0}
-.rb-head{display:grid;gap:6px}
-.rb-head .lead{margin-top:2px}
-.rb-ctrl{display:flex;flex-wrap:wrap;gap:12px}
-.rb-ctrl label{display:grid;gap:4px;flex:1 1 170px;min-width:0;font:700 .82rem/1.2 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.rb-ctrl select,.rb-ctrl input{font:500 1rem/1.2 var(--body);letter-spacing:0;text-transform:none;color:var(--pin);background:var(--alley-2);border:1px solid var(--line);padding:10px 12px;width:100%;min-width:0;border-radius:0}
-.rb-ctrl select:focus-visible,.rb-ctrl input:focus-visible{outline:2px solid var(--ink-accent);outline-offset:2px}
-.rb .data td.rk{font:900 1.1rem/1 var(--display);color:var(--ink-accent);text-align:left;width:2.4em}
-.rb .data tr.top td{background:rgba(240,180,58,.18)}
-.rb .data td.dash{color:var(--muted)}
-.rb .data td.best{font-weight:800;color:var(--crimson)}
-.rb .data td.big{background:rgba(240,180,58,.28);font-weight:800}
-.rb .data tr.tot td{font-weight:800;background:var(--alley-3)}
-.rb .data td.empty{text-align:left;color:var(--muted);white-space:normal}
-.rb .data .muted{color:var(--muted);font-weight:400}
-.rb .s7 th:first-child,.rb .s7 td:first-child{position:sticky;left:0;z-index:1;background:var(--alley-2)}
-.rb .s7 thead th:first-child{background:var(--alley-3)}
-.rb .heat td[style]{background:color-mix(in srgb, var(--gold) calc(var(--s) * 75%), var(--alley-2))}
-.rb .heat td small{color:var(--muted);font-size:.78rem}
-.rb-note{color:var(--muted);font-size:.95rem}
-.rb-dates{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
-.rb-dates div{background:var(--alley-2);border:1px solid var(--line);border-top:4px solid var(--gold);padding:12px 8px;display:grid;gap:4px;text-align:center;min-width:0}
-.rb-dates b{font:900 1.4rem/1 var(--display);color:var(--ink-accent)}
-.rb-dates span{font-size:.9rem;color:var(--muted)}
-@media (max-width:700px){.rb-dates{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.rb-book{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;align-items:start}
-.rb-rec{background:var(--alley-2);border:1px solid var(--line);border-top:4px solid var(--crimson);min-width:0}
-.rb-rec h3{font:800 1.12rem/1.2 var(--display);padding:14px 14px 8px}
-.rb-rec table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.rb-rec td{padding:7px 14px;border-top:1px solid var(--line)}
-.rb-rec td.v{text-align:right;font-weight:800;white-space:nowrap}
-.rb-rec td.s{text-align:right;color:var(--muted);white-space:nowrap;width:1%}
-.rb-rec .note{display:block;font-size:.85rem;color:var(--muted)}
-.rb-rules{margin:0;padding:20px 20px 20px 2.6em;display:grid;gap:10px;background:var(--alley-2);border:1px solid var(--line);max-width:76ch}
-.rb-rules li::marker{color:var(--ink-accent);font-weight:800}
-.rb-foot{display:grid;gap:4px;color:var(--muted);font-size:.92rem;border-left:3px solid var(--gold);padding-left:12px}
-.rb [hidden]{display:none!important}
-/* desktop menu: a little tighter so the extra Records link fits beside the club name */
-@media (min-width:1361px){.nav a{padding:10px 7px;letter-spacing:.09em}.nav a.join{padding:13px 16px}}
-/* ── Season medals & virtual medals pages ── */
-.sm{display:grid;gap:clamp(36px,5vw,56px)}
-.sm > *{min-width:0}
-.sm .tiles{margin-bottom:0}
-.sm-block{display:grid;gap:14px;min-width:0}
-.sm-block > *{min-width:0}
-.sm-note{color:var(--muted);font-size:.95rem;border-left:3px solid var(--gold);padding-left:12px;max-width:70ch}
-.sm-coins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:620px}
-.sm-coin-card{display:grid;justify-items:center;gap:6px;text-align:center}
-.sm-coin{width:min(124px,24vw);aspect-ratio:1;max-width:100%;border-radius:50%;display:grid;place-items:center;font:900 clamp(1.3rem,5vw,1.9rem)/1 var(--display);color:#2a1d08;
-  box-shadow:inset 0 0 0 5px rgba(255,255,255,.35),inset 0 -6px 12px rgba(0,0,0,.18),0 6px 16px rgba(0,0,0,.18);position:relative}
-.sm-coin::after{content:"";position:absolute;inset:11%;border-radius:50%;border:2px dashed rgba(0,0,0,.18)}
-.sm-coin.g{background:radial-gradient(circle at 35% 30%,var(--gold-hi),#d9a52a 55%,#9c6f12)}
-.sm-coin.s{background:radial-gradient(circle at 35% 30%,#eef1f3,#b9c1c8 55%,#7d868e)}
-.sm-coin.b{background:radial-gradient(circle at 35% 30%,#e8b48a,#b9773f 55%,#7a4620)}
-.sm-coin-card h3{font:800 1.2rem/1.1 var(--display)}
-.sm-coin-card p{color:var(--muted);font-size:.92rem}
-.sm-ledger{list-style:none;margin:0;padding:0;border:1px solid var(--line);background:var(--alley-2)}
-.sm-ledger li{display:grid;grid-template-columns:2.4rem 1fr;gap:2px 12px;padding:14px 16px;border-top:1px solid var(--line)}
-.sm-ledger li:first-child{border-top:0}
-.sm-ledger .n{grid-row:span 2;font:900 1.4rem/1.1 var(--display);color:var(--ink-accent)}
-.sm-ledger h3{font:800 1.15rem/1.2 var(--display)}
-.sm-ledger p{color:var(--muted);font-size:.95rem;min-width:0}
-.sm-crown{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--alley-2);border:1px solid var(--line);border-top:4px solid var(--gold);padding:20px}
-.sm-prize{font:900 clamp(2.8rem,11vw,4.6rem)/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
-.sm-crown h3{font:800 1.3rem/1.2 var(--display)}
-.sm-crown p{color:var(--muted)}
-@media (max-width:520px){.sm-crown{grid-template-columns:1fr}}
-.sm-rules{margin:0;padding-left:1.2em;display:grid;gap:8px;max-width:76ch}
-.sm-rules li::marker{color:var(--gold-deep)}
-.sm-calc{background:var(--alley-2);border:1px solid var(--line);padding:18px;display:grid;gap:12px}
-.sm-calc h3{font:800 1.15rem/1.2 var(--display)}
-.sm-total{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
-.sm-total b{font:900 2.4rem/1 var(--display);color:var(--ink-accent);font-variant-numeric:tabular-nums}
-.sm-total span{color:var(--muted);font-variant-numeric:tabular-nums}
-.sm-court{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.sm-court > div{background:var(--alley-2);border:1px solid var(--line);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
-.sm-court .c{border-top:4px solid var(--crimson)} .sm-court .p{border-top:4px solid #1f7a42}
-.sm-court h3{font:800 1.2rem/1.2 var(--display)}
-.sm-court .c h3{color:var(--crimson)} .sm-court .p h3{color:#1f7a42}
-@media (max-width:640px){.sm-court{grid-template-columns:1fr}}
-.sm-values{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
-.sm-values li{border:1px solid var(--line);padding:4px 12px;font-size:.92rem;background:var(--alley)}
-.vm-win td{white-space:normal;vertical-align:top}
-.vm-win td.cat{font:800 1.05rem/1.2 var(--display);white-space:nowrap}
-.vm-win td.cat small{display:block;font:400 .85rem/1.3 var(--body);color:var(--muted);white-space:normal}
-.vm-win .who{display:grid;gap:2px}
-.vm-win .who b.c{color:var(--crimson)} .vm-win .who b.p{color:#1f7a42}
-.vm-win .who span{font-size:.85rem;color:var(--muted)}
-.vm-win .none{color:var(--muted);font-style:italic}
-.vm-pill{display:inline-block;font:700 .72rem/1 var(--label);letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:4px 8px;margin-left:8px;vertical-align:2px}
-.vm-pill.c{background:var(--crimson)} .vm-pill.p{background:#1f7a42}
-#vm-standings td.rk{font:900 1.1rem/1 var(--display);color:var(--ink-accent);text-align:left;width:2.4em}
-#vm-standings td.empty{text-align:left;color:var(--muted)}
-@media (max-width:640px){
-  .vm-win thead{display:none}
-  .vm-win tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
-  .vm-win td{border-bottom:0;padding:8px 10px;min-width:0;text-align:left}
-  .vm-win td.cat,.vm-win td[colspan]{grid-column:1/-1;white-space:normal}
-  .vm-win td.cat{padding-bottom:0}
-  .vm-win td[data-m]::before{content:attr(data-m);display:block;font:700 .72rem/1.2 var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-}
 </style>
 
 
@@ -977,7 +981,8 @@ section{padding-block:clamp(48px,7vw,88px)}
       <a href="#clash" data-go="clash">Cholan v Pandiyan</a>
       <a href="#crew" data-go="crew">Crew</a>
       <a href="#stats" data-go="stats">Stats</a>
-      <a href="#records" data-go="records">2025 Record Book</a>
+      <a href="#medals" data-go="medals">Medals</a>
+      <a href="#prizes" data-go="prizes">Prizes &amp; MVP</a>
       <a href="#rules" data-go="rules">Rules</a>
       <a href="#gallery" data-go="gallery">Gallery</a>
       <a class="join" href="#registration" data-go="registration">Registration</a>
@@ -1356,6 +1361,127 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
+<!-- ───────── MEDALS ───────── -->
+<div class="page" data-page="medals" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Kingpins Crew · Season 2026</p>
+    <h1 class="gold-text">Virtual Medals</h1>
+    <p class="lead">Gold, silver and bronze in seven categories every Saturday. Medals add up across the 16 weeks, and every medal is worth cash.</p>
+    <p class="md2-values"><span><i class="md2-dot g"></i>Gold $1</span><span><i class="md2-dot s"></i>Silver 50¢</span><span><i class="md2-dot b"></i>Bronze 25¢</span><a href="#prizes" data-go="prizes">Prizes &amp; MVP →</a></p>
+  </div></div>
+  <section>
+    <div class="wrap md2">
+      <div class="chips" id="md-weeks" role="group" aria-label="Choose the season or a week"></div>
+      <div class="md2-filters" role="search" aria-label="Filter medals">
+        <label for="md-cat">Category<select id="md-cat"></select></label>
+        <label for="md-team">Kingdom<select id="md-team"><option value="">Both kingdoms</option><option value="Cholan">Cholan</option><option value="Pandiyan">Pandiyan</option></select></label>
+        <label for="md-name">Player<input id="md-name" type="search" placeholder="Type a name" autocomplete="off"></label>
+      </div>
+
+      <div class="md2-block">
+        <p class="label" id="md-week-label"></p>
+        <h2>Medal winners</h2>
+        <div class="table-scroll md2-scroll"><table class="data md2-win" id="md-win">
+          <thead><tr><th class="l">Category</th><th><i class="md2-dot g"></i>Gold</th><th><i class="md2-dot s"></i>Silver</th><th><i class="md2-dot b"></i>Bronze</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+
+      <div class="md2-block">
+        <p class="label">Medal table</p>
+        <h2 id="md-table-h">Season standings</h2>
+        <p class="md-sub" id="md-table-note"></p>
+        <div class="table-scroll md2-scroll"><table class="data md2-std" id="md-std">
+          <thead><tr>
+            <th class="l">#</th><th class="l"><button type="button" data-k="n">Kingpin</button></th>
+            <th><button type="button" data-k="g"><i class="md2-dot g"></i>Gold</button></th>
+            <th><button type="button" data-k="s"><i class="md2-dot s"></i>Silver</button></th>
+            <th><button type="button" data-k="b"><i class="md2-dot b"></i>Bronze</button></th>
+            <th><button type="button" data-k="t">Medals</button></th>
+            <th><button type="button" data-k="c">Cash</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <div class="md2-foot">
+          <p>Ranking: most medals, then more gold, then more silver. Tied players share a place.</p>
+          <p>The Season Medal Champion takes the $300 prize instead of medal cash. Everyone else keeps their medal cash.</p>
+          <p>Each player's own scores count for medals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── PRIZES & MVP ───────── -->
+<div class="page" data-page="prizes" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Kingpins Crew · Season 2026</p>
+    <h1 class="gold-text">Season Medals &amp; Prizes</h1>
+    <p class="lead">Every Saturday is a mini tournament. Seven categories, and in each one we award gold, silver and bronze. Your medals add up all season, and each one is worth cash.</p>
+    <div class="pz-facts">
+      <div><b>16</b><span>league weeks</span></div>
+      <div><b>7</b><span>categories each week</span></div>
+      <div><b>21</b><span>medals each Saturday</span></div>
+      <div><b>336</b><span>medal places in the season</span></div>
+    </div>
+  </div></div>
+
+  <section><div class="wrap pz">
+    <div class="head"><p class="label">What each medal is worth</p><h2>Gold, silver, bronze</h2></div>
+    <div class="pz-coins">
+      <div><span class="pz-coin g">$1</span><h3>Gold</h3><p>1st place</p></div>
+      <div><span class="pz-coin s">50¢</span><h3>Silver</h3><p>2nd place</p></div>
+      <div><span class="pz-coin b">25¢</span><h3>Bronze</h3><p>3rd place</p></div>
+    </div>
+    <p class="pz-note">These are virtual medals, recorded in our weekly stats. The cash adds up for every medal you win across the season.</p>
+  </div></section>
+
+  <section><div class="wrap pz">
+    <div class="head"><p class="label">Every Saturday</p><h2>The seven weekly categories</h2><p class="lead">Each category has a 1st, 2nd and 3rd place, ranked on that night's games.</p></div>
+    <ol class="pz-ledger">
+      <li><span>1</span><h3>High Average</h3><p>Best average across the night's games.</p></li>
+      <li><span>2</span><h3>High Game</h3><p>Highest single-game score.</p></li>
+      <li><span>3</span><h3>Strike King</h3><p>Most strikes in the night.</p></li>
+      <li><span>4</span><h3>Spare Master</h3><p>Most spares in the night.</p></li>
+      <li><span>5</span><h3>Most 200s</h3><p>Most games of 200 or more. Only players who bowl a 200+ game can place.</p></li>
+      <li><span>6</span><h3>Clean Game</h3><p>A game with no open frames, every frame a strike or a spare. Ranked by the highest clean-game score. If nobody bowls one, no medal that week.</p></li>
+      <li><span>7</span><h3>Game Changer</h3><p>In the closest game of the night, the top three scorers from the winning kingdom.</p></li>
+    </ol>
+    <p class="pz-note">Ties share the place. Because of ties, and weeks when nobody qualifies (for example in Clean Game), the number of medals each week can vary.</p>
+  </div></section>
+
+  <section><div class="wrap pz">
+    <div class="head"><p class="label">End of the season</p><h2>The Season Medal Champion</h2></div>
+    <div class="pz-crown"><b>$300</b><div><h3>Most medals after 16 weeks</h3><p>The player with the most medals wins the special trophy and the $300 prize.</p></div></div>
+    <ul class="pz-rules">
+      <li>The champion receives the $300 prize only, without medal cash.</li>
+      <li>Every other player receives cash for all the medals they earned during the season.</li>
+      <li>If two players finish level on medals, the one with more gold wins. If still level, more silver.</li>
+      <li>There are up to 336 medal places in the season, including 112 golds. If every place is awarded, that is $196 in medal cash shared across the crew.</li>
+      <li>No minimum games. Miss a Saturday and you simply miss that week's chance to win medals.</li>
+    </ul>
+    <form class="pz-calc" id="pz-calc" aria-labelledby="pz-calc-h">
+      <h3 id="pz-calc-h">Work out your medal cash</h3>
+      <div class="pz-row">
+        <label for="pz-g">Gold<input id="pz-g" type="number" min="0" max="112" step="1" inputmode="numeric" value="3"></label>
+        <label for="pz-s">Silver<input id="pz-s" type="number" min="0" max="112" step="1" inputmode="numeric" value="4"></label>
+        <label for="pz-b">Bronze<input id="pz-b" type="number" min="0" max="112" step="1" inputmode="numeric" value="6"></label>
+      </div>
+      <p class="pz-total" aria-live="polite"><b id="pz-total">$6.50</b><span id="pz-detail">13 medals: $3.00 + $2.00 + $1.50</span></p>
+    </form>
+  </div></section>
+
+  <section><div class="wrap pz">
+    <div class="head"><p class="label">Cholan v Pandiyan</p><h2>The MVP Award</h2><p class="lead">Each week, the team captains, the admin and a couple of core members jointly choose one MVP from across both teams.</p></div>
+    <div class="pz-court">
+      <div class="c"><h3>Weekly MVP</h3><p>Performance and sportsmanship come first.</p>
+        <ul><li>Strong bowling</li><li>Contribution to the team</li><li>Fair play</li><li>Respect for others</li><li>Encouraging teammates</li></ul></div>
+      <div class="p"><h3>MVP of the Season</h3><p>After 16 weeks, the player with the most weekly MVP awards is named MVP of the Season and receives a separate reward.</p><p>A tie is decided by the same group, on overall performance and sportsmanship across the season.</p></div>
+    </div>
+    <p class="pz-end">Two kingdoms, one Kingpins Crew. <span>Everyone has a chance to earn something, every Saturday.</span></p>
+  </div></section>
+</div>
+
 <!-- ───────── RULES ───────── -->
 <div class="page" data-page="rules" hidden>
   <div class="page-title"><div class="wrap">
@@ -1472,198 +1598,6 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
-<!-- ───────── 2025 RECORD BOOK ───────── -->
-<div class="page" data-page="records" hidden>
-  <div class="page-title"><div class="wrap">
-    <p class="label">Raavanaa League 2025</p>
-    <h1 class="gold-text">2025 Record Book</h1>
-    <p class="lead">Seven seasons, June 2022 to April 2025: season averages, all-time records and Season 7 game by game. The rules and awards of this league were different from the current Kingpins Crew season.</p>
-  </div></div>
-  <section>
-    <div class="wrap rb">
-      <div class="tiles" id="rb-tiles"></div>
-
-      <div class="rb-block">
-        <div class="rb-head"><p class="label">Standings</p><h2>Season averages</h2><p class="lead">Games played (GP) and average for each season, in the order of the league sheet.</p></div>
-        <div class="filters" id="rb-seasons" role="group" aria-label="Choose a season"></div>
-        <div class="rb-ctrl">
-          <label for="rb-sname">Player<input id="rb-sname" type="search" placeholder="Type a name" autocomplete="off"></label>
-          <label for="rb-smin">Games<select id="rb-smin"><option value="0">Show everyone</option><option value="1">At least 1 game</option><option value="30">30 games or more</option><option value="60">60 games or more</option></select></label>
-        </div>
-        <div class="table-scroll"><table class="data" id="rb-standings"><thead></thead><tbody></tbody></table></div>
-        <p class="rb-note" id="rb-snote"></p>
-      </div>
-
-      <div class="rb-block">
-        <div class="rb-head"><p class="label">Calendar</p><h2>Season start dates</h2></div>
-        <div class="rb-dates" id="rb-dates"></div>
-      </div>
-
-      <div class="rb-block">
-        <div class="rb-head"><p class="label">All-time records</p><h2>The record book</h2></div>
-        <div class="rb-ctrl">
-          <label for="rb-rname">Player<select id="rb-rname"><option value="">All players</option></select></label>
-          <label for="rb-rseason">Season<select id="rb-rseason"><option value="">All seasons</option></select></label>
-          <label for="rb-rcat">Record<select id="rb-rcat"><option value="">All records</option></select></label>
-        </div>
-        <div class="rb-book" id="rb-book"></div>
-        <p class="rb-note" id="rb-rempty" hidden>No records match these filters.</p>
-      </div>
-
-      <div class="rb-block" id="rb-s7">
-        <div class="rb-head"><p class="label">Season 7 in detail · 22 Dec 2024 to 13 Apr 2025</p><h2>Season 7, game by game</h2><p class="lead">16 weeks of six games, from the Season 7 workbook. Every total matches the workbook's season sheet.</p></div>
-        <div class="filters" id="rb-7tabs" role="group" aria-label="Season 7 views">
-          <button type="button" class="chip" data-v="stats" aria-pressed="true">Player stats</button>
-          <button type="button" class="chip" data-v="weeks" aria-pressed="false">Week by week</button>
-          <button type="button" class="chip" data-v="medals" aria-pressed="false">Medals</button>
-          <button type="button" class="chip" data-v="spread" aria-pressed="false">Score spread</button>
-          <button type="button" class="chip" data-v="records" aria-pressed="false">Season 7 records</button>
-        </div>
-        <div class="rb-ctrl">
-          <label for="rb-7week" id="rb-7weekwrap" hidden>Week<select id="rb-7week"></select></label>
-          <label for="rb-7name">Player<input id="rb-7name" type="search" placeholder="Type a name" autocomplete="off"></label>
-        </div>
-        <div id="rb-7view"></div>
-        <p class="rb-note" id="rb-7note"></p>
-      </div>
-
-      <div class="rb-block">
-        <div class="rb-head"><p class="label">How the league was run</p><h2>League rules</h2></div>
-        <ol class="rb-rules">
-          <li>Admins are selected for every 16-week period.</li>
-          <li>The same admin cannot be repeated in the same year.</li>
-          <li>Everyone has to take a turn as admin. Anyone who doesn't want to be admin in a particular period doesn't get to vote on any deciding matters in that period.</li>
-          <li>Admins can be selected in an order or by random draw among the possible players.</li>
-          <li>Admins have veto power in that particular period.</li>
-          <li>Admins can decide how to organize, pick teams, pick captains and set playing rules during that period.</li>
-          <li>Any major decision about penalizing a player, or changing the playing time, date or venue, needs a 70% vote.</li>
-        </ol>
-      </div>
-
-      <div class="rb-foot">
-        <p>All figures are copied from the 2025 league sheets and the Season 7 workbook. Names are spelled as on the sheets. A dash means the sheet shows an average of 0.00.</p>
-        <p>On the Season 7 workbook, Mona and Mayo appear as Mayu(S) and Mayoo(K), and Suresh as Niruban.</p>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ───────── SEASON MEDALS & PRIZES (on the site but not linked yet: open with #season-medals) ───────── -->
-<div class="page" data-page="season-medals" hidden>
-  <div class="page-title"><div class="wrap">
-    <p class="label">Kingpins Crew · Season 2026</p>
-    <h1 class="gold-text">Season Medals &amp; Prizes</h1>
-    <p class="lead">Every Saturday is a mini tournament. Seven categories, and in each one we award gold, silver and bronze. Your medals add up all season, and each one is worth cash.</p>
-  </div></div>
-  <section>
-    <div class="wrap sm">
-      <div class="tiles">
-        <div class="tile"><span>League weeks</span><b>16</b><small>one season</small></div>
-        <div class="tile"><span>Categories</span><b>7</b><small>every Saturday</small></div>
-        <div class="tile"><span>Medals each week</span><b>21</b><small>gold, silver, bronze</small></div>
-        <div class="tile"><span>Medal places</span><b>336</b><small>in the season</small></div>
-      </div>
-
-      <div class="sm-block">
-        <div class="rb-head"><p class="label">What each medal is worth</p><h2>Gold, silver, bronze</h2></div>
-        <div class="sm-coins">
-          <div class="sm-coin-card"><div class="sm-coin g">$1</div><h3>Gold</h3><p>1st place</p></div>
-          <div class="sm-coin-card"><div class="sm-coin s">50¢</div><h3>Silver</h3><p>2nd place</p></div>
-          <div class="sm-coin-card"><div class="sm-coin b">25¢</div><h3>Bronze</h3><p>3rd place</p></div>
-        </div>
-        <p class="sm-note">These are virtual medals, recorded in our weekly stats. The cash adds up for every medal you win across the season.</p>
-      </div>
-
-      <div class="sm-block">
-        <div class="rb-head"><p class="label">Every Saturday</p><h2>The seven weekly categories</h2><p class="lead">Each category has a 1st, 2nd and 3rd place, ranked on that night's games.</p></div>
-        <ol class="sm-ledger">
-          <li><span class="n">1</span><h3>High Average</h3><p>Best average across the night's games.</p></li>
-          <li><span class="n">2</span><h3>High Game</h3><p>Highest single-game score.</p></li>
-          <li><span class="n">3</span><h3>Strike King</h3><p>Most strikes in the night.</p></li>
-          <li><span class="n">4</span><h3>Spare Master</h3><p>Most spares in the night.</p></li>
-          <li><span class="n">5</span><h3>Most 200s</h3><p>Most games of 200 or more. Only players who bowl a 200+ game can place.</p></li>
-          <li><span class="n">6</span><h3>Clean Game</h3><p>A game with no open frames, every frame a strike or a spare. Ranked by the highest clean-game score. If nobody bowls one, no medal that week.</p></li>
-          <li><span class="n">7</span><h3>Game Changer</h3><p>In the closest game of the night, the top three scorers from the winning kingdom.</p></li>
-        </ol>
-        <p class="sm-note">Ties share the place. Because of ties, and weeks when nobody qualifies (for example in Clean Game), the number of medals each week can vary.</p>
-      </div>
-
-      <div class="sm-block">
-        <div class="rb-head"><p class="label">End of the season</p><h2>The Season Medal Champion</h2></div>
-        <div class="sm-crown"><div class="sm-prize">$300</div><div><h3>Most medals after 16 weeks</h3><p>The player with the most medals wins the special trophy and the $300 prize.</p></div></div>
-        <ul class="sm-rules">
-          <li>The champion receives the $300 prize only, without medal cash.</li>
-          <li>Every other player receives cash for all the medals they earned during the season.</li>
-          <li>If two players finish level on medals, the one with more gold wins. If still level, more silver.</li>
-          <li>There are up to 336 medal places in the season, including 112 golds. If every place is awarded, that is $196 in medal cash shared across the crew.</li>
-          <li>No minimum games. Miss a Saturday and you simply miss that week's chance to win medals.</li>
-        </ul>
-        <form class="sm-calc" id="sm-calc">
-          <h3>Work out your medal cash</h3>
-          <div class="rb-ctrl">
-            <label for="sm-gold">Gold<input id="sm-gold" type="number" min="0" max="112" step="1" inputmode="numeric" value="3"></label>
-            <label for="sm-silver">Silver<input id="sm-silver" type="number" min="0" max="112" step="1" inputmode="numeric" value="4"></label>
-            <label for="sm-bronze">Bronze<input id="sm-bronze" type="number" min="0" max="112" step="1" inputmode="numeric" value="6"></label>
-          </div>
-          <p class="sm-total" aria-live="polite"><b id="sm-total">$6.50</b><span id="sm-detail">13 medals: $3.00 + $2.00 + $1.50</span></p>
-        </form>
-      </div>
-
-      <div class="sm-block">
-        <div class="rb-head"><p class="label">Cholan vs Pandiyan</p><h2>The MVP Award</h2><p class="lead">Each week, the team captains, the admin and a couple of core members jointly choose one MVP from across both teams.</p></div>
-        <div class="sm-court">
-          <div class="c"><h3>Weekly MVP</h3><p>Performance and sportsmanship come first.</p>
-            <ul class="sm-values"><li>Strong bowling</li><li>Contribution to the team</li><li>Fair play</li><li>Respect for others</li><li>Encouraging teammates</li></ul></div>
-          <div class="p"><h3>MVP of the Season</h3><p>After 16 weeks, the player with the most weekly MVP awards is named MVP of the Season and receives a separate reward.</p><p>A tie is decided by the same group, on overall performance and sportsmanship across the season.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ───────── VIRTUAL MEDALS (on the site but not linked yet: open with #virtual-medals) ───────── -->
-<div class="page" data-page="virtual-medals" hidden>
-  <div class="page-title"><div class="wrap">
-    <p class="label">Kingpins Crew · Season 2026</p>
-    <h1 class="gold-text">Virtual Medals</h1>
-    <p class="lead">Gold, silver and bronze in seven categories every Saturday. Medals add up across the 16 weeks. Gold $1, silver 50¢, bronze 25¢.</p>
-  </div></div>
-  <section>
-    <div class="wrap sm">
-      <div class="rb-ctrl">
-        <label for="vm-week">Week<select id="vm-week"></select></label>
-        <label for="vm-cat">Category<select id="vm-cat"></select></label>
-        <label for="vm-team">Kingdom<select id="vm-team"><option value="">Both kingdoms</option><option value="Cholan">Cholan</option><option value="Pandiyan">Pandiyan</option></select></label>
-        <label for="vm-name">Player<input id="vm-name" type="search" placeholder="Type a name" autocomplete="off"></label>
-      </div>
-      <div class="sm-block">
-        <div class="rb-head"><p class="label" id="vm-week-label"></p><h2>Medal winners</h2></div>
-        <div class="table-scroll"><table class="data vm-win" id="vm-winners">
-          <thead><tr><th class="l">Category</th><th class="l">Gold</th><th class="l">Silver</th><th class="l">Bronze</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
-      </div>
-      <div class="sm-block">
-        <div class="rb-head"><p class="label">Medal table</p><h2 id="vm-table-title">Season standings</h2><p class="lead" id="vm-table-note"></p></div>
-        <div class="table-scroll"><table class="data" id="vm-standings">
-          <thead><tr>
-            <th class="l">#</th><th class="l"><button type="button" data-sort="n">Player</button></th>
-            <th><button type="button" data-sort="g">Gold</button></th><th><button type="button" data-sort="s">Silver</button></th>
-            <th><button type="button" data-sort="b">Bronze</button></th><th aria-sort="descending"><button type="button" data-sort="t">Medals</button></th>
-            <th><button type="button" data-sort="c">Medal cash</button></th>
-          </tr></thead>
-          <tbody></tbody>
-        </table></div>
-        <div class="rb-foot">
-          <p>Ranking: most medals, then more gold, then more silver. Tied players share a place.</p>
-          <p>The Season Medal Champion takes the $300 prize instead of medal cash. Everyone else keeps their medal cash.</p>
-          <p>Each player's own scores count for medals. Blind scores are only used for team totals.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
 <!-- lane band, shown on every page except Registration -->
 <div class="lane" id="lane">
   <div class="wrap">
@@ -1701,7 +1635,8 @@ section{padding-block:clamp(48px,7vw,88px)}
         <a href="#clash" data-go="clash">Cholan vs Pandiyan</a>
         <a href="#crew" data-go="crew">League crew</a>
         <a href="#stats" data-go="stats">Stat dashboard</a>
-        <a href="#records" data-go="records">2025 record book</a>
+        <a href="#medals" data-go="medals">Virtual medals</a>
+        <a href="#prizes" data-go="prizes">Prizes &amp; MVP</a>
         <a href="#rules" data-go="rules">Rules</a>
       </div>
       <div class="foot-col">
@@ -1717,7 +1652,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","records","rules","gallery","registration","season-medals","virtual-medals"]; /* season-medals and virtual-medals are not linked from any menu yet */
+  var PAGES=["home","about","clash","crew","stats","medals","prizes","rules","gallery","registration"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -2068,6 +2003,121 @@ section{padding-block:clamp(48px,7vw,88px)}
   })();
 
 
+  /* ── virtual medals ──
+     Seven categories, gold / silver / bronze each Saturday, worked out from GAMES.
+     Clean Game needs the frame-by-frame scorecard, so it is entered by hand:
+     CLEAN[week] = [{n:"Name", s:score}, ...]  (empty list = nobody bowled one). */
+  var CLEAN={1:[]};
+  (function(){
+    var CATS=[["avg","High Average","best average of the night"],["high","High Game","highest single game"],["x","Strike King","most strikes"],["sp","Spare Master","most spares"],["two","Most 200s","most games of 200+"],["clean","Clean Game","no open frames"],["gc","Game Changer","top scorers, closest game won"]];
+    var VAL=[1,0.5,0.25], PL=["g","s","b"], MED=["Gold","Silver","Bronze"];
+    var win=document.getElementById("md-win"); if(!win) return;
+    var wks=Object.keys(WEEKS).map(Number).filter(function(w){return GAMES.some(function(r){return r.w===w;});}).sort(function(a,b){return a-b;});
+    function e2(v){return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+    function teamOf(w,n){ var t=TEAMS[w]; if(!t) return ""; return t.kings.indexOf(n)>-1?"Cholan":t.titans.indexOf(n)>-1?"Pandiyan":""; }
+    function money(v){ return "$"+v.toFixed(2); }
+    /* top three places; ties share a place (1, 1, 3) */
+    function podium(list){
+      list=list.filter(function(e){return e.v>0;}).sort(function(a,b){return b.v-a.v;});
+      var out=[], place=0;
+      list.forEach(function(e,i){ if(i===0||e.v!==list[i-1].v) place=i+1; if(place<=3) out.push({n:e.n,v:e.v,t:e.t,p:place}); });
+      return out;
+    }
+    function weekMedals(w){
+      var rows=GAMES.filter(function(r){return r.w===w;}), by={};
+      rows.forEach(function(r){ (by[r.n]=by[r.n]||[]).push(r); });
+      var names=Object.keys(by), res={}, notes={};
+      function stat(f,fmt){ return podium(names.map(function(n){ var v=f(by[n]); return {n:n,v:v,t:fmt(v)}; })); }
+      res.avg=stat(function(g){return g.reduce(function(a,r){return a+r.s;},0)/g.length;},function(v){return v.toFixed(1)+" avg";});
+      res.high=stat(function(g){return Math.max.apply(null,g.map(function(r){return r.s;}));},function(v){return v+" pins";});
+      res.x=stat(function(g){return g.reduce(function(a,r){return a+r.x;},0);},function(v){return v+" strikes";});
+      res.sp=stat(function(g){return g.reduce(function(a,r){return a+r.sp;},0);},function(v){return v+" spares";});
+      res.two=stat(function(g){return g.filter(function(r){return r.s>=200;}).length;},function(v){return v+(v>1?" games":" game")+" of 200+";});
+      res.clean=podium((CLEAN[w]||[]).map(function(c){ return typeof c==="string"?{n:c,v:1,t:"clean game"}:{n:c.n,v:c.s,t:"clean "+c.s}; }));
+      /* Game Changer: the closest game a kingdom won (blind scores count in team totals) */
+      var bl=BLINDS[w]||{}, games={}, pick=null;
+      rows.forEach(function(r){ (games[r.g]=games[r.g]||[]).push(r); });
+      Object.keys(games).forEach(function(g){
+        var tot={Cholan:0,Pandiyan:0};
+        games[g].forEach(function(r){ var k=teamOf(w,r.n); if(k) tot[k]+=Math.max(r.s,bl[r.n]||0); });
+        if(tot.Cholan===tot.Pandiyan) return;
+        var m=Math.abs(tot.Cholan-tot.Pandiyan), side=tot.Cholan>tot.Pandiyan?"Cholan":"Pandiyan";
+        if(!pick||m<pick.m) pick={g:+g,m:m,side:side};
+      });
+      res.gc=pick?podium(games[pick.g].filter(function(r){return teamOf(w,r.n)===pick.side;}).map(function(r){return {n:r.n,v:r.s,t:r.s+" in game "+pick.g};})):[];
+      if(pick) notes.gc="Game "+pick.g+": "+pick.side+" won by "+pick.m+" pins";
+      return {res:res,notes:notes,players:names};
+    }
+    var ALLW={}; wks.forEach(function(w){ ALLW[w]=weekMedals(w); });
+
+    var view=0, sortKey="t";
+    var fCat=document.getElementById("md-cat"), fTeam=document.getElementById("md-team"), fName=document.getElementById("md-name");
+    fCat.innerHTML='<option value="">All categories</option>'+CATS.map(function(c){return '<option value="'+c[0]+'">'+c[1]+'</option>';}).join("");
+    function ok(w,n){ var q=fName.value.trim().toLowerCase(); return (!fTeam.value||teamOf(w,n)===fTeam.value)&&(!q||n.toLowerCase().indexOf(q)>-1); }
+
+    function drawWinners(){
+      var weeks=view?[view]:wks.slice().reverse(), cats=CATS.filter(function(c){return !fCat.value||c[0]===fCat.value;}), h="";
+      document.getElementById("md-week-label").textContent=view?("Week "+view+" · "+(WEEKS[view]||"")):("All weeks · "+wks.length+" of "+SEASON_WEEKS+" played");
+      weeks.forEach(function(w){
+        if(weeks.length>1) h+='<tr class="md2-wk"><td colspan="4">Week '+w+' · '+e2(WEEKS[w]||"")+'</td></tr>';
+        cats.forEach(function(c){
+          var pod=ALLW[w].res[c[0]], note=ALLW[w].notes[c[0]];
+          h+='<tr><td class="l md2-cat">'+c[1]+'<small>'+e2(note||c[2])+'</small></td>';
+          if(!pod.length){ h+='<td colspan="3" class="md2-none">'+(c[0]==="clean"?"No clean game this week":"No medal this week")+'</td></tr>'; return; }
+          [1,2,3].forEach(function(p){
+            var who=pod.filter(function(e){return e.p===p;});
+            if(!who.length){ h+='<td data-m="'+MED[p-1]+'" class="md2-none">'+(p>1?"Shared above":"–")+'</td>'; return; }
+            var shown=who.filter(function(e){return ok(w,e.n);});
+            h+='<td data-m="'+MED[p-1]+'">'+(shown.length?shown.map(function(e){ return '<div class="md2-w"><b class="'+(teamOf(w,e.n)==="Cholan"?"k-c":"k-p")+'">'+e2(e.n)+'</b><span>'+e2(e.t)+'</span></div>'; }).join(""):'<span class="md2-none">Filtered out</span>')+'</td>';
+          });
+          h+='</tr>';
+        });
+      });
+      win.querySelector("tbody").innerHTML=h;
+    }
+    function drawTable(){
+      var weeks=view?[view]:wks, cat=fCat.value, t={};
+      weeks.forEach(function(w){
+        ALLW[w].players.forEach(function(n){ if(!t[n]) t[n]={n:n,g:0,s:0,b:0,team:teamOf(w,n)}; });
+        CATS.forEach(function(c){ if(cat&&c[0]!==cat) return; ALLW[w].res[c[0]].forEach(function(e){ if(t[e.n]) t[e.n][PL[e.p-1]]++; }); });
+      });
+      var all=Object.keys(t).map(function(n){ var p=t[n]; p.t=p.g+p.s+p.b; p.c=p.g*VAL[0]+p.s*VAL[1]+p.b*VAL[2]; return p; });
+      function std(a,b){ return b.t-a.t||b.g-a.g||b.s-a.s; }
+      var ranked=all.slice().sort(std), rk={};
+      ranked.forEach(function(p,i){ rk[p.n]=(i>0&&std(p,ranked[i-1])===0)?rk[ranked[i-1].n]:i+1; });
+      var q=fName.value.trim().toLowerCase();
+      var rows=all.filter(function(p){ return (!fTeam.value||p.team===fTeam.value)&&(!q||p.n.toLowerCase().indexOf(q)>-1); });
+      rows.sort(sortKey==="n"?function(a,b){return a.n.localeCompare(b.n);}:function(a,b){return (b[sortKey]-a[sortKey])||std(a,b)||a.n.localeCompare(b.n);});
+      document.querySelector("#md-std tbody").innerHTML=rows.length?rows.map(function(p){
+        var top=rk[p.n]===1&&p.t>0;
+        return '<tr'+(top?' class="top"':'')+'><td class="l n">'+rk[p.n]+'</td><td class="l who">'+e2(p.n)+(p.team?'<span class="md2-pill '+(p.team==="Cholan"?"c":"p")+'">'+p.team+'</span>':'')+'</td>'+
+          '<td'+(p.g?'':' class="z"')+'>'+p.g+'</td><td'+(p.s?'':' class="z"')+'>'+p.s+'</td><td'+(p.b?'':' class="z"')+'>'+p.b+'</td><td class="tot">'+p.t+'</td><td class="cash">'+money(p.c)+'</td></tr>';
+      }).join(""):'<tr><td colspan="7" class="md2-none">No players match these filters.</td></tr>';
+      document.getElementById("md-table-h").textContent=view?("Week "+view+" medal table"):"Season standings";
+      document.getElementById("md-table-note").textContent=(cat?CATS.filter(function(c){return c[0]===cat;})[0][1]+" medals only. ":"")+(view?"Medals won on "+(WEEKS[view]||"")+".":"All medals after "+wks.length+" of "+SEASON_WEEKS+" weeks. Tap a heading to sort.");
+      document.querySelectorAll("#md-std th button").forEach(function(b){ b.parentNode[b.dataset.k===sortKey?"setAttribute":"removeAttribute"]("aria-sort",sortKey==="n"?"ascending":"descending"); });
+    }
+    function draw(){
+      document.getElementById("md-weeks").innerHTML=[0].concat(wks).map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===view)+'">'+(w?"Week "+w:"Whole season")+'</button>';}).join("");
+      drawWinners(); drawTable();
+    }
+    document.getElementById("md-weeks").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; view=+b.dataset.w; draw(); });
+    [fCat,fTeam].forEach(function(el){ el.addEventListener("change",draw); });
+    fName.addEventListener("input",draw);
+    document.querySelector("#md-std thead").addEventListener("click",function(e){ var b=e.target.closest("button[data-k]"); if(!b) return; sortKey=b.dataset.k; drawTable(); });
+    draw();
+
+    /* Prizes page: medal cash calculator */
+    var ids=["pz-g","pz-s","pz-b"];
+    function calc(){
+      var n=ids.map(function(i){ return Math.max(0,Math.floor(Number(document.getElementById(i).value)||0)); });
+      var parts=n.map(function(c,i){return c*VAL[i];}), tot=parts.reduce(function(a,b){return a+b;},0), cnt=n.reduce(function(a,b){return a+b;},0);
+      document.getElementById("pz-total").textContent=money(tot);
+      document.getElementById("pz-detail").textContent=cnt+(cnt===1?" medal: ":" medals: ")+parts.map(money).join(" + ");
+    }
+    if(document.getElementById("pz-calc")){ ids.forEach(function(i){ document.getElementById(i).addEventListener("input",calc); }); document.getElementById("pz-calc").addEventListener("submit",function(e){e.preventDefault();}); calc(); }
+  })();
+
   function fitBrand(){
     var n=document.getElementById("brand-name"); if(!n) return;
     var max=parseFloat(getComputedStyle(document.documentElement).fontSize)*1.75;
@@ -2148,322 +2198,4 @@ section{padding-block:clamp(48px,7vw,88px)}
 })();
 </script>
 
-<script>
-
-  /* ───────── 2025 record book page ───────── */
-  (function(){
-    if(!document.getElementById("rb-tiles")) return;
-    var SEASONS={
-    1:[[1,"Satchi",54,165.78],[2,"Mayo",61,161.20],[3,"Chad",54,160.30],[4,"Sabesh",60,157.02],[5,"Bala",32,156.19],[6,"Mona",66,153.26],[7,"Shankar",41,151.39],[8,"Ram",50,145.56],[9,"Nisan",46,142.35],[10,"Sasi",50,139.48]],
-    2:[[1,"Satchi",78,173.00],[2,"Chad",78,168.04],[3,"Mona",90,165.28],[4,"Mayo",90,164.52],[5,"Bala",71,164.28],[6,"Nisan",89,163.72],[7,"Shankar",84,158.11],[8,"Sabesh",78,156.50],[9,"Ram",78,145.85],[10,"Sasi",78,141.21]],
-    3:[[1,"Satchi",96,176.29],[2,"Nisan",96,166.57],[3,"Mona",96,166.27],[4,"Mayo",96,161.82],[5,"Sabesh",96,161.59],[6,"Chad",84,160.55],[7,"Bala",90,159.70],[8,"Shankar",90,153.99],[9,"Sasi",96,148.27],[10,"Ram",96,140.89]],
-    4:[[1,"Satchi",66,174.03],[2,"Nisan",48,168.02],[3,"Chad",36,0],[4,"Mona",66,162.06],[5,"Mayo",54,161.24],[6,"Sabesh",60,154.77],[7,"Ram",52,150.92],[8,"Shankar",42,149.38],[9,"Sasi",60,146.68],[10,"Bala",0,0]],
-    5:[[1,"Satchi",66,184.65],[2,"Mayo",58,172.90],[3,"Mona",92,168.60],[4,"Shankar",79,168.52],[5,"Sabesh",86,163.20],[6,"Chad",49,161.53],[7,"Ram",92,155.66],[8,"Nisan",6,151.83],[9,"Sasi",85,151.51],[10,"VJ",12,146.42],[11,"Niz",92,142.48],[12,"Roshan",42,132.95],[13,"Gajan",12,111.08],[14,"Bala",0,0]],
-    6:[[1,"Satchi",90,189.00],[2,"Mona",90,169.11],[3,"Chad",42,166.17],[4,"Ram",72,162.24],[5,"Sabesh",96,162.19],[6,"Mayo",78,161.12],[7,"Shankar",96,158.13],[8,"Bala",42,156.86],[9,"Sasi",90,150.96],[10,"Niz",90,147.83],[11,"Nisan",6,142.67],[12,"Roshan",42,140.24],[13,"VJ",36,136.14],[14,"Ruban",30,128.20],[15,"Gajan",0,0]],
-    7:[[1,"Satchi",78,188.69],[2,"Niz",96,172.29],[3,"Mona",96,169.01],[4,"Chad",78,166.58],[5,"Mayo",96,166.10],[6,"Shankar",60,160.92],[7,"Bala",72,160.51],[8,"Ram",75,158.91],[9,"Sabesh",90,152.13],[10,"Sasi",96,145.66],[11,"Nisan",60,145.22],[12,"Roshan",66,144.29],[13,"Suresh",36,138.25],[14,"Ruban",90,136.92],[15,"Gajan",60,133.35],[16,"VJ",0,0]]
-  };
-  var DATES={1:"26 Jun 2022",2:"11 Sep 2022",3:"08 Jan 2023",4:"07 May 2023",5:"12 May 2024",6:"01 Sep 2024",7:"22 Dec 2024"};
-  var RECORDS=[
-    ["high","Highest score",[["Satchi",300,"S2"],["Sasi",288,"S5"],["Niz",286,"S7"],["Satchi",280,"S6"],["Satchi",278,"S3"],["Mona",267,"S3"],["Satchi",266,"S3"],["Satchi",266,"S6"],["Chad",265,"S3"],["Sabesh",255,"S3"],["Mayo",255,"S5"],["Nisan",254,"S3"]]],
-    ["strikes","Most strikes in a game",[["Satchi",12,"S2"],["Sasi",10,"S5"],["Satchi",10,"S2"],["Niz",10,"S7"],["Bala",9,"S3"],["Chad",9,"S3"],["Satchi",9,"S3"],["Mona",9,"S3"],["Ram",9,"S6"],["VJ",9,"S6"]]],
-    ["spares","Most spares in a game",[["Satchi",10,"S1"],["Shankar",9,"S2"],["Bala",9,"S2"],["Sasi",9,"S2"],["Mayo",9,"S3"]]],
-    ["low","Lowest score",[["Ram",92,"S4"],["Sabesh",92,"S3"],["Mona",94,"S1"],["Niz",94,"S6"],["Sasi",97,"S6"],["Chad",99,"S3"],["Nisan",100,"S2"]]],
-    ["dayavg","Highest individual average in a single day",[["Satchi","212.00","S3"],["Mayo","201.00","S5"],["Chad","191.67","S2"],["Shankar","188.80","S5"],["Mona","187.00","S3"],["Nisan","185.67","S3"],["Bala","180.33","S3"],["Sabesh","180.00","S3"],["Niz","177.20","S6"],["Sasi","177.00","S5"],["Ram","173.70","S5"],["Rosh","150.80","S6"]]],
-    ["personal","Personal highest",[["Satchi",300,"S2"],["Sasi",288,"S5"],["Niz",286,"S7"],["Mona",267,"S3"],["Chad",265,"S3"],["Sabesh",255,"S3"],["Mayo",255,"S5"],["Nisan",254,"S3"],["Shankar",246,"S6"],["Ram",245,"S1"],["Bala",235,"S6"],["VJ",202,"S6"],["Ruban",189,"S6"],["Rosh",177,"S6"]]],
-    ["two","200s in a day (6 games)",[["Satchi",4,"S5, S6, S6"],["Mayo",3,"S5"],["Chad",3,"S3"],["Mona",3,"S5"],["Shankar",3,"S5"]]],
-    ["xrow","Consecutive strikes in a row",[["Satchi",13,"S2"],["Sasi",10,"S5"],["Chad",9,"S3"],["Nisan",8,"S3"],["Sabesh",8,"S3"]]],
-    ["cg","Consecutive CGs in a row",[["Satchi",3,"S3"]]],
-    ["tworow","Consecutive 200s in a row",[["Mayo",3,"S3"],["Chad",3,"S2"],["Satchi",3,"S6"]]],
-    ["splitrow","Consecutive splits in a row",[["Shankar",5,"S2"],["Sasi",4,"S6"]]],
-    ["splits","Most splits in a game",[["Sasi",6,"S6"],["Niz",6,"S6"],["Satchi",6,"S6"]]],
-    ["open","Continuous frames without a strike or spare",[["Sabesh",10,"S5","2 gms (9 and 1)"],["Sabesh",10,"S6","2 Wks (lst game 1 / first game 9)"]]],
-    ["lopsided","Most lopsided victory against the rival",[["Satchi (300) vs Chad (127)",173,"S2"],["Sasi (288) vs Gajan (133)",155,"S5"],["Satchi (278) vs Mona (128)",150,"S3"],["Sabesh (255) vs Mona (121)",134,"S3"],["Shankar (246) vs Mayo (136)",113,"S6"]]]
-  ];
-  var S7={"dates":["2024-12-22","2024-12-29","2025-01-05","2025-01-12","2025-01-19","2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13"],"games":[[1,1,"Ram",132,1,4,0,"L"],[1,1,"Bala",143,2,4,0,"W"],[1,1,"Nisan",143,3,2,0,"L"],[1,1,"Shankar",160,2,6,0,"W"],[1,1,"Satchi",180,4,4,0,"W"],[1,1,"Sasi",123,2,1,0,"W"],[1,1,"Mayo",182,4,6,0,"W"],[1,1,"Sabesh",148,3,3,0,"L"],[1,1,"Mona",198,6,2,0,"L"],[1,1,"Niz",108,1,2,0,"L"],[1,1,"Gajan",95,1,2,0,"W"],[1,1,"Rosh",135,1,5,0,"W"],[1,1,"Ruban",138,3,3,0,"L"],[1,1,"Suresh",145,3,4,0,"L"],[1,2,"Ram",181,2,7,0,"L"],[1,2,"Bala",141,0,6,0,"W"],[1,2,"Nisan",113,1,2,0,"L"],[1,2,"Shankar",190,3,7,1,"W"],[1,2,"Satchi",191,4,4,0,"W"],[1,2,"Sasi",134,2,3,0,"W"],[1,2,"Mayo",159,3,5,0,"W"],[1,2,"Sabesh",163,3,4,0,"L"],[1,2,"Mona",192,5,2,0,"L"],[1,2,"Niz",136,0,6,0,"L"],[1,2,"Gajan",126,4,2,0,"W"],[1,2,"Rosh",136,3,2,0,"W"],[1,2,"Ruban",98,0,2,0,"L"],[1,2,"Suresh",135,2,3,0,"L"],[1,3,"Ram",174,4,3,0,"L"],[1,3,"Bala",211,4,5,0,"W"],[1,3,"Nisan",145,1,5,0,"L"],[1,3,"Shankar",158,5,2,0,"W"],[1,3,"Satchi",180,4,5,0,"W"],[1,3,"Sasi",150,3,4,0,"W"],[1,3,"Mayo",166,3,4,0,"W"],[1,3,"Sabesh",151,2,4,0,"L"],[1,3,"Mona",151,4,1,0,"L"],[1,3,"Niz",159,3,3,0,"L"],[1,3,"Gajan",121,0,4,0,"W"],[1,3,"Rosh",162,1,7,0,"W"],[1,3,"Ruban",77,0,1,0,"L"],[1,3,"Suresh",125,4,0,0,"L"],[1,4,"Ram",140,3,2,0,"L"],[1,4,"Bala",144,1,5,0,"W"],[1,4,"Nisan",144,1,5,0,"L"],[1,4,"Shankar",194,5,4,0,"W"],[1,4,"Satchi",194,5,4,0,"W"],[1,4,"Sasi",126,2,2,0,"W"],[1,4,"Mayo",169,2,6,0,"W"],[1,4,"Sabesh",154,3,3,0,"L"],[1,4,"Mona",140,3,3,0,"L"],[1,4,"Niz",121,0,4,0,"L"],[1,4,"Gajan",119,1,4,0,"W"],[1,4,"Rosh",140,3,1,0,"W"],[1,4,"Ruban",98,1,1,0,"L"],[1,4,"Suresh",148,2,4,0,"L"],[1,5,"Ram",191,5,5,0,"L"],[1,5,"Bala",178,4,4,0,"W"],[1,5,"Nisan",181,5,1,0,"L"],[1,5,"Shankar",135,1,4,0,"W"],[1,5,"Satchi",213,5,5,0,"W"],[1,5,"Sasi",168,3,5,0,"W"],[1,5,"Mayo",173,4,5,0,"W"],[1,5,"Sabesh",183,2,7,0,"L"],[1,5,"Mona",138,2,3,0,"L"],[1,5,"Niz",159,3,3,0,"L"],[1,5,"Gajan",106,1,3,0,"W"],[1,5,"Rosh",144,3,2,0,"W"],[1,5,"Ruban",114,0,4,0,"L"],[1,5,"Suresh",120,1,3,0,"L"],[1,6,"Ram",155,1,6,0,"W"],[1,6,"Bala",134,2,3,0,"L"],[1,6,"Nisan",128,1,4,0,"W"],[1,6,"Shankar",166,4,3,0,"L"],[1,6,"Satchi",176,4,3,0,"L"],[1,6,"Sasi",145,1,5,0,"L"],[1,6,"Mayo",180,2,7,0,"L"],[1,6,"Sabesh",168,3,4,0,"W"],[1,6,"Mona",168,2,6,0,"W"],[1,6,"Niz",201,5,4,0,"W"],[1,6,"Gajan",143,3,2,0,"L"],[1,6,"Rosh",127,1,5,0,"L"],[1,6,"Ruban",121,0,4,0,"W"],[1,6,"Suresh",135,2,3,0,"W"],[2,1,"Ram",162,4,3,0,"W"],[2,1,"Bala",223,7,3,0,"W"],[2,1,"Nisan",128,3,1,0,"L"],[2,1,"Shankar",152,2,4,0,"W"],[2,1,"Satchi",183,5,1,0,"L"],[2,1,"Sasi",164,2,5,0,"L"],[2,1,"Mayo",170,3,5,0,"L"],[2,1,"Sabesh",153,2,5,0,"L"],[2,1,"Mona",253,9,1,0,"W"],[2,1,"Niz",180,4,3,0,"W"],[2,1,"Gajan",98,0,2,0,"L"],[2,1,"Rosh",144,2,4,0,"L"],[2,1,"Ruban",83,0,1,0,"W"],[2,1,"Suresh",153,2,5,0,"W"],[2,2,"Ram",116,1,4,0,"W"],[2,2,"Bala",176,4,4,0,"W"],[2,2,"Nisan",133,2,3,0,"L"],[2,2,"Shankar",185,4,4,0,"W"],[2,2,"Satchi",168,3,5,0,"L"],[2,2,"Sasi",143,2,5,0,"L"],[2,2,"Mayo",148,0,6,0,"L"],[2,2,"Sabesh",146,1,6,0,"L"],[2,2,"Mona",130,0,5,0,"W"],[2,2,"Niz",161,2,5,0,"W"],[2,2,"Gajan",95,0,2,0,"L"],[2,2,"Rosh",154,2,4,0,"L"],[2,2,"Ruban",110,1,3,0,"W"],[2,2,"Suresh",153,2,5,0,"W"],[2,3,"Ram",158,4,2,0,"L"],[2,3,"Bala",153,1,6,0,"L"],[2,3,"Nisan",126,1,3,0,"W"],[2,3,"Shankar",186,4,5,0,"L"],[2,3,"Satchi",192,3,6,0,"W"],[2,3,"Sasi",169,2,6,0,"W"],[2,3,"Mayo",169,4,3,0,"W"],[2,3,"Sabesh",145,2,4,0,"W"],[2,3,"Mona",154,5,1,0,"L"],[2,3,"Niz",113,1,2,0,"L"],[2,3,"Gajan",131,3,2,0,"W"],[2,3,"Rosh",159,4,3,0,"W"],[2,3,"Ruban",102,0,3,0,"L"],[2,3,"Suresh",152,2,4,0,"L"],[2,4,"Ram",161,1,7,0,"W"],[2,4,"Bala",170,3,5,0,"W"],[2,4,"Nisan",147,2,4,0,"L"],[2,4,"Shankar",180,5,2,0,"W"],[2,4,"Satchi",192,4,5,0,"L"],[2,4,"Sasi",126,3,1,0,"L"],[2,4,"Mayo",195,4,5,0,"L"],[2,4,"Sabesh",150,3,3,0,"L"],[2,4,"Mona",147,2,5,0,"W"],[2,4,"Niz",173,4,6,0,"W"],[2,4,"Gajan",139,3,4,0,"L"],[2,4,"Rosh",130,2,2,0,"L"],[2,4,"Ruban",121,1,2,0,"W"],[2,4,"Suresh",151,0,7,0,"W"],[2,5,"Ram",135,2,3,0,"W"],[2,5,"Bala",168,3,5,0,"W"],[2,5,"Nisan",167,4,2,0,"L"],[2,5,"Shankar",156,4,4,0,"W"],[2,5,"Satchi",159,5,2,0,"L"],[2,5,"Sasi",130,2,2,0,"L"],[2,5,"Mayo",149,2,4,0,"L"],[2,5,"Sabesh",145,2,4,0,"L"],[2,5,"Mona",148,2,5,0,"W"],[2,5,"Niz",191,6,4,0,"W"],[2,5,"Gajan",123,1,3,0,"L"],[2,5,"Rosh",164,3,4,0,"L"],[2,5,"Ruban",110,1,3,0,"W"],[2,5,"Suresh",173,4,5,0,"W"],[2,6,"Ram",122,3,1,0,"W"],[2,6,"Bala",172,4,3,0,"W"],[2,6,"Nisan",147,3,4,0,"L"],[2,6,"Shankar",147,3,4,0,"W"],[2,6,"Satchi",206,8,2,0,"L"],[2,6,"Sasi",134,1,5,0,"L"],[2,6,"Mayo",180,5,4,0,"L"],[2,6,"Sabesh",191,2,8,1,"L"],[2,6,"Mona",196,5,2,0,"W"],[2,6,"Niz",179,4,4,0,"W"],[2,6,"Gajan",104,1,2,0,"L"],[2,6,"Rosh",120,3,1,0,"L"],[2,6,"Ruban",146,3,3,0,"W"],[2,6,"Suresh",192,5,3,0,"W"],[3,1,"Ram",141,2,3,0,"W"],[3,1,"Bala",148,3,2,0,"L"],[3,1,"Nisan",186,3,5,0,"W"],[3,1,"Shankar",161,3,4,0,"W"],[3,1,"Chad",172,1,8,0,"L"],[3,1,"Satchi",157,4,2,0,"L"],[3,1,"Sasi",135,3,1,0,"L"],[3,1,"Mayo",157,3,2,0,"W"],[3,1,"Sabesh",193,5,3,0,"W"],[3,1,"Mona",191,4,7,1,"L"],[3,1,"Niz",170,2,6,0,"L"],[3,1,"Rosh",147,2,4,0,"W"],[3,1,"Ruban",130,1,5,0,"L"],[3,2,"Ram",104,1,2,0,"L"],[3,2,"Bala",174,3,5,0,"W"],[3,2,"Nisan",154,0,7,0,"L"],[3,2,"Shankar",156,3,5,0,"L"],[3,2,"Chad",157,3,3,0,"W"],[3,2,"Satchi",160,3,5,0,"W"],[3,2,"Sasi",172,4,3,0,"W"],[3,2,"Mayo",178,3,5,0,"L"],[3,2,"Sabesh",204,5,2,0,"L"],[3,2,"Mona",180,6,2,0,"W"],[3,2,"Niz",171,3,6,0,"W"],[3,2,"Rosh",160,4,4,0,"L"],[3,2,"Ruban",159,3,3,0,"W"],[3,3,"Ram",156,4,2,0,"L"],[3,3,"Bala",133,3,3,0,"W"],[3,3,"Nisan",145,2,4,0,"L"],[3,3,"Shankar",139,1,4,0,"L"],[3,3,"Chad",166,2,5,0,"W"],[3,3,"Satchi",201,5,5,0,"W"],[3,3,"Sasi",143,1,5,0,"W"],[3,3,"Mayo",152,2,5,0,"L"],[3,3,"Sabesh",131,2,3,0,"L"],[3,3,"Mona",164,3,4,0,"W"],[3,3,"Niz",179,5,2,0,"W"],[3,3,"Rosh",155,2,5,0,"L"],[3,3,"Ruban",151,3,3,0,"W"],[3,4,"Ram",176,6,2,0,"W"],[3,4,"Bala",129,2,4,0,"L"],[3,4,"Nisan",163,4,2,0,"W"],[3,4,"Shankar",141,2,4,0,"W"],[3,4,"Chad",150,3,3,0,"L"],[3,4,"Satchi",205,5,5,0,"L"],[3,4,"Sasi",135,2,3,0,"L"],[3,4,"Mayo",151,2,5,0,"W"],[3,4,"Sabesh",165,1,7,0,"W"],[3,4,"Mona",174,5,2,0,"L"],[3,4,"Niz",144,4,0,0,"L"],[3,4,"Rosh",132,1,5,0,"W"],[3,4,"Ruban",131,3,2,0,"L"],[3,5,"Ram",168,5,2,0,"L"],[3,5,"Bala",179,5,2,0,"W"],[3,5,"Nisan",140,1,4,0,"L"],[3,5,"Shankar",135,4,2,0,"L"],[3,5,"Chad",170,5,4,0,"W"],[3,5,"Satchi",174,3,5,0,"W"],[3,5,"Sasi",134,1,4,0,"W"],[3,5,"Mayo",211,7,3,0,"L"],[3,5,"Sabesh",163,0,8,0,"L"],[3,5,"Mona",185,5,4,0,"W"],[3,5,"Niz",172,3,6,0,"W"],[3,5,"Rosh",153,2,5,0,"L"],[3,5,"Ruban",135,3,2,0,"W"],[3,6,"Ram",152,1,6,0,"W"],[3,6,"Bala",140,1,5,0,"L"],[3,6,"Nisan",175,4,6,0,"W"],[3,6,"Shankar",212,6,5,0,"W"],[3,6,"Chad",176,1,9,0,"L"],[3,6,"Satchi",192,5,5,0,"L"],[3,6,"Sasi",145,2,4,0,"L"],[3,6,"Mayo",167,4,4,0,"W"],[3,6,"Sabesh",182,4,5,0,"W"],[3,6,"Mona",140,2,3,0,"L"],[3,6,"Niz",219,5,6,1,"L"],[3,6,"Rosh",131,2,3,0,"W"],[3,6,"Ruban",105,0,3,0,"L"],[4,1,"Ram",122,2,2,0,"W"],[4,1,"Bala",157,2,5,0,"W"],[4,1,"Nisan",168,2,6,0,"L"],[4,1,"Shankar",193,4,5,0,"W"],[4,1,"Chad",135,1,5,0,"L"],[4,1,"Satchi",223,8,1,0,"L"],[4,1,"Sasi",138,2,4,0,"W"],[4,1,"Mayo",155,4,3,0,"W"],[4,1,"Sabesh",145,3,2,0,"L"],[4,1,"Mona",159,3,3,0,"L"],[4,1,"Niz",190,5,3,0,"W"],[4,1,"Gajan",108,0,3,0,"L"],[4,1,"Rosh",157,3,4,0,"L"],[4,1,"Ruban",166,3,5,0,"W"],[4,2,"Ram",116,0,4,0,"W"],[4,2,"Bala",160,5,3,0,"W"],[4,2,"Nisan",140,3,3,0,"L"],[4,2,"Shankar",233,7,1,0,"W"],[4,2,"Chad",167,4,4,0,"L"],[4,2,"Satchi",160,5,1,0,"L"],[4,2,"Sasi",184,4,6,0,"W"],[4,2,"Mayo",207,5,4,0,"W"],[4,2,"Sabesh",171,3,4,0,"L"],[4,2,"Mona",157,4,2,0,"L"],[4,2,"Niz",158,3,4,0,"W"],[4,2,"Gajan",122,3,3,0,"L"],[4,2,"Rosh",144,2,4,0,"L"],[4,2,"Ruban",144,3,3,0,"W"],[4,3,"Ram",192,5,5,0,"W"],[4,3,"Bala",139,4,1,0,"W"],[4,3,"Nisan",127,1,3,0,"L"],[4,3,"Shankar",151,1,6,0,"W"],[4,3,"Chad",145,2,4,0,"L"],[4,3,"Satchi",186,6,1,0,"L"],[4,3,"Sasi",177,4,3,0,"W"],[4,3,"Mayo",163,1,7,0,"W"],[4,3,"Sabesh",141,1,4,0,"L"],[4,3,"Mona",192,4,5,0,"L"],[4,3,"Niz",137,1,4,0,"W"],[4,3,"Gajan",161,4,4,0,"L"],[4,3,"Rosh",124,2,2,0,"L"],[4,3,"Ruban",130,2,3,0,"W"],[4,4,"Ram",170,4,4,0,"L"],[4,4,"Bala",165,5,1,0,"L"],[4,4,"Nisan",159,2,4,0,"W"],[4,4,"Shankar",127,1,4,0,"L"],[4,4,"Chad",162,3,5,0,"W"],[4,4,"Satchi",169,6,2,0,"W"],[4,4,"Sasi",116,1,2,0,"L"],[4,4,"Mayo",167,2,5,0,"L"],[4,4,"Sabesh",162,4,4,0,"W"],[4,4,"Mona",180,4,5,0,"W"],[4,4,"Niz",109,2,0,0,"L"],[4,4,"Gajan",174,4,4,0,"W"],[4,4,"Rosh",114,0,4,0,"W"],[4,4,"Ruban",153,3,3,0,"L"],[4,5,"Ram",134,3,2,0,"L"],[4,5,"Bala",136,3,2,0,"L"],[4,5,"Nisan",147,0,7,0,"W"],[4,5,"Shankar",172,2,7,0,"L"],[4,5,"Chad",172,1,8,0,"W"],[4,5,"Satchi",182,6,4,0,"W"],[4,5,"Sasi",176,3,5,0,"L"],[4,5,"Mayo",135,1,5,0,"L"],[4,5,"Sabesh",134,2,3,0,"W"],[4,5,"Mona",186,4,6,0,"W"],[4,5,"Niz",169,4,2,0,"L"],[4,5,"Gajan",92,0,1,0,"W"],[4,5,"Rosh",141,3,4,0,"W"],[4,5,"Ruban",124,4,2,0,"L"],[4,6,"Ram",179,4,3,0,"W"],[4,6,"Bala",164,4,3,0,"W"],[4,6,"Nisan",138,2,3,0,"L"],[4,6,"Shankar",169,4,3,0,"W"],[4,6,"Chad",160,5,3,0,"L"],[4,6,"Satchi",168,5,2,0,"L"],[4,6,"Sasi",155,3,4,0,"W"],[4,6,"Mayo",172,4,3,0,"W"],[4,6,"Sabesh",138,1,4,0,"L"],[4,6,"Mona",179,6,3,0,"L"],[4,6,"Niz",138,1,4,0,"W"],[4,6,"Gajan",123,1,3,0,"L"],[4,6,"Rosh",162,4,3,0,"L"],[4,6,"Ruban",107,1,1,0,"W"],[5,1,"Ram",153,2,5,0,"L"],[5,1,"Bala",150,3,4,0,"L"],[5,1,"Nisan",157,4,3,0,"W"],[5,1,"Shankar",149,4,3,0,"W"],[5,1,"Chad",225,6,3,0,"W"],[5,1,"Satchi",184,5,2,0,"W"],[5,1,"Sasi",135,1,4,0,"L"],[5,1,"Mayo",150,2,5,0,"L"],[5,1,"Sabesh",225,7,2,0,"W"],[5,1,"Mona",178,4,3,0,"L"],[5,1,"Niz",145,0,6,0,"L"],[5,1,"Gajan",105,1,3,0,"W"],[5,1,"Ruban",141,3,3,0,"W"],[5,2,"Ram",179,4,4,0,"W"],[5,2,"Bala",182,4,5,0,"W"],[5,2,"Nisan",165,4,2,0,"L"],[5,2,"Shankar",147,1,6,0,"L"],[5,2,"Chad",153,3,5,0,"L"],[5,2,"Satchi",185,5,5,0,"L"],[5,2,"Sasi",138,2,3,0,"W"],[5,2,"Mayo",118,1,2,0,"W"],[5,2,"Sabesh",141,1,5,0,"L"],[5,2,"Mona",160,5,2,0,"W"],[5,2,"Niz",159,4,3,0,"W"],[5,2,"Gajan",97,0,2,0,"L"],[5,2,"Ruban",107,0,3,0,"L"],[5,3,"Ram",145,3,3,0,"W"],[5,3,"Bala",158,4,2,0,"W"],[5,3,"Nisan",139,1,4,0,"L"],[5,3,"Shankar",140,1,5,0,"L"],[5,3,"Chad",189,4,4,0,"L"],[5,3,"Satchi",198,4,6,0,"L"],[5,3,"Sasi",157,4,3,0,"W"],[5,3,"Mayo",133,2,3,0,"W"],[5,3,"Sabesh",172,5,4,0,"L"],[5,3,"Mona",190,5,4,0,"W"],[5,3,"Niz",197,4,5,0,"W"],[5,3,"Gajan",121,1,3,0,"L"],[5,3,"Ruban",107,3,1,0,"L"],[5,4,"Ram",170,3,5,0,"W"],[5,4,"Bala",180,4,4,0,"W"],[5,4,"Nisan",120,0,4,0,"L"],[5,4,"Shankar",155,2,5,0,"L"],[5,4,"Chad",142,3,3,0,"L"],[5,4,"Satchi",202,4,7,1,"L"],[5,4,"Sasi",160,3,3,0,"W"],[5,4,"Mayo",157,1,6,0,"W"],[5,4,"Sabesh",158,2,4,0,"L"],[5,4,"Mona",179,4,5,0,"W"],[5,4,"Niz",188,5,5,0,"W"],[5,4,"Gajan",113,2,1,0,"L"],[5,4,"Ruban",147,2,5,0,"L"],[5,5,"Ram",124,3,0,0,"L"],[5,5,"Bala",177,4,3,0,"L"],[5,5,"Nisan",129,1,3,0,"W"],[5,5,"Shankar",146,3,3,0,"W"],[5,5,"Chad",232,8,2,0,"W"],[5,5,"Satchi",211,6,3,0,"W"],[5,5,"Sasi",201,4,5,0,"L"],[5,5,"Mayo",188,3,5,0,"L"],[5,5,"Sabesh",198,4,4,0,"W"],[5,5,"Mona",136,5,0,0,"L"],[5,5,"Niz",165,3,5,0,"L"],[5,5,"Gajan",117,2,1,0,"W"],[5,5,"Ruban",125,2,2,0,"W"],[5,6,"Ram",170,5,1,0,"W"],[5,6,"Bala",151,2,4,0,"W"],[5,6,"Nisan",158,3,4,0,"L"],[5,6,"Shankar",152,2,5,0,"L"],[5,6,"Chad",177,4,4,0,"L"],[5,6,"Satchi",222,7,3,0,"L"],[5,6,"Sasi",138,2,3,0,"W"],[5,6,"Mayo",182,4,4,0,"W"],[5,6,"Sabesh",138,1,4,0,"L"],[5,6,"Mona",148,0,7,0,"W"],[5,6,"Niz",181,3,6,0,"W"],[5,6,"Gajan",112,3,0,0,"L"],[5,6,"Ruban",136,1,6,0,"L"],[6,1,"Bala",137,4,2,0,"L"],[6,1,"Nisan",147,3,2,0,"W"],[6,1,"Shankar",138,2,3,0,"L"],[6,1,"Chad",137,2,3,0,"L"],[6,1,"Satchi",178,4,3,0,"W"],[6,1,"Sasi",104,2,0,0,"L"],[6,1,"Mayo",139,2,3,0,"W"],[6,1,"Sabesh",160,3,5,0,"W"],[6,1,"Mona",150,4,1,0,"L"],[6,1,"Niz",161,4,4,0,"W"],[6,1,"Rosh",149,2,5,0,"L"],[6,1,"Ruban",145,3,3,0,"W"],[6,2,"Bala",160,3,4,0,"W"],[6,2,"Nisan",140,2,3,0,"L"],[6,2,"Shankar",190,4,5,0,"W"],[6,2,"Chad",139,2,4,0,"W"],[6,2,"Satchi",179,5,3,0,"L"],[6,2,"Sasi",180,4,4,0,"W"],[6,2,"Mayo",190,5,3,0,"L"],[6,2,"Sabesh",161,2,5,0,"L"],[6,2,"Mona",173,4,5,0,"W"],[6,2,"Niz",184,3,5,0,"L"],[6,2,"Rosh",153,2,4,0,"W"],[6,2,"Ruban",126,0,5,0,"L"],[6,3,"Bala",167,3,5,0,"W"],[6,3,"Nisan",136,1,5,0,"L"],[6,3,"Shankar",203,6,2,0,"W"],[6,3,"Chad",180,6,2,0,"W"],[6,3,"Satchi",201,5,4,0,"L"],[6,3,"Sasi",131,3,1,0,"W"],[6,3,"Mayo",163,2,6,0,"L"],[6,3,"Sabesh",150,1,7,0,"L"],[6,3,"Mona",175,5,3,0,"W"],[6,3,"Niz",223,6,2,0,"L"],[6,3,"Rosh",144,2,4,0,"W"],[6,3,"Ruban",100,1,1,0,"L"],[6,4,"Bala",157,1,7,0,"W"],[6,4,"Nisan",161,2,5,0,"L"],[6,4,"Shankar",181,3,4,0,"W"],[6,4,"Chad",181,5,3,0,"W"],[6,4,"Satchi",191,5,5,0,"L"],[6,4,"Sasi",171,1,8,0,"W"],[6,4,"Mayo",148,2,4,0,"L"],[6,4,"Sabesh",122,1,3,0,"L"],[6,4,"Mona",187,6,4,0,"W"],[6,4,"Niz",129,2,3,0,"L"],[6,4,"Rosh",162,2,6,0,"W"],[6,4,"Ruban",94,0,3,0,"L"],[6,5,"Bala",157,3,4,0,"W"],[6,5,"Nisan",159,3,4,0,"L"],[6,5,"Shankar",193,6,3,0,"W"],[6,5,"Chad",150,3,3,0,"W"],[6,5,"Satchi",178,5,1,0,"L"],[6,5,"Sasi",118,3,1,0,"W"],[6,5,"Mayo",134,1,4,0,"L"],[6,5,"Sabesh",133,1,4,0,"L"],[6,5,"Mona",179,4,3,0,"W"],[6,5,"Niz",141,3,1,0,"L"],[6,5,"Rosh",185,4,5,0,"W"],[6,5,"Ruban",180,4,5,0,"L"],[6,6,"Bala",171,2,6,0,"L"],[6,6,"Nisan",165,2,6,0,"W"],[6,6,"Shankar",181,4,2,0,"L"],[6,6,"Chad",146,3,1,0,"L"],[6,6,"Satchi",153,4,3,0,"W"],[6,6,"Sasi",89,0,1,0,"L"],[6,6,"Mayo",160,2,7,0,"W"],[6,6,"Sabesh",168,2,6,0,"W"],[6,6,"Mona",194,4,5,0,"L"],[6,6,"Niz",161,1,7,0,"W"],[6,6,"Rosh",141,2,5,0,"L"],[6,6,"Ruban",159,4,2,0,"W"],[7,1,"Bala",126,1,4,0,"L"],[7,1,"Nisan",128,1,3,0,"L"],[7,1,"Shankar",179,3,6,0,"L"],[7,1,"Chad",147,3,3,0,"L"],[7,1,"Satchi",164,3,5,0,"W"],[7,1,"Sasi",140,2,3,0,"W"],[7,1,"Mayo",179,5,2,0,"W"],[7,1,"Sabesh",152,1,6,0,"L"],[7,1,"Mona",137,2,4,0,"W"],[7,1,"Niz",175,4,3,0,"W"],[7,1,"Gajan",109,4,1,0,"W"],[7,1,"Rosh",128,1,4,0,"L"],[7,2,"Bala",171,5,2,0,"L"],[7,2,"Nisan",115,2,1,0,"L"],[7,2,"Shankar",158,5,2,0,"L"],[7,2,"Chad",168,5,1,0,"L"],[7,2,"Satchi",214,6,2,0,"W"],[7,2,"Sasi",139,2,4,0,"W"],[7,2,"Mayo",127,2,3,0,"W"],[7,2,"Sabesh",130,1,4,0,"L"],[7,2,"Mona",173,6,3,0,"W"],[7,2,"Niz",150,3,3,0,"W"],[7,2,"Gajan",181,4,5,0,"W"],[7,2,"Rosh",127,2,2,0,"L"],[7,3,"Bala",136,3,1,0,"L"],[7,3,"Nisan",138,1,5,0,"L"],[7,3,"Shankar",136,3,3,0,"L"],[7,3,"Chad",160,2,6,0,"L"],[7,3,"Satchi",178,5,2,0,"W"],[7,3,"Sasi",137,2,4,0,"W"],[7,3,"Mayo",145,1,5,0,"W"],[7,3,"Sabesh",121,0,4,0,"L"],[7,3,"Mona",170,4,2,0,"W"],[7,3,"Niz",210,6,3,0,"W"],[7,3,"Gajan",136,3,2,0,"W"],[7,3,"Rosh",154,3,4,0,"L"],[7,4,"Bala",164,4,4,0,"L"],[7,4,"Nisan",119,0,4,0,"L"],[7,4,"Shankar",157,4,2,0,"L"],[7,4,"Chad",169,4,3,0,"L"],[7,4,"Satchi",158,3,5,0,"W"],[7,4,"Sasi",171,3,5,0,"W"],[7,4,"Mayo",208,8,2,0,"W"],[7,4,"Sabesh",150,1,5,0,"L"],[7,4,"Mona",168,4,4,0,"W"],[7,4,"Niz",139,1,4,0,"W"],[7,4,"Gajan",127,4,0,0,"W"],[7,4,"Rosh",140,1,5,0,"L"],[7,5,"Bala",211,5,4,0,"W"],[7,5,"Nisan",164,1,7,0,"W"],[7,5,"Shankar",118,2,2,0,"W"],[7,5,"Chad",170,3,4,0,"W"],[7,5,"Satchi",125,3,1,0,"L"],[7,5,"Sasi",127,2,2,0,"L"],[7,5,"Mayo",191,4,5,0,"L"],[7,5,"Sabesh",166,3,4,0,"W"],[7,5,"Mona",178,3,5,0,"L"],[7,5,"Niz",121,1,2,0,"L"],[7,5,"Gajan",142,4,3,0,"L"],[7,5,"Rosh",145,3,3,0,"W"],[7,6,"Bala",149,4,2,0,"L"],[7,6,"Nisan",137,1,4,0,"L"],[7,6,"Chad",187,6,0,0,"L"],[7,6,"Satchi",235,8,3,0,"W"],[7,6,"Sasi",118,1,2,0,"W"],[7,6,"Mayo",154,3,4,0,"W"],[7,6,"Sabesh",127,1,3,0,"L"],[7,6,"Mona",145,3,3,0,"W"],[7,6,"Niz",169,0,9,0,"W"],[7,6,"Gajan",116,2,2,0,"W"],[7,6,"Rosh",133,2,3,0,"L"],[8,1,"Nisan",128,2,3,0,"L"],[8,1,"Chad",153,2,4,0,"L"],[8,1,"Satchi",193,7,2,0,"L"],[8,1,"Sasi",167,3,5,0,"W"],[8,1,"Mayo",172,4,3,0,"W"],[8,1,"Sabesh",143,3,3,0,"L"],[8,1,"Mona",191,4,5,0,"W"],[8,1,"Niz",166,3,4,0,"W"],[8,1,"Gajan",191,5,3,0,"L"],[8,1,"Ruban",149,2,4,0,"W"],[8,2,"Nisan",119,2,2,0,"L"],[8,2,"Chad",174,4,3,0,"L"],[8,2,"Satchi",148,4,2,0,"L"],[8,2,"Sasi",146,2,3,0,"W"],[8,2,"Mayo",165,2,6,0,"W"],[8,2,"Sabesh",147,4,2,0,"L"],[8,2,"Mona",158,3,3,0,"W"],[8,2,"Niz",125,2,2,0,"W"],[8,2,"Gajan",102,1,1,0,"L"],[8,2,"Ruban",136,3,2,0,"W"],[8,3,"Nisan",171,3,5,0,"L"],[8,3,"Chad",170,3,6,0,"L"],[8,3,"Satchi",177,6,1,0,"L"],[8,3,"Sasi",133,1,4,0,"W"],[8,3,"Mayo",167,2,6,0,"W"],[8,3,"Sabesh",138,2,3,0,"L"],[8,3,"Mona",166,3,4,0,"W"],[8,3,"Niz",190,4,5,0,"W"],[8,3,"Gajan",130,2,3,0,"L"],[8,3,"Ruban",159,2,5,0,"W"],[8,4,"Nisan",125,0,4,0,"W"],[8,4,"Chad",174,3,5,0,"W"],[8,4,"Satchi",253,8,2,1,"W"],[8,4,"Sasi",145,2,4,0,"L"],[8,4,"Mayo",192,5,5,0,"L"],[8,4,"Sabesh",171,4,3,0,"W"],[8,4,"Mona",159,4,2,0,"L"],[8,4,"Niz",161,4,2,0,"L"],[8,4,"Gajan",108,2,1,0,"W"],[8,4,"Ruban",149,2,4,0,"L"],[8,5,"Nisan",128,1,4,0,"W"],[8,5,"Chad",156,3,4,0,"W"],[8,5,"Satchi",191,5,2,0,"W"],[8,5,"Sasi",169,1,8,0,"L"],[8,5,"Mayo",165,2,6,0,"L"],[8,5,"Sabesh",158,2,5,0,"W"],[8,5,"Mona",172,4,2,0,"L"],[8,5,"Niz",146,3,2,0,"L"],[8,5,"Gajan",158,4,3,0,"W"],[8,5,"Ruban",122,2,2,0,"L"],[8,6,"Nisan",158,1,7,0,"W"],[8,6,"Chad",154,3,4,0,"W"],[8,6,"Satchi",237,8,2,0,"W"],[8,6,"Sasi",170,2,6,0,"L"],[8,6,"Mayo",145,4,2,0,"L"],[8,6,"Sabesh",165,0,8,0,"W"],[8,6,"Mona",139,2,4,0,"L"],[8,6,"Niz",150,2,4,0,"L"],[8,6,"Gajan",150,3,3,0,"W"],[8,6,"Ruban",173,5,3,0,"L"],[9,1,"Ram",137,1,4,0,"L"],[9,1,"Bala",158,3,4,0,"L"],[9,1,"Nisan",147,3,2,0,"L"],[9,1,"Shankar",160,3,3,0,"W"],[9,1,"Chad",206,6,4,0,"W"],[9,1,"Satchi",194,6,5,0,"W"],[9,1,"Sasi",143,2,4,0,"W"],[9,1,"Mayo",155,3,4,0,"L"],[9,1,"Sabesh",164,2,6,0,"L"],[9,1,"Mona",176,1,8,0,"L"],[9,1,"Niz",169,5,3,0,"W"],[9,1,"Gajan",150,3,3,0,"W"],[9,1,"Rosh",134,3,2,0,"W"],[9,1,"Ruban",131,2,3,0,"L"],[9,2,"Ram",158,3,3,0,"L"],[9,2,"Bala",154,1,6,0,"L"],[9,2,"Nisan",146,0,6,0,"L"],[9,2,"Shankar",165,4,4,0,"W"],[9,2,"Chad",188,5,2,0,"W"],[9,2,"Satchi",237,7,4,1,"W"],[9,2,"Sasi",145,3,3,0,"W"],[9,2,"Mayo",180,4,4,0,"L"],[9,2,"Sabesh",149,1,5,0,"L"],[9,2,"Mona",197,4,6,1,"L"],[9,2,"Niz",176,4,5,0,"W"],[9,2,"Gajan",126,2,2,0,"W"],[9,2,"Rosh",163,4,4,0,"W"],[9,2,"Ruban",184,5,3,0,"L"],[9,3,"Ram",171,6,1,0,"L"],[9,3,"Bala",140,2,4,0,"L"],[9,3,"Nisan",132,2,2,0,"L"],[9,3,"Shankar",177,6,2,0,"W"],[9,3,"Chad",153,3,3,0,"W"],[9,3,"Satchi",180,3,6,0,"W"],[9,3,"Sasi",165,3,4,0,"W"],[9,3,"Mayo",139,1,4,0,"L"],[9,3,"Sabesh",205,6,5,0,"L"],[9,3,"Mona",196,5,5,0,"L"],[9,3,"Niz",166,4,4,0,"W"],[9,3,"Gajan",160,2,6,0,"W"],[9,3,"Rosh",148,4,2,0,"W"],[9,3,"Ruban",145,2,4,0,"L"],[9,4,"Ram",200,5,6,1,"N"],[9,4,"Bala",170,3,5,0,"N"],[9,4,"Nisan",144,1,5,0,"N"],[9,4,"Shankar",142,2,4,0,"N"],[9,4,"Chad",179,4,3,0,"N"],[9,4,"Satchi",180,4,4,0,"N"],[9,4,"Sasi",162,2,5,0,"N"],[9,4,"Mayo",132,2,4,0,"N"],[9,4,"Sabesh",146,4,2,0,"N"],[9,4,"Mona",204,5,4,0,"N"],[9,4,"Niz",149,2,4,0,"N"],[9,4,"Gajan",173,6,3,0,"N"],[9,4,"Rosh",174,5,4,0,"N"],[9,4,"Ruban",163,3,4,0,"N"],[9,5,"Ram",148,1,6,0,"L"],[9,5,"Bala",146,2,3,0,"L"],[9,5,"Nisan",155,3,3,0,"L"],[9,5,"Shankar",192,4,4,0,"W"],[9,5,"Chad",195,6,2,0,"W"],[9,5,"Satchi",177,6,2,0,"W"],[9,5,"Sasi",128,1,3,0,"W"],[9,5,"Mayo",183,4,4,0,"L"],[9,5,"Sabesh",191,4,5,0,"L"],[9,5,"Mona",166,5,3,0,"L"],[9,5,"Niz",181,3,5,0,"W"],[9,5,"Gajan",179,5,1,0,"W"],[9,5,"Rosh",117,2,3,0,"W"],[9,5,"Ruban",118,0,4,0,"L"],[9,6,"Ram",187,3,6,0,"L"],[9,6,"Bala",164,5,3,0,"L"],[9,6,"Nisan",160,3,4,0,"L"],[9,6,"Shankar",183,3,6,0,"W"],[9,6,"Chad",157,5,1,0,"W"],[9,6,"Satchi",194,5,6,0,"W"],[9,6,"Sasi",178,3,5,0,"W"],[9,6,"Mayo",189,2,8,1,"L"],[9,6,"Sabesh",117,0,3,0,"L"],[9,6,"Mona",171,3,4,0,"L"],[9,6,"Niz",161,5,1,0,"W"],[9,6,"Gajan",118,2,2,0,"W"],[9,6,"Rosh",165,3,4,0,"W"],[9,6,"Ruban",146,3,3,0,"L"],[10,1,"Ram",165,4,3,0,"L"],[10,1,"Nisan",133,2,3,0,"W"],[10,1,"Shankar",202,5,3,0,"W"],[10,1,"Chad",200,6,1,0,"W"],[10,1,"Satchi",189,5,2,0,"W"],[10,1,"Sasi",114,1,2,0,"W"],[10,1,"Mayo",158,5,1,0,"L"],[10,1,"Sabesh",127,1,4,0,"L"],[10,1,"Mona",166,3,5,0,"L"],[10,1,"Niz",165,3,5,0,"L"],[10,1,"Gajan",134,4,2,0,"L"],[10,1,"Rosh",131,2,2,0,"W"],[10,1,"Ruban",143,2,4,0,"L"],[10,2,"Ram",176,7,1,0,"L"],[10,2,"Nisan",181,6,1,0,"W"],[10,2,"Shankar",148,2,4,0,"W"],[10,2,"Chad",164,4,3,0,"W"],[10,2,"Satchi",145,3,3,0,"W"],[10,2,"Sasi",137,2,3,0,"W"],[10,2,"Mayo",156,3,5,0,"L"],[10,2,"Sabesh",137,2,3,0,"L"],[10,2,"Mona",107,1,1,0,"L"],[10,2,"Niz",130,0,5,0,"L"],[10,2,"Gajan",131,2,3,0,"L"],[10,2,"Rosh",182,3,5,0,"W"],[10,2,"Ruban",158,3,4,0,"L"],[10,3,"Ram",162,5,1,0,"W"],[10,3,"Nisan",171,4,4,0,"L"],[10,3,"Shankar",127,1,3,0,"L"],[10,3,"Chad",139,4,1,0,"L"],[10,3,"Satchi",197,4,5,0,"L"],[10,3,"Sasi",132,2,4,0,"L"],[10,3,"Mayo",182,3,6,0,"W"],[10,3,"Sabesh",151,3,4,0,"W"],[10,3,"Mona",169,3,5,0,"W"],[10,3,"Niz",167,3,3,0,"W"],[10,3,"Gajan",155,5,1,0,"W"],[10,3,"Rosh",111,0,3,0,"L"],[10,3,"Ruban",175,6,2,0,"W"],[10,4,"Ram",177,6,3,0,"W"],[10,4,"Nisan",148,3,3,0,"L"],[10,4,"Shankar",106,0,2,0,"L"],[10,4,"Chad",170,2,6,0,"L"],[10,4,"Satchi",157,3,3,0,"L"],[10,4,"Sasi",117,0,4,0,"L"],[10,4,"Mayo",151,1,6,0,"W"],[10,4,"Sabesh",134,0,5,0,"W"],[10,4,"Mona",192,4,4,0,"W"],[10,4,"Niz",184,4,5,0,"W"],[10,4,"Gajan",148,4,1,0,"W"],[10,4,"Rosh",140,1,4,0,"L"],[10,4,"Ruban",174,4,6,0,"W"],[10,5,"Ram",232,9,1,0,"W"],[10,5,"Nisan",103,0,2,0,"L"],[10,5,"Shankar",144,2,3,0,"L"],[10,5,"Chad",167,4,2,0,"L"],[10,5,"Satchi",158,2,5,0,"L"],[10,5,"Sasi",133,1,4,0,"L"],[10,5,"Mayo",170,3,5,0,"W"],[10,5,"Sabesh",132,2,3,0,"W"],[10,5,"Mona",162,3,4,0,"W"],[10,5,"Niz",205,4,6,1,"W"],[10,5,"Gajan",114,1,2,0,"W"],[10,5,"Rosh",111,0,3,0,"L"],[10,5,"Ruban",116,2,1,0,"W"],[10,6,"Ram",178,5,1,0,"L"],[10,6,"Nisan",143,1,6,0,"W"],[10,6,"Shankar",146,2,4,0,"W"],[10,6,"Chad",156,3,4,0,"W"],[10,6,"Satchi",215,7,3,0,"W"],[10,6,"Sasi",148,3,1,0,"W"],[10,6,"Mayo",163,3,5,0,"L"],[10,6,"Sabesh",134,1,4,0,"L"],[10,6,"Mona",135,2,3,0,"L"],[10,6,"Niz",186,5,6,0,"L"],[10,6,"Gajan",120,2,2,0,"L"],[10,6,"Rosh",135,2,3,0,"W"],[10,6,"Ruban",154,3,2,0,"L"],[11,1,"Ram",146,2,4,0,"L"],[11,1,"Bala",155,1,6,0,"W"],[11,1,"Shankar",158,3,4,0,"L"],[11,1,"Chad",146,2,4,0,"L"],[11,1,"Satchi",202,5,5,0,"W"],[11,1,"Sasi",121,0,5,0,"W"],[11,1,"Mayo",128,1,3,0,"L"],[11,1,"Sabesh",127,3,1,0,"L"],[11,1,"Mona",169,1,7,0,"W"],[11,1,"Niz",179,4,4,0,"W"],[11,1,"Gajan",147,4,1,0,"L"],[11,1,"Rosh",127,3,2,0,"W"],[11,1,"Ruban",136,1,5,0,"L"],[11,1,"Suresh",103,2,0,0,"W"],[11,2,"Ram",159,3,3,0,"L"],[11,2,"Bala",178,3,5,0,"W"],[11,2,"Shankar",139,3,1,0,"L"],[11,2,"Chad",147,2,4,0,"L"],[11,2,"Satchi",247,9,3,1,"W"],[11,2,"Sasi",162,3,3,0,"W"],[11,2,"Mayo",191,4,5,0,"L"],[11,2,"Sabesh",133,0,5,0,"L"],[11,2,"Mona",147,3,3,0,"W"],[11,2,"Niz",206,6,4,0,"W"],[11,2,"Gajan",153,4,2,0,"L"],[11,2,"Rosh",158,2,5,0,"W"],[11,2,"Ruban",151,3,3,0,"L"],[11,2,"Suresh",139,3,2,0,"W"],[11,3,"Ram",143,2,4,0,"W"],[11,3,"Bala",167,3,4,0,"L"],[11,3,"Shankar",174,5,4,0,"W"],[11,3,"Chad",173,5,2,0,"W"],[11,3,"Satchi",214,7,3,0,"L"],[11,3,"Sasi",151,2,5,0,"L"],[11,3,"Mayo",199,5,7,1,"W"],[11,3,"Sabesh",168,3,4,0,"W"],[11,3,"Mona",169,5,2,0,"L"],[11,3,"Niz",138,2,3,0,"L"],[11,3,"Gajan",137,3,2,0,"W"],[11,3,"Rosh",113,1,3,0,"L"],[11,3,"Ruban",152,3,5,0,"W"],[11,3,"Suresh",136,2,4,0,"L"],[11,4,"Ram",135,3,3,0,"L"],[11,4,"Bala",125,2,2,0,"W"],[11,4,"Shankar",134,4,2,0,"L"],[11,4,"Chad",158,4,2,0,"L"],[11,4,"Satchi",184,5,4,0,"W"],[11,4,"Sasi",130,2,3,0,"W"],[11,4,"Mayo",173,2,6,0,"L"],[11,4,"Sabesh",167,3,5,0,"L"],[11,4,"Mona",161,4,2,0,"W"],[11,4,"Niz",258,8,3,1,"W"],[11,4,"Gajan",179,6,1,0,"L"],[11,4,"Rosh",207,6,5,1,"W"],[11,4,"Ruban",159,3,3,0,"L"],[11,4,"Suresh",144,3,3,0,"W"],[11,5,"Ram",171,7,0,0,"L"],[11,5,"Bala",187,4,5,0,"W"],[11,5,"Shankar",150,0,7,0,"L"],[11,5,"Chad",173,4,3,0,"L"],[11,5,"Satchi",160,3,4,0,"W"],[11,5,"Sasi",133,0,5,0,"W"],[11,5,"Mayo",146,4,1,0,"L"],[11,5,"Sabesh",160,2,5,0,"L"],[11,5,"Mona",167,2,6,0,"W"],[11,5,"Niz",211,6,3,0,"W"],[11,5,"Gajan",157,3,2,0,"L"],[11,5,"Rosh",162,4,2,0,"W"],[11,5,"Ruban",143,3,4,0,"L"],[11,5,"Suresh",145,3,3,0,"W"],[11,6,"Ram",199,4,5,0,"W"],[11,6,"Bala",135,1,4,0,"L"],[11,6,"Shankar",149,3,3,0,"W"],[11,6,"Chad",204,5,5,1,"W"],[11,6,"Satchi",248,8,3,1,"L"],[11,6,"Sasi",140,3,2,0,"L"],[11,6,"Mayo",181,4,5,0,"W"],[11,6,"Sabesh",168,3,5,0,"W"],[11,6,"Mona",160,2,5,0,"L"],[11,6,"Niz",135,2,3,0,"L"],[11,6,"Gajan",125,3,0,0,"W"],[11,6,"Rosh",100,2,1,0,"L"],[11,6,"Ruban",127,2,2,0,"W"],[11,6,"Suresh",111,1,3,0,"L"],[12,1,"Ram",165,5,3,0,"W"],[12,1,"Bala",152,0,7,0,"L"],[12,1,"Chad",180,5,2,0,"W"],[12,1,"Satchi",163,6,1,0,"L"],[12,1,"Sasi",125,2,2,0,"W"],[12,1,"Mayo",192,6,3,0,"W"],[12,1,"Sabesh",134,1,5,0,"L"],[12,1,"Mona",200,5,4,0,"W"],[12,1,"Niz",212,8,3,0,"L"],[12,1,"Ruban",122,1,3,0,"L"],[12,2,"Ram",136,1,5,0,"L"],[12,2,"Bala",182,4,5,0,"W"],[12,2,"Chad",149,2,4,0,"L"],[12,2,"Satchi",190,4,3,0,"W"],[12,2,"Sasi",153,3,3,0,"L"],[12,2,"Mayo",198,5,4,0,"L"],[12,2,"Sabesh",188,7,3,0,"W"],[12,2,"Mona",176,4,5,0,"L"],[12,2,"Niz",173,4,4,0,"W"],[12,2,"Ruban",167,2,6,0,"W"],[12,3,"Ram",124,1,4,0,"L"],[12,3,"Bala",116,2,1,0,"W"],[12,3,"Chad",165,4,3,0,"L"],[12,3,"Satchi",192,5,5,0,"W"],[12,3,"Sasi",168,2,6,0,"L"],[12,3,"Mayo",176,4,4,0,"L"],[12,3,"Sabesh",151,2,5,0,"W"],[12,3,"Mona",157,3,3,0,"L"],[12,3,"Niz",247,10,1,0,"W"],[12,3,"Ruban",131,3,2,0,"W"],[12,4,"Bala",147,0,6,0,"L"],[12,4,"Chad",192,5,3,0,"W"],[12,4,"Satchi",159,3,4,0,"L"],[12,4,"Sasi",159,2,5,0,"W"],[12,4,"Mayo",157,5,1,0,"W"],[12,4,"Sabesh",167,5,4,0,"L"],[12,4,"Mona",184,3,5,0,"W"],[12,4,"Niz",199,5,4,0,"L"],[12,4,"Ruban",104,2,0,0,"L"],[12,5,"Bala",179,4,4,0,"W"],[12,5,"Chad",160,4,4,0,"L"],[12,5,"Satchi",191,3,6,0,"W"],[12,5,"Sasi",138,2,3,0,"L"],[12,5,"Mayo",136,1,4,0,"L"],[12,5,"Sabesh",171,5,1,0,"W"],[12,5,"Mona",177,3,6,0,"L"],[12,5,"Niz",203,5,5,0,"W"],[12,5,"Ruban",147,2,4,0,"W"],[12,6,"Bala",185,5,4,0,"W"],[12,6,"Chad",168,5,1,0,"L"],[12,6,"Satchi",210,6,2,0,"W"],[12,6,"Sasi",138,2,2,0,"L"],[12,6,"Mayo",171,4,4,0,"L"],[12,6,"Sabesh",181,5,2,0,"W"],[12,6,"Mona",171,4,4,0,"L"],[12,6,"Niz",173,2,6,0,"W"],[12,6,"Ruban",147,2,5,0,"W"],[13,1,"Ram",122,2,2,0,"L"],[13,1,"Bala",197,3,7,1,"W"],[13,1,"Chad",176,3,6,0,"W"],[13,1,"Satchi",158,3,4,0,"L"],[13,1,"Sasi",153,6,2,0,"W"],[13,1,"Mayo",150,1,6,0,"W"],[13,1,"Sabesh",148,3,2,0,"L"],[13,1,"Mona",169,5,1,0,"L"],[13,1,"Niz",130,2,3,0,"W"],[13,1,"Ruban",149,0,7,0,"L"],[13,2,"Ram",156,3,4,0,"L"],[13,2,"Bala",184,4,6,0,"W"],[13,2,"Chad",137,1,5,0,"W"],[13,2,"Satchi",227,7,4,1,"L"],[13,2,"Sasi",108,1,1,0,"W"],[13,2,"Mayo",169,4,3,0,"W"],[13,2,"Sabesh",135,4,1,0,"L"],[13,2,"Mona",155,5,1,0,"L"],[13,2,"Niz",225,7,4,0,"W"],[13,2,"Ruban",127,1,4,0,"L"],[13,3,"Ram",149,2,5,0,"L"],[13,3,"Bala",153,2,5,0,"W"],[13,3,"Chad",138,1,4,0,"W"],[13,3,"Satchi",222,5,5,1,"L"],[13,3,"Sasi",194,5,5,0,"W"],[13,3,"Mayo",177,4,3,0,"W"],[13,3,"Sabesh",105,1,2,0,"L"],[13,3,"Mona",198,6,2,0,"L"],[13,3,"Niz",150,4,2,0,"W"],[13,3,"Ruban",132,1,4,0,"L"],[13,4,"Ram",208,6,4,0,"W"],[13,4,"Bala",156,3,5,0,"L"],[13,4,"Chad",224,6,3,0,"L"],[13,4,"Satchi",199,5,5,0,"W"],[13,4,"Sasi",164,3,4,0,"L"],[13,4,"Mayo",133,2,2,0,"L"],[13,4,"Sabesh",156,0,7,0,"W"],[13,4,"Mona",173,3,5,0,"W"],[13,4,"Niz",160,4,4,0,"L"],[13,4,"Ruban",159,2,5,0,"W"],[13,5,"Ram",149,2,5,0,"L"],[13,5,"Bala",167,4,3,0,"W"],[13,5,"Chad",151,3,3,0,"W"],[13,5,"Satchi",190,4,4,0,"L"],[13,5,"Sasi",170,4,4,0,"W"],[13,5,"Mayo",159,4,4,0,"W"],[13,5,"Sabesh",158,5,3,0,"L"],[13,5,"Mona",183,4,6,0,"L"],[13,5,"Niz",243,9,2,0,"W"],[13,5,"Ruban",144,3,2,0,"L"],[13,6,"Ram",151,1,5,0,"W"],[13,6,"Bala",189,4,6,0,"L"],[13,6,"Chad",144,3,4,0,"L"],[13,6,"Satchi",173,4,4,0,"W"],[13,6,"Sasi",123,1,3,0,"L"],[13,6,"Mayo",121,2,2,0,"L"],[13,6,"Sabesh",133,2,3,0,"W"],[13,6,"Mona",154,3,5,0,"W"],[13,6,"Niz",171,3,4,0,"L"],[13,6,"Ruban",145,2,4,0,"W"],[14,1,"Ram",180,3,6,0,"L"],[14,1,"Chad",143,2,4,0,"L"],[14,1,"Sasi",160,5,0,0,"L"],[14,1,"Mayo",149,2,4,0,"L"],[14,1,"Sabesh",126,1,3,0,"W"],[14,1,"Mona",185,5,3,0,"W"],[14,1,"Niz",286,10,0,1,"W"],[14,1,"Rosh",162,4,4,0,"W"],[14,1,"Ruban",145,4,3,0,"W"],[14,1,"Suresh",138,3,1,0,"L"],[14,2,"Ram",139,2,4,0,"L"],[14,2,"Chad",152,2,5,0,"L"],[14,2,"Sasi",159,4,3,0,"L"],[14,2,"Mayo",159,4,4,0,"L"],[14,2,"Sabesh",122,3,0,0,"W"],[14,2,"Mona",204,6,5,0,"W"],[14,2,"Niz",202,6,4,0,"W"],[14,2,"Rosh",147,2,4,0,"W"],[14,2,"Ruban",128,0,5,0,"W"],[14,2,"Suresh",149,3,3,0,"L"],[14,3,"Ram",205,6,3,0,"W"],[14,3,"Chad",149,3,3,0,"W"],[14,3,"Sasi",146,3,2,0,"W"],[14,3,"Mayo",191,4,4,0,"W"],[14,3,"Sabesh",138,2,4,0,"L"],[14,3,"Mona",174,4,3,0,"L"],[14,3,"Niz",171,2,6,0,"L"],[14,3,"Rosh",93,0,1,0,"L"],[14,3,"Ruban",151,2,4,0,"L"],[14,3,"Suresh",141,3,4,0,"W"],[14,4,"Ram",183,5,5,0,"W"],[14,4,"Chad",206,8,3,0,"W"],[14,4,"Sasi",129,1,5,0,"W"],[14,4,"Mayo",212,6,4,0,"W"],[14,4,"Sabesh",151,3,3,0,"L"],[14,4,"Mona",148,3,3,0,"L"],[14,4,"Niz",181,5,2,0,"L"],[14,4,"Rosh",144,0,6,0,"L"],[14,4,"Ruban",159,2,6,0,"L"],[14,4,"Suresh",117,2,2,0,"W"],[14,5,"Ram",171,4,3,0,"W"],[14,5,"Chad",172,4,5,0,"W"],[14,5,"Sasi",134,2,3,0,"W"],[14,5,"Mayo",196,5,5,0,"W"],[14,5,"Sabesh",164,3,5,0,"L"],[14,5,"Mona",144,1,5,0,"L"],[14,5,"Niz",158,2,5,0,"L"],[14,5,"Rosh",143,2,6,0,"L"],[14,5,"Ruban",164,4,2,0,"L"],[14,5,"Suresh",178,5,2,0,"W"],[14,6,"Ram",183,4,5,0,"W"],[14,6,"Chad",169,3,4,0,"W"],[14,6,"Sasi",112,1,3,0,"W"],[14,6,"Mayo",179,3,5,0,"W"],[14,6,"Sabesh",120,2,2,0,"L"],[14,6,"Mona",159,4,3,0,"L"],[14,6,"Niz",176,3,5,0,"L"],[14,6,"Rosh",163,2,6,0,"L"],[14,6,"Ruban",138,2,3,0,"L"],[14,6,"Suresh",128,3,2,0,"W"],[15,1,"Ram",117,0,4,0,"W"],[15,1,"Chad",153,2,5,0,"L"],[15,1,"Sasi",129,0,5,0,"L"],[15,1,"Mayo",215,5,4,0,"W"],[15,1,"Mona",201,4,4,0,"W"],[15,1,"Niz",131,1,4,0,"L"],[15,1,"Ruban",127,2,3,0,"W"],[15,1,"Suresh",105,1,1,0,"L"],[15,2,"Ram",140,3,2,0,"L"],[15,2,"Chad",152,4,2,0,"W"],[15,2,"Sasi",137,1,4,0,"W"],[15,2,"Mayo",158,3,3,0,"L"],[15,2,"Mona",136,3,3,0,"L"],[15,2,"Niz",224,8,2,0,"W"],[15,2,"Ruban",118,2,1,0,"L"],[15,2,"Suresh",127,0,5,0,"W"],[15,3,"Ram",171,4,3,0,"L"],[15,3,"Chad",190,4,4,0,"W"],[15,3,"Sasi",154,4,4,0,"W"],[15,3,"Mayo",179,3,6,0,"L"],[15,3,"Mona",141,4,1,0,"L"],[15,3,"Niz",243,10,0,0,"W"],[15,3,"Ruban",144,1,4,0,"L"],[15,3,"Suresh",115,0,4,0,"W"],[15,4,"Ram",175,4,4,0,"W"],[15,4,"Chad",156,1,7,0,"L"],[15,4,"Sasi",98,1,1,0,"L"],[15,4,"Mayo",137,3,1,0,"W"],[15,4,"Mona",197,5,5,0,"W"],[15,4,"Niz",159,2,6,0,"L"],[15,4,"Ruban",141,1,5,0,"W"],[15,4,"Suresh",137,2,3,0,"L"],[15,5,"Ram",140,4,2,0,"L"],[15,5,"Chad",179,4,3,0,"W"],[15,5,"Sasi",164,3,5,0,"W"],[15,5,"Mayo",139,0,6,0,"L"],[15,5,"Mona",156,2,4,0,"L"],[15,5,"Niz",171,5,3,0,"W"],[15,5,"Ruban",153,2,5,0,"L"],[15,5,"Suresh",124,2,2,0,"W"],[15,6,"Ram",126,2,3,0,"L"],[15,6,"Chad",148,3,3,0,"W"],[15,6,"Sasi",159,2,5,0,"W"],[15,6,"Mayo",181,4,5,0,"L"],[15,6,"Mona",139,3,1,0,"L"],[15,6,"Niz",147,2,4,0,"W"],[15,6,"Ruban",144,2,4,0,"L"],[15,6,"Suresh",115,0,5,0,"W"],[16,1,"Ram",124,3,1,0,"L"],[16,1,"Bala",118,1,2,0,"W"],[16,1,"Shankar",138,2,3,0,"W"],[16,1,"Sasi",182,4,4,0,"W"],[16,1,"Mayo",159,2,5,0,"L"],[16,1,"Sabesh",141,1,5,0,"L"],[16,1,"Mona",149,2,5,0,"L"],[16,1,"Niz",181,4,5,0,"W"],[16,1,"Gajan",146,4,3,0,"L"],[16,1,"Rosh",149,3,4,0,"W"],[16,1,"Ruban",156,1,6,0,"L"],[16,1,"Suresh",120,1,3,0,"W"],[16,2,"Ram",156,3,3,0,"L"],[16,2,"Bala",137,1,4,0,"W"],[16,2,"Sasi",150,1,6,0,"W"],[16,2,"Mayo",156,4,2,0,"L"],[16,2,"Sabesh",132,1,4,0,"L"],[16,2,"Mona",154,4,2,0,"L"],[16,2,"Niz",210,7,2,0,"W"],[16,2,"Gajan",126,2,2,0,"L"],[16,2,"Rosh",170,5,1,0,"W"],[16,2,"Ruban",147,2,4,0,"L"],[16,2,"Suresh",130,2,3,0,"W"],[16,3,"Ram",184,4,6,0,"W"],[16,3,"Bala",144,2,3,0,"L"],[16,3,"Sasi",125,2,2,0,"L"],[16,3,"Mayo",156,4,3,0,"W"],[16,3,"Sabesh",124,2,2,0,"W"],[16,3,"Mona",161,4,4,0,"W"],[16,3,"Niz",178,4,3,0,"L"],[16,3,"Gajan",104,1,1,0,"W"],[16,3,"Rosh",114,2,1,0,"L"],[16,3,"Ruban",142,2,3,0,"W"],[16,3,"Suresh",106,2,0,0,"L"],[16,4,"Ram",155,4,3,0,"W"],[16,4,"Bala",140,1,5,0,"L"],[16,4,"Sasi",192,4,5,0,"L"],[16,4,"Mayo",147,2,5,0,"W"],[16,4,"Sabesh",170,4,3,0,"W"],[16,4,"Mona",181,2,7,0,"W"],[16,4,"Niz",129,2,2,0,"L"],[16,4,"Gajan",175,6,2,0,"W"],[16,4,"Rosh",139,2,3,0,"L"],[16,4,"Ruban",143,1,6,0,"W"],[16,4,"Suresh",166,3,5,0,"L"],[16,5,"Ram",220,5,5,0,"W"],[16,5,"Bala",195,4,6,1,"L"],[16,5,"Sasi",155,3,3,0,"L"],[16,5,"Mayo",199,6,1,0,"W"],[16,5,"Sabesh",113,1,2,0,"W"],[16,5,"Mona",211,7,3,0,"W"],[16,5,"Niz",179,5,4,0,"L"],[16,5,"Gajan",181,4,5,0,"W"],[16,5,"Rosh",147,4,2,0,"L"],[16,5,"Ruban",145,3,3,0,"W"],[16,5,"Suresh",158,3,4,0,"L"],[16,6,"Ram",167,4,4,0,"L"],[16,6,"Bala",196,6,2,0,"W"],[16,6,"Sasi",160,3,3,0,"W"],[16,6,"Mayo",192,5,4,0,"L"],[16,6,"Sabesh",134,0,5,0,"L"],[16,6,"Mona",167,5,1,0,"L"],[16,6,"Niz",189,5,3,0,"W"],[16,6,"Gajan",168,3,4,0,"L"],[16,6,"Rosh",178,3,5,0,"W"],[16,6,"Ruban",121,0,4,0,"L"],[16,6,"Suresh",163,5,1,0,"W"]],"extra":{"Ram":{"mvp":8.4,"mvpRank":10,"clean":6.81,"winScore":1.37,"median":158,"dist":[11,17,26,16,4,1],"money":-12,"cg":1},"Bala":{"mvp":7.25,"mvpRank":7,"clean":6.97,"winScore":1.72,"median":158,"dist":[5,19,29,16,3,0],"money":22,"cg":2},"Nisan":{"mvp":12.1,"mvpRank":13,"clean":5.75,"winScore":0.92,"median":144.5,"dist":[15,24,17,4,0,0],"money":-46,"cg":0},"Shankar":{"mvp":7.05,"mvpRank":6,"clean":6.92,"winScore":1.77,"median":156.5,"dist":[4,19,19,14,3,1],"money":22,"cg":1},"Chad":{"mvp":4.65,"mvpRank":4,"clean":7.18,"winScore":1.51,"median":165.5,"dist":[0,17,40,14,5,2],"money":2,"cg":0},"Satchi":{"mvp":2.3,"mvpRank":1,"clean":8.49,"winScore":1.59,"median":189.5,"dist":[1,2,18,35,15,7],"money":10,"cg":7},"Sasi":{"mvp":9.25,"mvpRank":10,"clean":5.82,"winScore":1.82,"median":143,"dist":[21,35,31,8,1,0],"money":42,"cg":0},"Mayo":{"mvp":4.7,"mvpRank":5,"clean":7.4,"winScore":1.48,"median":165.5,"dist":[4,18,40,29,5,0],"money":-2,"cg":2},"Sabesh":{"mvp":8.2,"mvpRank":8,"clean":6.34,"winScore":1.04,"median":150,"dist":[12,31,36,8,2,1],"money":-54,"cg":1},"Mona":{"mvp":3.7,"mvpRank":3,"clean":7.4,"winScore":0.98,"median":169,"dist":[1,19,39,31,5,1],"money":-10,"cg":2},"VJ":{"mvp":13.95,"mvpRank":14,"clean":0,"winScore":0,"median":0,"dist":[0,0,0,0,0,0],"money":0,"cg":0},"Niz":{"mvp":2.4,"mvpRank":2,"clean":7.46,"winScore":1.76,"median":171,"dist":[8,15,32,23,12,6],"money":34,"cg":4},"Gajan":{"mvp":13.6,"mvpRank":15,"clean":4.97,"winScore":1.57,"median":126.5,"dist":[31,12,11,6,0,0],"money":6,"cg":0},"Rosh":{"mvp":11.65,"mvpRank":12,"clean":5.97,"winScore":1.52,"median":144,"dist":[14,28,20,3,1,0],"money":2,"cg":1},"Ruban":{"mvp":12.85,"mvpRank":14,"clean":5.39,"winScore":1.28,"median":142.5,"dist":[30,36,21,3,0,0],"money":-26,"cg":0},"Suresh":{"mvp":7.4,"mvpRank":8,"clean":5.17,"winScore":0,"median":137.5,"dist":[13,13,8,2,0,0],"cg":0}},"medals":{"Satchi":{"gp":78,"g":59,"s":16,"b":5,"t":80,"pts":214,"m15":102.375,"m10":68.25},"Niz":{"gp":96,"g":33,"s":12,"b":13,"t":58,"pts":136,"m15":63.375,"m10":42.25},"Mona":{"gp":96,"g":11,"s":22,"b":15,"t":48,"pts":92,"m15":38.625,"m10":25.75},"Mayo":{"gp":96,"g":4,"s":24,"b":14,"t":42,"pts":74,"m15":29.25,"m10":19.5},"Chad":{"gp":78,"g":6,"s":9,"b":16,"t":31,"pts":52,"m15":21.75,"m10":14.5},"Shankar":{"gp":60,"g":6,"s":3,"b":10,"t":19,"pts":34,"m15":15,"m10":10},"Bala":{"gp":72,"g":3,"s":10,"b":6,"t":19,"pts":35,"m15":14.25,"m10":9.5},"Ram":{"gp":75,"g":10,"s":3,"b":5,"t":18,"pts":41,"m15":19.125,"m10":12.75},"Sabesh":{"gp":90,"g":2,"s":2,"b":5,"t":9,"pts":15,"m15":6.375,"m10":4.25},"Rosh":{"gp":66,"g":0,"s":1,"b":4,"t":5,"pts":6,"m15":2.25,"m10":1.5},"Gajan":{"gp":60,"g":0,"s":0,"b":2,"t":2,"pts":2,"m15":0.75,"m10":0.5},"Sasi":{"gp":96,"g":0,"s":0,"b":1,"t":1,"pts":1,"m15":0.375,"m10":0.25},"Nisan":{"gp":60,"g":0,"s":0,"b":0,"t":0,"pts":0,"m15":0,"m10":0},"Ruban":{"gp":90,"g":0,"s":0,"b":0,"t":0,"pts":0,"m15":0,"m10":0},"VJ":{"gp":0,"g":0,"s":0,"b":0,"t":0,"pts":0,"m15":0,"m10":0}}};
-  var S7REC=[
-    ["Highest score",[["Niz",286],["Mona",253],["Satchi",248],["Shankar",233],["Chad",232],["Sabesh",225],["Bala",223]]],
-    ["Most strikes in a game",[["Niz",10],["Mona",9],["Ram",9],["Satchi",9]]],
-    ["Consecutive strikes in a row",[["Niz",10],["Shankar",7],["Chad",6],["Sabesh",6],["Ram",6],["Mona",5]]],
-    ["Most spares in a game",[["Chad",9],["Niz",9],["Sabesh",8],["Sasi",8]]],
-    ["Lowest score",[["Ruban",77],["Sasi",89],["Gajan",92],["Rosh",100],["Nisan",103]]],
-    ["Highest individual average in a single day",[["Satchi","209.17"],["Niz","201.17"],["Chad","186.33"],["Mona","185.00"],["Ram","181.67"],["Shankar","181.00"],["Bala","177.00"],["Sabesh","173.00"],["Mayo","181.00"],["Nisan","160.50"],["Sasi","160.67"],["Rosh","155.67"],["Ruban","153.33"],["Gajan","151.00"]]],
-    ["Highest strikes in a single day",[["Satchi",38],["Ram",36],["Chad",29],["Niz",34],["Mona",27],["Shankar",25],["Bala",23],["Mayo",25],["Gajan",23],["Rosh",21],["Ruban",20],["Sabesh",25],["Sasi",20],["Nisan",16]]],
-    ["Personal highest",[["Niz",286],["Mona",253],["Satchi",253],["Shankar",233],["Chad",232],["Ram",232],["Sabesh",225],["Bala",223],["Mayo",215],["Rosh",207],["Sasi",201],["Gajan",191],["Nisan",186],["Ruban",184]]],
-    ["200s in a day (6 games)",[["Satchi",4],["Niz",3]]],
-    ["Consecutive 200s in a row",[["Satchi",3]]],
-    ["Consecutive CGs in a row",[["None recorded",""]]]
-  ];
-    var BANDS=["Under 130","130–149","150–174","175–199","200–224","225+"];
-    function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-    function f2(v){ return (Math.round(v*100)/100).toFixed(2); }
-    function avg(v){ return v>0?v.toFixed(2):"—"; }
-    function $(id){ return document.getElementById(id); }
-    var SN=Object.keys(SEASONS);
-
-    /* tiles */
-    var players={}; SN.forEach(function(s){ SEASONS[s].forEach(function(r){ players[r[1]]=1; }); });
-    var bestAvg=null; SN.forEach(function(s){ SEASONS[s].forEach(function(r){ if(!bestAvg||r[3]>bestAvg.v) bestAvg={v:r[3],n:r[1],s:s}; }); });
-    $("rb-tiles").innerHTML=
-      '<div class="tile"><span>Seasons</span><b>7</b><small>June 2022 to April 2025</small></div>'+
-      '<div class="tile"><span>Bowlers</span><b>'+Object.keys(players).length+'</b><small>in the season standings</small></div>'+
-      '<div class="tile"><span>Perfect game</span><b>300</b><small>Satchi, Season 2</small></div>'+
-      '<div class="tile"><span>Best season average</span><b>'+bestAvg.v.toFixed(2)+'</b><small>'+esc(bestAvg.n)+', Season '+bestAvg.s+'</small></div>';
-
-    /* season dates */
-    $("rb-dates").innerHTML=SN.map(function(s){ return '<div><b>S'+s+'</b><span>'+DATES[s]+'</span></div>'; }).join("");
-
-    /* season standings */
-    var view="1", sKey=null, sDir=-1, tabs=$("rb-seasons"), sName=$("rb-sname"), sMin=$("rb-smin");
-    tabs.innerHTML=SN.map(function(s){ return '<button type="button" class="chip" data-s="'+s+'">Season '+s+'</button>'; }).join("")+'<button type="button" class="chip" data-s="all">All seasons</button>';
-    function keep(n,gp){ var q=sName.value.trim().toLowerCase(); return (!q||n.toLowerCase().indexOf(q)>-1) && gp>=+sMin.value; }
-    function th(k,label,left,cur,dir){ return '<th'+(left?' class="l"':'')+(cur===k?' aria-sort="'+(dir<0?'descending':'ascending')+'"':'')+'><button type="button" data-k="'+k+'">'+label+'</button></th>'; }
-    function drawStandings(){
-      tabs.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.s===view?"true":"false"); });
-      var thead=document.querySelector("#rb-standings thead"), tbody=document.querySelector("#rb-standings tbody");
-      if(view!=="all"){
-        var k=sKey||"rank", d=sKey?sDir:1;
-        thead.innerHTML='<tr>'+th("rank","#",1,k,d)+th("name","Player",1,k,d)+th("gp","GP",0,k,d)+th("avg","Average",0,k,d)+'</tr>';
-        var idx={rank:0,name:1,gp:2,avg:3}[k];
-        var rows=SEASONS[view].filter(function(r){ return keep(r[1],r[2]); }).sort(function(a,b){ var x=a[idx],y=b[idx]; return (typeof x==="string"?x.localeCompare(y):x-y)*d || a[0]-b[0]; });
-        tbody.innerHTML=rows.length?rows.map(function(r){ return '<tr'+(r[0]===1?' class="top"':'')+'><td class="rk">'+r[0]+'</td><td class="l">'+esc(r[1])+'</td><td>'+r[2]+'</td><td class="'+(r[3]>0?'strong':'dash')+'">'+avg(r[3])+'</td></tr>'; }).join(""):'<tr><td colspan="4" class="empty">No players match these filters.</td></tr>';
-        $("rb-snote").textContent="Season "+view+" began on "+DATES[view]+". "+SEASONS[view].length+" bowlers on the sheet.";
-      } else {
-        var names={}; SN.forEach(function(s){ SEASONS[s].forEach(function(r){ (names[r[1]]=names[r[1]]||{})[s]=r; }); });
-        var best={}; SN.forEach(function(s){ best[s]=Math.max.apply(null,SEASONS[s].map(function(r){return r[3];})); });
-        var list=Object.keys(names).map(function(n){ var t=names[n], gp=0; Object.keys(t).forEach(function(s){ gp+=t[s][2]; }); return {n:n,t:t,gp:gp,seasons:Object.keys(t).length}; }).filter(function(p){ return keep(p.n,p.gp); });
-        var k2=sKey||"seasons", d2=sKey?sDir:-1;
-        list.sort(function(a,b){
-          var r;
-          if(k2==="name") r=a.n.localeCompare(b.n);
-          else if(k2==="gp") r=a.gp-b.gp;
-          else if(/^s\d$/.test(k2)){ var s=k2.slice(1); r=((a.t[s]||[0,0,0,-1])[3])-((b.t[s]||[0,0,0,-1])[3]); }
-          else r=(a.seasons-b.seasons)||(a.gp-b.gp);
-          return r*d2 || a.n.localeCompare(b.n);
-        });
-        thead.innerHTML='<tr>'+th("name","Player",1,k2,d2)+th("seasons","Seasons",0,k2,d2)+th("gp","Total GP",0,k2,d2)+SN.map(function(s){ return th("s"+s,"S"+s+" avg",0,k2,d2); }).join("")+'</tr>';
-        tbody.innerHTML=list.length?list.map(function(p){
-          return '<tr><td class="l">'+esc(p.n)+'</td><td>'+p.seasons+'</td><td>'+p.gp+'</td>'+SN.map(function(s){ var r=p.t[s]; if(!r) return '<td class="dash"></td>'; return '<td class="'+(r[3]>0?'':'dash ')+(r[3]>0&&r[3]===best[s]?'best':'')+'" title="Rank '+r[0]+', '+r[2]+' games">'+avg(r[3])+'</td>'; }).join("")+'</tr>';
-        }).join(""):'<tr><td colspan="10" class="empty">No players match these filters.</td></tr>';
-        $("rb-snote").textContent="Every bowler across the seven seasons. Red marks the best average of that season. Tap a heading to sort.";
-      }
-    }
-    tabs.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; view=b.dataset.s; sKey=null; drawStandings(); });
-    document.querySelector("#rb-standings thead").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; var k=b.dataset.k; if(k===sKey) sDir*=-1; else { sKey=k; sDir=(k==="name"||k==="rank")?1:-1; } drawStandings(); });
-    sName.addEventListener("input",drawStandings); sMin.addEventListener("change",drawStandings);
-    drawStandings();
-
-    /* all-time records */
-    var rName=$("rb-rname"), rSeason=$("rb-rseason"), rCat=$("rb-rcat");
-    function who(x){ return String(x).split(/\s+vs\s+/i).map(function(y){return y.replace(/\s*\(.*$/,"").trim();}); }
-    var recNames={}; RECORDS.forEach(function(c){ c[2].forEach(function(r){ who(r[0]).forEach(function(n){ recNames[n]=1; }); }); });
-    rName.innerHTML+=Object.keys(recNames).sort().map(function(n){ return '<option>'+esc(n)+'</option>'; }).join("");
-    rSeason.innerHTML+=SN.map(function(s){ return '<option value="S'+s+'">Season '+s+'</option>'; }).join("");
-    rCat.innerHTML+=RECORDS.map(function(c){ return '<option value="'+c[0]+'">'+esc(c[1])+'</option>'; }).join("");
-    function drawRecords(){
-      var n=rName.value, s=rSeason.value, c=rCat.value, shown=0;
-      $("rb-book").innerHTML=RECORDS.map(function(cat){
-        if(c && cat[0]!==c) return "";
-        var rows=cat[2].filter(function(r){ if(n && who(r[0]).indexOf(n)<0) return false; if(s && String(r[2]).split(/,\s*/).indexOf(s)<0) return false; return true; });
-        if(!rows.length) return ""; shown++;
-        return '<article class="rb-rec"><h3>'+esc(cat[1])+'</h3><table><tbody>'+rows.map(function(r){ return '<tr><td>'+esc(r[0])+(r[3]?'<span class="note">'+esc(r[3])+'</span>':'')+'</td><td class="v">'+esc(r[1])+'</td><td class="s">'+esc(r[2])+'</td></tr>'; }).join("")+'</tbody></table></article>';
-      }).join("");
-      $("rb-rempty").hidden=shown>0;
-    }
-    [rName,rSeason,rCat].forEach(function(el){ el.addEventListener("change",drawRecords); });
-    drawRecords();
-
-    /* Season 7 detail */
-    var by={}; S7.games.forEach(function(r){ (by[r[2]]=by[r[2]]||[]).push(r); });
-    var P=Object.keys(by).map(function(n){
-      var g=by[n], sc=g.map(function(r){return r[3];}), tot=sc.reduce(function(a,b){return a+b;},0), e=S7.extra[n]||{};
-      var w=g.filter(function(r){return r[7]==="W";}).length, l=g.filter(function(r){return r[7]==="L";}).length;
-      return {n:n,gp:g.length,avg:tot/g.length,med:e.median,hi:Math.max.apply(null,sc),lo:Math.min.apply(null,sc),two:sc.filter(function(v){return v>=200;}).length,
-        cg:e.cg||0,x:g.reduce(function(a,r){return a+r[4];},0),sp:g.reduce(function(a,r){return a+r[5];},0),cf:e.clean,w:w,l:l,pct:(w+l)?w/(w+l):0,money:e.money,mvp:e.mvp,mvpRank:e.mvpRank,dist:e.dist||[]};
-    });
-    var v7="stats", k7="avg", d7=-1, t7=$("rb-7tabs"), box=$("rb-7view"), note=$("rb-7note"), wSel=$("rb-7week"), wWrap=$("rb-7weekwrap"), nIn=$("rb-7name");
-    wSel.innerHTML=S7.dates.map(function(d,i){ var dt=new Date(d+"T12:00:00"); return '<option value="'+(i+1)+'">Week '+(i+1)+' · '+dt.toLocaleDateString("en-CA",{day:"numeric",month:"short",year:"numeric"})+'</option>'; }).join("");
-    wSel.value=String(S7.dates.length);
-    function kn(n){ var q=nIn.value.trim().toLowerCase(); return !q||n.toLowerCase().indexOf(q)>-1; }
-    function srt(list){ return list.slice().sort(function(a,b){ var x=a[k7], y=b[k7]; if(typeof x==="string") return d7*x.localeCompare(y); return d7*((x==null?-1e9:x)-(y==null?-1e9:y)) || a.n.localeCompare(b.n); }); }
-    function h(k,label,left){ return th(k,label,left,k7,d7); }
-    var VIEWS={
-      stats:function(){
-        var rows=srt(P.filter(function(p){return kn(p.n);}));
-        box.innerHTML='<div class="table-scroll"><table class="data s7"><thead><tr>'+h("n","Player",1)+h("gp","GP")+h("avg","Avg")+h("med","Median")+h("hi","High")+h("lo","Low")+h("two","200s")+h("cg","CG")+h("x","Strikes")+h("sp","Spares")+h("cf","Clean frames / game")+h("w","Won")+h("l","Lost")+h("pct","Win %")+h("money","Money W/L")+h("mvp","MVP score")+'</tr></thead><tbody>'+
-          (rows.length?rows.map(function(p){ return '<tr><td class="l">'+esc(p.n)+'</td><td>'+p.gp+'</td><td class="strong">'+f2(p.avg)+'</td><td>'+(p.med!=null?p.med:"")+'</td><td>'+p.hi+'</td><td>'+p.lo+'</td><td>'+p.two+'</td><td>'+p.cg+'</td><td>'+p.x+'</td><td>'+p.sp+'</td><td>'+(p.cf!=null?f2(p.cf):"")+'</td><td>'+p.w+'</td><td>'+p.l+'</td><td>'+Math.round(p.pct*100)+'%</td><td>'+(p.money==null?"":(p.money>0?"+$":p.money<0?"−$":"$")+Math.abs(p.money))+'</td><td>'+(p.mvp!=null?f2(p.mvp)+' <span class="muted">(#'+p.mvpRank+')</span>':"")+'</td></tr>'; }).join(""):'<tr><td colspan="16" class="empty">No players match.</td></tr>')+'</tbody></table></div>';
-        note.textContent="Tap a heading to sort. MVP score is the workbook's own combined ranking, where lower is better. Money W/L is as recorded on the workbook.";
-      },
-      weeks:function(){
-        var wk=+wSel.value, rows=S7.games.filter(function(r){return r[0]===wk;}), pl={};
-        rows.forEach(function(r){ var p=pl[r[2]]=pl[r[2]]||{n:r[2],g:{},x:0,sp:0,w:0,l:0}; p.g[r[1]]=r; p.x+=r[4]; p.sp+=r[5]; if(r[7]==="W")p.w++; if(r[7]==="L")p.l++; });
-        var nG=Math.max.apply(null,rows.map(function(r){return r[1];}));
-        var list=Object.keys(pl).map(function(n){ var p=pl[n], s=Object.keys(p.g).map(function(k){return p.g[k][3];}); p.tot=s.reduce(function(a,b){return a+b;},0); p.avg=p.tot/s.length; p.hi=Math.max.apply(null,s); return p; }).filter(function(p){return kn(p.n);}).sort(function(a,b){return b.avg-a.avg;});
-        var head='<tr><th class="l">Player</th>'; for(var i=1;i<=nG;i++) head+='<th>G'+i+'</th>'; head+='<th>Pins</th><th>Avg</th><th>Strikes</th><th>Spares</th><th>W–L</th></tr>';
-        box.innerHTML='<div class="table-scroll"><table class="data s7"><thead>'+head+'</thead><tbody>'+(list.length?list.map(function(p){
-          var c=""; for(var i=1;i<=nG;i++){ var r=p.g[i]; c+='<td'+(r&&r[3]>=200?' class="big"':'')+(r?' title="'+r[4]+' strikes, '+r[5]+' spares'+(r[7]?', '+(r[7]==="W"?"won":"lost"):"")+'"':'')+'>'+(r?r[3]:'–')+'</td>'; }
-          return '<tr><td class="l">'+esc(p.n)+'</td>'+c+'<td>'+p.tot+'</td><td class="strong">'+f2(p.avg)+'</td><td>'+p.x+'</td><td>'+p.sp+'</td><td>'+p.w+'–'+p.l+'</td></tr>'; }).join(""):'<tr><td colspan="12" class="empty">No players match.</td></tr>')+'</tbody></table></div>';
-        var hi=list.slice().sort(function(a,b){return b.hi-a.hi;})[0], hs=list.slice().sort(function(a,b){return b.tot-a.tot;})[0];
-        note.textContent=list.length?("Week "+wk+": high game "+hi.hi+" ("+hi.n+"), most pins for the day "+hs.tot+" ("+hs.n+"). Gold cells are 200+ games. Tap or hover a score for strikes and spares."):"";
-      },
-      medals:function(){
-        var rows=Object.keys(S7.medals).map(function(n){ var m=S7.medals[n]; return {n:n,gp:m.gp,g:m.g,s:m.s,b:m.b,t:m.t,pts:m.pts,m15:m.m15,m10:m.m10}; }).filter(function(p){return kn(p.n);});
-        if(["n","gp","g","s","b","t","pts","m15","m10"].indexOf(k7)<0){ k7="pts"; d7=-1; }
-        rows=srt(rows);
-        var T={g:0,s:0,b:0,t:0}; Object.keys(S7.medals).forEach(function(n){ var m=S7.medals[n]; T.g+=m.g; T.s+=m.s; T.b+=m.b; T.t+=m.t; });
-        box.innerHTML='<div class="table-scroll"><table class="data s7"><thead><tr>'+h("n","Player",1)+h("gp","GP")+h("g","Gold")+h("s","Silver")+h("b","Bronze")+h("t","Medals")+h("pts","Points")+h("m15","If gold $1.50")+h("m10","If gold $1")+'</tr></thead><tbody>'+
-          rows.map(function(p){ return '<tr><td class="l">'+esc(p.n)+'</td><td>'+p.gp+'</td><td>'+p.g+'</td><td>'+p.s+'</td><td>'+p.b+'</td><td class="strong">'+p.t+'</td><td>'+p.pts+'</td><td>$'+p.m15.toFixed(2)+'</td><td>$'+p.m10.toFixed(2)+'</td></tr>'; }).join("")+
-          '<tr class="tot"><td class="l">Total</td><td></td><td>'+T.g+'</td><td>'+T.s+'</td><td>'+T.b+'</td><td>'+T.t+'</td><td></td><td></td><td></td></tr></tbody></table></div>';
-        note.textContent="Points: gold 3, silver 2, bronze 1. The two money columns are the workbook's what-if prize amounts (gold $1.50, silver 75¢, bronze 37.5¢; or gold $1, silver 50¢, bronze 25¢).";
-      },
-      spread:function(){
-        var rows=P.filter(function(p){return kn(p.n)&&p.dist.length;}).sort(function(a,b){return b.avg-a.avg;});
-        box.innerHTML='<div class="table-scroll"><table class="data s7 heat"><thead><tr><th class="l">Player</th>'+BANDS.map(function(b){return '<th>'+b+'</th>';}).join("")+'<th>Games</th></tr></thead><tbody>'+
-          rows.map(function(p){ var n=p.dist.reduce(function(a,b){return a+b;},0); return '<tr><td class="l">'+esc(p.n)+'</td>'+p.dist.map(function(v){ var s=n?v/n:0; return '<td style="--s:'+s.toFixed(3)+'">'+v+'<small> '+Math.round(s*100)+'%</small></td>'; }).join("")+'<td>'+n+'</td></tr>'; }).join("")+'</tbody></table></div>';
-        note.textContent="How many games each player bowled in each score range, from the workbook. Darker cells hold a bigger share of that player's games.";
-      },
-      records:function(){
-        box.innerHTML='<div class="rb-book">'+S7REC.map(function(c){
-          var rows=c[1].filter(function(r){return kn(r[0])||r[0]==="None recorded";}); if(!rows.length) return "";
-          return '<article class="rb-rec"><h3>'+esc(c[0])+'</h3><table><tbody>'+rows.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td class="v">'+esc(r[1])+'</td><td class="s">'+(r[1]!==""?"S7":"")+'</td></tr>'; }).join("")+'</tbody></table></article>';
-        }).join("")+'</div>';
-        note.textContent="Season 7 records as listed on the workbook's cross-lane records sheet, in the workbook's order.";
-      }
-    };
-    function draw7(){ t7.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.v===v7?"true":"false"); }); wWrap.hidden=v7!=="weeks"; VIEWS[v7](); }
-    t7.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; v7=b.dataset.v; k7=v7==="medals"?"pts":"avg"; d7=-1; draw7(); });
-    box.addEventListener("click",function(e){ var b=e.target.closest("thead button"); if(!b) return; var k=b.dataset.k; if(k===k7) d7*=-1; else { k7=k; d7=(k==="n"||k==="lo"||k==="mvp")?1:-1; } draw7(); });
-    wSel.addEventListener("change",draw7); nIn.addEventListener("input",draw7);
-    draw7();
-  })();
-
-</script>
-<script>
-
-  /* ───────── season medals: medal cash calculator ───────── */
-  (function(){
-    var f=document.getElementById("sm-calc"); if(!f) return;
-    var ids=["sm-gold","sm-silver","sm-bronze"], val=[1,0.5,0.25];
-    function m(n){ return "$"+n.toFixed(2); }
-    function upd(){
-      var n=ids.map(function(i){ return Math.max(0,Math.floor(Number(document.getElementById(i).value)||0)); });
-      var parts=n.map(function(c,i){return c*val[i];}), tot=parts.reduce(function(a,b){return a+b;},0), cnt=n.reduce(function(a,b){return a+b;},0);
-      document.getElementById("sm-total").textContent=m(tot);
-      document.getElementById("sm-detail").textContent=cnt+(cnt===1?" medal: ":" medals: ")+parts.map(m).join(" + ");
-    }
-    ids.forEach(function(i){ document.getElementById(i).addEventListener("input",upd); });
-    f.addEventListener("submit",function(e){ e.preventDefault(); });
-    upd();
-  })();
-
-  /* ───────── virtual medals: weekly gold / silver / bronze and the season medal table ─────────
-     Kept separate from the stats GAMES list on purpose: add each new week here too. */
-  (function(){
-    if(!document.getElementById("vm-winners")) return;
-    var WEEKS={
-    1:{date:"Saturday, October 10, 2026",
-       teams:{Cholan:["Suresh","Kiri","Shankar","Myooran","Sanjay","Ram"], Pandiyan:["Thilak","Roshan","Sasi","Niz","Mona","Sabes"]},
-       blinds:{Thilak:130,Suresh:130,Kiri:130},
-       clean:[]  /* clean games bowled: {n:"Name", s:score} */
-    }
-  };
-    var GAMES=[[1,1,"Thilak",112,2,2],[1,1,"Sabes",159,3,4],[1,1,"Niz",169,2,6],[1,1,"Sasi",161,4,4],[1,1,"Roshan",165,1,7],[1,1,"Mona",172,4,3],[1,1,"Suresh",130,1,5],[1,1,"Ram",176,4,5],[1,1,"Myooran",176,1,8],[1,1,"Sanjay",133,1,5],[1,1,"Kiri",154,2,6],[1,1,"Shankar",157,1,7],[1,2,"Thilak",126,2,2],[1,2,"Sabes",141,1,6],[1,2,"Niz",180,4,4],[1,2,"Sasi",135,2,3],[1,2,"Roshan",143,3,3],[1,2,"Mona",188,4,5],[1,2,"Suresh",153,2,5],[1,2,"Ram",167,4,4],[1,2,"Myooran",158,4,3],[1,2,"Sanjay",144,4,1],[1,2,"Kiri",117,1,3],[1,2,"Shankar",154,1,6],[1,3,"Thilak",141,3,4],[1,3,"Sabes",148,2,4],[1,3,"Niz",178,3,5],[1,3,"Sasi",141,0,6],[1,3,"Roshan",108,1,1],[1,3,"Mona",209,5,5],[1,3,"Suresh",160,2,5],[1,3,"Ram",200,5,3],[1,3,"Myooran",145,3,3],[1,3,"Sanjay",176,4,4],[1,3,"Kiri",129,3,2],[1,3,"Shankar",178,3,5],[1,4,"Thilak",130,0,5],[1,4,"Sabes",205,5,4],[1,4,"Niz",198,2,8],[1,4,"Sasi",149,1,6],[1,4,"Roshan",154,3,3],[1,4,"Mona",212,7,3],[1,4,"Suresh",107,2,1],[1,4,"Ram",101,0,2],[1,4,"Myooran",124,1,2],[1,4,"Sanjay",122,1,3],[1,4,"Kiri",105,1,2],[1,4,"Shankar",140,1,5],[1,5,"Thilak",104,1,2],[1,5,"Sabes",118,1,2],[1,5,"Niz",204,3,7],[1,5,"Sasi",146,3,3],[1,5,"Roshan",179,3,7],[1,5,"Mona",200,5,3],[1,5,"Suresh",123,2,2],[1,5,"Ram",197,4,4],[1,5,"Myooran",167,4,3],[1,5,"Sanjay",179,4,4],[1,5,"Kiri",111,1,3],[1,5,"Shankar",182,2,6],[1,6,"Thilak",114,1,2],[1,6,"Sabes",182,5,2],[1,6,"Niz",213,5,4],[1,6,"Sasi",137,2,4],[1,6,"Roshan",153,2,5],[1,6,"Mona",180,3,4],[1,6,"Suresh",111,0,3],[1,6,"Ram",180,5,2],[1,6,"Myooran",195,2,9],[1,6,"Sanjay",173,4,4],[1,6,"Kiri",105,1,2],[1,6,"Shankar",202,5,4]];
-    var CATS=[
-    ["avg","High Average","best average of the night"],
-    ["high","High Game","highest single game"],
-    ["x","Strike King","most strikes"],
-    ["sp","Spare Master","most spares"],
-    ["two","Most 200s","most games of 200+"],
-    ["clean","Clean Game","no open frames"],
-    ["gc","Game Changer","top scorers, closest game won"]
-  ];
-    var VAL=[1,0.5,0.25], PL=["g","s","b"];
-    var weekNums=Object.keys(WEEKS).map(Number).sort(function(a,b){return a-b;});
-    function teamOf(w,n){ var t=WEEKS[w].teams; return t.Cholan.indexOf(n)>-1?"Cholan":t.Pandiyan.indexOf(n)>-1?"Pandiyan":""; }
-    function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-    function money(v){ return "$"+v.toFixed(2); }
-    function podium(list){
-      list=list.filter(function(e){return e.v>0;}).sort(function(a,b){return b.v-a.v;});
-      var out=[], place=0;
-      list.forEach(function(e,i){ if(i===0||e.v!==list[i-1].v) place=i+1; if(place<=3) out.push({n:e.n,v:e.v,t:e.t,p:place}); });
-      return out;
-    }
-    function weekMedals(w){
-      var rows=GAMES.filter(function(r){return r[0]===w;}), by={};
-      rows.forEach(function(r){ (by[r[2]]=by[r[2]]||[]).push(r); });
-      var names=Object.keys(by), res={}, notes={};
-      function stat(f,fmt){ return podium(names.map(function(n){ var v=f(by[n]); return {n:n,v:v,t:fmt(v)}; })); }
-      res.avg=stat(function(g){return g.reduce(function(a,r){return a+r[3];},0)/g.length;},function(v){return v.toFixed(1)+" avg";});
-      res.high=stat(function(g){return Math.max.apply(null,g.map(function(r){return r[3];}));},function(v){return v+" pins";});
-      res.x=stat(function(g){return g.reduce(function(a,r){return a+r[4];},0);},function(v){return v+" strikes";});
-      res.sp=stat(function(g){return g.reduce(function(a,r){return a+r[5];},0);},function(v){return v+" spares";});
-      res.two=stat(function(g){return g.filter(function(r){return r[3]>=200;}).length;},function(v){return v+(v>1?" games":" game")+" of 200+";});
-      res.clean=podium((WEEKS[w].clean||[]).map(function(c){return {n:c.n,v:c.s,t:"clean "+c.s};}));
-      var bl=WEEKS[w].blinds||{}, games={}, pick=null;
-      rows.forEach(function(r){ (games[r[1]]=games[r[1]]||[]).push(r); });
-      Object.keys(games).forEach(function(g){
-        var tot={Cholan:0,Pandiyan:0};
-        games[g].forEach(function(r){ var k=teamOf(w,r[2]); if(k) tot[k]+=Math.max(r[3],bl[r[2]]||0); });
-        if(tot.Cholan===tot.Pandiyan) return;
-        var m=Math.abs(tot.Cholan-tot.Pandiyan), win=tot.Cholan>tot.Pandiyan?"Cholan":"Pandiyan";
-        if(!pick||m<pick.m) pick={g:+g,m:m,win:win,tot:tot};
-      });
-      res.gc=pick?podium(games[pick.g].filter(function(r){return teamOf(w,r[2])===pick.win;}).map(function(r){return {n:r[2],v:r[3],t:r[3]+" in game "+pick.g};})):[];
-      if(pick) notes.gc="Game "+pick.g+": "+pick.win+" won by "+pick.m+" pins ("+pick.tot.Cholan+" to "+pick.tot.Pandiyan+")";
-      return {res:res,notes:notes};
-    }
-    var MEDALS={}; weekNums.forEach(function(w){ MEDALS[w]=weekMedals(w); });
-    var fWeek=document.getElementById("vm-week"), fCat=document.getElementById("vm-cat"), fTeam=document.getElementById("vm-team"), fName=document.getElementById("vm-name");
-    fWeek.innerHTML='<option value="0">Whole season</option>'+weekNums.map(function(w){return '<option value="'+w+'">Week '+w+'</option>';}).join("");
-    fCat.innerHTML='<option value="">All categories</option>'+CATS.map(function(c){return '<option value="'+c[0]+'">'+c[1]+'</option>';}).join("");
-    var sortKey="t";
-    function matches(w,n){ var team=fTeam.value, q=fName.value.trim().toLowerCase(); if(team && teamOf(w,n)!==team) return false; if(q && n.toLowerCase().indexOf(q)<0) return false; return true; }
-    function drawWinners(){
-      var wk=+fWeek.value, weeks=wk?[wk]:weekNums.slice().reverse(), cats=CATS.filter(function(c){return !fCat.value||c[0]===fCat.value;});
-      document.getElementById("vm-week-label").textContent=wk?("Week "+wk+" · "+WEEKS[wk].date):("All weeks · "+weekNums.length+" of 16 played");
-      var html="";
-      weeks.forEach(function(w){
-        if(weeks.length>1) html+='<tr><td colspan="4" class="l"><b>Week '+w+' · '+esc(WEEKS[w].date)+'</b></td></tr>';
-        cats.forEach(function(c){
-          var pod=MEDALS[w].res[c[0]], note=MEDALS[w].notes[c[0]];
-          html+='<tr><td class="l cat">'+c[1]+'<small>'+(note?esc(note):c[2])+'</small></td>';
-          if(!pod.length){ html+='<td colspan="3" class="l none">'+(c[0]==="clean"?"No clean game this week":"No medal this week")+'</td></tr>'; return; }
-          [1,2,3].forEach(function(p){
-            var M=["Gold","Silver","Bronze"][p-1], who=pod.filter(function(e){return e.p===p;});
-            if(!who.length){ html+='<td data-m="'+M+'" class="l none">'+(p>1?"Shared above":"–")+'</td>'; return; }
-            var shown=who.filter(function(e){return matches(w,e.n);});
-            html+='<td data-m="'+M+'" class="l">'+(shown.length?shown.map(function(e){ var t=teamOf(w,e.n); return '<div class="who"><b class="'+(t==="Cholan"?"c":"p")+'">'+esc(e.n)+'</b><span>'+esc(e.t)+'</span></div>'; }).join(""):'<span class="none">Filtered out</span>')+'</td>';
-          });
-          html+='</tr>';
-        });
-      });
-      document.querySelector("#vm-winners tbody").innerHTML=html;
-    }
-    function drawTable(){
-      var wk=+fWeek.value, weeks=wk?[wk]:weekNums, cat=fCat.value, t={};
-      weeks.forEach(function(w){
-        GAMES.forEach(function(r){ if(r[0]===w && !t[r[2]]) t[r[2]]={n:r[2],g:0,s:0,b:0,team:teamOf(w,r[2])}; });
-        CATS.forEach(function(c){ if(cat && c[0]!==cat) return; MEDALS[w].res[c[0]].forEach(function(e){ t[e.n][PL[e.p-1]]++; }); });
-      });
-      function std(a,b){ return b.t-a.t||b.g-a.g||b.s-a.s; }
-      var all=Object.keys(t).map(function(n){ var p=t[n]; p.t=p.g+p.s+p.b; p.c=p.g*VAL[0]+p.s*VAL[1]+p.b*VAL[2]; return p; });
-      var ranked=all.slice().sort(std), rankOf={};
-      ranked.forEach(function(p,i){ rankOf[p.n]=(i>0&&std(p,ranked[i-1])===0)?rankOf[ranked[i-1].n]:i+1; });
-      var q=fName.value.trim().toLowerCase();
-      var rows=all.filter(function(p){ return (!fTeam.value||p.team===fTeam.value) && (!q||p.n.toLowerCase().indexOf(q)>-1); });
-      rows.sort(sortKey==="n"?function(a,b){return a.n.localeCompare(b.n);}:function(a,b){return (b[sortKey]-a[sortKey])||std(a,b)||a.n.localeCompare(b.n);});
-      document.querySelector("#vm-standings tbody").innerHTML=rows.length?rows.map(function(p){
-        return '<tr><td class="rk">'+rankOf[p.n]+'</td><td class="l">'+esc(p.n)+(p.team?'<span class="vm-pill '+(p.team==="Cholan"?"c":"p")+'">'+p.team+'</span>':'')+'</td><td>'+p.g+'</td><td>'+p.s+'</td><td>'+p.b+'</td><td class="strong">'+p.t+'</td><td>'+money(p.c)+'</td></tr>';
-      }).join(""):'<tr><td colspan="7" class="empty">No players match these filters.</td></tr>';
-      document.getElementById("vm-table-title").textContent=wk?("Week "+wk+" medal table"):"Season standings";
-      document.getElementById("vm-table-note").textContent=(cat?CATS.filter(function(c){return c[0]===cat;})[0][1]+" medals only. ":"")+(wk?"Medals won on "+WEEKS[wk].date+".":"All medals after "+weekNums.length+" of 16 weeks.");
-      document.querySelectorAll("#vm-standings thead th").forEach(function(th){ var b=th.querySelector("button"); if(b&&b.dataset.sort===sortKey) th.setAttribute("aria-sort",sortKey==="n"?"ascending":"descending"); else th.removeAttribute("aria-sort"); });
-    }
-    function draw(){ drawWinners(); drawTable(); }
-    [fWeek,fCat,fTeam].forEach(function(el){ el.addEventListener("change",draw); });
-    fName.addEventListener("input",draw);
-    document.querySelector("#vm-standings thead").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; sortKey=b.dataset.sort; drawTable(); });
-    draw();
-  })();
-
-</script>
 </body></html>
