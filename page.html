@@ -1635,7 +1635,6 @@ section{padding-block:clamp(48px,7vw,88px)}
       <div class="rb-ctrl">
         <label for="vm-week">Week<select id="vm-week"></select></label>
         <label for="vm-cat">Category<select id="vm-cat"></select></label>
-        <label for="vm-team">Kingdom<select id="vm-team"><option value="">Both kingdoms</option><option value="Cholan">Cholan</option><option value="Pandiyan">Pandiyan</option></select></label>
         <label for="vm-name">Player<input id="vm-name" type="search" placeholder="Type a name" autocomplete="off"></label>
       </div>
       <div class="sm-block">
@@ -2412,11 +2411,11 @@ section{padding-block:clamp(48px,7vw,88px)}
         if(!pick||m<pick.m) pick={g:+g,m:m,win:win,tot:tot};
       });
       res.gc=pick?podium(games[pick.g].filter(function(r){return teamOf(w,r[2])===pick.win;}).map(function(r){return {n:r[2],v:r[3],t:r[3]+" in game "+pick.g};})):[];
-      if(pick) notes.gc="Game "+pick.g+": "+pick.win+" won by "+pick.m+" pins ("+pick.tot.Cholan+" to "+pick.tot.Pandiyan+")";
+      if(pick) notes.gc="Game "+pick.g+": the closest game of the night, won by "+pick.m+" pins";
       return {res:res,notes:notes};
     }
     var MEDALS={}; weekNums.forEach(function(w){ MEDALS[w]=weekMedals(w); });
-    var fWeek=document.getElementById("vm-week"), fCat=document.getElementById("vm-cat"), fTeam=document.getElementById("vm-team"), fName=document.getElementById("vm-name");
+    var fWeek=document.getElementById("vm-week"), fCat=document.getElementById("vm-cat"), fTeam={value:""} /* kingdoms not shown on this page yet */, fName=document.getElementById("vm-name");
     fWeek.innerHTML='<option value="0">Whole season</option>'+weekNums.map(function(w){return '<option value="'+w+'">Week '+w+'</option>';}).join("");
     fCat.innerHTML='<option value="">All categories</option>'+CATS.map(function(c){return '<option value="'+c[0]+'">'+c[1]+'</option>';}).join("");
     var sortKey="t";
@@ -2435,7 +2434,7 @@ section{padding-block:clamp(48px,7vw,88px)}
             var M=["Gold","Silver","Bronze"][p-1], who=pod.filter(function(e){return e.p===p;});
             if(!who.length){ html+='<td data-m="'+M+'" class="l none">'+(p>1?"Shared above":"–")+'</td>'; return; }
             var shown=who.filter(function(e){return matches(w,e.n);});
-            html+='<td data-m="'+M+'" class="l">'+(shown.length?shown.map(function(e){ var t=teamOf(w,e.n); return '<div class="who"><b class="'+(t==="Cholan"?"c":"p")+'">'+esc(e.n)+'</b><span>'+esc(e.t)+'</span></div>'; }).join(""):'<span class="none">Filtered out</span>')+'</td>';
+            html+='<td data-m="'+M+'" class="l">'+(shown.length?shown.map(function(e){ return '<div class="who"><b>'+esc(e.n)+'</b><span>'+esc(e.t)+'</span></div>'; }).join(""):'<span class="none">Filtered out</span>')+'</td>';
           });
           html+='</tr>';
         });
@@ -2456,14 +2455,14 @@ section{padding-block:clamp(48px,7vw,88px)}
       var rows=all.filter(function(p){ return (!fTeam.value||p.team===fTeam.value) && (!q||p.n.toLowerCase().indexOf(q)>-1); });
       rows.sort(sortKey==="n"?function(a,b){return a.n.localeCompare(b.n);}:function(a,b){return (b[sortKey]-a[sortKey])||std(a,b)||a.n.localeCompare(b.n);});
       document.querySelector("#vm-standings tbody").innerHTML=rows.length?rows.map(function(p){
-        return '<tr><td class="rk">'+rankOf[p.n]+'</td><td class="l">'+esc(p.n)+(p.team?'<span class="vm-pill '+(p.team==="Cholan"?"c":"p")+'">'+p.team+'</span>':'')+'</td><td>'+p.g+'</td><td>'+p.s+'</td><td>'+p.b+'</td><td class="strong">'+p.t+'</td><td>'+money(p.c)+'</td></tr>';
+        return '<tr><td class="rk">'+rankOf[p.n]+'</td><td class="l">'+esc(p.n)+'</td><td>'+p.g+'</td><td>'+p.s+'</td><td>'+p.b+'</td><td class="strong">'+p.t+'</td><td>'+money(p.c)+'</td></tr>';
       }).join(""):'<tr><td colspan="7" class="empty">No players match these filters.</td></tr>';
       document.getElementById("vm-table-title").textContent=wk?("Week "+wk+" medal table"):"Season standings";
       document.getElementById("vm-table-note").textContent=(cat?CATS.filter(function(c){return c[0]===cat;})[0][1]+" medals only. ":"")+(wk?"Medals won on "+WEEKS[wk].date+".":"All medals after "+weekNums.length+" of 16 weeks.");
       document.querySelectorAll("#vm-standings thead th").forEach(function(th){ var b=th.querySelector("button"); if(b&&b.dataset.sort===sortKey) th.setAttribute("aria-sort",sortKey==="n"?"ascending":"descending"); else th.removeAttribute("aria-sort"); });
     }
     function draw(){ drawWinners(); drawTable(); }
-    [fWeek,fCat,fTeam].forEach(function(el){ el.addEventListener("change",draw); });
+    [fWeek,fCat].forEach(function(el){ el.addEventListener("change",draw); });
     fName.addEventListener("input",draw);
     document.querySelector("#vm-standings thead").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; sortKey=b.dataset.sort; drawTable(); });
     draw();
