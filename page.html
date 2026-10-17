@@ -930,15 +930,11 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 /* ── Desktop: the content uses the width of the screen, like the menu bar above it ── */
 @media (min-width:1240px){
-  .wrap{max-width:1400px;padding-inline:32px}
-}
-@media (min-width:1600px){
-  .wrap,.site-head .wrap{max-width:1560px}
-}
-@media (min-width:2000px){
-  .wrap,.site-head .wrap{max-width:1780px;padding-inline:40px}
+  /* The page grows with the screen: 94% of the window, up to 1860px.
+     One rule, so it fits a laptop, a big monitor and anything between. */
+  .wrap,.site-head .wrap{max-width:min(1860px,94vw);padding-inline:clamp(24px,2.4vw,44px)}
   /* a sentence stays readable even when the page is very wide */
-  .g-note,.lead,.md-sub{max-width:108ch}
+  .g-note,.lead,.md-sub{max-width:112ch}
 }
 </style>
 
