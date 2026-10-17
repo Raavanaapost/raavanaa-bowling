@@ -356,7 +356,8 @@ section{padding-block:clamp(48px,7vw,88px)}
 .pc-body{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px}
 
 /* game by game */
-.gbg{margin-top:clamp(34px,5vw,52px)}
+.gbg{margin:0 0 clamp(34px,5vw,52px)}
+.dash-note{text-align:center;margin:-6px 0 16px}
 .gbg .court-note{text-align:center;margin:-6px 0 16px}
 .gbg .filters{justify-content:center}
 #gbg-table td.hi{font-weight:700;color:var(--crimson)}
@@ -1472,6 +1473,14 @@ section{padding-block:clamp(48px,7vw,88px)}
         <p class="court-note">The three best averages in the kingdom</p>
         <div class="podium" id="podium"></div>
       </div>
+      <div class="gbg">
+        <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Game by Game</p><span class="orn"></span></div>
+        <p class="court-note" id="gbg-note"></p>
+        <div class="filters" id="gbg-weeks" role="group" aria-label="Choose a league night"></div>
+        <div class="table-scroll"><table class="data" id="gbg-table"><thead></thead><tbody></tbody></table></div>
+      </div>
+      <div class="royal-head dash-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Bowler Stats</p><span class="orn"></span></div>
+      <p class="court-note dash-note">Tap a bowler to see their card with every game they bowled.</p>
       <div class="dash">
         <div class="table-scroll">
           <table class="data" id="stats-table">
@@ -1488,12 +1497,6 @@ section{padding-block:clamp(48px,7vw,88px)}
           </table>
         </div>
         <div class="player" id="player" aria-live="polite"></div>
-      </div>
-      <div class="gbg">
-        <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Game by Game</p><span class="orn"></span></div>
-        <p class="court-note" id="gbg-note"></p>
-        <div class="filters" id="gbg-weeks" role="group" aria-label="Choose a league night"></div>
-        <div class="table-scroll"><table class="data" id="gbg-table"><thead></thead><tbody></tbody></table></div>
       </div>
     </div>
   </section>
