@@ -836,6 +836,9 @@ section{padding-block:clamp(48px,7vw,88px)}
 .rb-block{display:grid;gap:14px;min-width:0}
 .rb-block > *{min-width:0}
 .rb-block .filters{margin-bottom:0}
+.rb .data#rb-xtable th,.rb .data#rb-xtable td{padding-left:5px;padding-right:5px;min-width:0;font-size:.92rem}
+.rb .data#rb-xtable th{letter-spacing:.04em}
+.rb .data#rb-xtable{min-width:0;width:100%}
 .rb .rb-pages{margin:0}
 .rb .rb-pages .chip{flex:1 1 auto}
 .rb [hidden]{display:none!important}
@@ -1585,26 +1588,19 @@ section{padding-block:clamp(48px,7vw,88px)}
       </div>
 
       <div class="rb-block" id="rb-cross" data-rbp="cross" hidden>
-        <div class="rb-head"><p class="label">Seasons 7 and 8 · Cross lanes</p><h2>Cross lane, head to head</h2><p class="lead">In Seasons 7 and 8 every bowler was matched with the bowler on the other lane, game by game. A win scored 3 points, a no-result game 1 point and a loss 0.</p></div>
-        <div class="filters" id="rb-xtabs" role="group" aria-label="Choose seasons">
-          <button type="button" class="chip" data-x="both" aria-pressed="true">Both seasons</button>
-          <button type="button" class="chip" data-x="7" aria-pressed="false">Season 7</button>
-          <button type="button" class="chip" data-x="8" aria-pressed="false">Season 8</button>
-        </div>
+        <div class="rb-head"><p class="label">Seasons 7 and 8 · Cross lanes</p><h2>Cross lane records</h2><p class="lead">Seasons 7 and 8 were bowled on cross lanes. These are the records from those two seasons, as listed on the workbook's cross-lane records sheet.</p></div>
         <div class="rb-ctrl">
+          <label for="rb-xrs">Season<select id="rb-xrs"><option value="">Both seasons</option><option value="S7">Season 7</option><option value="S8">Season 8</option></select></label>
           <label for="rb-xname">Player<input id="rb-xname" type="search" placeholder="Type a name" autocomplete="off"></label>
-          <label for="rb-xmin">Games<select id="rb-xmin"><option value="0">Show everyone</option><option value="30" selected>30 games or more</option><option value="60">60 games or more</option></select></label>
         </div>
-        <div class="table-scroll"><table class="data" id="rb-xtable"><thead></thead><tbody></tbody></table></div>
-        <p class="rb-note" id="rb-xnote"></p>
+        <div class="rb-book" id="rb-xbook"></div>
+        <p class="rb-note" id="rb-xempty" hidden>No records match these filters.</p>
       </div>
 
       <div class="rb-block" data-rbp="cross" hidden>
-        <div class="rb-head"><p class="label">Seasons 7 and 8 · Cross lanes</p><h2>Cross lane records</h2><p class="lead">The best marks from the two cross-lane seasons, with the season each one was set in.</p></div>
-        <div class="rb-ctrl">
-          <label for="rb-xrs">Season<select id="rb-xrs"><option value="">Both seasons</option><option value="S7">Season 7</option><option value="S8">Season 8</option></select></label>
-        </div>
-        <div class="rb-book" id="rb-xbook"></div>
+        <div class="rb-head"><p class="label">Seasons 7 and 8 · Cross lanes</p><h2>Cross lane averages</h2><p class="lead">Each bowler's average in Season 7, Season 8 and both seasons together, with total games played (GP).</p></div>
+        <div class="table-scroll"><table class="data" id="rb-xtable"><thead></thead><tbody></tbody></table></div>
+        <p class="rb-note">Tap a heading to sort.</p>
       </div>
 
       <div class="rb-block" data-rbp="all">
@@ -2457,7 +2453,7 @@ section{padding-block:clamp(48px,7vw,88px)}
         var rows=srt(P.filter(function(p){return kn(p.n);}));
         box.innerHTML='<div class="table-scroll"><table class="data s7"><thead><tr>'+h("n","Player",1)+h("gp","GP")+h("avg","Avg")+h("med","Median")+h("hi","High")+h("lo","Low")+h("two","200s")+h("cg","CG")+h("x","Strikes")+h("sp","Spares")+h("cf","Clean frames / game")+h("w","Won")+h("l","Lost")+h("pct","Win %")+(hasMoney?h("money","Money W/L"):"")+h("mvp","MVP score")+'</tr></thead><tbody>'+
           (rows.length?rows.map(function(p){ return '<tr><td class="l">'+esc(p.n)+'</td><td>'+p.gp+'</td><td class="strong">'+f2(p.avg)+'</td><td>'+(p.med!=null?p.med:"")+'</td><td>'+p.hi+'</td><td>'+p.lo+'</td><td>'+p.two+'</td><td>'+p.cg+'</td><td>'+p.x+'</td><td>'+p.sp+'</td><td>'+(p.cf!=null?f2(p.cf):"")+'</td><td>'+p.w+'</td><td>'+p.l+'</td><td>'+Math.round(p.pct*100)+'%</td>'+(hasMoney?'<td>'+(p.money==null?"":(p.money>0?"+$":p.money<0?"−$":"$")+Math.abs(p.money))+'</td>':'')+'<td>'+(p.mvp!=null?f2(p.mvp)+' <span class="muted">(#'+p.mvpRank+')</span>':"")+'</td></tr>'; }).join(""):'<tr><td colspan="16" class="empty">No players match.</td></tr>')+'</tbody></table></div>';
-        note.textContent="Tap a heading to sort. Win % is cross-lane games won out of games played. MVP score is the workbook's own combined ranking, where lower is better."+(hasMoney?" Money W/L is as recorded on the workbook.":"");
+        note.textContent="Tap a heading to sort. Won and Lost are games the player's team won or lost; Win % is team wins out of games played, as on the workbook. MVP score is the workbook's own combined ranking, where lower is better."+(hasMoney?" Money W/L is as recorded on the workbook.":"");
       },
       weeks:function(){
         var wk=+wSel.value, rows=S7.games.filter(function(r){return r[0]===wk;}), pl={};
@@ -2504,40 +2500,31 @@ section{padding-block:clamp(48px,7vw,88px)}
     detail(S7,S7REC,"7");
     detail(S8,S8REC,"8");
 
-    /* cross lane head to head */
+    /* cross lane: records sheet + averages */
     (function(){
-      var xs="both", xk="pct", xd=-1, xT=$("rb-xtabs"), xN=$("rb-xname"), xM=$("rb-xmin");
-      function tally(D,want){ var o={}; D.games.forEach(function(r){ var p=o[r[2]]=o[r[2]]||{n:r[2],gp:0,w:0,l:0,nr:0}; p.gp++; if(r[7]==="W")p.w++; else if(r[7]==="L")p.l++; else p.nr++; }); return o; }
-      var T={"7":tally(S7),"8":tally(S8)};
-      function drawX(){
-        xT.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.x===xs?"true":"false"); });
-        var src=xs==="both"?["7","8"]:[xs], m={};
-        src.forEach(function(s){ Object.keys(T[s]).forEach(function(n){ var a=T[s][n], p=m[n]=m[n]||{n:n,gp:0,w:0,l:0,nr:0}; p.gp+=a.gp; p.w+=a.w; p.l+=a.l; p.nr+=a.nr; }); });
-        var q=xN.value.trim().toLowerCase(), min=+xM.value;
-        var rows=Object.keys(m).map(function(n){ var p=m[n]; p.pts=p.w*3+p.nr; p.pct=p.gp?p.w/p.gp:0; p.diff=p.w-p.l; return p; }).filter(function(p){ return p.gp>=min && (!q||p.n.toLowerCase().indexOf(q)>-1); });
-        rows.sort(function(a,b){ var x=a[xk], y=b[xk]; return (typeof x==="string"?x.localeCompare(y):x-y)*xd || b.pct-a.pct || a.n.localeCompare(b.n); });
-        document.querySelector("#rb-xtable thead").innerHTML='<tr>'+th("n","Player",1,xk,xd)+th("pct","Win %",0,xk,xd)+th("gp","GP",0,xk,xd)+th("w","W",0,xk,xd)+th("l","L",0,xk,xd)+th("nr","N",0,xk,xd)+'</tr>';
-        document.querySelector("#rb-xtable tbody").innerHTML=rows.length?rows.map(function(p,i){ return '<tr'+(i===0&&xk==="pct"&&xd<0?' class="top"':'')+'><td class="l">'+esc(p.n)+'</td><td class="strong">'+Math.round(p.pct*100)+'%</td><td>'+p.gp+'</td><td>'+p.w+'</td><td>'+p.l+'</td><td>'+p.nr+'</td></tr>'; }).join(""):'<tr><td colspan="6" class="empty">No players match these filters.</td></tr>';
-        $("rb-xnote").textContent="GP games played, W won, L lost, N no result. Win % is games won out of games played, as on the workbooks. Tap a heading to sort."+(min?" Showing bowlers with "+min+" or more cross-lane games.":"");
-      }
-      xT.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; xs=b.dataset.x; drawX(); });
-      document.querySelector("#rb-xtable thead").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; var k=b.dataset.k; if(k===xk) xd*=-1; else { xk=k; xd=(k==="n"||k==="l")?1:-1; } drawX(); });
-      xN.addEventListener("input",drawX); xM.addEventListener("change",drawX);
-      drawX();
-
-      /* cross lane records: Season 7 sheet + Season 8 games, merged */
-      var low={"Lowest score":1};
-      var cats=[]; [[S7REC,"S7"],[S8REC,"S8"]].forEach(function(z){ z[0].forEach(function(c){ var k=cats.filter(function(x){return x.t===c[0];})[0]; if(!k){ k={t:c[0],r:[]}; cats.push(k); } c[1].forEach(function(r){ if(r[1]!=="") k.r.push([r[0],r[1],z[1]]); }); }); });
-      var rs=$("rb-xrs");
+      var XREC=[["Highest score",[["Ram",287,"S8"],["Niz",286,"S7"],["Satchi",269,"S8"],["Mona",253,"S7"],["Shankar",233,"S7"],["Chad",232,"S7"],["Sabesh",225,"S7"],["Bala",223,"S7"]]],["Most strikes in a game",[["Niz",10,"S7"],["Ram",10,"S8"],["Satchi",10,"S8"],["Mona",9,"S7"],["Sabesh",9,"S8"]]],["Consecutive strikes in a row",[["Niz",10,"S7"],["Ram",10,"S8"],["Shankar",7,"S7"],["Chad",6,"S7"],["Sabesh",6,"S7"],["Mona",5,"S7"]]],["Most spares in a game",[["Chad",9,"S7"],["Niz",9,"S7"],["Sabesh",8,"S7"],["Sasi",8,"S7"],["Mona",8,"S7"],["Rosh",8,"S8"],["Mayo",8,"S8"]]],["Lowest score",[["Ruban",77,"S7"],["Sasi",89,"S7"],["Gajan",92,"S7"],["Rosh",100,"S7"]]],["Highest individual average in a single day",[["Satchi","212.50","S8"],["Niz","201.17","S7"],["Mayo","193.33","S8"],["Mona","189.67","S8"],["Chad","186.33","S7"],["Ram","181.67","S7"],["Sabesh",181,"S8"],["Shankar",181,"S7"],["Bala",177,"S7"],["Sasi","167.33","S8"],["Rosh","165.67","S8"],["Nisan","160.50","S7"],["Ruban",159,"S8"],["Gajan",151,"S7"]]],["Highest strikes in a single day",[["Satchi",41,"S8"],["Ram",36,"S7"],["Niz",34,"S7"],["Mona",29,"S8"],["Chad",29,"S7"],["Mayo",28,"S8"],["Sabesh",28,"S8"],["Shankar",25,"S7"],["Gajan",24,"S8"],["Bala",23,"S7"],["Rosh",21,"S7"],["Ruban",20,"S7"],["Sasi",20,"S7"],["Nisan",16,"S7"]]],["Personal highest",[["Ram",287,"S8"],["Niz",286,"S7"],["Satchi",269,"S8"],["Mona",253,"S7"],["Shankar",233,"S7"],["Chad",232,"S7"],["Sabesh",225,"S7"],["Bala",223,"S7"],["Mayo",216,"S8"],["Rosh",207,"S7"],["Gajan",207,"S8"],["Sasi",201,"S7"],["Ruban",195,"S8"],["Nisan",186,"S7"]]],["200s in a day (6 games)",[["Satchi",4,"S7"],["Niz",3,"S7"]]],["Consecutive CGs in a row",[["None","",""]]],["Consecutive 200s in a row",[["Satchi",3,"S7"]]]];
+      var rs=$("rb-xrs"), xn=$("rb-xname");
       function drawXR(){
-        var s=rs.value;
-        $("rb-xbook").innerHTML=cats.map(function(c){
-          var rows=c.r.filter(function(r){return !s||r[2]===s;}).sort(function(a,b){ var d=parseFloat(b[1])-parseFloat(a[1]); return low[c.t]?-d:d; }).slice(0,10);
-          if(!rows.length) return '<article class="rb-rec"><h3>'+esc(c.t)+'</h3><table><tbody><tr><td>None recorded</td><td class="v"></td><td class="s"></td></tr></tbody></table></article>';
-          return '<article class="rb-rec"><h3>'+esc(c.t)+'</h3><table><tbody>'+rows.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td class="v">'+esc(r[1])+'</td><td class="s">'+r[2]+'</td></tr>'; }).join("")+'</tbody></table></article>';
+        var s=rs.value, q=xn.value.trim().toLowerCase(), shown=0;
+        $("rb-xbook").innerHTML=XREC.map(function(c){
+          var rows=c[1].filter(function(r){ if(r[0]==="None") return !s&&!q; return (!s||r[2]===s)&&(!q||r[0].toLowerCase().indexOf(q)>-1); });
+          if(!rows.length) return ""; shown++;
+          return '<article class="rb-rec"><h3>'+esc(c[0])+'</h3><table><tbody>'+rows.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td class="v">'+esc(r[1])+'</td><td class="s">'+esc(r[2])+'</td></tr>'; }).join("")+'</tbody></table></article>';
         }).join("");
+        $("rb-xempty").hidden=shown>0;
       }
-      rs.addEventListener("change",drawXR); drawXR();
+      rs.addEventListener("change",drawXR); xn.addEventListener("input",drawXR); drawXR();
+      var m={};
+      [["7",S7],["8",S8]].forEach(function(z){ z[1].games.forEach(function(r){ var p=m[r[2]]=m[r[2]]||{n:r[2],g7:0,p7:0,g8:0,p8:0}; p["g"+z[0]]++; p["p"+z[0]]+=r[3]; }); });
+      var L=Object.keys(m).map(function(n){ var p=m[n]; p.a7=p.g7?p.p7/p.g7:null; p.a8=p.g8?p.p8/p.g8:null; p.gb=p.g7+p.g8; p.ab=(p.p7+p.p8)/p.gb; return p; });
+      var xk="ab", xd=-1;
+      function drawXA(){
+        L.sort(function(a,b){ var x=a[xk], y=b[xk]; if(typeof x==="string") return x.localeCompare(y)*xd; return ((x==null?-1:x)-(y==null?-1:y))*xd || a.n.localeCompare(b.n); });
+        document.querySelector("#rb-xtable thead").innerHTML='<tr>'+th("n","Player",1,xk,xd)+th("a7","S7",0,xk,xd)+th("a8","S8",0,xk,xd)+th("ab","Both",0,xk,xd)+th("gb","GP",0,xk,xd)+'</tr>';
+        document.querySelector("#rb-xtable tbody").innerHTML=L.map(function(p){ return '<tr><td class="l">'+esc(p.n)+'</td><td title="'+p.g7+' games">'+(p.a7!=null?f2(p.a7):"–")+'</td><td title="'+p.g8+' games">'+(p.a8!=null?f2(p.a8):"–")+'</td><td class="strong">'+f2(p.ab)+'</td><td>'+p.gb+'</td></tr>'; }).join("");
+      }
+      document.querySelector("#rb-xtable thead").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; var k=b.dataset.k; if(k===xk) xd*=-1; else { xk=k; xd=k==="n"?1:-1; } drawXA(); });
+      drawXA();
     })();
 
     /* record book sections */
