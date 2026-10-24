@@ -1842,7 +1842,7 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* ── league scores ──
      One line per game, read from the lane screens. n = name, s = score,
      x = strikes, sp = spares (every X and / on the card, 10th frame included). */
-  var WEEKS={1:"Saturday, October 10, 2026",2:"Saturday, October 17, 2026"};
+  var WEEKS={1:"Saturday, October 10, 2026",2:"Saturday, October 17, 2026",3:"Saturday, October 24, 2026"};
   var GAMES=[
     {w:1,g:1,n:"Thilak",s:112,x:2,sp:2},
     {w:1,g:1,n:"Sab",s:159,x:3,sp:4},
@@ -1987,7 +1987,19 @@ section{padding-block:clamp(48px,7vw,88px)}
     {w:2,g:6,n:"May",s:201,x:4,sp:5},
     {w:2,g:6,n:"Tilk",s:112,x:2,sp:2},
     {w:2,g:6,n:"Nay",s:170,x:5,sp:2},
-    {w:2,g:6,n:"Mon",s:157,x:5,sp:2}
+    {w:2,g:6,n:"Mon",s:157,x:5,sp:2},
+    {w:3,g:1,n:"Sasi",s:159,x:2,sp:6},
+    {w:3,g:1,n:"Sab",s:191,x:4,sp:5},
+    {w:3,g:1,n:"Mon",s:168,x:2,sp:6},
+    {w:3,g:1,n:"Sure",s:151,x:2,sp:5},
+    {w:3,g:1,n:"Nay",s:179,x:5,sp:2},
+    {w:3,g:1,n:"Skr",s:133,x:2,sp:4},
+    {w:3,g:1,n:"Tilk",s:153,x:3,sp:3},
+    {w:3,g:1,n:"Bala",s:169,x:2,sp:7},
+    {w:3,g:1,n:"Niz",s:150,x:2,sp:4},
+    {w:3,g:1,n:"SPG",s:183,x:5,sp:4},
+    {w:3,g:1,n:"Ros",s:110,x:2,sp:1},
+    {w:3,g:1,n:"May",s:215,x:6,sp:5}
   ];
   /* league members, and the short names the lane screens use for them */
   var MEMBERS=["Sabes","Roshan","Niz","Ram","Shankar","Sasi","Bala","Myooran","Mona","Thilak","Sanjay","Haran"];
@@ -1997,10 +2009,11 @@ section{padding-block:clamp(48px,7vw,88px)}
      The page shows team totals only; names stay out of it. */
   var TEAMS={
     1:{kings:["Suresh","Kiri","Shankar","Myooran","Sanjay","Ram"], titans:["Thilak","Roshan","Sasi","Niz","Mona","Sabes"]},
-    2:{kings:["Sanjay","Suresh","Niz","Roshan","Sabes","Haran"], titans:["Sasi","Bala","Myooran","Thilak","Ram","Mona"]}
+    2:{kings:["Sanjay","Suresh","Niz","Roshan","Sabes","Haran"], titans:["Sasi","Bala","Myooran","Thilak","Ram","Mona"]},
+    3:{kings:["Sasi","Sabes","Mona","Suresh","Ram","Shankar"], titans:["Thilak","Bala","Niz","Sanjay","Roshan","Myooran"]}
   };
   /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
-  var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130}};
+  var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130}};
   var SEASON_WEEKS=16;
   function sum(a){ return a.reduce(function(x,y){return x+y;},0); }
   function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
@@ -2190,6 +2203,9 @@ section{padding-block:clamp(48px,7vw,88px)}
       4:"Another nail-biter. Cholan actually knocked down more pins, with Niz 191 and Sanjay 189, but Pandiyan had two big comebacks: Bala from 119 to 193 and Ram up to 188 with a triple. Thilak's 112 was lifted to his 130 blind, and those 18 pins swung it. <b>Pandiyan win 946–943. All square at 2–2.</b>",
       5:"The best game of the season, and it still wasn't enough. Ram opened with four straight strikes for 218, a new season high, and Myooran rolled his first 200. Cholan won on depth: Haran 197, Sabes 173 and Sanjay 172 with six strikes. <b>Cholan win 975–969. Cholan lead 3–2.</b>",
       6:"Pandiyan saved their best for last, a 50-pin win. Myooran rolled a second straight 201, Sasi bounced back to 186 with three opening strikes and Ram added 170. Cholan never found a big game, with Niz's 178 their best. <b>Final: 3–3, a royal tie.</b>"
+    },
+    3:{
+      1:"Settled by a single pin, the closest game of the season. Myooran rolled 215 with six strikes, his best yet and only three short of Ram's season high, and Sanjay closed with a turkey for 183, but Roshan's 110 left the door open. Cholan won on depth: Sabes 191, Ram 179 and Mona 168, with every bowler past 130. <b>Cholan win 981–980. Cholan lead 1–0.</b>"
     }
   };
   /* cholan vs pandiyan */
