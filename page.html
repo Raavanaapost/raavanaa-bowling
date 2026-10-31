@@ -2118,10 +2118,11 @@ section{padding-block:clamp(48px,7vw,88px)}
   var TEAMS={
     1:{kings:["Suresh","Kiri","Shankar","Myooran","Sanjay","Ram"], titans:["Thilak","Roshan","Sasi","Niz","Mona","Sabes"]},
     2:{kings:["Sanjay","Suresh","Niz","Roshan","Sabes","Haran"], titans:["Sasi","Bala","Myooran","Thilak","Ram","Mona"]},
-    3:{kings:["Thilak","Bala","Niz","Sanjay","Roshan","Myooran"], titans:["Sasi","Sabes","Mona","Suresh","Ram","Shankar"]}
+    3:{kings:["Thilak","Bala","Niz","Sanjay","Roshan","Myooran"], titans:["Sasi","Sabes","Mona","Suresh","Ram","Shankar"]},
+    4:{kings:["Sasi","Bala","Mona","Thilak","Ram","Myooran"], titans:["Sabes","Shankar","Niz","Suresh","Rub","Haran"]}
   };
   /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
-  var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130}};
+  var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130},4:{Thilak:130,Suresh:130,Kiri:130}};
   var SEASON_WEEKS=16;
   function sum(a){ return a.reduce(function(x,y){return x+y;},0); }
   function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
@@ -2319,6 +2320,12 @@ section{padding-block:clamp(48px,7vw,88px)}
       4:"Pandiyan's best game of the night and of the season: 1,047 actual pins, past the 1,040 from week 2, and 1,059 with Suresh's blind. Mona led it with 224, a new season high, with seven strikes including four in a row. Shankar struck four straight for 196, and Sasi (180) and Sabes (179) both bounced back. Cholan were steadier than in game 3, with Niz's best of the night at 189 on nine spares, Sanjay 181 and Bala 177, but Roshan (121) and Thilak (111, raised to his 130 blind) could not keep up. <b>Pandiyan win 1,059–961 and lead 4–0, so the night is theirs.</b>",
       5:"Cholan finally got on the board, by two pins, and only thanks to a blind. Pandiyan knocked down 30 more pins, but Thilak's 93 was raised to 130, which was worth 37 pins to Cholan against 5 for Suresh's 125. Sanjay kept up his best night yet with 193, his fourth game over 180 tonight, and Niz added 177 with a double in the eighth and ninth. For Pandiyan, Sasi's 187 was his best of the night and his third rise in a row, but Mona came down from 224 to 165 and Sabes to 138. <b>Cholan win 935–933. Pandiyan lead 4–1.</b>",
       6:"Cholan finished strongly and won by 60 pins. Roshan rolled his first league 200, a 209 with four strikes in a row from the sixth, well past his 182 from week 2. Niz added 175 and Sanjay 162, and Thilak's 114 went up to his 130 blind. Pandiyan had Sabes at 192 on a clean game with eight spares, and Mona finished with a turkey for 150, but the rest of the team stayed under 160. <b>Cholan win 980–920. Final: Pandiyan win the night 4–2.</b> Pandiyan's first night win of the season came from the opening three games, including a one-pin thriller, and Mona's 224 in game 4, the new season high. Sanjay was the bowler of the night with 1,071 pins, and Myooran (215), Sanjay (207), Ram (205), Mona (224) and Roshan (209) all reached 200."
+    },
+    4:{
+      1:"Pandiyan took the opener by 15 pins. Shankar struck eight times for 219, the second-best game of the season behind Mona's 224, with Haran (175) and Suresh (173) in support. Cholan had Myooran 183, Ram 182 and Mona 170, but Thilak's 96 had to be lifted to his 130 blind. <b>Pandiyan win 976–961. Pandiyan lead 1–0.</b>",
+      2:"Pandiyan pulled further ahead by 59 pins. Niz bowled the night's first clean game, a 193 with three strikes and seven spares, 52 pins up on his game 1, and Sabes jumped from 134 to 180. Shankar came down from 219 to 126, but the rest of Pandiyan held steady. Cholan dropped right across the team: Ram's 168 was their best, Myooran fell from 183 to 143 and Thilak's 87 went up to his 130 blind. <b>Pandiyan win 946–887. Pandiyan lead 2–0.</b>",
+      3:"Both sides lifted their game, but Pandiyan lifted more. Haran bowled a clean game for 206, his best in the league and past his 202 from week 2, with five strikes and a spare in every other frame. Sabes matched his game 2 score of 180 with four strikes, and everyone on Pandiyan reached 147, for 1,031. Cholan had their best game of the night at 946, led by Mona's 199 with five strikes, three of them in a row, and Ram's 186, but it was not enough. Thilak's 106 went up to his 130 blind. <b>Pandiyan win 1,031–970. Pandiyan lead 3–0.</b>",
+      4:"Cholan fell away after their best game of the night. Mona came down from 199 to 151, still their top score, Ram from 186 to 125 and Bala from 153 to 134, and nobody reached 160, for 789 actual pins. Pandiyan dropped off from 1,031 too but stayed well clear: Niz rolled 181 after 173, Shankar 177 after 169, and Haran followed his 206 with 168. Thilak's 110, his best of the night, went up to his 130 blind. <b>Pandiyan win 960–809. Pandiyan lead 4–0, so the night is theirs.</b>"
     }
   };
   /* cholan vs pandiyan */
