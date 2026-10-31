@@ -2107,11 +2107,23 @@ section{padding-block:clamp(48px,7vw,88px)}
     {w:4,g:4,n:"Niz",s:181,x:3,sp:6},
     {w:4,g:4,n:"Sure",s:132,x:1,sp:4},
     {w:4,g:4,n:"Rub",s:139,x:4,sp:1},
-    {w:4,g:4,n:"Har",s:168,x:4,sp:3}
+    {w:4,g:4,n:"Har",s:168,x:4,sp:3},
+    {w:4,g:5,n:"Sure",s:141,x:1,sp:4},
+    {w:4,g:5,n:"Srk",s:156,x:3,sp:4},
+    {w:4,g:5,n:"Niz",s:194,x:6,sp:2},
+    {w:4,g:5,n:"Rub",s:148,x:3,sp:3},
+    {w:4,g:5,n:"Sab",s:168,x:2,sp:4},
+    {w:4,g:5,n:"Har",s:196,x:4,sp:6},
+    {w:4,g:5,n:"Sasi",s:166,x:2,sp:5},
+    {w:4,g:5,n:"Bala",s:145,x:2,sp:4},
+    {w:4,g:5,n:"May",s:175,x:1,sp:8},
+    {w:4,g:5,n:"Thil",s:97,x:1,sp:1},
+    {w:4,g:5,n:"Nay",s:159,x:2,sp:5},
+    {w:4,g:5,n:"Mon",s:153,x:3,sp:3}
   ];
   /* league members, and the short names the lane screens use for them */
   var MEMBERS=["Sabes","Roshan","Niz","Ram","Shankar","Sasi","Bala","Myooran","Mona","Thilak","Sanjay","Haran"];
-  var SCREEN={Sab:"Sabes",Ros:"Roshan",May:"Myooran",Mon:"Mona",Skr:"Shankar",Thil:"Thilak",Tila:"Thilak",Spg:"Sanjay",SPG:"Sanjay",Nay:"Ram",Sure:"Suresh",Har:"Haran",Tilk:"Thilak",Thli:"Thilak",Srk:"Shankar"};
+  var SCREEN={Sab:"Sabes",Ros:"Roshan",May:"Myooran",Mon:"Mona",Skr:"Shankar",Thil:"Thilak",Tila:"Thilak",Spg:"Sanjay",SPG:"Sanjay",Nay:"Ram",Sure:"Suresh",Har:"Haran",Tilk:"Thilak",Thli:"Thilak",Srk:"Shankar",Rub:"Ruban"};
   GAMES.forEach(function(r){ r.n=SCREEN[r.n]||r.n; });
   /* Cholan (kings key) vs Pandiyan (titans key): who played for which team each week (screen names are fine here).
      The page shows team totals only; names stay out of it. */
@@ -2119,7 +2131,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     1:{kings:["Suresh","Kiri","Shankar","Myooran","Sanjay","Ram"], titans:["Thilak","Roshan","Sasi","Niz","Mona","Sabes"]},
     2:{kings:["Sanjay","Suresh","Niz","Roshan","Sabes","Haran"], titans:["Sasi","Bala","Myooran","Thilak","Ram","Mona"]},
     3:{kings:["Thilak","Bala","Niz","Sanjay","Roshan","Myooran"], titans:["Sasi","Sabes","Mona","Suresh","Ram","Shankar"]},
-    4:{kings:["Sasi","Bala","Mona","Thilak","Ram","Myooran"], titans:["Sabes","Shankar","Niz","Suresh","Rub","Haran"]}
+    4:{kings:["Sasi","Bala","Mona","Thilak","Ram","Myooran"], titans:["Sabes","Shankar","Niz","Suresh","Ruban","Haran"]}
   };
   /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
   var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130},4:{Thilak:130,Suresh:130,Kiri:130}};
@@ -2325,7 +2337,8 @@ section{padding-block:clamp(48px,7vw,88px)}
       1:"Pandiyan took the opener by 15 pins. Shankar struck eight times for 219, the second-best game of the season behind Mona's 224, with Haran (175) and Suresh (173) in support. Cholan had Myooran 183, Ram 182 and Mona 170, but Thilak's 96 had to be lifted to his 130 blind. <b>Pandiyan win 976–961. Pandiyan lead 1–0.</b>",
       2:"Pandiyan pulled further ahead by 59 pins. Niz bowled the night's first clean game, a 193 with three strikes and seven spares, 52 pins up on his game 1, and Sabes jumped from 134 to 180. Shankar came down from 219 to 126, but the rest of Pandiyan held steady. Cholan dropped right across the team: Ram's 168 was their best, Myooran fell from 183 to 143 and Thilak's 87 went up to his 130 blind. <b>Pandiyan win 946–887. Pandiyan lead 2–0.</b>",
       3:"Both sides lifted their game, but Pandiyan lifted more. Haran bowled a clean game for 206, his best in the league and past his 202 from week 2, with five strikes and a spare in every other frame. Sabes matched his game 2 score of 180 with four strikes, and everyone on Pandiyan reached 147, for 1,031. Cholan had their best game of the night at 946, led by Mona's 199 with five strikes, three of them in a row, and Ram's 186, but it was not enough. Thilak's 106 went up to his 130 blind. <b>Pandiyan win 1,031–970. Pandiyan lead 3–0.</b>",
-      4:"Cholan fell away after their best game of the night. Mona came down from 199 to 151, still their top score, Ram from 186 to 125 and Bala from 153 to 134, and nobody reached 160, for 789 actual pins. Pandiyan dropped off from 1,031 too but stayed well clear: Niz rolled 181 after 173, Shankar 177 after 169, and Haran followed his 206 with 168. Thilak's 110, his best of the night, went up to his 130 blind. <b>Pandiyan win 960–809. Pandiyan lead 4–0, so the night is theirs.</b>"
+      4:"Cholan fell away after their best game of the night. Mona came down from 199 to 151, still their top score, Ram from 186 to 125 and Bala from 153 to 134, and nobody reached 160, for 789 actual pins. Pandiyan dropped off from 1,031 too but stayed well clear: Niz rolled 181 after 173, Shankar 177 after 169, and Haran followed his 206 with 168. Thilak's 110, his best of the night, went up to his 130 blind. <b>Pandiyan win 960–809. Pandiyan lead 4–0, so the night is theirs.</b>",
+      5:"Pandiyan made it five from five, by 75 pins. Niz finished with four strikes in a row for 194, his best game of the night and his fourth over 170, and Haran followed his 168 with 196 on four strikes and six spares. Sabes added 168 with back-to-back strikes in the fifth and sixth. For Cholan, Myooran bounced back from 130 to 175 on eight spares and Sasi rolled 166, his best of the night, but Thilak's 97 needed his 130 blind again. <b>Pandiyan win 1,003–928. Pandiyan lead 5–0.</b>"
     }
   };
   /* cholan vs pandiyan */
