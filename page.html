@@ -501,7 +501,6 @@ section{padding-block:clamp(48px,7vw,88px)}
 .pf-title{font:700 .78rem/1 var(--label);letter-spacing:.24em;text-transform:uppercase;color:#ffe08a}
 .pf-name{font:900 1.55rem/1.1 var(--display);margin-top:6px;color:#fff}
 .pf-body{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px}
-.drop-note{margin:10px 0 0;font-size:.85rem;color:var(--muted)}
 .pf-avg{display:flex;align-items:baseline;gap:10px}
 .pf-avg b{font:900 3rem/1 var(--display);font-variant-numeric:tabular-nums}
 .pf-avg span{font:700 .82rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
@@ -1486,15 +1485,14 @@ section{padding-block:clamp(48px,7vw,88px)}
         <div class="table-scroll"><table class="data" id="gbg-table"><thead></thead><tbody></tbody></table></div>
       </div>
       <div class="royal-head dash-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Bowler Stats</p><span class="orn"></span></div>
-      <p class="court-note dash-note">Tap a bowler to see their card with every game they bowled. Season Avg counts each bowler's best weeks: the lowest week is dropped from week 4, the lowest two from week 8 and the lowest three from week 12 (best 16 of 19). A missed week is dropped first. Full avg counts every game.</p>
+      <p class="court-note dash-note">Tap a bowler to see their card with every game they bowled.</p>
       <div class="dash">
         <div class="table-scroll">
           <table class="data" id="stats-table">
             <thead><tr>
               <th class="l">#</th>
               <th class="l"><button type="button" data-sort="n">Player</button></th>
-              <th><button type="button" data-sort="avg" title="Average of the best weeks, lowest weeks dropped">Avg</button></th>
-              <th><button type="button" data-sort="full" title="Average of every game bowled, nothing dropped">Full avg</button></th>
+              <th><button type="button" data-sort="avg" title="Average score per game">Avg</button></th>
               <th><button type="button" data-sort="high" title="Highest single game">High</button></th>
               <th><button type="button" data-sort="games">Games</button></th>
               <th><button type="button" data-sort="x">Strikes</button></th>
@@ -2150,12 +2148,6 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
   var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130},4:{Thilak:130,Suresh:130,Kiri:130}};
   var SEASON_WEEKS=16;
-  /* Best-weeks rule (SURESH, 1 Nov 2026): the season is 19 weeks and each bowler's best 16 count, so the lowest 3 weeks are dropped.
-     While the season runs, drop 1 week from week 4, 2 from week 8 and 3 from week 12. A missed week counts as a dropped week first.
-     The dropped weeks are always recomputed as the lowest night averages, so a new low week replaces a higher one dropped before. */
-  function DROPS(weeksHeld){ return weeksHeld>=12?3:weeksHeld>=8?2:weeksHeld>=4?1:0; }
-  var LEAGUE_WEEKS=GAMES.map(function(r){return r.w;}).filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
-  var lastWeekAll=Math.max.apply(null,LEAGUE_WEEKS);
   function sum(a){ return a.reduce(function(x,y){return x+y;},0); }
   function esc(v){ return String(v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
   /* every bowler's numbers, from all games or from one week */
@@ -2166,19 +2158,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var gs=by[n].slice().sort(function(a,b){return a.w-b.w||a.g-b.g;}), sc=gs.map(function(r){return r.s;});
       var weeks={}; gs.forEach(function(r){ (weeks[r.w]=weeks[r.w]||[]).push(r.s); });
       var series=Object.keys(weeks).filter(function(k){return weeks[k].length>=3;}).map(function(k){return sum(weeks[k].slice(0,3));});
-      var full=Math.floor(sum(sc)*10/sc.length)/10, best=full, dropped=[], missed=[];
-      /* whole season: drop the bowler's lowest weeks (missed weeks count as dropped first), then average the rest */
-      if(!week){
-        var bowled=Object.keys(weeks).map(Number), held=LEAGUE_WEEKS.filter(function(w){return w<=lastWeekAll;});
-        missed=held.filter(function(w){return bowled.indexOf(w)<0;});
-        var nd=Math.max(0,Math.min(DROPS(held.length)-missed.length,bowled.length-1));
-        var byLow=bowled.slice().sort(function(a,b){ return sum(weeks[a])/weeks[a].length-sum(weeks[b])/weeks[b].length || b-a; });
-        dropped=byLow.slice(0,nd).sort(function(a,b){return a-b;});
-        var kept=[].concat.apply([],bowled.filter(function(w){return dropped.indexOf(w)<0;}).map(function(w){return weeks[w];}));
-        best=Math.floor(sum(kept)*10/kept.length)/10;
-      }
-      var wkAvg={}; Object.keys(weeks).forEach(function(k){ wkAvg[k]=sum(weeks[k])/weeks[k].length; });
-      return {n:n, list:gs, g:sc, games:sc.length, total:sum(sc), avg:best, full:full, dropped:dropped, missed:missed, wkAvg:wkAvg, high:Math.max.apply(null,sc),
+      return {n:n, list:gs, g:sc, games:sc.length, total:sum(sc), avg:Math.floor(sum(sc)*10/sc.length)/10, high:Math.max.apply(null,sc),
         series:series.length?Math.max.apply(null,series):0, x:sum(gs.map(function(r){return r.x;})), sp:sum(gs.map(function(r){return r.sp;}))};
     });
   }
@@ -2232,7 +2212,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var r=R.slice().sort(function(a,b){ var x=a[sortKey], y=b[sortKey]; return (typeof x==="string"? x.localeCompare(y,undefined,{numeric:true}) : x-y)*sortDir || b.avg-a.avg; });
       if(!current||!R.some(function(p){return p.n===current;})) current=r[0].n;
       tbody.innerHTML=r.map(function(p,i){
-        return '<tr data-player="'+esc(p.n)+'" aria-selected="'+(p.n===current)+'"><td class="l pos">'+(i+1)+'</td><td class="l"><button type="button" class="row-btn">'+esc(p.n)+'</button></td><td class="strong">'+A(p.avg)+'</td><td>'+A(p.full)+'</td><td>'+p.high+'</td><td>'+p.games+'</td><td>'+p.x+'</td><td>'+p.sp+'</td></tr>';
+        return '<tr data-player="'+esc(p.n)+'" aria-selected="'+(p.n===current)+'"><td class="l pos">'+(i+1)+'</td><td class="l"><button type="button" class="row-btn">'+esc(p.n)+'</button></td><td class="strong">'+A(p.avg)+'</td><td>'+p.high+'</td><td>'+p.games+'</td><td>'+p.x+'</td><td>'+p.sp+'</td></tr>';
       }).join("");
       document.querySelectorAll("#stats-table thead th").forEach(function(th){
         var b=th.querySelector("button"); if(!b) return;
@@ -2256,12 +2236,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       svg+='</svg>';
       panel.innerHTML='<div class="pc-head"><span class="mono" aria-hidden="true">'+esc(initials(p.n))+'</span><div><p>'+p.games+' game'+(p.games>1?'s':'')+(week?' · week '+week:' · whole season')+'</p><h3>'+esc(p.n)+'</h3></div><svg class="crown" aria-hidden="true"><use href="#i-crown"/></svg></div><div class="pc-body">'+
         '<div class="mini"><div><span>Average</span><b>'+A(p.avg)+'</b></div><div><span>High game</span><b>'+p.high+'</b></div><div><span>Strikes / spares</span><b>'+p.x+' / '+p.sp+'</b></div></div>'+
-        (week?'':'<p class="drop-note">'+dropText(p)+'</p>')+
         '<p class="chart-title">Score in each game (out of 300)</p><div class="chart">'+svg+'<div class="tip" hidden></div></div></div>';
-    }
-    function dropText(p){
-      var bits=p.missed.map(function(w){return 'Week '+w+' (missed)';}).concat(p.dropped.map(function(w){return 'Week '+w+' ('+A(p.wkAvg[w])+')';}));
-      return bits.length? 'Dropped: '+bits.join(', ')+'. Full average, every game: '+A(p.full)+'.' : 'No weeks dropped yet. Full average: '+A(p.full)+'.';
     }
     function tip(e,on){
       var h=e.target.closest(".hit"); if(!h) return;
