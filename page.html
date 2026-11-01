@@ -501,6 +501,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 .pf-title{font:700 .78rem/1 var(--label);letter-spacing:.24em;text-transform:uppercase;color:#ffe08a}
 .pf-name{font:900 1.55rem/1.1 var(--display);margin-top:6px;color:#fff}
 .pf-body{display:flex;flex-direction:column;gap:14px;padding:18px 20px 20px}
+.unq td{opacity:.65}.unq-tag{display:block;font-size:.72rem;color:var(--muted)}
 .drop-note{margin:10px 0 0;font-size:.85rem;color:var(--muted)}
 .pf-avg{display:flex;align-items:baseline;gap:10px}
 .pf-avg b{font:900 3rem/1 var(--display);font-variant-numeric:tabular-nums}
@@ -1486,7 +1487,7 @@ section{padding-block:clamp(48px,7vw,88px)}
         <div class="table-scroll"><table class="data" id="gbg-table"><thead></thead><tbody></tbody></table></div>
       </div>
       <div class="royal-head dash-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Bowler Stats</p><span class="orn"></span></div>
-      <p class="court-note dash-note">Tap a bowler to see their card with every game they bowled. Season Avg counts each bowler's best weeks: the lowest week is dropped from week 4, the lowest two from week 8 and the lowest three from week 12 (best 16 of 19). A missed week is dropped first. Full avg counts every game.</p>
+      <p class="court-note dash-note">Tap a bowler to see their card with every game they bowled. Season Avg counts each bowler's best weeks: the lowest week is dropped from week 4, the lowest two from week 8 and the lowest three from week 12 (best 16 of 19). A missed week is dropped first. Full avg counts every game. Bowlers join the average standings after 3 weeks.</p>
       <div class="dash">
         <div class="table-scroll">
           <table class="data" id="stats-table">
@@ -2153,6 +2154,8 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* Best-weeks rule (SURESH, 1 Nov 2026): the season is 19 weeks and each bowler's best 16 count, so the lowest 3 weeks are dropped.
      While the season runs, drop 1 week from week 4, 2 from week 8 and 3 from week 12. A missed week counts as a dropped week first.
      The dropped weeks are always recomputed as the lowest night averages, so a new low week replaces a higher one dropped before. */
+  /* a bowler joins the season average standings once they have bowled MIN_WEEKS league nights (SURESH, 1 Nov 2026) */
+  var MIN_WEEKS=3;
   function DROPS(weeksHeld){ return weeksHeld>=12?3:weeksHeld>=8?2:weeksHeld>=4?1:0; }
   var LEAGUE_WEEKS=GAMES.map(function(r){return r.w;}).filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
   var lastWeekAll=Math.max.apply(null,LEAGUE_WEEKS);
@@ -2166,7 +2169,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var gs=by[n].slice().sort(function(a,b){return a.w-b.w||a.g-b.g;}), sc=gs.map(function(r){return r.s;});
       var weeks={}; gs.forEach(function(r){ (weeks[r.w]=weeks[r.w]||[]).push(r.s); });
       var series=Object.keys(weeks).filter(function(k){return weeks[k].length>=3;}).map(function(k){return sum(weeks[k].slice(0,3));});
-      var full=Math.floor(sum(sc)*10/sc.length)/10, best=full, dropped=[], missed=[];
+      var full=Math.floor(sum(sc)*10/sc.length)/10, best=full, dropped=[], missed=[], nw=Object.keys(weeks).length;
       /* whole season: drop the bowler's lowest weeks (missed weeks count as dropped first), then average the rest */
       if(!week){
         var bowled=Object.keys(weeks).map(Number), held=LEAGUE_WEEKS.filter(function(w){return w<=lastWeekAll;});
@@ -2178,7 +2181,7 @@ section{padding-block:clamp(48px,7vw,88px)}
         best=Math.floor(sum(kept)*10/kept.length)/10;
       }
       var wkAvg={}; Object.keys(weeks).forEach(function(k){ wkAvg[k]=sum(weeks[k])/weeks[k].length; });
-      return {n:n, list:gs, g:sc, games:sc.length, total:sum(sc), avg:best, full:full, dropped:dropped, missed:missed, wkAvg:wkAvg, high:Math.max.apply(null,sc),
+      return {n:n, list:gs, g:sc, games:sc.length, total:sum(sc), avg:best, full:full, nw:nw, q:!!week||nw>=MIN_WEEKS, dropped:dropped, missed:missed, wkAvg:wkAvg, high:Math.max.apply(null,sc),
         series:series.length?Math.max.apply(null,series):0, x:sum(gs.map(function(r){return r.x;})), sp:sum(gs.map(function(r){return r.sp;}))};
     });
   }
@@ -2191,13 +2194,13 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* home: season highlights */
   (function(){
     function top(key){ return ALL.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;})[0]; }
-    var hg=top("high"), ha=top("avg"), avg=A(sum(ALL.map(function(p){return p.total;}))/sum(ALL.map(function(p){return p.games;})));
+    var hg=top("high"), ha=ALL.filter(function(p){return p.q;}).sort(function(a,b){return b.avg-a.avg||b.high-a.high;})[0], avg=A(sum(ALL.map(function(p){return p.total;}))/sum(ALL.map(function(p){return p.games;})));
     document.getElementById("home-tiles").innerHTML=
       '<div class="tile"><span>High game</span><b>'+hg.high+'</b><small>'+esc(hg.n)+'</small></div>'+
       '<div class="tile"><span>High average</span><b>'+A(ha.avg)+'</b><small>'+esc(ha.n)+'</small></div>'+
       '<div class="tile"><span>League average</span><b>'+avg+'</b><small>'+ALL.length+' bowlers</small></div>'+
       '<div class="tile"><span>Strikes</span><b>'+sum(ALL.map(function(p){return p.x;}))+'</b><small>'+sum(ALL.map(function(p){return p.sp;}))+' spares</small></div>';
-    document.getElementById("home-leaders").innerHTML=ALL.slice().sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3).map(function(p,i){
+    document.getElementById("home-leaders").innerHTML=ALL.filter(function(p){return p.q;}).sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3).map(function(p,i){
       return '<li><span class="rk">'+(i+1)+'</span><span class="who"><b>'+esc(p.n)+'</b><span>'+p.games+' game'+(p.games>1?'s':'')+'</span></span><span class="pts"><b>'+A(p.avg)+'</b><span>average</span></span></li>';
     }).join("");
   })();
@@ -2210,15 +2213,15 @@ section{padding-block:clamp(48px,7vw,88px)}
     var tiles=document.getElementById("tiles"), filters=document.getElementById("filters"), tbody=document.querySelector("#stats-table tbody"), panel=document.getElementById("player");
     function top(list,key){ return list.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;})[0]; }
     function renderTiles(){
-      var r=R, ha=top(r,"avg"), hg=top(r,"high"), hx=top(r,"x"), hs=top(r,"sp");
+      var r=R, rq=r.filter(function(p){return p.q;}), ha=top(rq,"avg"), hg=top(r,"high"), hx=top(r,"x"), hs=top(r,"sp");
       function who(key,best){ var t=r.filter(function(p){return p[key]===best[key];}).map(function(p){return esc(p.n);}); return t.length>3? t.slice(0,3).join(", ")+" +"+(t.length-3) : t.join(", "); }
       function cell(icon,k,v,who){ return '<div class="cell"><svg class="icon"><use href="#'+icon+'"/></svg><span class="k">'+k+'</span><b class="v gold-text">'+v+'</b><span class="who">'+who+'</span></div>'; }
       tiles.innerHTML=
-        cell("i-crown","High average",A(ha.avg),who("avg",ha))+
+        cell("i-crown","High average",A(ha.avg),rq.filter(function(p){return p.avg===ha.avg;}).map(function(p){return esc(p.n);}).join(", "))+
         cell("i-trophy","Crown game",hg.high,who("high",hg))+
         cell("i-ball","Strike King",hx.x,who("x",hx))+
         cell("i-pins","Spare Master",hs.sp,who("sp",hs));
-      var t3=r.slice().sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3), order=[1,0,2], TITLES=["King","Prince","Commander"];
+      var t3=rq.slice().sort(function(a,b){return b.avg-a.avg||b.high-a.high;}).slice(0,3), order=[1,0,2], TITLES=["King","Prince","Commander"];
       document.getElementById("podium").innerHTML=order.filter(function(i){return t3[i];}).map(function(i){
         var p=t3[i];
         return '<div class="step p'+(i+1)+'">'+(i===0?'<svg class="icon"><use href="#i-crown"/></svg>':'')+'<span class="title">'+TITLES[i]+'</span><b>'+esc(p.n)+'</b><small>High '+p.high+'</small><div class="avg">'+A(p.avg)+'<span>average</span></div><div class="block">'+(i+1)+'</div></div>';
@@ -2229,10 +2232,10 @@ section{padding-block:clamp(48px,7vw,88px)}
       filters.innerHTML=[0].concat(ws).map(function(w){ return '<button type="button" class="chip" data-week="'+w+'" aria-pressed="'+(w===week)+'">'+(w?"Week "+w:"Whole season")+'</button>'; }).join("");
     }
     function renderTable(){
-      var r=R.slice().sort(function(a,b){ var x=a[sortKey], y=b[sortKey]; return (typeof x==="string"? x.localeCompare(y,undefined,{numeric:true}) : x-y)*sortDir || b.avg-a.avg; });
+      var r=R.slice().sort(function(a,b){ var x=a[sortKey], y=b[sortKey]; return (b.q-a.q) || (typeof x==="string"? x.localeCompare(y,undefined,{numeric:true}) : x-y)*sortDir || b.avg-a.avg; });
       if(!current||!R.some(function(p){return p.n===current;})) current=r[0].n;
       tbody.innerHTML=r.map(function(p,i){
-        return '<tr data-player="'+esc(p.n)+'" aria-selected="'+(p.n===current)+'"><td class="l pos">'+(i+1)+'</td><td class="l"><button type="button" class="row-btn">'+esc(p.n)+'</button></td><td class="strong">'+A(p.avg)+'</td><td>'+A(p.full)+'</td><td>'+p.high+'</td><td>'+p.games+'</td><td>'+p.x+'</td><td>'+p.sp+'</td></tr>';
+        return '<tr data-player="'+esc(p.n)+'" aria-selected="'+(p.n===current)+'"'+(p.q?'':' class="unq"')+'><td class="l pos">'+(p.q?i+1:'–')+'</td><td class="l"><button type="button" class="row-btn">'+esc(p.n)+'</button>'+(p.q?'':'<small class="unq-tag">'+p.nw+' of '+MIN_WEEKS+' weeks</small>')+'</td><td class="strong">'+A(p.avg)+'</td><td>'+A(p.full)+'</td><td>'+p.high+'</td><td>'+p.games+'</td><td>'+p.x+'</td><td>'+p.sp+'</td></tr>';
       }).join("");
       document.querySelectorAll("#stats-table thead th").forEach(function(th){
         var b=th.querySelector("button"); if(!b) return;
@@ -2261,7 +2264,8 @@ section{padding-block:clamp(48px,7vw,88px)}
     }
     function dropText(p){
       var bits=p.missed.map(function(w){return 'Week '+w+' (missed)';}).concat(p.dropped.map(function(w){return 'Week '+w+' ('+A(p.wkAvg[w])+')';}));
-      return bits.length? 'Dropped: '+bits.join(', ')+'. Full average, every game: '+A(p.full)+'.' : 'No weeks dropped yet. Full average: '+A(p.full)+'.';
+      var pre=p.q?'':'Not in the average standings yet: '+p.nw+' of '+MIN_WEEKS+' weeks bowled. ';
+      return pre+(bits.length? 'Dropped: '+bits.join(', ')+'. Full average, every game: '+A(p.full)+'.' : 'No weeks dropped yet. Full average: '+A(p.full)+'.');
     }
     function tip(e,on){
       var h=e.target.closest(".hit"); if(!h) return;
@@ -2286,17 +2290,17 @@ section{padding-block:clamp(48px,7vw,88px)}
   (function(){
     var STATS={avg:["Average","average","The top five averages so far."],high:["High game","high game","The five best single games so far."],x:["Strikes","strikes","The five bowlers with the most strikes."],sp:["Spares","spares","The five bowlers with the most spares."]};
     var key="avg", fil=document.getElementById("crew-filters");
-    var best=function(k){ return Math.max.apply(null,ALL.map(function(p){return p[k];})); };
+    var best=function(k){ return Math.max.apply(null,ALL.filter(function(p){return k!=="avg"||p.q;}).map(function(p){return p[k];})); };
     var TOPS={avg:best("avg"),high:best("high"),x:best("x"),sp:best("sp")};
     var TITLES=["Monarch","Champion","Guardian","Knight","Herald"];
     var byName={}; ALL.forEach(function(p){byName[p.n]=p;});
     function render(){
-      var ranked=ALL.slice().sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;});
+      var ranked=ALL.filter(function(p){return key!=="avg"||p.q;}).sort(function(a,b){return b[key]-a[key]||b.avg-a.avg;});
       fil.innerHTML=Object.keys(STATS).map(function(k){ return '<button type="button" class="chip" data-k="'+k+'" aria-pressed="'+(k===key)+'">'+STATS[k][0]+'</button>'; }).join("");
       document.getElementById("crew-what").textContent=STATS[key][2];
       document.getElementById("five").innerHTML=ranked.slice(0,5).map(function(p,i){
         var mx=Math.max.apply(null,p.g), badges=[];
-        if(p.avg===TOPS.avg) badges.push('<span>Top average</span>');
+        if(p.q&&p.avg===TOPS.avg) badges.push('<span>Top average</span>');
         if(p.high===TOPS.high) badges.push('<span class="red">Crown game '+p.high+'</span>');
         if(p.x===TOPS.x) badges.push('<span>Strike King</span>');
         if(p.sp===TOPS.sp) badges.push('<span>Spare Master</span>');
@@ -2309,10 +2313,10 @@ section{padding-block:clamp(48px,7vw,88px)}
           (badges.length?'<div class="pf-badges">'+badges.join("")+'</div>':'')+'</div></article>';
       }).join("");
       var names=MEMBERS.concat(ALL.map(function(p){return p.n;}).filter(function(n){return MEMBERS.indexOf(n)<0;}));
-      names.sort(function(a,b){ var A=byName[a],B=byName[b]; if(A&&B) return B[key]-A[key]||B.avg-A.avg; if(A) return -1; if(B) return 1; return a.localeCompare(b); });
+      names.sort(function(a,b){ var A=byName[a],B=byName[b]; if(A&&B) return (key==="avg"&&(B.q-A.q)) || B[key]-A[key]||B.avg-A.avg; if(A) return -1; if(B) return 1; return a.localeCompare(b); });
       document.getElementById("crew").innerHTML=names.map(function(n){
         var p=byName[n], rank=p?ranked.indexOf(p)+1:0;
-        return p ? '<button type="button" class="mem" data-crew="'+esc(n)+'"><span class="mono" aria-hidden="true">'+esc(initials(n))+'</span><b>'+esc(n)+'</b><small>No. '+rank+' · '+STATS[key][1]+' '+(key==="avg"?A(p[key]):p[key])+'</small><em>Avg '+A(p.avg)+' · high '+p.high+'</em></button>'
+        return p ? '<button type="button" class="mem" data-crew="'+esc(n)+'"><span class="mono" aria-hidden="true">'+esc(initials(n))+'</span><b>'+esc(n)+'</b><small>'+(rank?'No. '+rank+' · ':p.nw+' of '+MIN_WEEKS+' weeks · ')+STATS[key][1]+' '+(key==="avg"?A(p[key]):p[key])+'</small><em>Avg '+A(p.avg)+' · high '+p.high+'</em></button>'
                  : '<div class="mem wait"><span class="mono" aria-hidden="true">'+esc(initials(n))+'</span><b>'+esc(n)+'</b><small>Member</small><em>Scores coming soon</em></div>';
       }).join("");
     }
