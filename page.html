@@ -533,6 +533,77 @@ section{padding-block:clamp(48px,7vw,88px)}
 .mem.wait .mono{background:var(--alley-3);color:var(--muted);border-color:var(--line)}
 
 
+/* team balancer (hidden page, open with #team-balancer) */
+.tb{--chol:#a01318;--chol-bg:#fbeceb;--pand:#17603a;--pand-bg:#e8f3ec;display:flex;flex-direction:column;gap:26px}
+.tb h2{font-size:clamp(1.25rem,2.6vw,1.6rem)}
+.tb-step{font:700 .9rem/1.2 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-accent);margin-bottom:6px}
+.tb-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tb-bar .btn{min-height:46px;padding:10px 20px;font-size:.98rem}
+.tb-bar .sp{flex:1 1 auto}
+.tb-note{font-size:.95rem;color:var(--muted);line-height:1.5}
+.tb-strip{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,253,248,.96);border:1px solid var(--line);border-top:3px solid var(--gold);box-shadow:0 8px 16px -12px rgba(60,30,0,.4)}
+.tb-strip .s{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.tb-strip .s span{font:700 .82rem/1.2 var(--label);letter-spacing:.12em;text-transform:uppercase}
+.tb-strip .s b{font:900 clamp(1.25rem,4vw,1.7rem)/1.1 var(--display);font-variant-numeric:tabular-nums}
+.tb-strip .s.k span,.tb-strip .s.k b{color:var(--chol)}
+.tb-strip .s.t{text-align:right}.tb-strip .s.t span,.tb-strip .s.t b{color:var(--pand)}
+.tb-gap{text-align:center;font:700 1rem/1.2 var(--label);letter-spacing:.06em;padding:6px 12px;border-radius:999px;background:var(--alley-3);white-space:nowrap}
+.tb-gap.ok{background:var(--gold);color:#1a1005}
+.tb-scale{display:block;width:100%;max-width:560px;margin-inline:auto;height:auto}
+.tb-scale .beam{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.tb-scale .pan{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.tb-scale text{font-family:var(--label);font-weight:700}
+.tb-teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tb-team{border:1px solid var(--line);border-top:5px solid var(--chol);background:var(--chol-bg);padding:12px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.tb-team.t{border-top-color:var(--pand);background:var(--pand-bg)}
+.tb-team h3{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 8px;font:900 1.25rem/1.1 var(--display);color:var(--chol)}
+.tb-team.t h3{color:var(--pand)}
+.tb-team h3 small{font:600 .9rem/1.2 var(--body);color:var(--muted)}
+.tb-list{display:flex;flex-direction:column;gap:6px;min-height:44px}
+.tb-empty{font-size:.92rem;color:var(--muted);padding:8px 2px}
+.tb-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);min-width:0}
+.tb-card.locked{border-color:var(--gold-deep);box-shadow:inset 3px 0 0 var(--gold)}
+.tb-row{display:flex;align-items:stretch;min-width:0}
+.tb-mv{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:7px 10px;border:0;background:transparent;color:var(--pin);text-align:left;cursor:pointer;font:inherit}
+.tb-mv:hover{background:var(--alley-2)}
+.tb-mv b{font:700 1.02rem/1.2 var(--body);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tb-mv span{font-size:.88rem;line-height:1.3;color:var(--muted);font-variant-numeric:tabular-nums}
+.tb-mv span em{font-style:normal;color:var(--ink-accent);font-weight:600}
+.tb-ic{flex:none;width:36px;display:grid;place-items:center;border:0;border-left:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font:700 1.05rem/1 var(--body)}
+.tb-ic:hover{background:var(--alley-3);color:var(--pin)}
+.tb-ic[aria-pressed="true"]{color:var(--gold-deep);background:#fff5dc}
+.tb-ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tb-adj{display:flex;align-items:center;gap:4px;padding:0 10px 8px}
+.tb-adj button{width:30px;height:30px;border:1px solid var(--gold-deep);background:#fff;color:var(--pin);font:700 1.05rem/1 var(--body);cursor:pointer}
+.tb-adj button:hover{background:var(--alley-3)}
+.tb-adj output{min-width:46px;text-align:center;font:700 .9rem/1 var(--label);color:var(--ink-accent)}
+.tb-addb{align-self:flex-start;border:1px dashed var(--gold-deep);background:transparent;color:var(--ink-accent);font:700 .85rem/1 var(--label);letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;cursor:pointer}
+.tb-addb:hover{background:#fff}
+.tb-bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.tb-bench .tb-mv{cursor:default}
+.tb-bench .tb-mv:hover{background:transparent}
+.tb-go{flex:none;align-self:stretch;width:64px;border:0;border-left:1px solid var(--line);font:700 .8rem/1 var(--label);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:#fff}
+.tb-go.k{background:var(--chol)}.tb-go.t{background:var(--pand)}
+.tb-go:hover{filter:brightness(1.15)}
+.tb-roster{display:flex;flex-wrap:wrap;gap:8px}
+.tb-roster label{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:6px 12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:.98rem}
+.tb-roster label:has(input:checked){border-color:var(--gold-deep);background:#fff5dc}
+.tb-roster input{width:18px;height:18px;accent-color:var(--gold-deep)}
+.tb-roster small{color:var(--muted);font-variant-numeric:tabular-nums}
+.tb-guest{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.tb-guest input{min-height:42px;padding:6px 10px;border:1px solid var(--line);background:#fff;font:inherit;font-size:1rem;color:var(--pin)}
+.tb-guest input[name=n]{flex:1 1 140px;min-width:0}
+.tb-guest input[name=v]{width:96px}
+.tb-copy{width:100%;min-height:130px;font:15px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line)}
+@media (max-width:560px){
+  .tb-teams{gap:8px}
+  .tb-team{padding:8px}
+  .tb-mv{padding:6px 7px}
+  .tb-mv b{font-size:.96rem}
+  .tb-ic{width:30px}
+  .tb-strip{top:calc(env(safe-area-inset-top,0px) + 64px);padding:8px 10px;gap:6px}
+  .tb-gap{font-size:.88rem;padding:5px 8px}
+}
 /* cholan vs pandiyan */
 .clash-title::after{display:none}
 .season{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(10px,3vw,30px);padding:clamp(18px,3vw,28px);border:2px solid var(--gold);background:linear-gradient(90deg,rgba(160,19,24,.10),var(--alley-2) 35%,var(--alley-2) 65%,rgba(31,122,66,.12));margin-bottom:22px}
@@ -1730,6 +1801,82 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
+<!-- ───────── TEAM BALANCER (not linked from the menu: open with #team-balancer) ───────── -->
+<div class="page" data-page="team-balancer" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Raavanaa League · Pick the sides</p>
+    <h1 class="gold-text">Team Balancer</h1>
+    <p class="lead">Tick who is bowling tonight, then let the scale split them into Cholan and Pandiyan by average. Tap any player to move them across; the scale tips to show which side is heavier.</p>
+  </div></div>
+  <section>
+    <div class="wrap tb" id="tb">
+      <div>
+        <p class="tb-step">Rate players by</p>
+        <div class="filters" id="tb-mode" role="group" aria-label="Rate players by">
+          <button type="button" class="chip" data-m="season" aria-pressed="true">Season average</button>
+          <button type="button" class="chip" data-m="form" aria-pressed="false">Recent form</button>
+        </div>
+        <p class="tb-note" id="tb-mode-note"></p>
+      </div>
+
+      <div class="tb-strip" aria-live="polite">
+        <div class="s k"><span>Cholan</span><b id="tb-k">0.0</b></div>
+        <div class="tb-gap" id="tb-gap">Pick the teams</div>
+        <div class="s t"><span>Pandiyan</span><b id="tb-t">0.0</b></div>
+      </div>
+
+      <svg class="tb-scale" id="tb-scale" viewBox="0 0 400 190" role="img" aria-label="Balance scale">
+        <defs><linearGradient id="tb-brass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset=".55" stop-color="#f0b43a"/><stop offset="1" stop-color="#a8690c"/></linearGradient></defs>
+        <path d="M150 182h100l-14-14h-72z" fill="url(#tb-brass)" stroke="#8a5a06" stroke-width="1.2"/>
+        <rect x="195" y="44" width="10" height="126" rx="3" fill="url(#tb-brass)" stroke="#8a5a06" stroke-width="1.2"/>
+        <g class="beam" id="tb-beam" style="transform-origin:200px 44px">
+          <rect x="62" y="40" width="276" height="8" rx="4" fill="url(#tb-brass)" stroke="#8a5a06" stroke-width="1.2"/>
+        </g>
+        <g class="pan" id="tb-pan-k">
+          <path d="M70 48 L36 118 M70 48 L104 118" stroke="#8a5a06" stroke-width="1.4"/>
+          <path d="M28 118h84a42 16 0 0 1-84 0z" fill="#a01318" stroke="#5a0a0d" stroke-width="1.2"/>
+          <text x="70" y="148" text-anchor="middle" font-size="15" fill="#a01318" id="tb-pk">0</text>
+        </g>
+        <g class="pan" id="tb-pan-t">
+          <path d="M330 48 L296 118 M330 48 L364 118" stroke="#8a5a06" stroke-width="1.4"/>
+          <path d="M288 118h84a42 16 0 0 1-84 0z" fill="#17603a" stroke="#0b3d1f" stroke-width="1.2"/>
+          <text x="330" y="148" text-anchor="middle" font-size="15" fill="#17603a" id="tb-pt">0</text>
+        </g>
+        <circle cx="200" cy="44" r="9" fill="url(#tb-brass)" stroke="#8a5a06" stroke-width="1.2"/>
+      </svg>
+
+      <div class="tb-bar">
+        <button type="button" class="btn" id="tb-auto">Auto-balance</button>
+        <button type="button" class="btn ghost" id="tb-copy">Copy teams</button>
+        <span class="sp"></span>
+        <button type="button" class="btn ghost" id="tb-clear">Clear teams</button>
+      </div>
+      <p class="tb-note" id="tb-auto-note">Auto-balance splits tonight's players into two equal sides with the smallest gap. Press it again for another split that is just as close. Lock a player (the padlock) to keep them on their side, for example the captains.</p>
+      <textarea class="tb-copy" id="tb-copy-box" readonly hidden aria-label="Teams to copy"></textarea>
+
+      <div class="tb-teams">
+        <div class="tb-team k"><h3>Cholan <small id="tb-kn"></small></h3><div class="tb-list" id="tb-list-k"></div><button type="button" class="tb-addb" data-blind="k">+ Blind / dummy</button></div>
+        <div class="tb-team t"><h3>Pandiyan <small id="tb-tn"></small></h3><div class="tb-list" id="tb-list-t"></div><button type="button" class="tb-addb" data-blind="t">+ Blind / dummy</button></div>
+      </div>
+
+      <div id="tb-bench-wrap">
+        <p class="tb-step">Not picked yet</p>
+        <div class="tb-bench" id="tb-bench"></div>
+      </div>
+
+      <div>
+        <p class="tb-step">Who is bowling tonight?</p>
+        <div class="tb-roster" id="tb-roster"></div>
+        <form class="tb-guest" id="tb-guest">
+          <input name="n" placeholder="New or guest player" aria-label="Player name" maxlength="24">
+          <input name="v" type="number" inputmode="decimal" min="40" max="300" step="0.1" placeholder="Average" aria-label="Their average">
+          <button type="submit" class="chip">Add player</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
 <!-- ───────── VIRTUAL MEDALS (on the site but not linked yet: open with #virtual-medals) ───────── -->
 <div class="page" data-page="virtual-medals" hidden>
   <iframe class="emb-page" data-emb="emb-vm" title="Kingpins Virtual Medals"></iframe>
@@ -1792,7 +1939,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals"];
+  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -2496,6 +2643,184 @@ section{padding-block:clamp(48px,7vw,88px)}
       b.addEventListener("keydown",function(e){ if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ var n=tabs[(k+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length]; pick(n); n.focus(); } });
     });
   })();
+
+  /* ── team balancer (#team-balancer, not linked from the menu) ──
+     Rates each bowler from GAMES: blinds count as bowled for the team (BLINDS floor per game).
+     "Recent form" counts games from the last 3 league weeks twice. */
+  (function(){
+    var root=document.getElementById("tb"); if(!root) return;
+    var KEY="rb-team-balancer", FORM_WEEKS=3, DUMMY=130;
+    var st={mode:"season", present:null, side:{}, lock:{}, adj:{}, guests:[], dummies:[], seq:0};
+    try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved) for(var k in saved) st[k]=saved[k]; }catch(e){}
+    function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+    var lastBlinds=BLINDS[lastWeek]||{};
+    /* per-bowler ratings */
+    var RATE={};
+    (function(){
+      var by={};
+      GAMES.forEach(function(r){ (by[r.n]=by[r.n]||[]).push(r); });
+      Object.keys(by).forEach(function(n){
+        var s=0,c=0,fs=0,fc=0;
+        by[n].forEach(function(r){
+          var b=(BLINDS[r.w]||{})[n], v=b?Math.max(r.s,b):r.s, w=r.w>lastWeek-FORM_WEEKS?2:1;
+          s+=v; c++; fs+=v*w; fc+=w;
+        });
+        RATE[n]={season:s/c, form:fs/fc, games:c};
+      });
+    })();
+    var NAMES=Object.keys(RATE).sort(function(a,b){ return RATE[b].season-RATE[a].season; });
+    if(!st.present){ st.present={}; var lt=TEAMS[lastWeek]||{kings:[],titans:[]}; lt.kings.concat(lt.titans).forEach(function(n){ if(RATE[n]) st.present[n]=1; }); }
+    function guest(n){ for(var i=0;i<st.guests.length;i++) if(st.guests[i].n===n) return st.guests[i]; return null; }
+    function dummy(id){ for(var i=0;i<st.dummies.length;i++) if(st.dummies[i].id===id) return st.dummies[i]; return null; }
+    function base(id){
+      var d=dummy(id); if(d) return d.v;
+      var g=guest(id); if(g) return g.v;
+      return RATE[id]?RATE[id][st.mode]:0;
+    }
+    function adjustable(id){ return !!dummy(id) || !!lastBlinds[id]; }
+    function val(id){ return base(id)+(adjustable(id)?(st.adj[id]||0):0); }
+    function label(id){ var d=dummy(id); return d?d.n:id; }
+    function present(){ return NAMES.concat(st.guests.map(function(g){return g.n;})).filter(function(n){ return st.present[n]; }); }
+    function onSide(s){ return present().concat(st.dummies.map(function(d){return d.id;})).filter(function(id){ return st.side[id]===s; }); }
+    function total(list){ return list.reduce(function(a,id){ return a+val(id); },0); }
+    function F(v){ return A(v); }
+    function signed(v){ return (v>0?"+":v<0?"−":"±")+Math.abs(v); }
+
+    var ICON_LOCK='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+    function card(id,s){
+      var d=dummy(id), r=RATE[id], g=guest(id), a=st.adj[id]||0, info;
+      if(d) info='blind score';
+      else if(g) info='guest average';
+      else info=r.games+' game'+(r.games>1?'s':'')+(lastBlinds[id]?' · <em>'+lastBlinds[id]+' blind</em>':'');
+      var adj=adjustable(id)?'<div class="tb-adj"><button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):signed(a))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button></div>':'';
+      var other=s==="k"?"Pandiyan":"Cholan";
+      return '<div class="tb-card'+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
+        '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Move to '+other+'"><b>'+esc(label(id))+'</b><span>'+F(val(id))+' · '+info+'</span></button>'+
+        (d?'':'<button type="button" class="tb-ic" data-lock="'+esc(id)+'" aria-pressed="'+(st.lock[id]?'true':'false')+'" aria-label="Lock '+esc(label(id))+' on this side">'+ICON_LOCK+'</button>')+
+        '<button type="button" class="tb-ic" data-out="'+esc(id)+'" aria-label="'+(d?'Remove blind':'Take '+esc(id)+' off the team')+'">×</button></div>'+adj+'</div>';
+    }
+    function draw(){
+      [].forEach.call(document.querySelectorAll("#tb-mode .chip"),function(b){ b.setAttribute("aria-pressed",b.dataset.m===st.mode?"true":"false"); });
+      document.getElementById("tb-mode-note").textContent=st.mode==="season"
+        ?"Every game this season counts the same. Blind bowlers count at least their blind score in each game, as in the team totals."
+        :"Games from the last "+FORM_WEEKS+" weeks (weeks "+Math.max(1,lastWeek-FORM_WEEKS+1)+"–"+lastWeek+") count twice, so a bowler who is improving is rated higher.";
+      var K=onSide("k"), T=onSide("t"), tk=total(K), tt=total(T), gap=Math.floor(Math.abs(tk-tt)*10+1e-9)/10;
+      ["k","t"].forEach(function(s){
+        var L=s==="k"?K:T;
+        L.sort(function(a,b){ return val(b)-val(a); });
+        document.getElementById("tb-list-"+s).innerHTML=L.length?L.map(function(id){ return card(id,s); }).join(""):'<p class="tb-empty">No one yet.</p>';
+        document.getElementById("tb-"+s+"n").textContent=L.length?L.length+" bowler"+(L.length>1?"s":"")+" · avg "+F((s==="k"?tk:tt)/L.length):"";
+      });
+      document.getElementById("tb-k").textContent=F(tk);
+      document.getElementById("tb-t").textContent=F(tt);
+      document.getElementById("tb-pk").textContent=F(tk);
+      document.getElementById("tb-pt").textContent=F(tt);
+      var g=document.getElementById("tb-gap"), msg;
+      if(!K.length&&!T.length) msg="Pick the teams";
+      else if(gap<1) msg="Balanced";
+      else msg=(tk>tt?"Cholan":"Pandiyan")+" +"+gap.toFixed(1);
+      if(K.length&&T.length&&K.length!==T.length) msg+=" · "+K.length+" v "+T.length;
+      g.textContent=msg; g.classList.toggle("ok",(K.length||T.length)&&gap<1&&K.length===T.length);
+      /* tilt: heavier side goes down, up to 14 degrees */
+      var ang=Math.max(-14,Math.min(14,(tt-tk)*0.7)), rad=ang*Math.PI/180;
+      document.getElementById("tb-beam").style.transform="rotate("+ang+"deg)";
+      var dx=130-130*Math.cos(rad), dy=130*Math.sin(rad);
+      document.getElementById("tb-pan-k").style.transform="translate("+dx+"px,"+(-dy)+"px)";
+      document.getElementById("tb-pan-t").style.transform="translate("+(-dx)+"px,"+dy+"px)";
+      /* bench */
+      var bench=present().filter(function(n){ return !st.side[n]; });
+      document.getElementById("tb-bench-wrap").hidden=!bench.length;
+      document.getElementById("tb-bench").innerHTML=bench.sort(function(a,b){return val(b)-val(a);}).map(function(n){
+        var r=RATE[n];
+        return '<div class="tb-card"><div class="tb-row"><div class="tb-mv"><b>'+esc(n)+'</b><span>'+F(val(n))+' · '+(r?r.games+' game'+(r.games>1?'s':''):'guest average')+'</span></div>'+
+          '<button type="button" class="tb-go k" data-to="k" data-id="'+esc(n)+'">Cholan</button><button type="button" class="tb-go t" data-to="t" data-id="'+esc(n)+'">Pandiyan</button></div></div>';
+      }).join("");
+      /* roster */
+      document.getElementById("tb-roster").innerHTML=NAMES.concat(st.guests.map(function(g){return g.n;})).map(function(n){
+        return '<label><input type="checkbox" data-here="'+esc(n)+'"'+(st.present[n]?' checked':'')+'>'+esc(n)+' <small>'+F(val(n))+'</small></label>';
+      }).join("");
+      save();
+    }
+
+    /* auto-balance: try every equal split (locked players stay put), keep the closest ones */
+    var options=[], optAt=0, optSig="", optIds=[];
+    function autoBalance(){
+      var ids=present().concat(st.dummies.map(function(d){return d.id;}));
+      if(ids.length<2){ document.getElementById("tb-auto-note").textContent="Tick at least two bowlers first."; return; }
+      if(ids.length%2){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); ids.push(nd.id); }
+      var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.adj);
+      if(sig!==optSig){
+        optSig=sig; optAt=0; options=[];
+        var n=ids.length, half=n/2, v=ids.map(val), all=v.reduce(function(a,b){return a+b;},0), best=[];
+        var mustK=0, mustT=0;
+        ids.forEach(function(id,i){ if(st.lock[id]&&st.side[id]==="k") mustK|=1<<i; if(st.lock[id]&&st.side[id]==="t") mustT|=1<<i; });
+        if(n<=20){
+          for(var m=0;m<(1<<n);m++){
+            if((m&mustK)!==mustK||(m&mustT)) continue;
+            var c=0,s=0; for(var i=0;i<n;i++) if(m>>i&1){ c++; s+=v[i]; }
+            if(c!==half) continue;
+            best.push({m:m,g:Math.abs(2*s-all)});
+          }
+        } else {
+          /* big group: greedy, strongest first onto the lighter side */
+          var order=ids.map(function(id,i){return i;}).sort(function(a,b){return v[b]-v[a];}), m2=mustK, sk=0, st2=0, ck=0, ct=0;
+          order.forEach(function(i){ if(mustK>>i&1){sk+=v[i];ck++;} else if(mustT>>i&1){st2+=v[i];ct++;} });
+          order.forEach(function(i){ if((mustK|mustT)>>i&1) return; if((sk<=st2&&ck<half)||ct>=half){ m2|=1<<i; sk+=v[i]; ck++; } else { st2+=v[i]; ct++; } });
+          best.push({m:m2,g:Math.abs(sk-st2)});
+        }
+        if(!best.length){ document.getElementById("tb-auto-note").textContent="Too many players are locked on one side to make equal teams. Unlock someone and try again."; return; }
+        best.sort(function(a,b){return a.g-b.g;});
+        var lim=best[0].g+1; /* within 1 pin of the best split */
+        options=best.filter(function(o){ return o.g<=lim; }).slice(0,40);
+        /* shuffle the near-equal options so repeat presses vary */
+        for(var j=options.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)), t=options[j]; options[j]=options[r]; options[r]=t; }
+        options.sort(function(a,b){ return Math.round(a.g*2)-Math.round(b.g*2); });
+        optIds=ids;
+      }
+      var o=options[optAt%options.length]; optAt++;
+      optIds.forEach(function(id,i){ st.side[id]=(o.m>>i&1)?"k":"t"; });
+      document.getElementById("tb-auto-note").textContent=options.length>1
+        ?"Split "+(((optAt-1)%options.length)+1)+" of "+options.length+" that are within a pin of the best. Press Auto-balance again for another."
+        :"This is the closest possible split.";
+      draw();
+    }
+
+    root.addEventListener("click",function(e){
+      var b=e.target.closest("button"); if(!b||!root.contains(b)) return;
+      if(b.dataset.m){ st.mode=b.dataset.m; optSig=""; draw(); return; }
+      if(b.dataset.adj){ var id=b.dataset.id, d=dummy(id); if(d) d.v=Math.max(0,d.v+ +b.dataset.adj); else st.adj[id]=(st.adj[id]||0)+ +b.dataset.adj; draw(); return; }
+      if(b.dataset.move){ var m=b.dataset.move; st.side[m]=st.side[m]==="k"?"t":"k"; delete st.lock[m]; draw(); return; }
+      if(b.dataset.lock){ var l=b.dataset.lock; if(st.lock[l]) delete st.lock[l]; else st.lock[l]=1; draw(); return; }
+      if(b.dataset.out){ var o=b.dataset.out; if(dummy(o)){ st.dummies=st.dummies.filter(function(x){return x.id!==o;}); } delete st.side[o]; delete st.lock[o]; draw(); return; }
+      if(b.dataset.to){ st.side[b.dataset.id]=b.dataset.to; draw(); return; }
+      if(b.dataset.blind){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); st.side[nd.id]=b.dataset.blind; draw(); return; }
+      if(b.id==="tb-auto"){ autoBalance(); return; }
+      if(b.id==="tb-clear"){ st.side={}; st.lock={}; st.dummies=[]; optSig=""; document.getElementById("tb-copy-box").hidden=true; draw(); return; }
+      if(b.id==="tb-copy"){
+        var K=onSide("k"), T=onSide("t"), tk=total(K), tt=total(T), gap=Math.floor(Math.abs(tk-tt)*10+1e-9)/10;
+        function line(L){ return L.sort(function(a,c){return val(c)-val(a);}).map(function(id){ return label(id)+" "+F(val(id)); }).join(", "); }
+        var txt="Cholan ("+F(tk)+"): "+line(K)+"\nPandiyan ("+F(tt)+"): "+line(T)+"\n"+(gap<1?"Balanced":(tk>tt?"Cholan":"Pandiyan")+" +"+gap.toFixed(1))+" on "+(st.mode==="season"?"season averages":"recent form");
+        var box=document.getElementById("tb-copy-box"); box.value=txt; box.hidden=false;
+        try{ navigator.clipboard.writeText(txt).then(function(){ b.textContent="Copied"; setTimeout(function(){ b.textContent="Copy teams"; },1600); },function(){ box.select(); }); }catch(err){ box.select(); }
+        return;
+      }
+    });
+    root.addEventListener("change",function(e){
+      var n=e.target.dataset&&e.target.dataset.here; if(!n) return;
+      if(e.target.checked) st.present[n]=1; else { delete st.present[n]; delete st.side[n]; delete st.lock[n]; }
+      draw();
+    });
+    document.getElementById("tb-guest").addEventListener("submit",function(e){
+      e.preventDefault();
+      var f=e.target, n=f.n.value.trim().slice(0,24), v=parseFloat(f.v.value);
+      if(!n||!(v>0)){ (n?f.v:f.n).focus(); return; }
+      if(RATE[n]||guest(n)){ st.present[n]=1; }
+      else { st.guests.push({n:n,v:v}); st.present[n]=1; }
+      f.reset(); draw();
+    });
+    draw();
+  })();
+
 
   show(location.hash.slice(1),false);
 })();
