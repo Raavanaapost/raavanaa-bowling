@@ -604,6 +604,27 @@ section{padding-block:clamp(48px,7vw,88px)}
   .tb-strip{top:calc(env(safe-area-inset-top,0px) + 64px);padding:8px 10px;gap:6px}
   .tb-gap{font-size:.88rem;padding:5px 8px}
 }
+.tb-pairs{display:grid;grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);gap:6px;align-items:stretch}
+.tb-ph{font:900 1.2rem/1.1 var(--display);padding:8px 10px;border-top:5px solid var(--chol);background:var(--chol-bg);color:var(--chol);display:flex;flex-direction:column;gap:2px}
+.tb-ph.t{border-top-color:var(--pand);background:var(--pand-bg);color:var(--pand);text-align:right}
+.tb-ph.m{border-top-color:var(--gold);background:var(--alley-2);color:var(--muted);font:700 .8rem/1.2 var(--label);letter-spacing:.12em;text-transform:uppercase;align-items:center;justify-content:center}
+.tb-ph small{font:600 .85rem/1.2 var(--body);color:var(--muted)}
+.tb-card.k{border-left:4px solid var(--chol)}.tb-card.t{border-right:4px solid var(--pand)}
+.tb-ics{display:flex;flex:none}
+.tb-mv strong{color:var(--pin);font-weight:700}
+.tb-slot{display:grid;place-items:center;min-height:52px;padding:6px;border:1px dashed var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+.tb-pm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 .82rem/1.15 var(--label);text-align:center;font-variant-numeric:tabular-nums}
+.tb-pm b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#1a1005;font-size:.85rem}
+.tb-pm .k{color:var(--chol)}.tb-pm .t{color:var(--pand)}.tb-pm .eq{color:var(--muted)}
+.tb-blinds{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+@media (max-width:560px){
+  .tb-pairs{grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:5px}
+  .tb-ph{font-size:1rem;padding:6px}
+  .tb-ics{flex-direction:column}
+  .tb-ics .tb-ic{flex:1;min-height:26px;border-bottom:1px solid var(--line)}
+  .tb-mv span{font-size:.8rem}
+  .tb-pm{font-size:.72rem}
+}
 /* cholan vs pandiyan */
 .clash-title::after{display:none}
 .season{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(10px,3vw,30px);padding:clamp(18px,3vw,28px);border:2px solid var(--gold);background:linear-gradient(90deg,rgba(160,19,24,.10),var(--alley-2) 35%,var(--alley-2) 65%,rgba(31,122,66,.12));margin-bottom:22px}
@@ -1806,7 +1827,7 @@ section{padding-block:clamp(48px,7vw,88px)}
   <div class="page-title"><div class="wrap">
     <p class="label">Raavanaa League · Pick the sides</p>
     <h1 class="gold-text">Team Balancer</h1>
-    <p class="lead">Tick who is bowling tonight, then let the scale split them into Cholan and Pandiyan by average. Tap any player to move them across; the scale tips to show which side is heavier.</p>
+    <p class="lead">Tick who is bowling tonight, then let the scale split them into Cholan and Pandiyan by average. Players line up in pairs, best against best. Tap a player to swap that pair across; the scale tips to show which side is heavier.</p>
   </div></div>
   <section>
     <div class="wrap tb" id="tb">
@@ -1851,13 +1872,11 @@ section{padding-block:clamp(48px,7vw,88px)}
         <span class="sp"></span>
         <button type="button" class="btn ghost" id="tb-clear">Clear teams</button>
       </div>
-      <p class="tb-note" id="tb-auto-note">Auto-balance splits tonight's players into two equal sides with the smallest gap. Press it again for another split that is just as close. Lock a player (the padlock) to keep them on their side, for example the captains.</p>
+      <p class="tb-note" id="tb-auto-note">Auto-balance splits tonight's players into two equal sides with the smallest gap, and lines them up in pairs of close averages. Press it again for another split that is just as close. Lock a player (the padlock) to keep them on their side, for example the captains.</p>
       <textarea class="tb-copy" id="tb-copy-box" readonly hidden aria-label="Teams to copy"></textarea>
 
-      <div class="tb-teams">
-        <div class="tb-team k"><h3>Cholan <small id="tb-kn"></small></h3><div class="tb-list" id="tb-list-k"></div><button type="button" class="tb-addb" data-blind="k">+ Blind / dummy</button></div>
-        <div class="tb-team t"><h3>Pandiyan <small id="tb-tn"></small></h3><div class="tb-list" id="tb-list-t"></div><button type="button" class="tb-addb" data-blind="t">+ Blind / dummy</button></div>
-      </div>
+      <div class="tb-pairs" id="tb-pairs"></div>
+      <div class="tb-blinds"><button type="button" class="tb-addb" data-blind="k">+ Blind for Cholan</button><button type="button" class="tb-addb" data-blind="t">+ Blind for Pandiyan</button></div>
 
       <div id="tb-bench-wrap">
         <p class="tb-step">Not picked yet</p>
@@ -2646,15 +2665,15 @@ section{padding-block:clamp(48px,7vw,88px)}
 
   /* ── team balancer (#team-balancer, not linked from the menu) ──
      Rates each bowler from GAMES: blinds count as bowled for the team (BLINDS floor per game).
-     "Recent form" counts games from the last 3 league weeks twice. */
+     "Recent form" counts games from the last 3 league weeks twice.
+     Teams are shown as pairs: row 1 Cholan v row 1 Pandiyan, and so on. Rows stay in the order picked. */
   (function(){
     var root=document.getElementById("tb"); if(!root) return;
-    var KEY="rb-team-balancer", FORM_WEEKS=3, DUMMY=130;
-    var st={mode:"season", present:null, side:{}, lock:{}, adj:{}, guests:[], dummies:[], seq:0};
+    var KEY="rb-team-balancer-2", FORM_WEEKS=3, DUMMY=130;
+    var st={mode:"season", present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0};
     try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved) for(var k in saved) st[k]=saved[k]; }catch(e){}
     function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
     var lastBlinds=BLINDS[lastWeek]||{};
-    /* per-bowler ratings */
     var RATE={};
     (function(){
       var by={};
@@ -2672,45 +2691,56 @@ section{padding-block:clamp(48px,7vw,88px)}
     if(!st.present){ st.present={}; var lt=TEAMS[lastWeek]||{kings:[],titans:[]}; lt.kings.concat(lt.titans).forEach(function(n){ if(RATE[n]) st.present[n]=1; }); }
     function guest(n){ for(var i=0;i<st.guests.length;i++) if(st.guests[i].n===n) return st.guests[i]; return null; }
     function dummy(id){ for(var i=0;i<st.dummies.length;i++) if(st.dummies[i].id===id) return st.dummies[i]; return null; }
-    function base(id){
-      var d=dummy(id); if(d) return d.v;
-      var g=guest(id); if(g) return g.v;
-      return RATE[id]?RATE[id][st.mode]:0;
-    }
+    function base(id){ var d=dummy(id); if(d) return d.v; var g=guest(id); if(g) return g.v; return RATE[id]?RATE[id][st.mode]:0; }
     function adjustable(id){ return !!dummy(id) || !!lastBlinds[id]; }
     function val(id){ return base(id)+(adjustable(id)?(st.adj[id]||0):0); }
     function label(id){ var d=dummy(id); return d?d.n:id; }
     function present(){ return NAMES.concat(st.guests.map(function(g){return g.n;})).filter(function(n){ return st.present[n]; }); }
-    function onSide(s){ return present().concat(st.dummies.map(function(d){return d.id;})).filter(function(id){ return st.side[id]===s; }); }
-    function total(list){ return list.reduce(function(a,id){ return a+val(id); },0); }
     function F(v){ return A(v); }
+    function cut(v){ return Math.floor(Math.abs(v)*10+1e-9)/10; }
     function signed(v){ return (v>0?"+":v<0?"−":"±")+Math.abs(v); }
+    /* rows of pairs */
+    function where(id){ for(var i=0;i<st.rows.length;i++){ if(st.rows[i].k===id) return {i:i,s:"k"}; if(st.rows[i].t===id) return {i:i,s:"t"}; } return null; }
+    function tidy(){ st.rows=st.rows.filter(function(r){ return r.k||r.t; }); }
+    function take(id){ var w=where(id); if(w) st.rows[w.i][w.s]=null; delete st.lock[id]; if(dummy(id)) st.dummies=st.dummies.filter(function(x){return x.id!==id;}); tidy(); }
+    function place(id,s){
+      var w=where(id); if(w) st.rows[w.i][w.s]=null;
+      for(var i=0;i<st.rows.length;i++) if(!st.rows[i][s]){ st.rows[i][s]=id; tidy(); return; }
+      var r={k:null,t:null}; r[s]=id; st.rows.push(r); tidy();
+    }
+    function side(s){ return st.rows.map(function(r){return r[s];}).filter(Boolean); }
+    function total(list){ return list.reduce(function(a,id){ return a+val(id); },0); }
+    /* drop anyone no longer ticked */
+    (function(){ var here={}; present().forEach(function(n){here[n]=1;}); st.dummies.forEach(function(d){here[d.id]=1;});
+      st.rows.forEach(function(r){ if(r.k&&!here[r.k]) r.k=null; if(r.t&&!here[r.t]) r.t=null; }); tidy(); })();
 
     var ICON_LOCK='<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
     function card(id,s){
+      if(!id) return '<div class="tb-slot '+s+'">Pick a '+(s==="k"?"Cholan":"Pandiyan")+' bowler</div>';
       var d=dummy(id), r=RATE[id], g=guest(id), a=st.adj[id]||0, info;
-      if(d) info='blind score';
-      else if(g) info='guest average';
-      else info=r.games+' game'+(r.games>1?'s':'')+(lastBlinds[id]?' · <em>'+lastBlinds[id]+' blind</em>':'');
+      if(d) info='blind';
+      else if(g) info='guest';
+      else info=r.games+' g'+(lastBlinds[id]?' · <em>'+lastBlinds[id]+' blind</em>':'');
       var adj=adjustable(id)?'<div class="tb-adj"><button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):signed(a))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button></div>':'';
-      var other=s==="k"?"Pandiyan":"Cholan";
-      return '<div class="tb-card'+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
-        '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Move to '+other+'"><b>'+esc(label(id))+'</b><span>'+F(val(id))+' · '+info+'</span></button>'+
-        (d?'':'<button type="button" class="tb-ic" data-lock="'+esc(id)+'" aria-pressed="'+(st.lock[id]?'true':'false')+'" aria-label="Lock '+esc(label(id))+' on this side">'+ICON_LOCK+'</button>')+
-        '<button type="button" class="tb-ic" data-out="'+esc(id)+'" aria-label="'+(d?'Remove blind':'Take '+esc(id)+' off the team')+'">×</button></div>'+adj+'</div>';
+      return '<div class="tb-card '+s+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
+        '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Swap this pair"><b>'+esc(label(id))+'</b><span><strong>'+F(val(id))+'</strong> · '+info+'</span></button>'+
+        '<span class="tb-ics">'+(d?'':'<button type="button" class="tb-ic" data-lock="'+esc(id)+'" aria-pressed="'+(st.lock[id]?'true':'false')+'" aria-label="Lock '+esc(label(id))+' on this side">'+ICON_LOCK+'</button>')+
+        '<button type="button" class="tb-ic" data-out="'+esc(id)+'" aria-label="'+(d?'Remove blind':'Take '+esc(id)+' off the team')+'">×</button></span></div>'+adj+'</div>';
     }
     function draw(){
       [].forEach.call(document.querySelectorAll("#tb-mode .chip"),function(b){ b.setAttribute("aria-pressed",b.dataset.m===st.mode?"true":"false"); });
       document.getElementById("tb-mode-note").textContent=st.mode==="season"
         ?"Every game this season counts the same. Blind bowlers count at least their blind score in each game, as in the team totals."
         :"Games from the last "+FORM_WEEKS+" weeks (weeks "+Math.max(1,lastWeek-FORM_WEEKS+1)+"–"+lastWeek+") count twice, so a bowler who is improving is rated higher.";
-      var K=onSide("k"), T=onSide("t"), tk=total(K), tt=total(T), gap=Math.floor(Math.abs(tk-tt)*10+1e-9)/10;
-      ["k","t"].forEach(function(s){
-        var L=s==="k"?K:T;
-        L.sort(function(a,b){ return val(b)-val(a); });
-        document.getElementById("tb-list-"+s).innerHTML=L.length?L.map(function(id){ return card(id,s); }).join(""):'<p class="tb-empty">No one yet.</p>';
-        document.getElementById("tb-"+s+"n").textContent=L.length?L.length+" bowler"+(L.length>1?"s":"")+" · avg "+F((s==="k"?tk:tt)/L.length):"";
+      var K=side("k"), T=side("t"), tk=total(K), tt=total(T), gap=cut(tk-tt);
+      var html='<div class="tb-ph k">Cholan<small>'+(K.length?K.length+' · avg '+F(tk/K.length):'')+'</small></div><div class="tb-ph m">Pair</div><div class="tb-ph t">Pandiyan<small>'+(T.length?T.length+' · avg '+F(tt/T.length):'')+'</small></div>';
+      st.rows.forEach(function(r,i){
+        var mid='<b>'+(i+1)+'</b>';
+        if(r.k&&r.t){ var dv=val(r.k)-val(r.t), c=cut(dv); mid+='<span class="'+(c<1?'eq':dv>0?'k':'t')+'">'+(c<1?'even':(dv>0?'◂ ':'')+c.toFixed(1)+(dv<0?' ▸':''))+'</span>'; }
+        html+=card(r.k,"k")+'<div class="tb-pm">'+mid+'</div>'+card(r.t,"t");
       });
+      if(!st.rows.length) html+='<p class="tb-empty" style="grid-column:1/-1">No pairs yet. Press Auto-balance, or pick players below.</p>';
+      document.getElementById("tb-pairs").innerHTML=html;
       document.getElementById("tb-k").textContent=F(tk);
       document.getElementById("tb-t").textContent=F(tt);
       document.getElementById("tb-pk").textContent=F(tk);
@@ -2720,67 +2750,67 @@ section{padding-block:clamp(48px,7vw,88px)}
       else if(gap<1) msg="Balanced";
       else msg=(tk>tt?"Cholan":"Pandiyan")+" +"+gap.toFixed(1);
       if(K.length&&T.length&&K.length!==T.length) msg+=" · "+K.length+" v "+T.length;
-      g.textContent=msg; g.classList.toggle("ok",(K.length||T.length)&&gap<1&&K.length===T.length);
-      /* tilt: heavier side goes down, up to 14 degrees */
+      g.textContent=msg; g.classList.toggle("ok",!!(K.length||T.length)&&gap<1&&K.length===T.length);
       var ang=Math.max(-14,Math.min(14,(tt-tk)*0.7)), rad=ang*Math.PI/180;
       document.getElementById("tb-beam").style.transform="rotate("+ang+"deg)";
       var dx=130-130*Math.cos(rad), dy=130*Math.sin(rad);
       document.getElementById("tb-pan-k").style.transform="translate("+dx+"px,"+(-dy)+"px)";
       document.getElementById("tb-pan-t").style.transform="translate("+(-dx)+"px,"+dy+"px)";
-      /* bench */
-      var bench=present().filter(function(n){ return !st.side[n]; });
+      var bench=present().filter(function(n){ return !where(n); });
       document.getElementById("tb-bench-wrap").hidden=!bench.length;
       document.getElementById("tb-bench").innerHTML=bench.sort(function(a,b){return val(b)-val(a);}).map(function(n){
         var r=RATE[n];
-        return '<div class="tb-card"><div class="tb-row"><div class="tb-mv"><b>'+esc(n)+'</b><span>'+F(val(n))+' · '+(r?r.games+' game'+(r.games>1?'s':''):'guest average')+'</span></div>'+
+        return '<div class="tb-card"><div class="tb-row"><div class="tb-mv"><b>'+esc(n)+'</b><span><strong>'+F(val(n))+'</strong> · '+(r?r.games+' games':'guest')+'</span></div>'+
           '<button type="button" class="tb-go k" data-to="k" data-id="'+esc(n)+'">Cholan</button><button type="button" class="tb-go t" data-to="t" data-id="'+esc(n)+'">Pandiyan</button></div></div>';
       }).join("");
-      /* roster */
       document.getElementById("tb-roster").innerHTML=NAMES.concat(st.guests.map(function(g){return g.n;})).map(function(n){
         return '<label><input type="checkbox" data-here="'+esc(n)+'"'+(st.present[n]?' checked':'')+'>'+esc(n)+' <small>'+F(val(n))+'</small></label>';
       }).join("");
       save();
     }
 
-    /* auto-balance: try every equal split (locked players stay put), keep the closest ones */
+    /* auto-balance: try every equal split (locked players stay on their side), keep those within a pin
+       of the closest, and prefer the ones whose pairs (best v best, next v next) are closest */
     var options=[], optAt=0, optSig="", optIds=[];
+    function pairsOf(m,ids){
+      var k=[],t=[]; ids.forEach(function(id,i){ ((m>>i)&1?k:t).push(id); });
+      function by(a,b){ return val(b)-val(a); } k.sort(by); t.sort(by);
+      var cost=0; k.forEach(function(id,i){ cost+=Math.abs(val(id)-val(t[i])); });
+      return {k:k,t:t,cost:cost};
+    }
     function autoBalance(){
+      var note=document.getElementById("tb-auto-note");
       var ids=present().concat(st.dummies.map(function(d){return d.id;}));
-      if(ids.length<2){ document.getElementById("tb-auto-note").textContent="Tick at least two bowlers first."; return; }
+      if(ids.length<2){ note.textContent="Tick at least two bowlers first."; return; }
       if(ids.length%2){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); ids.push(nd.id); }
       var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.adj);
       if(sig!==optSig){
-        optSig=sig; optAt=0; options=[];
-        var n=ids.length, half=n/2, v=ids.map(val), all=v.reduce(function(a,b){return a+b;},0), best=[];
-        var mustK=0, mustT=0;
-        ids.forEach(function(id,i){ if(st.lock[id]&&st.side[id]==="k") mustK|=1<<i; if(st.lock[id]&&st.side[id]==="t") mustT|=1<<i; });
+        optSig=sig; optAt=0; options=[]; optIds=ids;
+        var n=ids.length, half=n/2, v=ids.map(val), all=v.reduce(function(a,b){return a+b;},0), found=[], mustK=0, mustT=0;
+        ids.forEach(function(id,i){ var w=where(id); if(st.lock[id]&&w){ if(w.s==="k") mustK|=1<<i; else mustT|=1<<i; } });
         if(n<=20){
           for(var m=0;m<(1<<n);m++){
             if((m&mustK)!==mustK||(m&mustT)) continue;
             var c=0,s=0; for(var i=0;i<n;i++) if(m>>i&1){ c++; s+=v[i]; }
             if(c!==half) continue;
-            best.push({m:m,g:Math.abs(2*s-all)});
+            found.push({m:m,g:Math.abs(2*s-all)});
           }
         } else {
-          /* big group: greedy, strongest first onto the lighter side */
-          var order=ids.map(function(id,i){return i;}).sort(function(a,b){return v[b]-v[a];}), m2=mustK, sk=0, st2=0, ck=0, ct=0;
-          order.forEach(function(i){ if(mustK>>i&1){sk+=v[i];ck++;} else if(mustT>>i&1){st2+=v[i];ct++;} });
-          order.forEach(function(i){ if((mustK|mustT)>>i&1) return; if((sk<=st2&&ck<half)||ct>=half){ m2|=1<<i; sk+=v[i]; ck++; } else { st2+=v[i]; ct++; } });
-          best.push({m:m2,g:Math.abs(sk-st2)});
+          var order=ids.map(function(id,i){return i;}).sort(function(a,b){return v[b]-v[a];}), m2=mustK, sk=0, s2=0, ck=0, ct=0;
+          order.forEach(function(i){ if(mustK>>i&1){sk+=v[i];ck++;} else if(mustT>>i&1){s2+=v[i];ct++;} });
+          order.forEach(function(i){ if((mustK|mustT)>>i&1) return; if((sk<=s2&&ck<half)||ct>=half){ m2|=1<<i; sk+=v[i]; ck++; } else { s2+=v[i]; ct++; } });
+          found.push({m:m2,g:Math.abs(sk-s2)});
         }
-        if(!best.length){ document.getElementById("tb-auto-note").textContent="Too many players are locked on one side to make equal teams. Unlock someone and try again."; return; }
-        best.sort(function(a,b){return a.g-b.g;});
-        var lim=best[0].g+1; /* within 1 pin of the best split */
-        options=best.filter(function(o){ return o.g<=lim; }).slice(0,40);
-        /* shuffle the near-equal options so repeat presses vary */
-        for(var j=options.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)), t=options[j]; options[j]=options[r]; options[r]=t; }
-        options.sort(function(a,b){ return Math.round(a.g*2)-Math.round(b.g*2); });
-        optIds=ids;
+        if(!found.length){ note.textContent="Too many players are locked on one side to make equal teams. Unlock someone and try again."; return; }
+        var best=Math.min.apply(null,found.map(function(o){return o.g;}));
+        options=found.filter(function(o){ return o.g<=best+1; }).map(function(o){ var p=pairsOf(o.m,ids); p.g=o.g; return p; });
+        options.sort(function(a,b){ return a.cost-b.cost||a.g-b.g; });
+        options=options.slice(0,30);
       }
       var o=options[optAt%options.length]; optAt++;
-      optIds.forEach(function(id,i){ st.side[id]=(o.m>>i&1)?"k":"t"; });
-      document.getElementById("tb-auto-note").textContent=options.length>1
-        ?"Split "+(((optAt-1)%options.length)+1)+" of "+options.length+" that are within a pin of the best. Press Auto-balance again for another."
+      var locks=st.lock; st.rows=o.k.map(function(id,i){ return {k:id,t:o.t[i]}; }); st.lock=locks;
+      note.textContent=options.length>1
+        ?"Option "+(((optAt-1)%options.length)+1)+" of "+options.length+" within a pin of the best, closest pairs first. Press Auto-balance again for another."
         :"This is the closest possible split.";
       draw();
     }
@@ -2789,17 +2819,17 @@ section{padding-block:clamp(48px,7vw,88px)}
       var b=e.target.closest("button"); if(!b||!root.contains(b)) return;
       if(b.dataset.m){ st.mode=b.dataset.m; optSig=""; draw(); return; }
       if(b.dataset.adj){ var id=b.dataset.id, d=dummy(id); if(d) d.v=Math.max(0,d.v+ +b.dataset.adj); else st.adj[id]=(st.adj[id]||0)+ +b.dataset.adj; draw(); return; }
-      if(b.dataset.move){ var m=b.dataset.move; st.side[m]=st.side[m]==="k"?"t":"k"; delete st.lock[m]; draw(); return; }
+      if(b.dataset.move){ var w=where(b.dataset.move); if(w){ var r=st.rows[w.i], x=r.k; r.k=r.t; r.t=x; delete st.lock[r.k]; delete st.lock[r.t]; } draw(); return; }
       if(b.dataset.lock){ var l=b.dataset.lock; if(st.lock[l]) delete st.lock[l]; else st.lock[l]=1; draw(); return; }
-      if(b.dataset.out){ var o=b.dataset.out; if(dummy(o)){ st.dummies=st.dummies.filter(function(x){return x.id!==o;}); } delete st.side[o]; delete st.lock[o]; draw(); return; }
-      if(b.dataset.to){ st.side[b.dataset.id]=b.dataset.to; draw(); return; }
-      if(b.dataset.blind){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); st.side[nd.id]=b.dataset.blind; draw(); return; }
+      if(b.dataset.out){ take(b.dataset.out); draw(); return; }
+      if(b.dataset.to){ place(b.dataset.id,b.dataset.to); draw(); return; }
+      if(b.dataset.blind){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); place(nd.id,b.dataset.blind); draw(); return; }
       if(b.id==="tb-auto"){ autoBalance(); return; }
-      if(b.id==="tb-clear"){ st.side={}; st.lock={}; st.dummies=[]; optSig=""; document.getElementById("tb-copy-box").hidden=true; draw(); return; }
+      if(b.id==="tb-clear"){ st.rows=[]; st.lock={}; st.dummies=[]; optSig=""; document.getElementById("tb-copy-box").hidden=true; draw(); return; }
       if(b.id==="tb-copy"){
-        var K=onSide("k"), T=onSide("t"), tk=total(K), tt=total(T), gap=Math.floor(Math.abs(tk-tt)*10+1e-9)/10;
-        function line(L){ return L.sort(function(a,c){return val(c)-val(a);}).map(function(id){ return label(id)+" "+F(val(id)); }).join(", "); }
-        var txt="Cholan ("+F(tk)+"): "+line(K)+"\nPandiyan ("+F(tt)+"): "+line(T)+"\n"+(gap<1?"Balanced":(tk>tt?"Cholan":"Pandiyan")+" +"+gap.toFixed(1))+" on "+(st.mode==="season"?"season averages":"recent form");
+        var K=side("k"), T=side("t"), tk=total(K), tt=total(T), gap=cut(tk-tt);
+        function nm(id){ return id?label(id)+" "+F(val(id)):"(open)"; }
+        var txt="Cholan "+F(tk)+" v Pandiyan "+F(tt)+"\n"+st.rows.map(function(r,i){ return (i+1)+". "+nm(r.k)+"  v  "+nm(r.t); }).join("\n")+"\n"+(gap<1?"Balanced":(tk>tt?"Cholan":"Pandiyan")+" +"+gap.toFixed(1))+" on "+(st.mode==="season"?"season averages":"recent form");
         var box=document.getElementById("tb-copy-box"); box.value=txt; box.hidden=false;
         try{ navigator.clipboard.writeText(txt).then(function(){ b.textContent="Copied"; setTimeout(function(){ b.textContent="Copy teams"; },1600); },function(){ box.select(); }); }catch(err){ box.select(); }
         return;
@@ -2807,21 +2837,18 @@ section{padding-block:clamp(48px,7vw,88px)}
     });
     root.addEventListener("change",function(e){
       var n=e.target.dataset&&e.target.dataset.here; if(!n) return;
-      if(e.target.checked) st.present[n]=1; else { delete st.present[n]; delete st.side[n]; delete st.lock[n]; }
+      if(e.target.checked) st.present[n]=1; else { delete st.present[n]; take(n); }
       draw();
     });
     document.getElementById("tb-guest").addEventListener("submit",function(e){
       e.preventDefault();
       var f=e.target, n=f.n.value.trim().slice(0,24), v=parseFloat(f.v.value);
       if(!n||!(v>0)){ (n?f.v:f.n).focus(); return; }
-      if(RATE[n]||guest(n)){ st.present[n]=1; }
-      else { st.guests.push({n:n,v:v}); st.present[n]=1; }
-      f.reset(); draw();
+      if(!RATE[n]&&!guest(n)) st.guests.push({n:n,v:v});
+      st.present[n]=1; f.reset(); draw();
     });
     draw();
   })();
-
-
   show(location.hash.slice(1),false);
 })();
 </script>
