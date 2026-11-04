@@ -2687,7 +2687,7 @@ section{padding-block:clamp(48px,7vw,88px)}
      Teams are shown as pairs: row 1 Cholan v row 1 Pandiyan, and so on. Rows stay in the order picked. */
   (function(){
     var root=document.getElementById("tb"); if(!root) return;
-    var KEY="rb-team-balancer-2", FORM_WEEKS=3, DUMMY=130;
+    var KEY="rb-team-balancer-2", FORM_WEEKS=3, DUMMY=130, PAIR_GAP=15;
     var st={mode:"season", present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0};
     try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved) for(var k in saved) st[k]=saved[k]; }catch(e){}
     function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
@@ -2721,10 +2721,16 @@ section{padding-block:clamp(48px,7vw,88px)}
     function where(id){ for(var i=0;i<st.rows.length;i++){ if(st.rows[i].k===id) return {i:i,s:"k"}; if(st.rows[i].t===id) return {i:i,s:"t"}; } return null; }
     function tidy(){ st.rows=st.rows.filter(function(r){ return r.k||r.t; }); }
     function take(id){ var w=where(id); if(w) st.rows[w.i][w.s]=null; delete st.lock[id]; if(dummy(id)) st.dummies=st.dummies.filter(function(x){return x.id!==id;}); tidy(); }
+    /* a picked player goes into the open pair whose opponent has the closest average (within PAIR_GAP pins);
+       otherwise a new pair is added in average order (strongest pairs on top) */
     function place(id,s){
-      var w=where(id); if(w) st.rows[w.i][w.s]=null;
-      for(var i=0;i<st.rows.length;i++) if(!st.rows[i][s]){ st.rows[i][s]=id; tidy(); return; }
-      var r={k:null,t:null}; r[s]=id; st.rows.push(r); tidy();
+      var w=where(id); if(w) st.rows[w.i][w.s]=null; tidy();
+      var o=s==="k"?"t":"k", v=val(id), best=-1, bd=1e9;
+      st.rows.forEach(function(r,i){ if(!r[s]&&r[o]){ var d=Math.abs(val(r[o])-v); if(d<bd){ bd=d; best=i; } } });
+      if(best>=0&&bd<=PAIR_GAP){ st.rows[best][s]=id; return; }
+      var r={k:null,t:null}; r[s]=id;
+      for(var i=0;i<st.rows.length;i++){ var q=st.rows[i], rv=Math.max(q.k?val(q.k):0,q.t?val(q.t):0); if(v>rv){ st.rows.splice(i,0,r); return; } }
+      st.rows.push(r);
     }
     function side(s){ return st.rows.map(function(r){return r[s];}).filter(Boolean); }
     function total(list){ return list.reduce(function(a,id){ return a+val(id); },0); }
