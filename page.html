@@ -2724,7 +2724,23 @@ section{padding-block:clamp(48px,7vw,88px)}
       var K=[],T=[], by=function(a,b){ return val(b)-val(a); };
       st.rows.forEach(function(r){ if(r.k) K.push(r.k); if(r.t) T.push(r.t); });
       K.sort(by); T.sort(by); st.rows=[];
-      for(var i=0;i<Math.max(K.length,T.length);i++) st.rows.push({k:K[i]||null,t:T[i]||null});
+      /* line up the two sorted lists so each pair is as close as possible; when one side has
+         more players, the extra ones get their own row at the level of their average */
+      var n=K.length, m=T.length, BIG=1e6, D=[], P=[], i, j;
+      for(i=0;i<=n;i++){ D.push([]); P.push([]); for(j=0;j<=m;j++){
+        if(!i&&!j){ D[i][j]=0; continue; }
+        var best=Infinity, how=0;
+        if(i&&j){ var c=D[i-1][j-1]+Math.abs(val(K[i-1])-val(T[j-1])); if(c<best){ best=c; how=1; } }
+        if(i){ var c2=D[i-1][j]+BIG; if(c2<best){ best=c2; how=2; } }
+        if(j){ var c3=D[i][j-1]+BIG; if(c3<best){ best=c3; how=3; } }
+        D[i][j]=best; P[i][j]=how;
+      } }
+      i=n; j=m; var out=[];
+      while(i||j){ var h2=P[i][j];
+        if(h2===1){ out.push({k:K[i-1],t:T[j-1]}); i--; j--; }
+        else if(h2===2){ out.push({k:K[i-1],t:null}); i--; }
+        else { out.push({k:null,t:T[j-1]}); j--; } }
+      st.rows=out.reverse();
     }
     function take(id){ var w=where(id); if(w) st.rows[w.i][w.s]=null; delete st.lock[id]; if(dummy(id)) st.dummies=st.dummies.filter(function(x){return x.id!==id;}); tidy(); }
     function place(id,s){
