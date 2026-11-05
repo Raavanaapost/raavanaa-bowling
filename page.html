@@ -1846,8 +1846,8 @@ section{padding-block:clamp(48px,7vw,88px)}
       <div>
         <p class="tb-step">Rate players by</p>
         <div class="filters" id="tb-mode" role="group" aria-label="Rate players by">
-          <button type="button" class="chip" data-m="season" aria-pressed="true">Season average</button>
-          <button type="button" class="chip" data-m="form" aria-pressed="false">Recent form</button>
+          <button type="button" class="chip" data-m="form" aria-pressed="true">Recent form</button>
+          <button type="button" class="chip" data-m="season" aria-pressed="false">Season average</button>
         </div>
         <p class="tb-note" id="tb-mode-note"></p>
       </div>
@@ -2683,13 +2683,13 @@ section{padding-block:clamp(48px,7vw,88px)}
 
   /* ── team balancer (#team-balancer, not linked from the menu) ──
      Rates each bowler from GAMES: blinds count as bowled for the team (BLINDS floor per game).
-     "Recent form" counts games from the last 3 league weeks twice.
+     "Recent form" (the default) counts games from the last 4 league weeks twice.
      Teams are shown as pairs: row 1 Cholan v row 1 Pandiyan, and so on. Rows stay in the order picked. */
   (function(){
     var root=document.getElementById("tb"); if(!root) return;
-    var KEY="rb-team-balancer-2", FORM_WEEKS=3, DUMMY=130;
-    var st={mode:"season", present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0};
-    try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved) for(var k in saved) st[k]=saved[k]; }catch(e){}
+    var KEY="rb-team-balancer-2", FORM_WEEKS=4, DUMMY=130;
+    var st={mode:"form", formDefault:1, present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0};
+    try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved){ for(var k in saved) st[k]=saved[k]; if(!saved.formDefault){ st.mode="form"; st.formDefault=1; } } }catch(e){}
     function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
     var lastBlinds=BLINDS[lastWeek]||{};
     var RATE={};
@@ -2770,7 +2770,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       [].forEach.call(document.querySelectorAll("#tb-mode .chip"),function(b){ b.setAttribute("aria-pressed",b.dataset.m===st.mode?"true":"false"); });
       document.getElementById("tb-mode-note").textContent=st.mode==="season"
         ?"Every game this season counts the same. Blind bowlers count at least their blind score in each game, as in the team totals."
-        :"Games from the last "+FORM_WEEKS+" weeks (weeks "+Math.max(1,lastWeek-FORM_WEEKS+1)+"–"+lastWeek+") count twice, so a bowler who is improving is rated higher.";
+        :"Games from the last "+FORM_WEEKS+" weeks (weeks "+Math.max(1,lastWeek-FORM_WEEKS+1)+"–"+lastWeek+") count twice and older weeks once, so a bowler who is improving is rated higher."+(lastWeek<=FORM_WEEKS?" Until week "+(FORM_WEEKS+1)+" is played this is the same as the season average.":"");
       tidy();
       var K=side("k"), T=side("t"), tk=total(K), tt=total(T), gap=cut(cut(tk)-cut(tt));
       var html='<div class="tb-ph k">Cholan<small>'+(K.length?K.length+' · avg '+F(tk/K.length):'')+'</small></div><div class="tb-ph m">Pair</div><div class="tb-ph t">Pandiyan<small>'+(T.length?T.length+' · avg '+F(tt/T.length):'')+'</small></div>';
