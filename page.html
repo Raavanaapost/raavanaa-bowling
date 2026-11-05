@@ -576,7 +576,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 .tb-adj{display:flex;align-items:center;gap:4px;padding:0 10px 8px}
 .tb-adj button{width:30px;height:30px;border:1px solid var(--gold-deep);background:#fff;color:var(--pin);font:700 1.05rem/1 var(--body);cursor:pointer}
 .tb-adj button:hover{background:var(--alley-3)}
-.tb-adj output{min-width:46px;text-align:center;font:700 .9rem/1 var(--label);color:var(--ink-accent)}
+.tb-adj output{min-width:74px;text-align:center;font:700 .9rem/1 var(--label);color:var(--ink-accent)}
 .tb-addb{align-self:flex-start;border:1px dashed var(--gold-deep);background:transparent;color:var(--ink-accent);font:700 .85rem/1 var(--label);letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;cursor:pointer}
 .tb-addb:hover{background:#fff}
 .tb-bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
@@ -2702,16 +2702,22 @@ section{padding-block:clamp(48px,7vw,88px)}
           var b=(BLINDS[r.w]||{})[n], v=b?Math.max(r.s,b):r.s, w=r.w>lastWeek-FORM_WEEKS?2:1;
           s+=v; c++; fs+=v*w; fc+=w;
         });
-        RATE[n]={season:s/c, form:fs/fc, games:c};
+        RATE[n]={season:s/c, form:fs/fc, games:c, list:by[n]};
       });
     })();
     var NAMES=Object.keys(RATE).sort(function(a,b){ return RATE[b].season-RATE[a].season; });
     if(!st.present){ st.present={}; var lt=TEAMS[lastWeek]||{kings:[],titans:[]}; lt.kings.concat(lt.titans).forEach(function(n){ if(RATE[n]) st.present[n]=1; }); }
     function guest(n){ for(var i=0;i<st.guests.length;i++) if(st.guests[i].n===n) return st.guests[i]; return null; }
     function dummy(id){ for(var i=0;i<st.dummies.length;i++) if(st.dummies[i].id===id) return st.dummies[i]; return null; }
-    function base(id){ var d=dummy(id); if(d) return d.v; var g=guest(id); if(g) return g.v; return RATE[id]?RATE[id][st.mode]:0; }
+    /* a blind player's blind can be changed here; their rating is then worked out with that blind on every game */
+    function blindOf(id){ return lastBlinds[id]?(st.blind&&st.blind[id]!=null?st.blind[id]:lastBlinds[id]):null; }
+    function base(id){
+      var d=dummy(id); if(d) return d.v; var g=guest(id); if(g) return g.v; var r=RATE[id]; if(!r) return 0;
+      var B=blindOf(id); if(B===null||B===lastBlinds[id]) return r[st.mode];
+      var s=0,c=0; r.list.forEach(function(x){ var w=st.mode==="form"&&x.w>lastWeek-FORM_WEEKS?2:1; s+=Math.max(x.s,B)*w; c+=w; }); return s/c;
+    }
     function adjustable(id){ return !!dummy(id) || !!lastBlinds[id]; }
-    function val(id){ return base(id)+(adjustable(id)?(st.adj[id]||0):0); }
+    function val(id){ return base(id); }
     function label(id){ var d=dummy(id); return d?d.n:id; }
     function present(){ return NAMES.concat(st.guests.map(function(g){return g.n;})).filter(function(n){ return st.present[n]; }); }
     function F(v){ return A(v); }
@@ -2759,8 +2765,8 @@ section{padding-block:clamp(48px,7vw,88px)}
       var d=dummy(id), r=RATE[id], g=guest(id), a=st.adj[id]||0, info;
       if(d) info='blind';
       else if(g) info='guest';
-      else info=r.games+' g'+(lastBlinds[id]?' · <em>'+lastBlinds[id]+' blind</em>':'');
-      var adj=adjustable(id)?'<div class="tb-adj"><button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):signed(a))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button></div>':'';
+      else info=r.games+' g';
+      var adj=adjustable(id)?'<div class="tb-adj"><button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):'blind '+blindOf(id))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button></div>':'';
       return '<div class="tb-card '+s+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
         '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Swap this pair"><b>'+esc(label(id))+'</b><span><strong>'+F(val(id))+'</strong> · '+info+'</span></button>'+
         '<span class="tb-ics">'+(d?'':'<button type="button" class="tb-ic" data-lock="'+esc(id)+'" aria-pressed="'+(st.lock[id]?'true':'false')+'" aria-label="Lock '+esc(label(id))+' on this side">'+ICON_LOCK+'</button>')+
@@ -2823,7 +2829,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var ids=present().concat(st.dummies.map(function(d){return d.id;}));
       if(ids.length<2){ note.textContent="Tick at least two bowlers first."; return; }
       if(ids.length%2){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); ids.push(nd.id); }
-      var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.adj);
+      var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.blind||{});
       if(sig!==optSig){
         optSig=sig; optAt=0; options=[]; optIds=ids;
         var n=ids.length, half=n/2, v=ids.map(val), all=v.reduce(function(a,b){return a+b;},0), found=[], mustK=0, mustT=0;
@@ -2858,7 +2864,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     root.addEventListener("click",function(e){
       var b=e.target.closest("button"); if(!b||!root.contains(b)) return;
       if(b.dataset.m){ st.mode=b.dataset.m; optSig=""; draw(); return; }
-      if(b.dataset.adj){ var id=b.dataset.id, d=dummy(id); if(d) d.v=Math.max(0,d.v+ +b.dataset.adj); else st.adj[id]=(st.adj[id]||0)+ +b.dataset.adj; draw(); return; }
+      if(b.dataset.adj){ var id=b.dataset.id, d=dummy(id); if(d) d.v=Math.max(0,d.v+ +b.dataset.adj); else { st.blind=st.blind||{}; st.blind[id]=Math.max(0,Math.min(300,blindOf(id)+ +b.dataset.adj)); } draw(); return; }
       if(b.dataset.move){ var w=where(b.dataset.move); if(w){ var r=st.rows[w.i], x=r.k; r.k=r.t; r.t=x; delete st.lock[r.k]; delete st.lock[r.t]; } draw(); return; }
       if(b.dataset.lock){ var l=b.dataset.lock; if(st.lock[l]) delete st.lock[l]; else st.lock[l]=1; draw(); return; }
       if(b.dataset.out){ take(b.dataset.out); draw(); return; }
