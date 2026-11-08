@@ -2034,7 +2034,7 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* ── league scores ──
      One line per game, read from the lane screens. n = name, s = score,
      x = strikes, sp = spares (every X and / on the card, 10th frame included). */
-  var WEEKS={1:"Saturday, October 10, 2026",2:"Saturday, October 17, 2026",3:"Saturday, October 24, 2026",4:"Saturday, October 31, 2026"};
+  var WEEKS={1:"Saturday, October 10, 2026",2:"Saturday, October 17, 2026",3:"Saturday, October 24, 2026",4:"Saturday, October 31, 2026",5:"Sunday, November 8, 2026"};
   var GAMES=[
     {w:1,g:1,n:"Thilak",s:112,x:2,sp:2},
     {w:1,g:1,n:"Sab",s:159,x:3,sp:4},
@@ -2323,11 +2323,29 @@ section{padding-block:clamp(48px,7vw,88px)}
     {w:4,g:6,n:"Mon",s:91,x:0,sp:1},
     {w:4,g:6,n:"Thil",s:99,x:1,sp:1},
     {w:4,g:6,n:"Bala",s:168,x:2,sp:5},
-    {w:4,g:6,n:"May",s:165,x:3,sp:4}
+    {w:4,g:6,n:"May",s:165,x:3,sp:4},
+    {w:5,g:1,n:"SPG",s:183,x:6,sp:3},
+    {w:5,g:1,n:"Rub",s:192,x:5,sp:4},
+    {w:5,g:1,n:"Skr",s:156,x:1,sp:6},
+    {w:5,g:1,n:"May",s:160,x:2,sp:5},
+    {w:5,g:1,n:"Sasi",s:128,x:3,sp:2},
+    {w:5,g:1,n:"Tila",s:93,x:1,sp:1},
+    {w:5,g:1,n:"Har",s:236,x:7,sp:5},
+    {w:5,g:1,n:"Niz",s:137,x:1,sp:4},
+    {w:5,g:1,n:"Sure",s:113,x:0,sp:3},
+    {w:5,g:1,n:"Nis",s:172,x:3,sp:5},
+    {w:5,g:1,n:"Nvk",s:208,x:6,sp:4},
+    {w:5,g:1,n:"Kiri",s:92,x:0,sp:3},
+    {w:5,g:1,n:"Ros",s:178,x:2,sp:7},
+    {w:5,g:1,n:"Nay",s:129,x:3,sp:2},
+    {w:5,g:1,n:"Mon",s:223,x:6,sp:4},
+    {w:5,g:2,n:"Sure",s:156,x:3,sp:4},
+    {w:5,g:2,n:"Nis",s:174,x:4,sp:4},
+    {w:5,g:2,n:"NVK",s:234,x:8,sp:2}
   ];
   /* league members, and the short names the lane screens use for them */
   var MEMBERS=["Sabes","Roshan","Niz","Ram","Shankar","Sasi","Bala","Myooran","Mona","Thilak","Sanjay","Haran"];
-  var SCREEN={Sab:"Sabes",Ros:"Roshan",May:"Myooran",Mon:"Mona",Skr:"Shankar",Thil:"Thilak",Tila:"Thilak",Spg:"Sanjay",SPG:"Sanjay",Nay:"Ram",Sure:"Suresh",Har:"Haran",Tilk:"Thilak",Thli:"Thilak",Srk:"Shankar",Rub:"Ruban"};
+  var SCREEN={Sab:"Sabes",Ros:"Roshan",May:"Myooran",Mon:"Mona",Skr:"Shankar",Thil:"Thilak",Tila:"Thilak",Spg:"Sanjay",SPG:"Sanjay",Nay:"Ram",Sure:"Suresh",Har:"Haran",Tilk:"Thilak",Thli:"Thilak",Srk:"Shankar",Rub:"Ruban",Nis:"Nishanthan",Nvk:"Sachi",NVK:"Sachi"};
   GAMES.forEach(function(r){ r.n=SCREEN[r.n]||r.n; });
   /* Cholan (kings key) vs Pandiyan (titans key): who played for which team each week (screen names are fine here).
      The page shows team totals only; names stay out of it. */
