@@ -2400,7 +2400,9 @@ section{padding-block:clamp(48px,7vw,88px)}
         series:series.length?Math.max.apply(null,series):0, x:sum(gs.map(function(r){return r.x;})), sp:sum(gs.map(function(r){return r.sp;}))};
     });
   }
-  var ALL=bowlers(0), lastWeek=Math.max.apply(null,GAMES.map(function(r){return r.w;}));
+  /* guests: their games stay in the weekly records, but they are left out of season averages and season tables (SURESH, 8 Nov 2026) */
+  var NO_SEASON=["Sachi","Nishanthan"];
+  var EVERY=bowlers(0), ALL=EVERY.filter(function(p){return NO_SEASON.indexOf(p.n)<0;}), lastWeek=Math.max.apply(null,GAMES.map(function(r){return r.w;}));
   /* averages show one decimal, cut off rather than rounded up (172.67 shows as 172.6) */
   function A(v){ return (Math.floor(v*10+1e-9)/10).toFixed(1); }
   function initials(n){ var w=String(n).trim().split(/\s+/); return (w.length>1?w[0][0]+w[1][0]:n.slice(0,2)).toUpperCase(); }
@@ -2521,7 +2523,7 @@ section{padding-block:clamp(48px,7vw,88px)}
           '<div>'+spark+'<p class="pf-cap"><span>Every game so far</span><span>Best '+p.high+'</span></p></div>'+
           (badges.length?'<div class="pf-badges">'+badges.join("")+'</div>':'')+'</div></article>';
       }).join("");
-      var names=MEMBERS.concat(ALL.map(function(p){return p.n;}).filter(function(n){return MEMBERS.indexOf(n)<0;}));
+      var names=MEMBERS.concat(EVERY.map(function(p){return p.n;}).filter(function(n){return MEMBERS.indexOf(n)<0;}));
       names.sort(function(a,b){ var A=byName[a],B=byName[b]; if(A&&B) return B[key]-A[key]||B.avg-A.avg; if(A) return -1; if(B) return 1; return a.localeCompare(b); });
       document.getElementById("crew").innerHTML=names.map(function(n){
         var p=byName[n], rank=p?ranked.indexOf(p)+1:0;
