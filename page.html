@@ -625,6 +625,24 @@ section{padding-block:clamp(48px,7vw,88px)}
   .tb-mv span{font-size:.8rem}
   .tb-pm{font-size:.72rem}
 }
+/* winnings bank */
+.wn{--chol:#a01318;--pand:#17603a;--up:#17603a;--down:#a01318;display:flex;flex-direction:column;gap:clamp(30px,4vw,46px)}
+.wn-rule{border:1px solid var(--line);background:var(--alley-2);padding:16px 18px;max-width:760px}
+.wn-h{font:700 .82rem/1 var(--label);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-accent);margin-bottom:10px}
+.wn-rule ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;line-height:1.5}
+.wn-c{text-align:center;margin:-6px 0 16px}
+.wn-t td.up{color:var(--up);font-weight:700}.wn-t td.down{color:var(--down);font-weight:700}.wn-t td.zero{color:var(--muted)}
+.wn-t td.k,.wn-t th.k{color:var(--chol)}.wn-t td.t,.wn-t th.t{color:var(--pand)}
+.wn-t tfoot td{font-weight:700;background:var(--alley-3);border-bottom:0}
+.wn-t td.bal{font-size:1.08rem}
+.wn-t td.off{color:var(--muted);font-size:.85rem}
+.wn-games{display:flex;flex-direction:column;gap:8px;margin:16px 0 22px}
+.wn-g{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;border:1px solid var(--line);background:var(--alley-2);padding:11px 14px}
+.wn-g .n{font:700 .82rem/1 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wn-g .r{font-weight:700}.wn-g .r.k{color:var(--chol)}.wn-g .r.t{color:var(--pand)}
+.wn-g .m{grid-column:2;color:var(--muted);font-size:.95rem;line-height:1.45}
+.wn-sum{text-align:center;margin:0 0 14px;line-height:1.5}
+@media (max-width:560px){.wn-t .gcol{display:none}}
 .tb-arch{display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .tb-arch details{border:1px solid var(--line);background:var(--alley-2)}
 .tb-arch summary{cursor:pointer;padding:12px 14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font:700 1.02rem/1.3 var(--body)}
@@ -1922,6 +1940,40 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
+<!-- ───────── WINNINGS BANK (not linked from the menu: open with #winnings) ───────── -->
+<div class="page" data-page="winnings" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Raavanaa League · $2 a game</p>
+    <h1 class="gold-text">Winnings Bank</h1>
+    <p class="lead">Every game has $2 riding on it. When a team loses a game, each of its bowlers pays $2 into the pot and the pot is shared out to the winning team. The money stays in the bank until the season ends.</p>
+  </div></div>
+  <section>
+    <div class="wrap wn">
+      <div class="wn-rule">
+        <p class="wn-h">How it works</p>
+        <ul>
+          <li>With 8 a side, the losing team puts in 8 × $2 = <b>$16</b> and each of the 8 winners gets <b>$2</b>. With 6 a side it is 6 × $2 = $12, still $2 each.</li>
+          <li>If a team is a bowler short for a game (a dummy in the slot), the dummy doesn't pay or collect. That team's full pot is shared by the 7 real bowlers: $16 ÷ 7 = $2.29 each.</li>
+          <li>A tied game moves no money. Games are decided on team totals with the 130 blind score, the same as on the Cholan v Pandiyan page.</li>
+          <li>Nobody pays on the night. The balances add up week by week and are settled at the end of the season.</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Season Balance</p><span class="orn"></span></div>
+        <p class="court-note wn-c" id="wn-season-note"></p>
+        <div class="table-scroll"><table class="data wn-t" id="wn-season"><thead></thead><tbody></tbody><tfoot></tfoot></table></div>
+      </div>
+
+      <div>
+        <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Week by Week</p><span class="orn"></span></div>
+        <div class="filters" id="wn-weeks" role="group" aria-label="Choose a league night"></div>
+        <div id="wn-week"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
 <!-- ───────── VIRTUAL MEDALS (on the site but not linked yet: open with #virtual-medals) ───────── -->
 <div class="page" data-page="virtual-medals" hidden>
   <iframe class="emb-page" data-emb="emb-vm" title="Kingpins Virtual Medals"></iframe>
@@ -1984,7 +2036,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer"];
+  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer","winnings"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -3033,6 +3085,62 @@ section{padding-block:clamp(48px,7vw,88px)}
           '<div class="table-scroll"><table><thead><tr><th class="k">Cholan</th><th></th><th class="t">Pandiyan</th></tr></thead><tbody>'+rows+'</tbody></table></div></div></details>';
       }).join("");
     })();
+    draw();
+  })();
+  /* winnings bank: $2 a game. The losing side's pot ($2 x team size) is paid by the bowlers who bowled that game
+     and shared by the winners who bowled it, so a dummy slot never pays or collects (SURESH, 9 Nov 2026) */
+  (function(){
+    var STAKE=2, weeks=Object.keys(TEAMS).map(Number).filter(function(w){ return GAMES.some(function(r){return r.w===w;}); }).sort(function(a,b){return a-b;});
+    function money(v,sign){ var c=Math.round(v*100); if(c===0) return "$0"; var s=(Math.abs(c)/100).toFixed(2); return (c<0?"−":sign?"+":"")+"$"+s; }
+    function cls(v){ var c=Math.round(v*100); return c>0?"up":c<0?"down":"zero"; }
+    function night(w){
+      var tm=TEAMS[w], bl=BLINDS[w]||{}, size=Math.max(tm.kings.length,tm.titans.length), bal={}, games=[];
+      tm.kings.concat(tm.titans).forEach(function(n){ bal[n]={team:tm.kings.indexOf(n)>=0?"k":"t",g:{},sum:0}; });
+      var gs=GAMES.filter(function(r){return r.w===w;}).map(function(r){return r.g;}).filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
+      gs.forEach(function(g){
+        var K=[],T=[],k=0,t=0;
+        GAMES.forEach(function(r){ if(r.w!==w||r.g!==g) return; var s=Math.max(r.s,bl[r.n]||0); if(tm.kings.indexOf(r.n)>=0){ K.push(r.n); k+=s; } else if(tm.titans.indexOf(r.n)>=0){ T.push(r.n); t+=s; } });
+        var win=k>t?"k":t>k?"t":"s", pot=STAKE*size, W=win==="k"?K:T, L=win==="k"?T:K;
+        var x={g:g,k:k,t:t,win:win,pot:pot,kn:K.length,tn:T.length,pay:0,get:0};
+        if(win!=="s"){ x.pay=pot/L.length; x.get=pot/W.length; L.forEach(function(n){ bal[n].g[g]=-x.pay; bal[n].sum-=x.pay; }); W.forEach(function(n){ bal[n].g[g]=x.get; bal[n].sum+=x.get; }); }
+        else { K.concat(T).forEach(function(n){ bal[n].g[g]=0; }); }
+        games.push(x);
+      });
+      return {w:w,games:games,bal:bal,size:size};
+    }
+    var N=weeks.map(night), NAME={k:"Cholan",t:"Pandiyan"};
+    /* season balance */
+    var tot={}; N.forEach(function(n){ Object.keys(n.bal).forEach(function(p){ (tot[p]=tot[p]||{w:{},sum:0}); tot[p].w[n.w]=n.bal[p]; tot[p].sum+=n.bal[p].sum; }); });
+    var names=Object.keys(tot).sort(function(a,b){ return tot[b].sum-tot[a].sum||a.localeCompare(b); });
+    var tb=document.getElementById("wn-season");
+    tb.querySelector("thead").innerHTML='<tr><th class="l">#</th><th class="l">Player</th>'+weeks.map(function(w){return '<th class="gcol">Wk '+w+'</th>';}).join("")+'<th>Balance</th></tr>';
+    tb.querySelector("tbody").innerHTML=names.map(function(p,i){
+      return '<tr><td class="l pos">'+(i+1)+'</td><td class="l"><b>'+esc(p)+'</b></td>'+weeks.map(function(w){ var b=tot[p].w[w]; return b?'<td class="gcol '+b.team+'">'+money(b.sum,true)+'</td>':'<td class="gcol off">–</td>'; }).join("")+'<td class="bal '+cls(tot[p].sum)+'">'+money(tot[p].sum,true)+'</td></tr>';
+    }).join("");
+    var owed=names.reduce(function(a,p){ return a+Math.max(0,tot[p].sum); },0), owe=names.filter(function(p){return Math.round(tot[p].sum*100)<0;}).length, due=names.filter(function(p){return Math.round(tot[p].sum*100)>0;}).length;
+    tb.querySelector("tfoot").innerHTML='<tr><td class="l" colspan="2">To settle</td>'+weeks.map(function(){return '<td class="gcol"></td>';}).join("")+'<td>'+money(owed)+'</td></tr>';
+    document.getElementById("wn-season-note").textContent="After week "+weeks[weeks.length-1]+": "+due+" bowlers are owed money and "+owe+" owe. Plus means the bank owes you, minus means you owe the bank. Week columns are coloured by the team the bowler played for.";
+    /* week by week */
+    var cur=weeks[weeks.length-1];
+    function draw(){
+      document.getElementById("wn-weeks").innerHTML=weeks.map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===cur)+'">Week '+w+'</button>';}).join("");
+      var n=N.filter(function(x){return x.w===cur;})[0], kw=0,tw=0;
+      n.games.forEach(function(x){ if(x.win==="k") kw++; else if(x.win==="t") tw++; });
+      var html='<p class="wn-sum"><b>'+esc(WEEKS[cur]||"")+'</b> · '+n.size+' a side · '+(kw===tw?'Tied '+kw+'–'+tw:NAME[kw>tw?"k":"t"]+' won '+Math.max(kw,tw)+'–'+Math.min(kw,tw))+'</p><div class="wn-games">';
+      n.games.forEach(function(x){
+        if(x.win==="s"){ html+='<div class="wn-g"><span class="n">Game '+x.g+'</span><span class="r">Tie '+x.k+'–'+x.t+'</span><span class="m">No money moves.</span></div>'; return; }
+        var lose=x.win==="k"?"t":"k", ln=lose==="k"?x.kn:x.tn, wn=x.win==="k"?x.kn:x.tn;
+        html+='<div class="wn-g"><span class="n">Game '+x.g+'</span><span class="r '+x.win+'">'+NAME[x.win]+' win '+Math.max(x.k,x.t).toLocaleString("en-CA")+'–'+Math.min(x.k,x.t).toLocaleString("en-CA")+'</span>'+
+          '<span class="m">'+NAME[lose]+' pay '+money(x.pot)+(ln<n.size?' between '+ln+' bowlers (one slot was a dummy), '+money(x.pay)+' each':', '+money(x.pay)+' each')+'. '+NAME[x.win]+' collect '+money(x.get)+' each'+(wn<n.size?' ('+wn+' bowlers, one slot was a dummy)':'')+'.</span></div>';
+      });
+      html+='</div>';
+      var gs=n.games.map(function(x){return x.g;}), ps=Object.keys(n.bal).sort(function(a,b){ return n.bal[b].sum-n.bal[a].sum||(n.bal[a].team<n.bal[b].team?-1:1)||a.localeCompare(b); });
+      html+='<div class="table-scroll"><table class="data wn-t"><thead><tr><th class="l">Player</th><th class="l">Team</th>'+gs.map(function(g){return '<th class="gcol">G'+g+'</th>';}).join("")+'<th>Week</th></tr></thead><tbody>'+
+        ps.map(function(p){ var b=n.bal[p]; return '<tr><td class="l"><b>'+esc(p)+'</b></td><td class="l '+b.team+'">'+NAME[b.team]+'</td>'+gs.map(function(g){ var v=b.g[g]; return v===undefined?'<td class="gcol off">dnb</td>':'<td class="gcol '+cls(v)+'">'+money(v,true)+'</td>'; }).join("")+'<td class="bal '+cls(b.sum)+'">'+money(b.sum,true)+'</td></tr>'; }).join("")+
+        '</tbody></table></div><p class="court-note wn-c" style="margin-top:12px">dnb = did not bowl that game, so no pay and no share.</p>';
+      document.getElementById("wn-week").innerHTML=html;
+    }
+    document.getElementById("wn-weeks").addEventListener("click",function(e){ var b=e.target.closest("[data-w]"); if(!b) return; cur=+b.dataset.w; draw(); });
     draw();
   })();
   show(location.hash.slice(1),false);
