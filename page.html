@@ -1078,6 +1078,47 @@ section{padding-block:clamp(48px,7vw,88px)}
   /* a sentence stays readable even when the page is very wide */
   .g-note,.lead,.md-sub{max-width:112ch}
 }
+/* ── join page (#join, QR sign-up) ── */
+.jn-hero{padding-block:clamp(34px,6vw,72px);background:radial-gradient(60% 80% at 80% 40%,rgba(240,180,58,.42),transparent 70%),radial-gradient(50% 60% at 0% 100%,rgba(160,19,24,.12),transparent 70%);border-bottom:1px solid var(--line)}
+.jn-hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(20px,4vw,48px);align-items:center}
+.jn-title{font-size:clamp(2.2rem,7vw,4.2rem);margin-block:12px 16px}
+.jn-crest{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 16px 26px rgba(70,35,0,.3))}
+@media (max-width:720px){.jn-hero-grid{grid-template-columns:minmax(0,1fr)}.jn-crest{order:-1;max-width:150px}.jn-hero{text-align:center}.jn-hero .lead{margin-inline:auto}.jn-cta{justify-content:center}}
+.jn-cta{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:26px}
+.jn-share-btn{display:inline-flex;align-items:center;gap:12px;padding:0;border:0;background:none;cursor:pointer;font:700 1.05rem/1 var(--body);color:var(--crimson)}
+.jn-share-ring{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:linear-gradient(180deg,#d4262c,#a01318 60%,#6e0b0f);box-shadow:0 0 0 3px var(--alley),0 0 0 5px var(--gold),0 8px 18px rgba(110,11,15,.35);transition:transform .2s}
+.jn-share-btn:hover .jn-share-ring{transform:scale(1.07) rotate(-8deg)}
+.jn-share-ring svg,.jn-share-row svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.jn-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.jn-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.jn-cards{grid-template-columns:minmax(0,1fr)}}
+.jn-cards li{display:flex;flex-direction:column;gap:10px;padding:22px;background:var(--corners),var(--alley-2);border-top:3px solid var(--gold)}
+.jn-cards p{color:var(--muted);font-size:1.02rem;line-height:1.55}
+.jn-over{padding-bottom:0}
+.jn-days{border:0;margin:0;padding:0}
+.jn-days legend{padding:0;margin-bottom:9px;font:700 .86rem/1 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-accent)}
+.jn-days legend span{letter-spacing:.05em;text-transform:none;font-weight:600;color:var(--muted)}
+.jn-chips{display:flex;flex-wrap:wrap;gap:10px}
+.jn-chips label{position:relative;cursor:pointer}
+.jn-chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.jn-chips span{display:inline-flex;align-items:center;min-height:46px;padding:10px 18px;border:1px solid var(--line);background:var(--alley);font:600 1rem/1 var(--body);border-radius:999px;transition:background .15s,border-color .15s}
+.jn-chips input:checked+span{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.jn-chips input:checked+span::before{content:"✓";margin-right:7px}
+.jn-chips input:focus-visible+span{outline:3px solid var(--crimson);outline-offset:2px}
+.jn-sharecard{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;padding:clamp(22px,4vw,34px);background:linear-gradient(160deg,#a01318,#6e0b0f);color:#fff;border:2px solid var(--gold)}
+.jn-sharecard .label{color:var(--gold-hi)}
+.jn-sharecard h2{color:#fff}
+.jn-sharecard>p{color:rgba(255,255,255,.88);max-width:34ch}
+.jn-qr{width:min(220px,70vw);padding:12px;background:#fff;border:3px solid var(--gold)}
+.jn-qr svg{display:block;width:100%;height:auto;background:#fff}
+.jn-share-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+.jn-share-row .btn{min-height:52px;padding-inline:20px}
+@media (max-width:420px){.jn-share-row{gap:9px}.jn-pill{width:48px;height:48px}}
+.jn-share-row .btn svg{stroke:#1a1005}
+.jn-pill{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;padding:0}
+.jn-pill:hover{background:#fff}.jn-pill:hover svg{stroke:var(--crimson)}
+.jn-pill.wa:hover svg{stroke:#128c4b}
+.jn-copied{min-height:1.4em;color:var(--gold-hi);font-weight:600}
 </style>
 
 
@@ -1403,6 +1444,76 @@ section{padding-block:clamp(48px,7vw,88px)}
           <details><summary>When does the club play?</summary><p>We play every weekend, so there is plenty of time to enjoy the sport and socialize.</p></details>
         </div>
       </div>
+    </div>
+  </section>
+</div>
+
+<!-- ───────── JOIN (QR sign-up page, open via #join) ───────── -->
+<div class="page" data-page="join" hidden>
+  <section class="jn-hero">
+    <div class="wrap jn-hero-grid">
+      <div>
+        <p class="label">Raavanaa Bowling Club · Planet Bowl, Etobicoke</p>
+        <h1 class="jn-title"><span class="gold-text">Bowl with the kingdom</span></h1>
+        <p class="lead">Sign up in thirty seconds and we will get in touch about the next league night.</p>
+        <div class="cta-row jn-cta">
+          <button class="btn" type="button" data-jn-go>Sign me up</button>
+          <button class="jn-share-btn" type="button" data-jn-share aria-label="Share this page with a friend">
+            <span class="jn-share-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span>
+            <span>Share with a friend</span>
+          </button>
+        </div>
+      </div>
+      <img class="jn-crest" src="{{RB_ASSETS}}logo.webp" width="820" height="820" alt="Raavanaa Bowling Club crest">
+    </div>
+  </section>
+
+  <section class="jn-over">
+    <div class="wrap">
+      <div class="head"><p class="label">Quick overview</p><h2>Who we are</h2></div>
+      <ul class="jn-cards">
+        <li><svg class="icon" viewBox="0 0 24 24"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 20v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><h3>Friends first</h3><p>We started as friends meeting at the lanes on weekends. More than ten years later we are a close community.</p></li>
+        <li><svg class="icon" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><h3>Planet Bowl</h3><p>Ten-pin at Planet Bowl, 5555 Eglinton Ave W, Etobicoke. Shoes are available to rent.</p></li>
+        <li><svg class="icon" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></svg><h3>Season 1 league</h3><p>Our first official league is under way: Cholan v Pandiyan, with weekly stats and medals.</p></li>
+        <li><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><h3>Every level welcome</h3><p>Bowled for years or picking up a ball for the first time? Experienced players are happy to share tips.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="jn-sign" id="jn-form">
+    <div class="wrap reg">
+      <form class="form" id="jn-form-el" novalidate>
+        <h2>Sign up</h2>
+        <div class="field full"><label for="jn-name">Your name</label><input id="jn-name" name="name" autocomplete="name" required></div>
+        <div class="field full"><label for="jn-email">Email</label><input id="jn-email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+        <div class="field full"><label for="jn-loc">Location</label><input id="jn-loc" name="location" list="jn-areas" autocomplete="address-level2" placeholder="e.g. Scarborough" required>
+          <datalist id="jn-areas"><option>Etobicoke</option><option>Mississauga</option><option>Brampton</option><option>Toronto (downtown)</option><option>North York</option><option>Scarborough</option><option>Markham</option><option>Richmond Hill</option><option>Vaughan</option><option>Ajax / Pickering</option></datalist></div>
+        <fieldset class="field full jn-days"><legend>Best bowling day <span>(pick any)</span></legend>
+          <div class="jn-chips">
+            <label><input type="checkbox" name="day" value="Friday"><span>Fri</span></label>
+            <label><input type="checkbox" name="day" value="Saturday"><span>Sat</span></label>
+            <label><input type="checkbox" name="day" value="Sunday"><span>Sun</span></label>
+            <label><input type="checkbox" name="day" value="Weekday evening"><span>Weekday eve</span></label>
+            <label><input type="checkbox" name="day" value="Any day"><span>Any day</span></label>
+          </div>
+        </fieldset>
+        <p hidden><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <button class="btn" type="submit">Sign me up</button>
+        <p class="form-note" id="jn-note" role="status" hidden></p>
+      </form>
+      <aside class="jn-sharecard">
+        <p class="label">Bring a friend</p>
+        <h2>Share the kingdom</h2>
+        <p>Know someone who would love a night at the lanes? Send them this page, or let them scan the code.</p>
+        <div class="jn-qr"><svg viewBox="-2 -2 37 37" role="img" aria-label="QR code for raavanaabowling.com/#join"><path class="qrline" stroke="#1c1410" d="M0 0.5h7m1 0h3m1 0h3m2 0h3m1 0h1m1 0h2m1 0h7m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h3m2 0h1m2 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h1m2 0h2m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m1 0h1m3 0h4m2 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m2 0h1m1 0h1m1 0h2m1 0h1m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h3m4 0h2m1 0h2m1 0h1m2 0h1m-23 1h3m1 0h1m1 0h2m1 0h2m7 0h1m1 0h6m2 0h3m-32 1h1m1 0h1m3 0h3m3 0h4m2 0h2m2 0h4m2 0h1m2 0h1m-33 1h5m1 0h1m3 0h10m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-32 1h1m3 0h1m2 0h1m1 0h2m1 0h1m7 0h2m1 0h1m2 0h1m2 0h2m1 0h1m-31 1h1m1 0h1m1 0h1m1 0h5m1 0h1m5 0h2m2 0h2m1 0h3m-28 1h1m1 0h1m2 0h1m1 0h2m1 0h1m2 0h2m3 0h1m2 0h1m2 0h1m2 0h1m2 0h1m-29 1h3m1 0h2m2 0h4m2 0h2m2 0h1m1 0h1m1 0h1m1 0h4m-25 1h4m3 0h2m1 0h3m1 0h3m1 0h1m1 0h1m2 0h2m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h2m-29 1h3m1 0h2m2 0h2m4 0h1m1 0h4m1 0h1m1 0h2m1 0h1m5 0h1m-30 1h4m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h2m4 0h2m2 0h2m-28 1h1m2 0h4m1 0h1m1 0h1m3 0h7m1 0h1m1 0h5m-33 1h1m3 0h1m1 0h4m1 0h1m3 0h1m2 0h2m2 0h1m1 0h2m2 0h2m1 0h2m-33 1h1m2 0h1m3 0h2m1 0h1m5 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1m1 0h1m-33 1h1m1 0h2m1 0h3m1 0h1m1 0h1m1 0h7m9 0h3m-32 1h1m2 0h2m4 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m3 0h1m1 0h2m1 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h4m2 0h2m2 0h7m-21 1h5m1 0h1m2 0h2m1 0h2m2 0h1m3 0h5m-33 1h7m2 0h1m1 0h1m1 0h1m1 0h2m2 0h3m1 0h2m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m5 0h1m1 0h5m2 0h1m1 0h2m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h6m1 0h2m2 0h5m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h5m1 0h3m2 0h3m3 0h1m2 0h2m2 0h1m-33 1h1m1 0h3m1 0h1m1 0h5m1 0h1m3 0h1m2 0h3m1 0h2m2 0h1m-30 1h1m5 0h1m2 0h7m1 0h3m7 0h1m2 0h1m-31 1h7m2 0h1m4 0h2m1 0h1m1 0h2m2 0h3m5 0h1"/></svg></div>
+        <div class="jn-share-row">
+          <button class="btn" type="button" data-jn-share><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
+          <a class="jn-pill wa" id="jn-wa" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5l1.3-4.6A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5c0 3.5 2.6 6.5 6.4 6.6l1-1.4-2-1-1 .9c-1.2-.5-2.3-1.6-2.8-2.8l.9-1-1-2-1.4 1z"/></svg></a>
+          <a class="jn-pill" id="jn-mail" aria-label="Share by email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <button class="jn-pill" type="button" id="jn-copy" aria-label="Copy link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+        </div>
+        <p class="jn-copied" id="jn-copied" role="status" aria-live="polite"></p>
+      </aside>
     </div>
   </section>
 </div>
@@ -2036,7 +2147,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer","winnings"];
+  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer","winnings","join"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -2044,7 +2155,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     document.querySelectorAll(".nav a").forEach(function(a){
       if(a.dataset.go===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
-    lane.hidden = name==="registration";
+    lane.hidden = name==="registration" || name==="join";
     head.classList.remove("open"); btn.setAttribute("aria-expanded","false");
     if(scroll) window.scrollTo(0,0);
     if(window.fitNames) fitNames();
@@ -2082,6 +2193,56 @@ section{padding-block:clamp(48px,7vw,88px)}
       })
       .catch(function(){ byEmail(); });
   });
+
+  /* ── join page: share + sign-up ── */
+  (function(){
+    var URL_="https://raavanaabowling.com/#join", TITLE="Raavanaa Bowling Club", TEXT="Come bowl with Raavanaa Bowling Club at Planet Bowl. Sign up here:";
+    var copied=document.getElementById("jn-copied");
+    document.getElementById("jn-wa").href="https://wa.me/?text="+encodeURIComponent(TEXT+" "+URL_);
+    document.getElementById("jn-mail").href="mailto:?subject="+encodeURIComponent("Join me at Raavanaa Bowling")+"&body="+encodeURIComponent(TEXT+"\n"+URL_);
+    function copy(){
+      function done(){ copied.textContent="Link copied. Paste it anywhere to share."; }
+      if(navigator.clipboard) navigator.clipboard.writeText(URL_).then(done,function(){ copied.textContent=URL_; });
+      else copied.textContent=URL_;
+    }
+    document.getElementById("jn-copy").addEventListener("click",copy);
+    document.querySelectorAll("[data-jn-share]").forEach(function(b){
+      b.addEventListener("click",function(){
+        if(navigator.share){ navigator.share({title:TITLE,text:TEXT,url:URL_}).catch(function(){}); }
+        else { copy(); document.getElementById("jn-form").scrollIntoView({behavior:"smooth",block:"start"}); }
+      });
+    });
+    document.querySelectorAll("[data-jn-go]").forEach(function(b){ b.addEventListener("click",function(){ document.getElementById("jn-form").scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(function(){ document.getElementById("jn-name").focus({preventScroll:true}); },500); }); });
+    var f=document.getElementById("jn-form-el"), E=f.elements, note=document.getElementById("jn-note");
+    f.addEventListener("submit",function(e){
+      e.preventDefault();
+      var days=[].map.call(f.querySelectorAll("input[name=day]:checked"),function(i){ return i.value; });
+      var missing=[].filter.call(f.querySelectorAll("input[required]"),function(i){ return !i.value.trim(); });
+      note.hidden=false;
+      if(missing.length){ note.textContent="Please fill in your "+missing.map(function(i){ return i.name; }).join(", ")+"."; missing[0].focus(); return; }
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(E.email.value.trim())){ note.textContent="That email doesn't look right. Please check it."; E.email.focus(); return; }
+      if(!days.length){ note.textContent="Please pick at least one bowling day."; f.querySelector("input[name=day]").focus(); return; }
+      var btn=f.querySelector("button[type=submit]"); btn.disabled=true; note.textContent="Sending...";
+      var name=E.name.value.trim(), parts=name.split(/\s+/), info="Location: "+E.location.value.trim()+" | Bowling day: "+days.join(", ");
+      function byEmail(){
+        var body="New sign-up (QR page)\n\nName: "+name+"\nEmail: "+E.email.value.trim()+"\nLocation: "+E.location.value.trim()+"\nBowling day: "+days.join(", ");
+        location.href="mailto:sure.ganes@gmail.com?subject="+encodeURIComponent("New sign-up: "+name)+"&body="+encodeURIComponent(body);
+        note.textContent="Your email app has opened with your details. Press send to finish signing up."; btn.disabled=false;
+      }
+      var d=new FormData();
+      d.append("action","rb_register"); d.append("first",parts[0]); d.append("last",parts.slice(1).join(" ")||"-");
+      d.append("email",E.email.value.trim()); d.append("phone",info); d.append("website",E.website.value);
+      d.append("location",E.location.value.trim()); d.append("day",days.join(", ")); d.append("source","QR sign-up page");
+      fetch("{{RB_AJAX}}",{method:"POST",body:d})
+        .then(function(r){ return r.ok ? r.json().catch(function(){ return {fallback:true}; }) : {fallback:true}; })
+        .then(function(j){
+          if(j && j.ok){ note.textContent="Thank you, "+parts[0]+"! You're on the list. The club will be in touch soon."; f.reset(); btn.disabled=false; }
+          else if(j && j.error){ note.textContent=j.error; btn.disabled=false; }
+          else byEmail();
+        })
+        .catch(byEmail);
+    });
+  })();
 
   /* ── league scores ──
      One line per game, read from the lane screens. n = name, s = score,
