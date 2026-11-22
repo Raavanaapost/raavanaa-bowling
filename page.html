@@ -3381,18 +3381,11 @@ section{padding-block:clamp(48px,7vw,88px)}
       document.getElementById("wn-weeks").innerHTML=weeks.map(function(w){return '<button type="button" class="chip" data-w="'+w+'" aria-pressed="'+(w===cur)+'">Week '+w+'</button>';}).join("");
       var n=N.filter(function(x){return x.w===cur;})[0], kw=0,tw=0;
       n.games.forEach(function(x){ if(x.win==="k") kw++; else if(x.win==="t") tw++; });
-      var html='<p class="wn-sum"><b>'+esc(WEEKS[cur]||"")+'</b> · '+n.size+' a side · '+(kw===tw?'Tied '+kw+'–'+tw:NAME[kw>tw?"k":"t"]+(n.games.length<6?' lead ':' won ')+Math.max(kw,tw)+'–'+Math.min(kw,tw))+(n.games.length<6?' after '+n.games.length+' of 6 games':'')+'</p><div class="wn-games">';
-      n.games.forEach(function(x){
-        if(x.win==="s"){ html+='<div class="wn-g"><span class="n">Game '+x.g+'</span><span class="r">Tie '+x.k+'–'+x.t+'</span><span class="m">No money moves.</span></div>'; return; }
-        var lose=x.win==="k"?"t":"k", ln=lose==="k"?x.kn:x.tn, wn=x.win==="k"?x.kn:x.tn;
-        html+='<div class="wn-g"><span class="n">Game '+x.g+'</span><span class="r '+x.win+'">'+NAME[x.win]+' win '+Math.max(x.k,x.t).toLocaleString("en-CA")+'–'+Math.min(x.k,x.t).toLocaleString("en-CA")+'</span>'+
-          '<span class="m">'+NAME[lose]+' pay '+money(x.pot)+(ln<n.size?' between '+ln+' bowlers (one slot was a dummy), '+money(x.pay)+' each':', '+money(x.pay)+' each')+'. '+NAME[x.win]+' collect '+money(x.get)+' each'+(wn<n.size?' ('+wn+' bowlers, one slot was a dummy)':'')+'.</span></div>';
-      });
-      html+='</div>';
+      var html='<p class="wn-sum"><b>'+esc(WEEKS[cur]||"")+'</b> · '+n.size+' a side · '+(kw===tw?'Tied '+kw+'–'+tw:NAME[kw>tw?"k":"t"]+(n.games.length<6?' lead ':' won ')+Math.max(kw,tw)+'–'+Math.min(kw,tw))+(n.games.length<6?' after '+n.games.length+' of 6 games':'')+'</p>';
       var gs=n.games.map(function(x){return x.g;}), ps=Object.keys(n.bal).sort(function(a,b){ return n.bal[b].sum-n.bal[a].sum||(n.bal[a].team<n.bal[b].team?-1:1)||a.localeCompare(b); });
-      html+='<div class="table-scroll"><table class="data wn-t"><thead><tr><th class="l">Player</th><th class="l">Team</th>'+gs.map(function(g){return '<th class="gcol">G'+g+'</th>';}).join("")+'<th>Week</th></tr></thead><tbody>'+
-        ps.map(function(p){ var b=n.bal[p]; return '<tr><td class="l"><b>'+esc(p)+'</b></td><td class="l '+b.team+'">'+NAME[b.team]+'</td>'+gs.map(function(g){ var v=b.g[g]; return v===undefined?'<td class="gcol off">dnb</td>':'<td class="gcol '+cls(v)+'">'+money(v,true)+'</td>'; }).join("")+'<td class="bal '+cls(b.sum)+'">'+money(b.sum,true)+'</td></tr>'; }).join("")+
-        '</tbody></table></div><p class="court-note wn-c" style="margin-top:12px">dnb = did not bowl that game, so no pay and no share.</p>';
+      html+='<div class="table-scroll"><table class="data wn-t"><thead><tr><th class="l">Player</th><th class="l">Team</th><th>Week</th></tr></thead><tbody>'+
+        ps.map(function(p){ var b=n.bal[p]; return '<tr><td class="l"><b>'+esc(p)+'</b></td><td class="l '+b.team+'">'+NAME[b.team]+'</td><td class="bal '+cls(b.sum)+'">'+money(b.sum,true)+'</td></tr>'; }).join("")+
+        '</tbody></table></div>';
       document.getElementById("wn-week").innerHTML=html;
     }
     document.getElementById("wn-weeks").addEventListener("click",function(e){ var b=e.target.closest("[data-w]"); if(!b) return; cur=+b.dataset.w; draw(); });
