@@ -642,7 +642,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 .wn-g .r{font-weight:700}.wn-g .r.k{color:var(--chol)}.wn-g .r.t{color:var(--pand)}
 .wn-g .m{grid-column:2;color:var(--muted);font-size:.95rem;line-height:1.45}
 .wn-sum{text-align:center;margin:0 0 14px;line-height:1.5}
-@media (max-width:560px){.wn-t .gcol{display:none}}
+@media (max-width:560px){.wn-t .gcol{display:none}.wn-t.wn-run .gcol{display:table-cell}}
 .tb-arch{display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .tb-arch details{border:1px solid var(--line);background:var(--alley-2)}
 .tb-arch summary{cursor:pointer;padding:12px 14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font:700 1.02rem/1.3 var(--body)}
@@ -2098,6 +2098,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       <div>
         <div class="royal-head"><span class="orn"></span><p class="label"><svg class="icon"><use href="#i-crown"/></svg>Season Balance</p><span class="orn"></span></div>
         <p class="court-note wn-c" id="wn-season-note"></p>
+        <div class="filters" id="wn-mode" role="group" aria-label="Show week columns as"><button type="button" class="chip" data-m="week" aria-pressed="true">Each week</button><button type="button" class="chip" data-m="run" aria-pressed="false">Running total</button></div>
         <div class="table-scroll"><table class="data wn-t" id="wn-season"><thead></thead><tbody></tbody><tfoot></tfoot></table></div>
       </div>
 
@@ -3369,12 +3370,22 @@ section{padding-block:clamp(48px,7vw,88px)}
     var names=Object.keys(tot).sort(function(a,b){ return tot[b].sum-tot[a].sum||a.localeCompare(b); });
     var tb=document.getElementById("wn-season");
     tb.querySelector("thead").innerHTML='<tr><th class="l">#</th><th class="l">Player</th>'+weeks.map(function(w){return '<th class="gcol">Wk '+w+'</th>';}).join("")+'<th>Balance</th></tr>';
-    tb.querySelector("tbody").innerHTML=names.map(function(p,i){
-      return '<tr><td class="l pos">'+(i+1)+'</td><td class="l"><b>'+esc(p)+'</b></td>'+weeks.map(function(w){ var b=tot[p].w[w]; return b?'<td class="gcol '+b.team+'">'+money(b.sum,true)+'</td>':'<td class="gcol off">–</td>'; }).join("")+'<td class="bal '+cls(tot[p].sum)+'">'+money(tot[p].sum,true)+'</td></tr>';
-    }).join("");
+    /* "Each week" shows what each week won or lost on its own; "Running total" adds the weeks up (SURESH, 22 Nov 2026) */
+    function drawSeason(mode){
+      document.querySelectorAll("#wn-mode [data-m]").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.m===mode?"true":"false"); });
+      tb.classList.toggle("wn-run",mode==="run");
+      tb.querySelector("tbody").innerHTML=names.map(function(p,i){
+        var run=0;
+        return '<tr><td class="l pos">'+(i+1)+'</td><td class="l"><b>'+esc(p)+'</b></td>'+weeks.map(function(w){ var b=tot[p].w[w];
+          if(mode==="run"){ if(b) run+=b.sum; return b?'<td class="gcol '+b.team+'">'+money(run,true)+'</td>':'<td class="gcol off">'+(run?money(run,true):'–')+'</td>'; }
+          return b?'<td class="gcol '+b.team+'">'+money(b.sum,true)+'</td>':'<td class="gcol off">–</td>'; }).join("")+'<td class="bal '+cls(tot[p].sum)+'">'+money(tot[p].sum,true)+'</td></tr>';
+      }).join("");
+    }
+    drawSeason("week");
+    document.getElementById("wn-mode").addEventListener("click",function(e){ var b=e.target.closest("[data-m]"); if(b) drawSeason(b.dataset.m); });
     var owed=names.reduce(function(a,p){ return a+Math.max(0,tot[p].sum); },0), owe=names.filter(function(p){return Math.round(tot[p].sum*100)<0;}).length, due=names.filter(function(p){return Math.round(tot[p].sum*100)>0;}).length;
     tb.querySelector("tfoot").innerHTML='<tr><td class="l" colspan="2">To settle</td>'+weeks.map(function(){return '<td class="gcol"></td>';}).join("")+'<td>'+money(owed)+'</td></tr>';
-    document.getElementById("wn-season-note").textContent="After week "+weeks[weeks.length-1]+": "+due+" bowlers are owed money and "+owe+" owe. Plus means the bank owes you, minus means you owe the bank. Week columns are coloured by the team the bowler played for.";
+    document.getElementById("wn-season-note").textContent="After week "+weeks[weeks.length-1]+": "+due+" bowlers are owed money and "+owe+" owe. Plus means the bank owes you, minus means you owe the bank. Each week shows what that week won or lost; Running total adds the weeks up. Week columns are coloured by the team the bowler played for.";
     /* week by week */
     var cur=weeks[weeks.length-1];
     function draw(){
