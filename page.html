@@ -617,6 +617,20 @@ section{padding-block:clamp(48px,7vw,88px)}
 .tb-pm b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#1a1005;font-size:.85rem}
 .tb-pm .k{color:var(--chol)}.tb-pm .t{color:var(--pand)}.tb-pm .eq{color:var(--muted)}
 .tb-blinds{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+/* captains + group post */
+.tb-capbox{border:1px solid var(--line);border-top:3px solid var(--gold);background:var(--alley-2);padding:14px;display:flex;flex-direction:column;gap:12px}
+.tb-capbox[hidden]{display:none}
+.tb-caps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tb-cap{display:flex;flex-direction:column;gap:6px;padding:10px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--chol);min-width:0}
+.tb-cap.t{border-left:1px solid var(--line);border-right:4px solid var(--pand)}
+.tb-cap>span{font:700 .82rem/1.2 var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--chol)}
+.tb-cap.t>span{color:var(--pand)}
+.tb-cap select,.tb-cap input{width:100%;min-width:0;min-height:42px;padding:6px 8px;border:1px solid var(--line);background:#fff;font:inherit;font-size:1rem;color:var(--pin)}
+.tb-capopt{display:inline-flex;align-items:center;gap:8px;font-size:.95rem;cursor:pointer}
+.tb-capopt input{width:18px;height:18px;accent-color:var(--gold-deep)}
+.tb-post{width:100%;min-height:260px;font:15px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line);background:#fff;color:var(--pin)}
+.tb-c{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:5px;border-radius:50%;background:var(--gold);color:#1a1005;font:800 .7rem/1 var(--label);font-style:normal;vertical-align:2px}
+@media (max-width:560px){ .tb-caps{gap:6px} .tb-cap{padding:8px} }
 @media (max-width:560px){
   .tb-pairs{grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:5px}
   .tb-ph{font-size:1rem;padding:6px}
@@ -2052,6 +2066,23 @@ section{padding-block:clamp(48px,7vw,88px)}
       <div class="tb-blindbox" id="tb-blindbox"></div>
       <div class="tb-blinds"><button type="button" class="tb-addb" data-blind="k">+ Blind for Cholan</button><button type="button" class="tb-addb" data-blind="t">+ Blind for Pandiyan</button></div>
 
+      <div class="tb-capbox" id="tb-capbox" hidden>
+        <div>
+          <p class="tb-step">Captains and group post</p>
+          <p class="tb-note">Choose a captain for each side. The captain is locked on that side, so Auto-balance keeps them there. Type the team names once the captains pick them; until then each team is called after its captain. The message below updates as you go, ready to post in the group.</p>
+        </div>
+        <div class="tb-caps">
+          <label class="tb-cap k"><span>Cholan side captain</span><select id="tb-cap-k" aria-label="Captain of the Cholan side"></select><input id="tb-name-k" maxlength="30" placeholder="Team name" aria-label="Team name for the Cholan side"></label>
+          <label class="tb-cap t"><span>Pandiyan side captain</span><select id="tb-cap-t" aria-label="Captain of the Pandiyan side"></select><input id="tb-name-t" maxlength="30" placeholder="Team name" aria-label="Team name for the Pandiyan side"></label>
+        </div>
+        <label class="tb-capopt"><input type="checkbox" id="tb-post-each"> Show each player's average in the post</label>
+        <textarea class="tb-post" id="tb-post" readonly aria-label="Message for the group"></textarea>
+        <div class="tb-bar">
+          <button type="button" class="btn" id="tb-post-copy">Copy message</button>
+          <a class="btn ghost" id="tb-post-wa" href="https://wa.me/" target="_blank" rel="noopener">Send on WhatsApp</a>
+        </div>
+      </div>
+
       <div id="tb-bench-wrap">
         <p class="tb-step">Not picked yet</p>
         <div class="tb-bench" id="tb-bench"></div>
@@ -3114,8 +3145,9 @@ section{padding-block:clamp(48px,7vw,88px)}
   (function(){
     var root=document.getElementById("tb"); if(!root) return;
     var KEY="rb-team-balancer-2", FORM_WEEKS=4, DUMMY=130;
-    var st={mode:"form", formDefault:1, present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0};
+    var st={mode:"form", formDefault:1, present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0, cap:{k:null,t:null}, tname:{k:"",t:""}, postEach:false};
     try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved){ for(var k in saved) st[k]=saved[k]; if(!saved.formDefault){ st.mode="form"; st.formDefault=1; } } }catch(e){}
+    if(!st.cap) st.cap={k:null,t:null}; if(!st.tname) st.tname={k:"",t:""};
     function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
     var lastBlinds=BLINDS[lastWeek]||{};
     var RATE={};
@@ -3194,7 +3226,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       else info=lastBlinds[id]?'<em>blind</em>':r.games+' g';
       var adj='';
       return '<div class="tb-card '+s+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
-        '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Swap this pair"><b>'+esc(label(id))+'</b><span><strong>'+F(val(id))+'</strong> · '+info+'</span></button>'+
+        '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Swap this pair"><b>'+esc(label(id))+(st.cap.k===id||st.cap.t===id?'<i class="tb-c" title="Captain">C</i>':'')+'</b><span><strong>'+F(val(id))+'</strong> · '+info+'</span></button>'+
         '<span class="tb-ics">'+(d?'':'<button type="button" class="tb-ic" data-lock="'+esc(id)+'" aria-pressed="'+(st.lock[id]?'true':'false')+'" aria-label="Lock '+esc(label(id))+' on this side">'+ICON_LOCK+'</button>')+
         '<button type="button" class="tb-ic" data-out="'+esc(id)+'" aria-label="'+(d?'Remove blind':'Take '+esc(id)+' off the team')+'">×</button></span></div>'+adj+'</div>';
     }
@@ -3205,6 +3237,9 @@ section{padding-block:clamp(48px,7vw,88px)}
         :"Games from the last "+FORM_WEEKS+" weeks (weeks "+Math.max(1,lastWeek-FORM_WEEKS+1)+"–"+lastWeek+") count twice and older weeks once, so a bowler who is improving is rated higher."+(lastWeek<=FORM_WEEKS?" Until week "+(FORM_WEEKS+1)+" is played this is the same as the season average.":"");
       tidy();
       var K=side("k"), T=side("t"), tk=total(K), tt=total(T), gap=cut(cut(tk)-cut(tt));
+      /* a captain who has left their side is no longer captain */
+      if(st.cap.k&&K.indexOf(st.cap.k)<0) st.cap.k=null;
+      if(st.cap.t&&T.indexOf(st.cap.t)<0) st.cap.t=null;
       var html='<div class="tb-ph k">Cholan<small>'+(K.length?K.length+' · avg '+F(tk/K.length):'')+'</small></div><div class="tb-ph m">Pair</div><div class="tb-ph t">Pandiyan<small>'+(T.length?T.length+' · avg '+F(tt/T.length):'')+'</small></div>';
       st.rows.forEach(function(r,i){
         var mid='<b>'+(i+1)+'</b>';
@@ -3244,7 +3279,43 @@ section{padding-block:clamp(48px,7vw,88px)}
       document.getElementById("tb-roster").innerHTML=NAMES.concat(st.guests.map(function(g){return g.n;})).map(function(n){
         return '<label><input type="checkbox" data-here="'+esc(n)+'"'+(st.present[n]?' checked':'')+'>'+esc(n)+' <small>'+F(val(n))+'</small></label>';
       }).join("");
+      drawPost(K,T);
       save();
+    }
+
+    /* captains and the message for the group */
+    function teamName(s){ var n=(st.tname[s]||"").trim(); if(n) return n; var c=st.cap[s]; return c?"Team "+label(c):(s==="k"?"Cholan side":"Pandiyan side"); }
+    function postText(K,T){
+      if(!K.length&&!T.length) return "";
+      function block(s,L,dot){
+        var c=st.cap[s];
+        var head=dot+" *"+teamName(s)+"*"+(c&&teamName(s)!=="Team "+label(c)?" (Captain: "+label(c)+")":"");
+        var list=L.slice().sort(function(a,b){ return (b===c)-(a===c)||val(b)-val(a); }).map(function(id){
+          return "• "+label(id)+(id===c?" (C)":"")+(dummy(id)?" ("+F(val(id))+")":st.postEach?" – "+F(val(id)):"");
+        });
+        return head+"\nTeam average: *"+(L.length?F(total(L)/L.length):"–")+"*\n"+list.join("\n");
+      }
+      var ak=K.length?total(K)/K.length:0, at=T.length?total(T)/T.length:0, d=cut(cut(ak)-cut(at));
+      var gapLine=K.length&&T.length?(d<1?"Both sides are level on average.":(ak>at?teamName("k"):teamName("t"))+" ahead by "+d.toFixed(1)+" pins a player."):"";
+      return "🎳 *Raavanaa Bowling: this week's teams* 🎳\n"+K.length+" v "+T.length+"\n\n"+
+        block("k",K,"🔴")+"\n\n"+block("t",T,"🟢")+"\n\n"+
+        (gapLine?gapLine+"\n":"")+"(Averages on "+(st.mode==="season"?"season average":"recent form: last "+FORM_WEEKS+" weeks count double")+".)\n\nGood luck everyone! 🎳";
+    }
+    function drawPost(K,T){
+      ["k","t"].forEach(function(s){
+        var L=s==="k"?K:T, sel=document.getElementById("tb-cap-"+s);
+        sel.innerHTML='<option value="">'+(L.length?"Choose captain":"No players yet")+'</option>'+L.filter(function(id){ return !dummy(id); }).map(function(id){
+          return '<option value="'+esc(id)+'"'+(st.cap[s]===id?' selected':'')+'>'+esc(label(id))+' ('+F(val(id))+')</option>';
+        }).join("");
+        var inp=document.getElementById("tb-name-"+s);
+        if(document.activeElement!==inp) inp.value=st.tname[s]||"";
+        inp.placeholder="Team name";
+      });
+      document.getElementById("tb-post-each").checked=!!st.postEach;
+      var txt=postText(K,T);
+      document.getElementById("tb-capbox").hidden=!K.length&&!T.length;
+      document.getElementById("tb-post").value=txt;
+      document.getElementById("tb-post-wa").href="https://wa.me/?text="+encodeURIComponent(txt);
     }
 
     /* auto-balance: try every equal split (locked players stay on their side), keep those within a pin
@@ -3303,7 +3374,13 @@ section{padding-block:clamp(48px,7vw,88px)}
       if(b.dataset.to){ place(b.dataset.id,b.dataset.to); draw(); return; }
       if(b.dataset.blind){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); place(nd.id,b.dataset.blind); draw(); return; }
       if(b.id==="tb-auto"){ autoBalance(); return; }
-      if(b.id==="tb-clear"){ st.rows=[]; st.lock={}; st.dummies=[]; optSig=""; document.getElementById("tb-copy-box").hidden=true; draw(); return; }
+      if(b.id==="tb-clear"){ st.rows=[]; st.lock={}; st.dummies=[]; st.cap={k:null,t:null}; st.tname={k:"",t:""}; optSig=""; document.getElementById("tb-copy-box").hidden=true; draw(); return; }
+      if(b.id==="tb-post-copy"){
+        var pt=document.getElementById("tb-post"), done=function(){ b.textContent="Copied"; setTimeout(function(){ b.textContent="Copy message"; },1600); };
+        var fall=function(){ pt.select(); try{ if(document.execCommand("copy")) done(); }catch(e2){} };
+        try{ navigator.clipboard.writeText(pt.value).then(done,fall); }catch(err){ fall(); }
+        return;
+      }
       if(b.id==="tb-copy"){
         var K=side("k"), T=side("t"), tk=total(K), tt=total(T), gap=cut(tk-tt);
         function nm(id){ return id?label(id)+" "+F(val(id)):"(open)"; }
@@ -3314,9 +3391,20 @@ section{padding-block:clamp(48px,7vw,88px)}
       }
     });
     root.addEventListener("change",function(e){
-      var n=e.target.dataset&&e.target.dataset.here; if(!n) return;
+      var el=e.target;
+      if(el.id==="tb-cap-k"||el.id==="tb-cap-t"){
+        var s=el.id.slice(-1), old=st.cap[s];
+        if(old) delete st.lock[old];
+        st.cap[s]=el.value||null; if(st.cap[s]) st.lock[st.cap[s]]=1; optSig=""; draw(); return;
+      }
+      if(el.id==="tb-post-each"){ st.postEach=el.checked; draw(); return; }
+      var n=el.dataset&&el.dataset.here; if(!n) return;
       if(e.target.checked) st.present[n]=1; else { delete st.present[n]; take(n); }
       draw();
+    });
+    root.addEventListener("input",function(e){
+      var el=e.target; if(el.id!=="tb-name-k"&&el.id!=="tb-name-t") return;
+      st.tname[el.id.slice(-1)]=el.value.slice(0,30); draw();
     });
     document.getElementById("tb-guest").addEventListener("submit",function(e){
       e.preventDefault();
