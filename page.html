@@ -1142,6 +1142,46 @@ section{padding-block:clamp(48px,7vw,88px)}
 .jn-pill:hover{background:#fff}.jn-pill:hover svg{stroke:var(--crimson)}
 .jn-pill.wa:hover svg{stroke:#128c4b}
 .jn-copied{min-height:1.4em;color:var(--gold-hi);font-weight:600}
+/* GTA bowling directory (#gta-bowling) */
+.gb-bar{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-bottom:8px}
+.gb-bar input{flex:1 1 260px;min-width:0;min-height:48px;padding:10px 14px;font:500 1.02rem var(--body);color:var(--pin);background:var(--alley);border:1px solid var(--gold-deep);border-radius:0}
+.gb-bar input:focus{outline:2px solid var(--gold);outline-offset:0;border-color:var(--gold)}
+.gb-bar .filters{margin:0}
+.gb-jump{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0 34px;font:700 .92rem/1.4 var(--label);letter-spacing:.12em;text-transform:uppercase}
+.gb-jump a{color:var(--ink-accent);text-decoration:none;border-bottom:2px solid transparent}
+.gb-jump a:hover{border-bottom-color:var(--gold)}
+.gb-stats{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:20px;font:700 .88rem/1 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gb-stats b{display:block;font:900 2.1rem/1 var(--display);letter-spacing:0;color:var(--crimson);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.gb-region{margin-top:44px;scroll-margin-top:96px}
+.gb-region:first-child{margin-top:8px}
+.gb-rh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;padding-bottom:10px;margin-bottom:18px;border-bottom:2px solid var(--gold)}
+.gb-rh h2{font-size:clamp(1.35rem,3vw,1.9rem)}
+.gb-rh small{font:700 .85rem/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.gb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+@media (max-width:420px){.gb-grid{grid-template-columns:minmax(0,1fr)}}
+.gb-card{display:flex;flex-direction:column;gap:8px;min-width:0;padding:18px 20px;background:var(--alley-2);border-top:3px solid var(--gold)}
+.gb-card.home{border-top-color:var(--crimson);background:linear-gradient(160deg,rgba(160,19,24,.08),transparent 60%),var(--alley-2)}
+.gb-city{font:700 .82rem/1.2 var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-accent)}
+.gb-card h3{font-size:1.12rem}
+.gb-pins{display:flex;flex-wrap:wrap;gap:6px}
+.gb-pin{font:700 .8rem/1 var(--label);letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border:1px solid currentColor}
+.gb-pin.p5{color:var(--crimson)}
+.gb-pin.p10{color:#1a1005;background:var(--gold);border-color:var(--gold)}
+.gb-pin.pq{color:var(--muted)}
+.gb-pin.warn{color:#7a4a00;background:#fbe9c0;border-color:#e8c478}
+.gb-pin.ours{color:#fff;background:var(--crimson);border-color:var(--crimson)}
+.gb-card dl{margin:2px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:1rem;line-height:1.45}
+.gb-card dt{font:700 .78rem/1.9 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.gb-card dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.gb-card dd a{color:var(--crimson);font-weight:600}
+.gb-tel{font-variant-numeric:tabular-nums}
+.gb-note{margin-top:2px;padding-top:8px;border-top:1px dashed var(--line);color:var(--muted);font-size:.95rem;line-height:1.5}
+.gb-empty{color:var(--muted);padding:24px 0}
+.gb-src{max-width:80ch;color:var(--muted);font-size:1rem}
+.gb-src h3{margin:22px 0 8px;color:var(--pin)}
+.gb-src ul{margin:0;padding-left:20px}
+.gb-src li{margin-bottom:6px;overflow-wrap:anywhere}
+.gb-src a{color:var(--crimson)}
 </style>
 
 
@@ -1199,6 +1239,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       <a href="#records" data-go="records">2025 Record Book</a>
       <a href="#cross-lanes" data-go="cross-lanes">2025 Cross Lanes</a>
       <a href="#rules" data-go="rules">Rules</a>
+      <a href="#gta-bowling" data-go="gta-bowling">GTA Alleys</a>
       <a href="#gallery" data-go="gallery">Gallery</a>
       <a class="join" href="#registration" data-go="registration">Registration</a>
     </nav>
@@ -2107,6 +2148,64 @@ section{padding-block:clamp(48px,7vw,88px)}
   </section>
 </div>
 
+<!-- ───────── GTA BOWLING DIRECTORY ───────── -->
+<div class="page" data-page="gta-bowling" hidden>
+  <div class="page-title"><div class="wrap">
+    <p class="label">Toronto · Peel · Halton · York · Durham</p>
+    <h1 class="gold-text">GTA Bowling Directory</h1>
+    <p class="lead">Bowling alleys, clubs, leagues and associations across the Greater Toronto Area, with 5-pin and 10-pin lanes marked. Call ahead before booking a league night, since hours and lane setups change.</p>
+    <div class="gb-stats" id="gb-stats"></div>
+  </div></div>
+  <section>
+    <div class="wrap">
+      <div class="gb-bar">
+        <input id="gb-q" type="search" placeholder="Search name, city or street" aria-label="Search alleys">
+        <div class="filters" id="gb-pinf" role="group" aria-label="Lane type">
+          <button type="button" class="chip" data-pin="all" aria-pressed="true">All lanes</button>
+          <button type="button" class="chip" data-pin="5" aria-pressed="false">5-pin</button>
+          <button type="button" class="chip" data-pin="10" aria-pressed="false">10-pin</button>
+        </div>
+      </div>
+      <nav class="gb-jump" id="gb-jump" aria-label="Jump to area"></nav>
+      <div id="gb-venues"></div>
+
+      <div class="gb-region" id="gb-clubs">
+        <div class="gb-rh"><h2>Clubs &amp; Leagues</h2><small>community, social and youth leagues</small></div>
+        <div class="gb-grid" id="gb-clublist"></div>
+      </div>
+
+      <div class="gb-region" id="gb-orgs">
+        <div class="gb-rh"><h2>Associations</h2><small>governing bodies and youth programs</small></div>
+        <div class="gb-grid" id="gb-orglist"></div>
+      </div>
+
+      <div class="gb-region" id="gb-notes">
+        <div class="gb-rh"><h2>Notes &amp; Sources</h2></div>
+        <div class="gb-src">
+          <p>Most adult leagues in the GTA are run by the alleys themselves, so the quickest way to find or join one is to call the centre. Lawn bowling clubs are a different sport and are left out.</p>
+          <h3>Not confirmed</h3>
+          <ul>
+            <li><b>Bowlerama West</b> (5429 Dundas St W, Etobicoke) and <b>Bowlerama Newtonbrook</b> (5837 Yonge St, North York) appear in older listings but not on bowlerama.com, which now shows only Rexdale and Barrie. They may be closed.</li>
+            <li><b>Kennedy Bowl</b> is listed as 10-pin by two sources and 5-pin by one.</li>
+            <li><b>NEB's Fun World</b> is listed by Bowl Canada as 52 lanes of 5-pin. One family guide says it also has 10-pin.</li>
+            <li><b>Northshore Lanes</b> and <b>Centre Bowl</b> are O5PBA member centres, but the zone list gives only a phone number.</li>
+            <li><b>Splitsville Pickering</b> was listed as opening in fall 2026 when checked in November.</li>
+            <li><b>Toronto Rainbowlers</b> appeared in an LGBTQ+ league listing that has since shut down, so it may no longer run.</li>
+            <li>No alley was found in Whitby or Milton.</li>
+          </ul>
+          <h3>Sources (checked November 2026)</h3>
+          <ul>
+            <li><a href="https://o5pba.ca/locations/" target="_blank" rel="noopener">O5PBA zone locations</a> · <a href="https://bowlontario5pin.ca/find-a-centre/" target="_blank" rel="noopener">Bowl Ontario 5 Pin centres</a> · <a href="https://bowlcanada.ca/bowling-centres/" target="_blank" rel="noopener">Bowl Canada centres</a></li>
+            <li><a href="https://www.familyfuncanada.com/toronto/bowling/" target="_blank" rel="noopener">Family Fun Canada</a> · <a href="https://childslife.ca/best-bowling-alleys-for-families-in-the-gta/" target="_blank" rel="noopener">Child's Life</a> · <a href="https://www.blogto.com/sports_play/2011/01/bowling_in_toronto/" target="_blank" rel="noopener">blogTO</a> · <a href="https://www.durham.ca/tourism/explore-engage/entertainment/" target="_blank" rel="noopener">Durham Tourism</a> · <a href="https://www.bbb.org/ca/on/brampton/category/bowling" target="_blank" rel="noopener">BBB listings</a></li>
+            <li><a href="https://planetbowl.ca/bowling-league/" target="_blank" rel="noopener">planetbowl.ca</a> · <a href="https://www.bowlerama.com/" target="_blank" rel="noopener">bowlerama.com</a> · <a href="https://www.splitsvillebowl.ca/pickering" target="_blank" rel="noopener">splitsvillebowl.ca</a> · <a href="https://www.igbo.org/league/toronto-historical-sunday/" target="_blank" rel="noopener">IGBO (THBS)</a> · <a href="https://sites.google.com/a/cbcbowling.org/cbc/about-us" target="_blank" rel="noopener">Chinese Bowling Congress</a></li>
+            <li><a href="https://www.otba.ca/" target="_blank" rel="noopener">otba.ca</a> · <a href="https://tenpincanada.com/" target="_blank" rel="noopener">tenpincanada.com</a> · <a href="https://www.c5pba.ca/" target="_blank" rel="noopener">c5pba.ca</a> · <a href="https://youthbowl.ca/" target="_blank" rel="noopener">youthbowl.ca</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
 <!-- ───────── WINNINGS BANK (not linked from the menu: open with #winnings) ───────── -->
 <div class="page" data-page="winnings" hidden>
   <div class="page-title"><div class="wrap">
@@ -2178,6 +2277,7 @@ section{padding-block:clamp(48px,7vw,88px)}
         <a href="#home" data-go="home">Home</a>
         <a href="#about" data-go="about">About</a>
         <a href="#gallery" data-go="gallery">Gallery</a>
+        <a href="#gta-bowling" data-go="gta-bowling">GTA bowling directory</a>
         <a href="#registration" data-go="registration">Registration</a>
       </div>
       <div class="foot-col">
@@ -2204,7 +2304,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 
 <script>
 (function(){
-  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer","winnings","join"];
+  var PAGES=["home","about","clash","crew","stats","records","cross-lanes","rules","gallery","registration","season-medals","virtual-medals","team-balancer","winnings","join","gta-bowling"];
   var head=document.getElementById("site-head"), btn=document.getElementById("menu-btn"), lane=document.getElementById("lane");
   function show(name, scroll){
     if(PAGES.indexOf(name)<0) name="home";
@@ -4014,5 +4114,117 @@ section{padding-block:clamp(48px,7vw,88px)}
     draw();
   })();
 
+</script>
+<script>
+/* GTA bowling directory (#gta-bowling): data checked Nov 2026 */
+(function(){
+var REGIONS=[
+ {id:"toronto",name:"Downtown & East York",sub:"Old Toronto"},
+ {id:"west",name:"Etobicoke & North York",sub:"West and north Toronto"},
+ {id:"scarb",name:"Scarborough",sub:"East Toronto"},
+ {id:"peel",name:"Peel",sub:"Mississauga · Brampton"},
+ {id:"halton",name:"Halton",sub:"Oakville"},
+ {id:"york",name:"York Region",sub:"Markham · Richmond Hill · Vaughan · Thornhill · Newmarket"},
+ {id:"durham",name:"Durham",sub:"Pickering · Ajax · Whitby · Oshawa"}
+];
+var V=[
+ {r:"toronto",n:"Danforth Bowl",c:"Toronto",a:"1554 Danforth Ave, M4J 1N4",w:"danforthbowl.com",pins:["5","10"],note:"Reservations recommended."},
+ {r:"toronto",n:"Shamrock Bowl & Restobar",c:"Toronto",a:"280 Coxwell Ave, M4L 3B6",w:"shamrockbowlandrestobar.com",pins:["5"],note:"Restored vintage 5-pin house."},
+ {r:"toronto",n:"The Ballroom Bowl",c:"Toronto",a:"145 John St · 1 Bloor St E · 10 Dundas St E",w:"theballroombowl.ca",pins:["10"],note:"Three downtown locations, bar-style bowling."},
+ {r:"toronto",n:"National at The Well",c:"Toronto",a:"486 Front St W",w:"ntnl.ca/toronto",pins:[],note:"Newer entertainment venue."},
+ {r:"west",n:"Playtime Bowl & Entertainment",c:"North York",a:"33 Samor Rd",w:"playtimebowl.com",pins:["10"],lanes:"28 lanes"},
+ {r:"west",n:"Bowlerama Rexdale",c:"Etobicoke",a:"115 Rexdale Blvd",t:"416-743-8388",w:"bowlerama.com",pins:["10"],lanes:"32 lanes",note:"Older listings say 16 of these were 5-pin; bowlerama.com now says 32 lanes of 10-pin."},
+ {r:"west",n:"Planet Bowl",c:"Etobicoke",a:"5555 Eglinton Ave W, M9C 5M1",t:"416-695-2695",w:"planetbowl.ca",pins:["10"],lanes:"48 lanes",ours:true,note:"Home of Raavanaa Bowling. Leagues every night at 6:45 pm; Strike-Mor Pro Shop on site. Seniors rate $23.95 per lane-hour, 10 am to 6 pm."},
+ {r:"scarb",n:"Parkway Bowl",c:"Scarborough",a:"67 Ellesmere Rd, M1R 4B7",t:"416-447-1761",w:"parkway-bowl.com",pins:["5","10"],lanes:"24 lanes, 4 convertible to 10-pin",note:"O5PBA and Bowl Ontario member centre."},
+ {r:"scarb",n:"Kennedy Bowl",c:"Scarborough",a:"2300 Lawrence Ave E, M1P 2R2",t:"416-759-6181",w:"kennedybowl.com",pins:["10"],lanes:"32 lanes",flag:"Pin type disputed"},
+ {r:"scarb",n:"C4 Centre",c:"Scarborough",a:"2644A Eglinton Ave E, M1K 2S3",t:"416-261-4216",pins:["5"],lanes:"16 lanes",note:"O5PBA member. No website, Facebook group only."},
+ {r:"peel",n:"Classic Bowl",c:"Mississauga",a:"3055 Dundas St W, L5L 3R8",t:"905-607-2695",w:"classicbowl.com",pins:["10"],lanes:"60 lanes"},
+ {r:"peel",n:"Streetsville Bowl",c:"Mississauga",a:"128 Queen St S, Unit 10, L5M 1K8",t:"905-826-6161",w:"streetsvillebowl.com",pins:["5"],note:"O5PBA and Bowl Ontario member centre."},
+ {r:"peel",n:"Centre Bowl",c:"Mississauga area",a:"Address not listed",t:"905-306-0043",w:"centre5pinbowl.ca",pins:["5"],flag:"Address unconfirmed",note:"O5PBA Central Ontario zone."},
+ {r:"peel",n:"Brampton Bowl",c:"Brampton",a:"12 Beech St, L6V 1V1",t:"905-459-2711",w:"bramptonbowl.ca",pins:["5","10"],lanes:"4 × 5-pin, 12 × 10-pin",note:"Bowl Canada, O5PBA and Bowl Ontario member."},
+ {r:"peel",n:"Bowlero Brampton",c:"Brampton",a:"50 Bramtree Ct, L6S 5Z7",t:"905-790-0052",w:"bowlero.com/location/bowlero-brampton",pins:[],lanes:"40 lanes"},
+ {r:"halton",n:"Hopedale Bowl",c:"Oakville",a:"1515 Rebecca St, L6L 5G8",t:"905-827-4281",w:"hopedalebowl.ca",pins:["5"],note:"O5PBA and Bowl Ontario member centre."},
+ {r:"york",n:"Markham Bowl",c:"Markham",a:"5762 Highway 7, Unit 16 (Markham Shopping Centre), L3P 1A8",t:"905-294-4556",w:"markhambowl.com",pins:["5","10"],lanes:"12 × 5-pin, 8 × 10-pin"},
+ {r:"york",n:"Richmond Hill Pro Bowl",c:"Richmond Hill",a:"10520 Yonge St",t:"905-884-9366",w:"richmondhillprobowl.ca",pins:["5","10"],note:"O5PBA York Simcoe zone."},
+ {r:"york",n:"Splitsville Richmond Hill",c:"Richmond Hill",a:"9 East Wilmot St, L4B 1A3",t:"905-881-5927",w:"splitsville.ca",pins:["10"],lanes:"40 lanes",note:"Formerly World Bowl."},
+ {r:"york",n:"Splitsville Woodbridge",c:"Vaughan",a:"191 Marycroft Ave, Woodbridge, L4L 5Y3",t:"905-856-3110",w:"splitsville.ca",pins:["10"],lanes:"28 lanes"},
+ {r:"york",n:"Bowls and Blasters",c:"Thornhill (Vaughan)",a:"Promenade Mall, 1 Promenade Circle",w:"bowlsandblasters.com",pins:[],note:"Newer family entertainment venue."},
+ {r:"york",n:"Stellar Lanes",c:"Newmarket",a:"1220 Stellar Dr, L3Y 7B9",t:"905-853-6287",w:"stellarlanes.ca",pins:["5"],lanes:"24 lanes"},
+ {r:"durham",n:"Splitsville Pickering",c:"Pickering",a:"150-14200 Entertainment Blvd, L1V 1B8",w:"splitsvillebowl.ca/pickering",pins:["10"],lanes:"29 lanes",flag:"Opening Fall 2026"},
+ {r:"durham",n:"Ajax Bowling Centre",c:"Ajax",a:"172 Harwood Ave S",t:"905-683-0680",w:"ajaxbowling.com",pins:["5"],note:"O5PBA Ontario Durham zone."},
+ {r:"durham",n:"NEB's Fun World",c:"Oshawa",a:"1300 Wilson Rd N, L1K 2B8",t:"905-723-2631",w:"nebsfunworld.com",pins:["5"],lanes:"52 lanes",note:"Hosts the Bowl Ontario provincial finals."},
+ {r:"durham",n:"Leisure Lanes",c:"Oshawa",a:"728 Champlain Ave, L1J 6W8",t:"905-579-4411",w:"leisurebowling.com",pins:[]},
+ {r:"durham",n:"Northshore Lanes",c:"Durham Region",a:"Address not listed",t:"289-252-1709",w:"northshorelanes.ca",pins:["5"],flag:"Address unconfirmed",note:"O5PBA Ontario Durham zone."}
+];
+var ORGS=[
+ {n:"Ontario 5 Pin Bowlers' Association (O5PBA)",k:"5-pin · provincial",w:"o5pba.ca",d:"Runs league, zone and provincial 5-pin tournaments for youth and adults. GTA centres fall in three zones: York Simcoe (Toronto and York), Central Ontario (Peel and Halton), and Ontario Durham."},
+ {n:"Bowl Ontario 5 Pin / Youth Bowling Ontario",k:"5-pin · youth & adult",w:"bowlontario5pin.ca",d:"Youth Bowling Ontario for ages 3 to 19, with about $20,000 in scholarships a year, the YBO Cup and year-end provincial championships, often held at NEB's Fun World in Oshawa."},
+ {n:"Bowl Canada",k:"5 & 10-pin · centre owners",w:"bowlcanada.ca",t:"905-479-1560",d:"National association of bowling centres. Runs Youth Bowl Canada, Club 55+ and the Sunshine League. Head office is in Pickering: 1845 Sandstone Manor, Unit 13."},
+ {n:"Youth Bowl Canada (YBC)",k:"5 & 10-pin · youth",w:"youthbowl.ca",t:"905-479-1560",d:"Youth league program run through Bowl Canada member centres."},
+ {n:"Canadian 5 Pin Bowlers' Association (C5PBA)",k:"5-pin · national",w:"c5pba.ca",d:"Sets 5-pin rules and runs national events such as the Open, Youth Challenge and Inter-Provincial."},
+ {n:"Ontario Tenpin Bowling Association (OTBA)",k:"10-pin · provincial",w:"otba.ca",d:"Ontario's 10-pin body. Runs adult, senior and youth tournaments, a youth scholarship and a hall of fame."},
+ {n:"Canadian Tenpin Federation (CTF)",k:"10-pin · national",w:"tenpincanada.com",d:"National 10-pin federation. The 2027 Canadian Youth Championships are in Brampton, 20 to 23 May 2027."},
+ {n:"Master Bowlers Association of Canada",k:"5-pin · competitive",d:"National competitive 5-pin association. Ontario contact not confirmed.",flag:"Not checked"}
+];
+var CLUBS=[
+ {n:"Raavanaa Bowling",k:"Our club · 10-pin",where:"Planet Bowl, 5555 Eglinton Ave W, Etobicoke",when:"Sat & Sun 10 AM",go:"join",d:"Season 1 league, every level welcome. Each week two captains draft their own teams for a mini tournament.",flag:"Our club",ours:true},
+ {n:"Planet Bowl house leagues",k:"Adult · 10-pin",where:"Planet Bowl, 5555 Eglinton Ave W, Etobicoke",when:"Every night at 6:45 pm, all year",w:"planetbowl.ca/bowling-league/",e:"info@planetbowl.ca",d:"$18 to $25 a week. Open spots on Wednesday and Thursday nights for 2026-27. Summer league Wednesdays 7 pm, $30 a week. Results at bowl4u.com/results/planetbowl."},
+ {n:"Toronto Historical Bowling Society (THBS)",k:"2SLGBTQIA+ & allies · 10-pin",where:"Bowlerama Rexdale, 115 Rexdale Blvd, Etobicoke",when:"Sundays 11:45 am, 13 Sep 2026 – 21 Mar 2027",w:"www.thbs.ca",e:"statistician@thbs.ca",d:"Handicap league with teams of 4, $25 a week. Member of the International Gay Bowling Organization."},
+ {n:"Chinese Bowling Congress (CBC)",k:"Chinese community · 10-pin",where:"Splitsville Richmond Hill (Monday league)",when:"Three leagues year-round",w:"www.cbcbowling.org",d:"Non-profit club founded in 1985 with 100+ registered members.",flag:"Site last updated 2018"},
+ {n:"Club 55+",k:"Seniors · 5 & 10-pin",where:"Bowl Canada member centres",when:"Mostly weekday daytime",w:"bowlcanada.ca",d:"Bowl Canada's seniors league program. Ask your local centre whether it runs a Club 55+ league."},
+ {n:"Sunshine League",k:"Special needs · 5 & 10-pin",where:"Bowl Canada member centres",w:"bowlcanada.ca",d:"Bowl Canada's league program for bowlers with special needs. Run through participating centres."},
+ {n:"Youth leagues (YBC / YBO)",k:"Ages 3 to 19 · 5 & 10-pin",where:"Most centres listed above",when:"Usually weekend mornings, Sep to Apr",w:"youthbowl.ca",d:"Youth Bowl Canada and Youth Bowling Ontario leagues, with tournaments and scholarships."}
+];
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+function link(w){return '<a href="https://'+esc(w)+'" target="_blank" rel="noopener">'+esc(w)+'</a>';}
+function chips(v){
+  var h=(v.pins||[]).map(function(p){return '<span class="gb-pin p'+p+'">'+p+'-pin</span>';}).join("");
+  if(v.pins&&!v.pins.length) h+='<span class="gb-pin pq">Pins not confirmed</span>';
+  if(v.ours) h='<span class="gb-pin ours">Raavanaa home</span>'+h;
+  if(v.flag) h+='<span class="gb-pin warn">'+esc(v.flag)+'</span>';
+  return h;
+}
+function row(k,v,cls){return v?'<dt>'+k+'</dt><dd'+(cls?' class="'+cls+'"':'')+'>'+v+'</dd>':'';}
+function venue(v){
+  return '<article class="gb-card'+(v.ours?' home':'')+'"><div class="gb-city">'+esc(v.c)+'</div><h3>'+esc(v.n)+'</h3><div class="gb-pins">'+chips(v)+'</div><dl>'+
+    row("Address",esc(v.a))+row("Phone",v.t&&esc(v.t),"gb-tel")+row("Web",v.w&&link(v.w))+row("Lanes",v.lanes&&esc(v.lanes))+'</dl>'+
+    (v.note?'<div class="gb-note">'+esc(v.note)+'</div>':'')+'</article>';
+}
+function club(o){
+  var flag=o.ours?'<span class="gb-pin ours">Our club</span>':(o.flag?'<span class="gb-pin warn">'+esc(o.flag)+'</span>':'');
+  return '<article class="gb-card'+(o.ours?' home':'')+'"><div class="gb-city">'+esc(o.k)+'</div><h3>'+esc(o.n)+'</h3>'+(flag?'<div class="gb-pins">'+flag+'</div>':'')+'<dl>'+
+    row("Where",o.where&&esc(o.where))+row("When",o.when&&esc(o.when))+
+    row("Join",o.go&&'<a href="#'+o.go+'" data-go="'+o.go+'">Sign up here</a>')+
+    row("Web",o.w&&link(o.w))+row("Phone",o.t&&esc(o.t),"gb-tel")+row("Email",o.e&&esc(o.e),"gb-tel")+'</dl>'+
+    '<div class="gb-note">'+esc(o.d)+'</div></article>';
+}
+var pinF="all", q=document.getElementById("gb-q");
+function render(){
+  var s=q.value.trim().toLowerCase();
+  var list=V.filter(function(v){return (pinF==="all"||v.pins.indexOf(pinF)>=0)&&(!s||(v.n+" "+v.c+" "+v.a).toLowerCase().indexOf(s)>=0);});
+  var html="";
+  REGIONS.forEach(function(r){
+    var items=list.filter(function(v){return v.r===r.id;});
+    if(!items.length) return;
+    html+='<div class="gb-region" id="gb-'+r.id+'"><div class="gb-rh"><h2>'+esc(r.name)+'</h2><small>'+esc(r.sub)+' · '+items.length+(items.length===1?' alley':' alleys')+'</small></div><div class="gb-grid">'+items.map(venue).join("")+'</div></div>';
+  });
+  document.getElementById("gb-venues").innerHTML=html||'<p class="gb-empty">No alleys match. Clear the search or pick another lane type.</p>';
+}
+document.getElementById("gb-clublist").innerHTML=CLUBS.map(club).join("");
+document.getElementById("gb-orglist").innerHTML=ORGS.map(club).join("");
+var five=V.filter(function(v){return v.pins.indexOf("5")>=0;}).length, ten=V.filter(function(v){return v.pins.indexOf("10")>=0;}).length;
+document.getElementById("gb-stats").innerHTML='<div><b>'+V.length+'</b>alleys</div><div><b>'+five+'</b>with 5-pin</div><div><b>'+ten+'</b>with 10-pin</div><div><b>'+CLUBS.length+'</b>clubs &amp; leagues</div><div><b>'+ORGS.length+'</b>associations</div>';
+function jump(id){var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});}
+var J=document.getElementById("gb-jump");
+J.innerHTML=REGIONS.map(function(r){return '<a href="#gta-bowling" data-j="gb-'+r.id+'">'+esc(r.name.split(" & ")[0])+'</a>';}).join("")+'<a href="#gta-bowling" data-j="gb-clubs">Clubs</a><a href="#gta-bowling" data-j="gb-orgs">Associations</a>';
+J.addEventListener("click",function(e){var a=e.target.closest("[data-j]"); if(!a) return; e.preventDefault(); jump(a.dataset.j);});
+document.querySelectorAll("#gb-pinf .chip").forEach(function(b){b.addEventListener("click",function(){
+  pinF=b.dataset.pin;
+  document.querySelectorAll("#gb-pinf .chip").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+  render();
+});});
+q.addEventListener("input",render);
+render();
+})();
 </script>
 </body></html>
