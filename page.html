@@ -576,6 +576,7 @@ section{padding-block:clamp(48px,7vw,88px)}
 .tb-adj{display:flex;align-items:center;gap:4px;padding:0 10px 8px}
 .tb-adj button{width:30px;height:30px;border:1px solid var(--gold-deep);background:#fff;color:var(--pin);font:700 1.05rem/1 var(--body);cursor:pointer}
 .tb-adj button:hover{background:var(--alley-3)}
+.tb-adj .nb{width:auto;padding:0 10px;margin-left:6px;font:700 .75rem/1 var(--label);letter-spacing:.06em;text-transform:uppercase}
 .tb-adj output{min-width:74px;text-align:center;font:700 .9rem/1 var(--label);color:var(--ink-accent)}
 .tb-addb{align-self:flex-start;border:1px dashed var(--gold-deep);background:transparent;color:var(--ink-accent);font:700 .85rem/1 var(--label);letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;cursor:pointer}
 .tb-addb:hover{background:#fff}
@@ -2945,6 +2946,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     7:{kings:["Sasi", "Shankar", "Myooran", "Nirmal", "Roshan", "Ram", "Mona"], titans:["Suresh", "Bala", "Kiri", "Haran", "Sabes", "Mathan", "Niz"]}  /* 7 a side; SURESH 22 Nov 2026 (Mat = Mathan, new; Nir = Nirmal) */
   };
   /* blind scores: in team totals these bowlers count at least this much each game (their own stats stay as bowled) */
+  /* From week 8 on (SURESH, 28 Nov 2026): Suresh is NOT blind any more. Leave him out of BLINDS (and the emb-vm blinds) for week 8 and later; weeks 1-7 stay as they are. */
   var BLINDS={1:{Thilak:130,Suresh:130,Kiri:130},2:{Thilak:130,Suresh:130,Kiri:130},3:{Thilak:130,Suresh:130,Kiri:130},4:{Thilak:130,Suresh:130,Kiri:130},5:{Thilak:130,Suresh:130,Kiri:130},6:{Thilak:130,Suresh:130,Kiri:130},7:{Thilak:130,Suresh:130,Kiri:130}};
   /* dummy scores: a bowler who missed a game still counts in the team total at his average from the weeks before
      (team totals only: he doesn't get the game in his own stats, and doesn't pay or collect on the winnings bank) */
@@ -3338,6 +3340,9 @@ section{padding-block:clamp(48px,7vw,88px)}
     var KEY="rb-team-balancer-2", FORM_WEEKS=4, DUMMY=130;
     var st={mode:"form", formDefault:1, present:null, rows:[], lock:{}, adj:{}, guests:[], dummies:[], seq:0, cap:{k:null,t:null}, tname:{k:"",t:""}, postEach:false};
     try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved){ for(var k in saved) st[k]=saved[k]; if(!saved.formDefault){ st.mode="form"; st.formDefault=1; } } }catch(e){}
+    /* players who no longer bowl with a blind: the balancer rates them on their own scores only.
+       Only changes the balancer; past team scores and money are untouched. */
+    if(!st.noBlind) st.noBlind={Suresh:1};
     if(!st.cap) st.cap={k:null,t:null}; if(!st.tname) st.tname={k:"",t:""};
     function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
     var lastBlinds=BLINDS[lastWeek]||{};
@@ -3362,7 +3367,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     function blindOf(id){ return lastBlinds[id]?(st.blind&&st.blind[id]!=null?st.blind[id]:lastBlinds[id]):null; }
     function base(id){
       var d=dummy(id); if(d) return d.v; var g=guest(id); if(g) return g.v; var r=RATE[id]; if(!r) return 0;
-      var B=blindOf(id); if(B===null||B===lastBlinds[id]) return r[st.mode];
+      var B=lastBlinds[id]&&st.noBlind[id]?0:blindOf(id); if(B===null||B===lastBlinds[id]) return r[st.mode];
       var s=0,c=0; r.list.forEach(function(x){ var w=st.mode==="form"&&x.w>lastWeek-FORM_WEEKS?2:1; s+=Math.max(x.s,B)*w; c+=w; }); return s/c;
     }
     function adjustable(id){ return !!dummy(id) || !!lastBlinds[id]; }
@@ -3414,7 +3419,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var d=dummy(id), r=RATE[id], g=guest(id), a=st.adj[id]||0, info;
       if(d) info='<em>blind</em>';
       else if(g) info='guest';
-      else info=lastBlinds[id]?'<em>blind</em>':r.games+' g';
+      else info=lastBlinds[id]&&!st.noBlind[id]?'<em>blind</em>':r.games+' g';
       var adj='';
       return '<div class="tb-card '+s+(st.lock[id]?' locked':'')+'"><div class="tb-row">'+
         '<button type="button" class="tb-mv" data-move="'+esc(id)+'" title="Swap this pair"><b>'+esc(label(id))+(st.cap.k===id||st.cap.t===id?'<i class="tb-c" title="Captain">C</i>':'')+'</b><span><strong>'+F(val(id))+'</strong> · '+info+'</span></button>'+
@@ -3443,7 +3448,9 @@ section{padding-block:clamp(48px,7vw,88px)}
       var bl=K.concat(T).filter(adjustable);
       document.getElementById("tb-blindbox").innerHTML=bl.length?'<p class="tb-step">Adjust blind scores</p>'+bl.map(function(id){
         var d=dummy(id);
-        return '<div class="tb-adj"><span class="who '+(K.indexOf(id)>-1?'k':'t')+'">'+esc(label(id))+'</span><button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):blindOf(id))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button>'+(d?'':'<small>average '+F(val(id))+'</small>')+'</div>';
+        var who='<span class="who '+(K.indexOf(id)>-1?'k':'t')+'">'+esc(label(id))+'</span>';
+        if(!d&&st.noBlind[id]) return '<div class="tb-adj">'+who+'<output>not blind</output><small>average '+F(val(id))+'</small><button type="button" class="nb" data-noblind="'+esc(id)+'">Blind back on</button></div>';
+        return '<div class="tb-adj">'+who+'<button type="button" data-adj="-1" data-id="'+esc(id)+'" aria-label="One pin less">−</button><output>'+(d?F(val(id)):blindOf(id))+'</output><button type="button" data-adj="1" data-id="'+esc(id)+'" aria-label="One pin more">+</button>'+(d?'':'<small>average '+F(val(id))+'</small><button type="button" class="nb" data-noblind="'+esc(id)+'">Not blind</button>')+'</div>';
       }).join(""):"";
       document.getElementById("tb-k").textContent=F(tk);
       document.getElementById("tb-t").textContent=F(tt);
@@ -3523,7 +3530,7 @@ section{padding-block:clamp(48px,7vw,88px)}
       var ids=present().concat(st.dummies.map(function(d){return d.id;}));
       if(ids.length<2){ note.textContent="Tick at least two bowlers first."; return; }
       if(ids.length%2){ var nd={id:"blind"+(++st.seq), n:"Blind", v:DUMMY}; st.dummies.push(nd); ids.push(nd.id); }
-      var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.blind||{});
+      var sig=ids.join("|")+"#"+st.mode+"#"+JSON.stringify(st.lock)+"#"+JSON.stringify(st.blind||{})+JSON.stringify(st.noBlind);
       if(sig!==optSig){
         optSig=sig; optAt=0; options=[]; optIds=ids;
         var n=ids.length, half=n/2, v=ids.map(val), all=v.reduce(function(a,b){return a+b;},0), found=[], mustK=0, mustT=0;
@@ -3558,6 +3565,7 @@ section{padding-block:clamp(48px,7vw,88px)}
     root.addEventListener("click",function(e){
       var b=e.target.closest("button"); if(!b||!root.contains(b)) return;
       if(b.dataset.m){ st.mode=b.dataset.m; optSig=""; draw(); return; }
+      if(b.dataset.noblind){ var nb=b.dataset.noblind; if(st.noBlind[nb]) delete st.noBlind[nb]; else st.noBlind[nb]=1; optSig=""; draw(); return; }
       if(b.dataset.adj){ var id=b.dataset.id, d=dummy(id); if(d) d.v=Math.max(0,d.v+ +b.dataset.adj); else { st.blind=st.blind||{}; st.blind[id]=Math.max(0,Math.min(300,blindOf(id)+ +b.dataset.adj)); } draw(); return; }
       if(b.dataset.move){ var w=where(b.dataset.move); if(w){ var r=st.rows[w.i], x=r.k; r.k=r.t; r.t=x; delete st.lock[r.k]; delete st.lock[r.t]; } draw(); return; }
       if(b.dataset.lock){ var l=b.dataset.lock; if(st.lock[l]) delete st.lock[l]; else st.lock[l]=1; draw(); return; }
